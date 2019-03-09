@@ -1,2 +1,4 @@
 # SWENGB_Project
-Uni Project
+
+Uni FH JOANNEUM Project
+4.Semester
