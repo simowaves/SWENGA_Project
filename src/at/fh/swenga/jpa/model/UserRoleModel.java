@@ -11,7 +11,6 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
-// irgendwas
 
 @Entity
 @Table(name = "user_roles")
