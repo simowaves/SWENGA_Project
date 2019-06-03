@@ -31,5 +31,6 @@ public class IngredientModel implements java.io.Serializable{
 	
 	@Column(nullable = false)
 	private boolean vegetarian;
+
 	
 }

@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.Table;
@@ -43,8 +44,8 @@ public class RecipeModel implements java.io.Serializable {
 	@ManyToOne (cascade = CascadeType.PERSIST)
 	private UserModel author;
 	
-	//@OneToMany (cascade = CascadeType.PERSIST)
-	//private IngredientsModel ingredients;
+	@ManyToMany (cascade = CascadeType.PERSIST)
+	private IngredientModel ingredient;
 	
 	// TODO: Generate setter/getter Constructor
 	
