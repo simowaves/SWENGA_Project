@@ -1,10 +1,12 @@
 package at.fh.swenga.jpa.model;
 
 import java.util.Date;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -44,8 +46,8 @@ public class RecipeModel implements java.io.Serializable {
 	@ManyToOne (cascade = CascadeType.PERSIST)
 	private UserModel author;
 	
-	@ManyToMany (cascade = CascadeType.PERSIST)
-	private IngredientModel ingredient;
+	@ManyToMany(fetch=FetchType.LAZY,cascade=CascadeType.PERSIST)
+	private Set<IngredientModel> ingredient;
 	
 	// TODO: Generate setter/getter Constructor
 	

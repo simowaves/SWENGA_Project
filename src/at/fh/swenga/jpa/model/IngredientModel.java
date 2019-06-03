@@ -1,15 +1,19 @@
 package at.fh.swenga.jpa.model;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Ingredient")
+@Table(name = "ingredient")
 
 @NamedQueries({
 })
@@ -32,5 +36,7 @@ public class IngredientModel implements java.io.Serializable{
 	@Column(nullable = false)
 	private boolean vegetarian;
 
+	@ManyToMany(mappedBy = "ingredient", fetch = FetchType.LAZY)
+	private Set<RecipeModel> recipes;
 	
 }
