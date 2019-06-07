@@ -22,9 +22,9 @@ public class RecipeController {
 	
 	@RequestMapping(value = { "/", "list" })
 	public String index(Model model) {
-		List<RecipeModel> recipes = recipeRepository.findAll();
-		model.addAttribute("recipes", recipes);
-		return "index";
+		//List<RecipeModel> recipes = recipeRepository.findAll();
+		//model.addAttribute("recipes", recipes);
+		return "login";
 	}
 	
 }

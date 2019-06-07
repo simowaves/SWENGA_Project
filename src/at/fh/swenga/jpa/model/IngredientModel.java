@@ -11,9 +11,10 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.Table;
+import javax.persistence.Version;
 
 @Entity
-@Table(name = "ingredient")
+@Table(name = "ingredients")
 
 @NamedQueries({
 })
@@ -36,7 +37,10 @@ public class IngredientModel implements java.io.Serializable{
 	@Column(nullable = false)
 	private boolean vegetarian;
 
-	@ManyToMany(mappedBy = "ingredient", fetch = FetchType.LAZY)
+	@ManyToMany(mappedBy = "ingredients", fetch = FetchType.LAZY)
 	private Set<RecipeModel> recipes;
+	
+	@Version
+	long version;
 	
 }

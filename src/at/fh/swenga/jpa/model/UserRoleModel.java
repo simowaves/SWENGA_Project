@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.persistence.Version;
 
 
 @Entity
@@ -26,6 +27,9 @@ public class UserRoleModel implements java.io.Serializable {
  
 	@Column(name = "role", nullable = false, length = 45)
 	private String role;
+	
+	@Version
+	long version;
  
 	public UserRoleModel() {
 		// TODO Auto-generated constructor stub

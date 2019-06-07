@@ -16,9 +16,10 @@ import javax.persistence.NamedQueries;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Version;
 
 @Entity
-@Table(name = "Recipe")
+@Table(name = "recipes")
 
 
 @NamedQueries({
@@ -47,7 +48,10 @@ public class RecipeModel implements java.io.Serializable {
 	private UserModel author;
 	
 	@ManyToMany(fetch=FetchType.LAZY,cascade=CascadeType.PERSIST)
-	private Set<IngredientModel> ingredient;
+	private Set<IngredientModel> ingredients;
+	
+	@Version
+	long version;
 	
 	// TODO: Generate setter/getter Constructor
 	

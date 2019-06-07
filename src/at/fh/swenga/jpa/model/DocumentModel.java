@@ -14,7 +14,7 @@ import javax.persistence.Table;
 import javax.persistence.Version;
  
 @Entity
-@Table(name = "Document")
+@Table(name = "documents")
 public class DocumentModel implements java.io.Serializable {
  
 	@Id

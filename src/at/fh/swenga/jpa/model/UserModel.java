@@ -11,7 +11,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
+import javax.persistence.Version;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -35,6 +38,13 @@ public class UserModel implements java.io.Serializable {
  
 	@ManyToMany(fetch=FetchType.LAZY,cascade=CascadeType.PERSIST)
 	private Set<UserRoleModel> userRoles;
+	
+	@OneToMany(mappedBy="author",fetch=FetchType.LAZY)
+    @OrderBy("title")
+    private Set<RecipeModel> recipes;
+	
+	@Version
+	long version;
  
 	public UserModel() {
 	}
