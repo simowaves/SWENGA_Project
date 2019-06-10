@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
 
@@ -341,124 +341,130 @@
 				</nav>
 				<!-- End of Topbar -->
 
-				<!-- Begin Page Content -->
+				<!-- #####  Begin Page Content ####### -->
 				<div class="container-fluid">
 
 					<!-- Page Heading -->
 					<div
 						class="d-sm-flex align-items-center justify-content-between mb-4">
-						<h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+						<h1 class="h3 mb-0 text-gray-800">Recipes</h1>
+						<!--  
 						<a href="#"
 							class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-							class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+							class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>-->
 					</div>
 
-					<!-- Content Row -->
+					<!-- Content Table -->
+
 					<div class="card-deck">
 
-						<!-- Basic Card Example -->
-						<div class="col-xl-4 col-md-6 col-sm-12 mb-4 px-0">
-							<div class="card shadow ">
-
-								<div
-									style="position: relative; overflow: hidden; padding-bottom: 100%;">
-									<img class="img-fluid card-img-top" style="position: absolute;"
-										src="https://images.unsplash.com/photo-1515516969-d4008cc6241a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80"
-										alt="">
-								</div>
-								<div class="card-body">
-
-									<div class="row">
-										<div class="col-8">
-											<h6 class="m-0 font-weight-bold text-primary">Pasta
-												Carbonara</h6>
-											by <a href="#">Username</a>
-										</div>
-										<div class="col-4 text-right">
-											<a href="#" class="btn btn-danger btn-circle"> <i
-												class="fas fa-heart"></i>
-											</a>
-										</div>
-									</div>
-									<div>
-										<a href="#" class="badge badge-info">meat</a> <a href="#"
-											class="badge badge-info">egg</a> <a href="#"
-											class="badge badge-info">pasta</a> <a href="#"
-											class="badge badge-info">italian</a>
-									</div>
-								</div>
-							</div>
-						</div>
-
-						<!-- Basic Card Example -->
-						<div class="col-xl-4 col-md-6 col-sm-12 mb-4 px-0">
-							<div class="card shadow ">
-
-								<div
-									style="position: relative; overflow: hidden; padding-bottom: 100%;">
-									<img class="img-fluid card-img-top" style="position: absolute;"
-										src="https://images.unsplash.com/photo-1515516969-d4008cc6241a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80"
-										alt="">
-								</div>
-								<div class="card-body">
-
-									<div class="row">
-										<div class="col-8">
-											<h6 class="m-0 font-weight-bold text-primary">Pasta
-												Carbonara</h6>
-											by <a href="#">Username</a>
-										</div>
-										<div class="col-4 text-right">
-											<a href="#" class="btn btn-danger btn-circle"> <i
-												class="fas fa-heart"></i>
-											</a>
-										</div>
-									</div>
-									<div>
-										<a href="#" class="badge badge-info">meat</a> <a href="#"
-											class="badge badge-info">egg</a> <a href="#"
-											class="badge badge-info">pasta</a> <a href="#"
-											class="badge badge-info">italian</a>
-									</div>
-								</div>
-							</div>
-						</div>
-
-						<!-- Basic Card Example -->
-						<div class="col-xl-4 col-md-6 col-sm-12 mb-4 px-0">
-							<div class="card shadow ">
-
-								<div
-									style="position: relative; overflow: hidden; padding-bottom: 100%;">
-									<img class="img-fluid card-img-top" style="position: absolute;"
-										src="https://images.unsplash.com/photo-1515516969-d4008cc6241a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80"
-										alt="">
-								</div>
-								<div class="card-body">
-
-									<div class="row">
-										<div class="col-8">
-											<h6 class="m-0 font-weight-bold text-primary">Pasta
-												Carbonara</h6>
-											by <a href="#">Username</a>
-										</div>
-										<div class="col-4 text-right">
-											<a href="#" class="btn btn-danger btn-circle"> <i
-												class="fas fa-heart"></i>
-											</a>
-										</div>
-									</div>
-									<div>
-										<a href="#" class="badge badge-info">meat</a> <a href="#"
-											class="badge badge-info">egg</a> <a href="#"
-											class="badge badge-info">pasta</a> <a href="#"
-											class="badge badge-info">italian</a>
-									</div>
-								</div>
-							</div>
-						</div>
+						<!-- Basic Card Example -0->
+						<div th:each="recipe : ${recipes}">
 						
-												<!-- Basic Card Example -->
+							<div class="col-xl-4 col-md-6 col-sm-12 mb-4 px-0">
+								<div class="card shadow ">
+									<!-- Image -0->
+									<div
+										style="position: relative; overflow: hidden; padding-bottom: 100%;">
+										<img class="img-fluid card-img-top"
+											style="position: absolute;"
+											th:src="@{download(documentId=${recipe.document.id})}"
+											alt="">
+									</div>
+									<!-- card body -0->
+									<div class="card-body">
+										<div class="row">
+											<div class="col-8">
+												<h6 class="m-0 font-weight-bold text-primary" th:text="${recipe.title}"></h6>
+												by <a href="#" th:text="${recipe.author}"></a>
+											</div>
+											<div class="col-4 text-right">
+												<a href="#" class="btn btn-danger btn-circle"> <i
+													class="fas fa-heart"></i>
+												</a>
+											</div>
+										</div>
+										<div>
+											<a href="#" class="badge badge-info">meat</a> <a href="#"
+												class="badge badge-info">egg</a> <a href="#"
+												class="badge badge-info">pasta</a> <a href="#"
+												class="badge badge-info">italian</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						-->
+
+						<!-- Basic Card Example -->
+						<div class="col-xl-4 col-md-6 col-sm-12 mb-4 px-0">
+							<div class="card shadow ">
+
+								<div
+									style="position: relative; overflow: hidden; padding-bottom: 100%;">
+									<img class="img-fluid card-img-top" style="position: absolute;"
+										src="https://images.unsplash.com/photo-1515516969-d4008cc6241a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80"
+										alt="">
+								</div>
+								<div class="card-body">
+
+									<div class="row">
+										<div class="col-8">
+											<h6 class="m-0 font-weight-bold text-primary">Pasta
+												Carbonara</h6>
+											by <a href="#">Username</a>
+										</div>
+										<div class="col-4 text-right">
+											<a href="#" class="btn btn-danger btn-circle"> <i
+												class="fas fa-heart"></i>
+											</a>
+										</div>
+									</div>
+									<div>
+										<a href="#" class="badge badge-info">meat</a> <a href="#"
+											class="badge badge-info">egg</a> <a href="#"
+											class="badge badge-info">pasta</a> <a href="#"
+											class="badge badge-info">italian</a>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<!-- Basic Card Example -->
+						<div class="col-xl-4 col-md-6 col-sm-12 mb-4 px-0">
+							<div class="card shadow ">
+								<div class="img-fluid card-img-top"
+									style="position: relative; overflow: hidden; padding-bottom: 100%;">
+									<img
+										style="position: absolute; display: block; top: 50%; left: 50%; min-height: 100%; min-width: 100%; transform: translate(-50%, -50%);"
+										src="https://images.unsplash.com/photo-1559562649-21c0be156e0d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60"
+										alt="">
+								</div>
+								<div class="card-body">
+
+									<div class="row">
+										<div class="col-8">
+											<h6 class="m-0 font-weight-bold text-primary">Choclate
+												Cake</h6>
+											by <a href="#">Username</a>
+										</div>
+										<div class="col-4 text-right">
+											<a href="#" class="btn btn-danger btn-circle"> <i
+												class="fas fa-heart"></i>
+											</a>
+										</div>
+									</div>
+									<div>
+										<a href="#" class="badge badge-info">sweet</a> <a href="#"
+											class="badge badge-info">milk</a> <a href="#"
+											class="badge badge-info">cake</a> <a href="#"
+											class="badge badge-info">delicious</a>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<!-- Basic Card Example -->
 						<div class="col-xl-4 col-md-6 col-sm-12 mb-4 px-0">
 							<div class="card shadow ">
 
