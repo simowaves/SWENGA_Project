@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
 
@@ -10,17 +10,17 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>SB Admin 2 - Blank</title>
+<title>SB Admin 2 - Dashboard</title>
 
 <!-- Custom fonts for this template-->
-<link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet"
+<link href="sb-admin-2/vendor/fontawesome-free/css/all.min.css" rel="stylesheet"
 	type="text/css">
 <link
 	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
 	rel="stylesheet">
 
 <!-- Custom styles for this template-->
-<link href="css/sb-admin-2.min.css" rel="stylesheet">
+<link href="sb-admin-2/css/sb-admin-2.min.css" rel="stylesheet">
 
 </head>
 
@@ -41,18 +41,16 @@
 				<div class="sidebar-brand-icon rotate-n-15">
 					<i class="fas fa-laugh-wink"></i>
 				</div>
-				<div class="sidebar-brand-text mx-3">
-					SB Admin <sup>2</sup>
-				</div>
+				<div class="sidebar-brand-text mx-3">WtF?!</div>
 			</a>
 
 			<!-- Divider -->
 			<hr class="sidebar-divider my-0">
 
 			<!-- Nav Item - Dashboard -->
-			<li class="nav-item"><a class="nav-link" href="index.html">
-					<i class="fas fa-fw fa-tachometer-alt"></i> <span>Dashboard</span>
-			</a></li>
+			<li class="nav-item active"><a class="nav-link"
+				href="index.html"> <i class="fas fa-fw fa-tachometer-alt"></i> <span>Dashboard</span></a>
+			</li>
 
 			<!-- Divider -->
 			<hr class="sidebar-divider">
@@ -99,12 +97,12 @@
 			<div class="sidebar-heading">Addons</div>
 
 			<!-- Nav Item - Pages Collapse Menu -->
-			<li class="nav-item active"><a class="nav-link" href="#"
+			<li class="nav-item"><a class="nav-link collapsed" href="#"
 				data-toggle="collapse" data-target="#collapsePages"
 				aria-expanded="true" aria-controls="collapsePages"> <i
 					class="fas fa-fw fa-folder"></i> <span>Pages</span>
 			</a>
-				<div id="collapsePages" class="collapse show"
+				<div id="collapsePages" class="collapse"
 					aria-labelledby="headingPages" data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
 						<h6 class="collapse-header">Login Screens:</h6>
@@ -115,7 +113,7 @@
 						<div class="collapse-divider"></div>
 						<h6 class="collapse-header">Other Pages:</h6>
 						<a class="collapse-item" href="404.html">404 Page</a> <a
-							class="collapse-item active" href="blank.html">Blank Page</a>
+							class="collapse-item" href="blank.html">Blank Page</a>
 					</div>
 				</div></li>
 
@@ -343,74 +341,29 @@
 				</nav>
 				<!-- End of Topbar -->
 
-				<!-- Begin Page Content -->
+				<!-- #####  Begin Page Content ####### -->
 				<div class="container-fluid">
 
-					<!-- User Info -->
-					<div class="container-fluid mb-4">
-						<div class="row">
-							<div class="col-sm-3">
-								<img class="img-profile rounded-circle img-fluid"
-									src="https://source.unsplash.com/QAB-WJcbgJk/400x400">
-							</div>
-							<!-- User Info -->
-							<div class="col-8 mt-4 mb-4 ml-4">
-								<div class="row">
-									<div>
-										<div>
-											<h3>Valerie Luna <3</h3>
-										</div>
-
-										<div>
-											<p>
-												I love <b>bananas</b> 😜 <br> When I'm not traveling
-												I'm laying in bed...
-											</p>
-										</div>
-
-										<div>
-											<button
-												class="d-none d-sm-inline btn btn-sm btn-outline-primary"
-												type="submit" value="Submit">
-												<i class="fas fa-edit fa-sm text-primary-50"></i>edit
-											</button>
-										</div>
-
-									</div>
-
-								</div>
-							</div>
-
-
-
-						</div>
+					<!-- Page Heading -->
+					<div
+						class="d-sm-flex align-items-center justify-content-between mb-4">
+						<h1 class="h3 mb-0 text-gray-800">Recipes</h1>
+						<!--  
+						<a href="#"
+							class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+							class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>-->
 					</div>
 
+					<!-- Content Table -->
 
-					<!-- Tab Structure -->
-					<ul class="nav nav-tabs" id="myTab" role="tablist">
-						<li class="nav-item"><a class="nav-link active" id="home-tab"
-							data-toggle="tab" href="#home" role="tab" aria-controls="home"
-							aria-selected="true">Recipes</a></li>
-						<li class="nav-item"><a class="nav-link" id="profile-tab"
-							data-toggle="tab" href="#profile" role="tab"
-							aria-controls="profile" aria-selected="false">Liked Recipes</a></li>
-					</ul>
-					<div class="tab-content" id="myTabContent">
-						<!-- First Tab Content -->
-						<div class="tab-pane fade show active" id="home" role="tabpanel"
-							aria-labelledby="home-tab">
+					<div class="card-deck">
 
-							<!-- Tab Content -->
-							<div class="container-fluid mt-4">
-								<div class="card-deck">
-
-									<!-- Basic Card Example -0->
+						<!-- Basic Card Example -->
 						<div th:each="recipe : ${recipes}">
 						
 							<div class="col-xl-4 col-md-6 col-sm-12 mb-4 px-0">
 								<div class="card shadow ">
-									<!-- Image -0->
+									<!-- Image -->
 									<div
 										style="position: relative; overflow: hidden; padding-bottom: 100%;">
 										<img class="img-fluid card-img-top"
@@ -418,7 +371,7 @@
 											th:src="@{download(documentId=${recipe.document.id})}"
 											alt="">
 									</div>
-									<!-- card body -0->
+									<!-- card body -->
 									<div class="card-body">
 										<div class="row">
 											<div class="col-8">
@@ -441,196 +394,181 @@
 								</div>
 							</div>
 						</div>
-						-->
+						
 
-									<!-- Basic Card Example -->
-									<div class="col-xl-4 col-md-6 col-sm-12 mb-4 px-0">
-										<div class="card shadow ">
+						<!-- Basic Card Example -->
+						<div class="col-xl-4 col-md-6 col-sm-12 mb-4 px-0">
+							<div class="card shadow ">
 
-											<div
-												style="position: relative; overflow: hidden; padding-bottom: 100%;">
-												<img class="img-fluid card-img-top"
-													style="position: absolute;"
-													src="https://images.unsplash.com/photo-1515516969-d4008cc6241a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80"
-													alt="">
-											</div>
-											<div class="card-body">
-
-												<div class="row">
-													<div class="col-8">
-														<h6 class="m-0 font-weight-bold text-primary">Pasta
-															Carbonara</h6>
-														by <a href="#">Username</a>
-													</div>
-													<div class="col-4 text-right">
-														<a href="#" class="btn btn-danger btn-circle"> <i
-															class="fas fa-heart"></i>
-														</a>
-													</div>
-												</div>
-												<div>
-													<a href="#" class="badge badge-info">meat</a> <a href="#"
-														class="badge badge-info">egg</a> <a href="#"
-														class="badge badge-info">pasta</a> <a href="#"
-														class="badge badge-info">italian</a>
-												</div>
-											</div>
-										</div>
-									</div>
-
-									<!-- Basic Card Example -->
-									<div class="col-xl-4 col-md-6 col-sm-12 mb-4 px-0">
-										<div class="card shadow ">
-											<div class="img-fluid card-img-top"
-												style="position: relative; overflow: hidden; padding-bottom: 100%;">
-												<img
-													style="position: absolute; display: block; top: 50%; left: 50%; min-height: 100%; min-width: 100%; transform: translate(-50%, -50%);"
-													src="https://images.unsplash.com/photo-1559562649-21c0be156e0d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60"
-													alt="">
-											</div>
-											<div class="card-body">
-
-												<div class="row">
-													<div class="col-8">
-														<h6 class="m-0 font-weight-bold text-primary">Choclate
-															Cake</h6>
-														by <a href="#">Username</a>
-													</div>
-													<div class="col-4 text-right">
-														<a href="#" class="btn btn-danger btn-circle"> <i
-															class="fas fa-heart"></i>
-														</a>
-													</div>
-												</div>
-												<div>
-													<a href="#" class="badge badge-info">sweet</a> <a href="#"
-														class="badge badge-info">milk</a> <a href="#"
-														class="badge badge-info">cake</a> <a href="#"
-														class="badge badge-info">delicious</a>
-												</div>
-											</div>
-										</div>
-									</div>
-
-									<!-- Basic Card Example -->
-									<div class="col-xl-4 col-md-6 col-sm-12 mb-4 px-0">
-										<div class="card shadow ">
-
-											<div
-												style="position: relative; overflow: hidden; padding-bottom: 100%;">
-												<img class="img-fluid card-img-top"
-													style="position: absolute;"
-													src="https://images.unsplash.com/photo-1515516969-d4008cc6241a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80"
-													alt="">
-											</div>
-											<div class="card-body">
-
-												<div class="row">
-													<div class="col-8">
-														<h6 class="m-0 font-weight-bold text-primary">Pasta
-															Carbonara</h6>
-														by <a href="#">Username</a>
-													</div>
-													<div class="col-4 text-right">
-														<a href="#" class="btn btn-danger btn-circle"> <i
-															class="fas fa-heart"></i>
-														</a>
-													</div>
-												</div>
-												<div>
-													<a href="#" class="badge badge-info">meat</a> <a href="#"
-														class="badge badge-info">egg</a> <a href="#"
-														class="badge badge-info">pasta</a> <a href="#"
-														class="badge badge-info">italian</a>
-												</div>
-											</div>
-										</div>
-									</div>
-
+								<div
+									style="position: relative; overflow: hidden; padding-bottom: 100%;">
+									<img class="img-fluid card-img-top" style="position: absolute;"
+										src="https://images.unsplash.com/photo-1515516969-d4008cc6241a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80"
+										alt="">
 								</div>
+								<div class="card-body">
 
+									<div class="row">
+										<div class="col-8">
+											<h6 class="m-0 font-weight-bold text-primary">Pasta
+												Carbonara</h6>
+											by <a href="#">Username</a>
+										</div>
+										<div class="col-4 text-right">
+											<a href="#" class="btn btn-danger btn-circle"> <i
+												class="fas fa-heart"></i>
+											</a>
+										</div>
+									</div>
+									<div>
+										<a href="#" class="badge badge-info">meat</a> <a href="#"
+											class="badge badge-info">egg</a> <a href="#"
+											class="badge badge-info">pasta</a> <a href="#"
+											class="badge badge-info">italian</a>
+									</div>
+								</div>
 							</div>
 						</div>
-						<!-- Second Tab Content -->
-						<div class="tab-pane fade" id="profile" role="tabpanel"
-							aria-labelledby="profile-tab">
-							<div class="container-fluid mt-4 mb-4">
-								<div class="text-center">
-									<h6>No recipe liked</h6>
+
+						<!-- Basic Card Example -->
+						<div class="col-xl-4 col-md-6 col-sm-12 mb-4 px-0">
+							<div class="card shadow ">
+								<div class="img-fluid card-img-top"
+									style="position: relative; overflow: hidden; padding-bottom: 100%;">
+									<img
+										style="position: absolute; display: block; top: 50%; left: 50%; min-height: 100%; min-width: 100%; transform: translate(-50%, -50%);"
+										src="https://images.unsplash.com/photo-1559562649-21c0be156e0d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60"
+										alt="">
 								</div>
+								<div class="card-body">
 
-
+									<div class="row">
+										<div class="col-8">
+											<h6 class="m-0 font-weight-bold text-primary">Choclate
+												Cake</h6>
+											by <a href="#">Username</a>
+										</div>
+										<div class="col-4 text-right">
+											<a href="#" class="btn btn-danger btn-circle"> <i
+												class="fas fa-heart"></i>
+											</a>
+										</div>
+									</div>
+									<div>
+										<a href="#" class="badge badge-info">sweet</a> <a href="#"
+											class="badge badge-info">milk</a> <a href="#"
+											class="badge badge-info">cake</a> <a href="#"
+											class="badge badge-info">delicious</a>
+									</div>
+								</div>
 							</div>
 						</div>
+
+						<!-- Basic Card Example -->
+						<div class="col-xl-4 col-md-6 col-sm-12 mb-4 px-0">
+							<div class="card shadow ">
+
+								<div
+									style="position: relative; overflow: hidden; padding-bottom: 100%;">
+									<img class="img-fluid card-img-top" style="position: absolute;"
+										src="https://images.unsplash.com/photo-1515516969-d4008cc6241a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80"
+										alt="">
+								</div>
+								<div class="card-body">
+
+									<div class="row">
+										<div class="col-8">
+											<h6 class="m-0 font-weight-bold text-primary">Pasta
+												Carbonara</h6>
+											by <a href="#">Username</a>
+										</div>
+										<div class="col-4 text-right">
+											<a href="#" class="btn btn-danger btn-circle"> <i
+												class="fas fa-heart"></i>
+											</a>
+										</div>
+									</div>
+									<div>
+										<a href="#" class="badge badge-info">meat</a> <a href="#"
+											class="badge badge-info">egg</a> <a href="#"
+											class="badge badge-info">pasta</a> <a href="#"
+											class="badge badge-info">italian</a>
+									</div>
+								</div>
+							</div>
+						</div>
+
+
+
+
 					</div>
-
-
-
-
-
-
-
-
-
-
-					<!-- /.container-fluid -->
 				</div>
-				<!-- End of Main Content -->
-
-				<!-- Footer -->
-				<footer class="sticky-footer bg-white">
-					<div class="container my-auto">
-						<div class="copyright text-center my-auto">
-							<span>Copyright &copy; Your Website 2019</span>
-						</div>
-					</div>
-				</footer>
-				<!-- End of Footer -->
+				<!-- /.container-fluid -->
 
 			</div>
-			<!-- End of Content Wrapper -->
+			<!-- End of Main Content -->
+
+			<!-- Footer -->
+			<footer class="sticky-footer bg-white">
+				<div class="container my-auto">
+					<div class="copyright text-center my-auto">
+						<span>Copyright &copy; Your Website 2019</span>
+					</div>
+				</div>
+			</footer>
+			<!-- End of Footer -->
 
 		</div>
-		<!-- End of Page Wrapper -->
+		<!-- End of Content Wrapper -->
 
-		<!-- Scroll to Top Button-->
-		<a class="scroll-to-top rounded" href="#page-top"> <i
-			class="fas fa-angle-up"></i>
-		</a>
+	</div>
+	<!-- End of Page Wrapper -->
 
-		<!-- Logout Modal-->
-		<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
-			aria-labelledby="exampleModalLabel" aria-hidden="true">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLabel">Ready to
-							Leave?</h5>
-						<button class="close" type="button" data-dismiss="modal"
-							aria-label="Close">
-							<span aria-hidden="true">×</span>
-						</button>
-					</div>
-					<div class="modal-body">Select "Logout" below if you are
-						ready to end your current session.</div>
-					<div class="modal-footer">
-						<button class="btn btn-secondary" type="button"
-							data-dismiss="modal">Cancel</button>
-						<a class="btn btn-primary" href="login.html">Logout</a>
-					</div>
+	<!-- Scroll to Top Button-->
+	<a class="scroll-to-top rounded" href="#page-top"> <i
+		class="fas fa-angle-up"></i>
+	</a>
+
+	<!-- Logout Modal-->
+	<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+					<button class="close" type="button" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+				<div class="modal-body">Select "Logout" below if you are ready
+					to end your current session.</div>
+				<div class="modal-footer">
+					<button class="btn btn-secondary" type="button"
+						data-dismiss="modal">Cancel</button>
+					<a class="btn btn-primary" href="login.html">Logout</a>
 				</div>
 			</div>
 		</div>
+	</div>
 
-		<!-- Bootstrap core JavaScript-->
-		<script src="vendor/jquery/jquery.min.js"></script>
-		<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<!-- Bootstrap core JavaScript-->
+	<script src="vendor/jquery/jquery.min.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-		<!-- Core plugin JavaScript-->
-		<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+	<!-- Core plugin JavaScript-->
+	<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
-		<!-- Custom scripts for all pages-->
-		<script src="js/sb-admin-2.min.js"></script>
+	<!-- Custom scripts for all pages-->
+	<script src="js/sb-admin-2.min.js"></script>
+
+	<!-- Page level plugins -->
+	<script src="vendor/chart.js/Chart.min.js"></script>
+
+	<!-- Page level custom scripts -->
+	<script src="js/demo/chart-area-demo.js"></script>
+	<script src="js/demo/chart-pie-demo.js"></script>
+
 </body>
 
 </html>
