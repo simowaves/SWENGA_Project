@@ -15,6 +15,6 @@ import at.fh.swenga.jpa.model.AllergieModel;
 @Transactional
 public interface AllergieRepository extends JpaRepository<AllergieModel, Integer> {
 	
- 
+  
 
 }

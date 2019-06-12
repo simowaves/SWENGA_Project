@@ -16,5 +16,5 @@ import at.fh.swenga.jpa.model.CategorieModel;
 public interface CategorieRepository extends JpaRepository<CategorieModel, Integer> {
 	
  
-
+ 
 }
