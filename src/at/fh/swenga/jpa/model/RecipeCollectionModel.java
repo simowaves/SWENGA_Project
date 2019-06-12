@@ -13,13 +13,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Version;
  
 @Entity
 @Table(name = "allergie")
-public class CategorieModel implements java.io.Serializable {
+public class RecipeCollectionModel implements java.io.Serializable {
  
 	@Id
 	@Column(name = "id")
@@ -27,19 +27,19 @@ public class CategorieModel implements java.io.Serializable {
 	private int id;
 	
 	@Column(nullable = false, length = 50)
-	private String title; 
+	private String title;
 	
-	@OneToOne(cascade = CascadeType.ALL)
-	private PictureModel picture;
+	@ManyToOne (cascade = CascadeType.PERSIST)
+	private UserModel user;
 	
-	@ManyToMany(mappedBy = "categories", fetch = FetchType.LAZY)
+	@ManyToMany(mappedBy = "recipeCollections", fetch = FetchType.LAZY)
 	private Set<RecipeModel> recipes;
 
-	public CategorieModel(int id, String title, PictureModel picture, Set<RecipeModel> recipes) {
+	public RecipeCollectionModel(int id, String title, UserModel user, Set<RecipeModel> recipes) {
 		super();
 		this.id = id;
 		this.title = title;
-		this.picture = picture;
+		this.user = user;
 		this.recipes = recipes;
 	}
 
@@ -59,19 +59,19 @@ public class CategorieModel implements java.io.Serializable {
 		this.title = title;
 	}
 
-	public PictureModel getPicture() {
-		return picture;
+	public UserModel getUser() {
+		return user;
 	}
 
-	public void setPicture(PictureModel picture) {
-		this.picture = picture;
+	public void setUser(UserModel user) {
+		this.user = user;
 	}
 
-	public Set<RecipeModel> getRecipe() {
+	public Set<RecipeModel> getRecipes() {
 		return recipes;
 	}
 
-	public void setRecipe(Set<RecipeModel> recipes) {
+	public void setRecipes(Set<RecipeModel> recipes) {
 		this.recipes = recipes;
 	}
 }

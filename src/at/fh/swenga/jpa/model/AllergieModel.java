@@ -29,12 +29,20 @@ public class AllergieModel implements java.io.Serializable {
  
 	@ManyToMany(mappedBy = "allergies", fetch = FetchType.LAZY)
 	private Set<IngredientModel> ingredients;
+	
+	@ManyToMany(mappedBy = "allergies", fetch = FetchType.LAZY)
+	private Set<UserModel> users;
+	
+	@Version
+	long version;
 
-	public AllergieModel(int id, String title, Set<IngredientModel> ingredients) {
+	public AllergieModel(int id, String title, Set<IngredientModel> ingredients, Set<UserModel> users, long version) {
 		super();
 		this.id = id;
 		this.title = title;
 		this.ingredients = ingredients;
+		this.users = users;
+		this.version = version;
 	}
 
 	public int getId() {
@@ -59,6 +67,14 @@ public class AllergieModel implements java.io.Serializable {
 
 	public void setIngredients(Set<IngredientModel> ingredients) {
 		this.ingredients = ingredients;
+	}
+
+	public Set<UserModel> getUsers() {
+		return users;
+	}
+
+	public void setUsers(Set<UserModel> users) {
+		this.users = users;
 	}
 	
 }
