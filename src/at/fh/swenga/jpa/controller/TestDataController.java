@@ -25,6 +25,7 @@ import at.fh.swenga.jpa.model.CategorieModel;
 import at.fh.swenga.jpa.model.CommentModel;
 import at.fh.swenga.jpa.model.IngredientAmountModel;
 import at.fh.swenga.jpa.model.IngredientModel;
+import at.fh.swenga.jpa.model.RecipeCollectionModel;
 import at.fh.swenga.jpa.model.RecipeModel;
 import at.fh.swenga.jpa.model.UserModel;
 import at.fh.swenga.jpa.model.UserRoleModel;
@@ -48,7 +49,7 @@ public class TestDataController {
 	PictureRepository pictureRepository;
 
 	@Autowired
-	RecipeCollectionRepository collectionRepository;
+	RecipeCollectionRepository recipeCollectionRepository;
 
 	@Autowired
 	RecipeRepository recipeRepository;
@@ -651,7 +652,40 @@ public class TestDataController {
 		// ----------------------------------------
 		// -------------- RECIPIE_COLLECTION_MODEL
 		// ----------------------------------------
+		RecipeCollectionModel col1 = new RecipeCollectionModel ("Favorites", julian);
+		RecipeCollectionModel col2 = new RecipeCollectionModel ("Favorites", tim);
+		RecipeCollectionModel col3 = new RecipeCollectionModel ("Favorites", lukas);
+		RecipeCollectionModel col4 = new RecipeCollectionModel ("Favorites", simone);
 
+		Set<RecipeModel> colSet1 = new HashSet<RecipeModel>();
+		colSet1.add(rec1);
+		colSet1.add(rec4);
+		colSet1.add(rec3);
+
+		Set<RecipeModel> colSet2 = new HashSet<RecipeModel>();
+		colSet2.add(rec1);
+		colSet2.add(rec2);
+		
+		Set<RecipeModel> colSet3 = new HashSet<RecipeModel>();
+		colSet3.add(rec5);
+
+		Set<RecipeModel> colSet4 = new HashSet<RecipeModel>();
+		colSet4.add(rec1);
+		colSet4.add(rec2);
+		colSet4.add(rec3);
+		colSet4.add(rec4);
+		colSet4.add(rec5);
+
+		col1.setRecipes(colSet1);
+		col2.setRecipes(colSet2);
+		col3.setRecipes(colSet3);
+		col4.setRecipes(colSet4);
+		
+		recipeCollectionRepository.save(col1);
+		recipeCollectionRepository.save(col2);
+		recipeCollectionRepository.save(col3);
+		recipeCollectionRepository.save(col4);
+		
 		return "forward:login";
 	}
 
