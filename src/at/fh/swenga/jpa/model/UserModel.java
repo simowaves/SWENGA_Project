@@ -160,6 +160,11 @@ public class UserModel implements java.io.Serializable {
 	public void setRecipes(Set<RecipeModel> recipes) {
 		this.recipes = recipes;
 	}
+	
+	public void addRecipe(RecipeModel recipe) {
+		if (recipes==null) recipes = new HashSet<RecipeModel>();
+		recipes.add(recipe);
+	}
 
 	public Set<IngredientModel> getLovedIngredients() {
 		return lovedIngredients;
