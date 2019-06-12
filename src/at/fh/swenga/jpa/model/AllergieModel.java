@@ -36,13 +36,9 @@ public class AllergieModel implements java.io.Serializable {
 	@Version
 	long version;
 
-	public AllergieModel(int id, String title, Set<IngredientModel> ingredients, Set<UserModel> users, long version) {
+	public AllergieModel(String title) {
 		super();
-		this.id = id;
 		this.title = title;
-		this.ingredients = ingredients;
-		this.users = users;
-		this.version = version;
 	}
 
 	public int getId() {

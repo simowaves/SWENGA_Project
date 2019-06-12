@@ -41,9 +41,8 @@ public class CommentModel implements java.io.Serializable {
 	@ManyToOne (cascade = CascadeType.PERSIST)
 	private UserModel author;
 
-	public CommentModel(int id, String comment, Date createDate, RecipeModel recipe, UserModel author) {
+	public CommentModel(String comment, Date createDate, RecipeModel recipe, UserModel author) {
 		super();
-		this.id = id;
 		this.comment = comment;
 		this.createDate = createDate;
 		this.recipe = recipe;
