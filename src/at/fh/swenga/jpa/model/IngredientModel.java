@@ -43,7 +43,7 @@ public class IngredientModel implements java.io.Serializable{
 	@ManyToMany(mappedBy = "ingredients", fetch = FetchType.LAZY)
 	private Set<RecipeModel> recipes;
 	
-	@OneToMany(mappedBy="incredient",fetch=FetchType.LAZY)
+	@OneToMany(mappedBy="ingredient",fetch=FetchType.LAZY)
     private Set<IngredientAmountModel> ingredientAmounts;
 	
 	@ManyToMany(mappedBy = "lovedIngredients", fetch = FetchType.LAZY)
