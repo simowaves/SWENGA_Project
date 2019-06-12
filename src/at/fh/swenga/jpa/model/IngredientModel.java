@@ -58,7 +58,7 @@ public class IngredientModel implements java.io.Serializable{
 	@Version
 	long version;
 
-	public IngredientModel(String name, String description, boolean vegan, boolean vegetarian,
+	public IngredientModel(String name, String description, boolean vegetarian, boolean vegan,
 			Set<AllergieModel> allergies) {
 		super();
 		this.name = name;
@@ -68,10 +68,17 @@ public class IngredientModel implements java.io.Serializable{
 		this.allergies = allergies;
 	}
 	
-	public IngredientModel(String name, String description, boolean vegan, boolean vegetarian) {
+	public IngredientModel(String name, String description, boolean vegetarian, boolean vegan) {
 		super();
 		this.name = name;
 		this.description = description;
+		this.vegetarian = vegetarian;
+		this.vegan = vegan;
+	}
+	
+	public IngredientModel(String name, boolean vegetarian, boolean vegan) {
+		super();
+		this.name = name;
 		this.vegan = vegan;
 		this.vegetarian = vegetarian;
 	}

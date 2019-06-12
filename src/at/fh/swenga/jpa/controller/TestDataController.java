@@ -1,5 +1,7 @@
 package at.fh.swenga.jpa.controller;
 
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,6 +20,7 @@ import at.fh.swenga.jpa.dao.UserRepository;
 import at.fh.swenga.jpa.dao.UserRoleRepository;
 import at.fh.swenga.jpa.model.AllergieModel;
 import at.fh.swenga.jpa.model.CategorieModel;
+import at.fh.swenga.jpa.model.IngredientModel;
 import at.fh.swenga.jpa.model.UserModel;
 import at.fh.swenga.jpa.model.UserRoleModel;
 
@@ -118,7 +121,7 @@ public class TestDataController {
 		//-------------- ALLERGIE_MODEL
 		//----------------------------------------
 		AllergieModel all1 = new AllergieModel("Egg");
-		allergieRepository.save(all1);
+		allergieRepository.save(all1); 
 		
 		AllergieModel all2 = new AllergieModel("Peanut");
 		allergieRepository.save(all2);
@@ -257,6 +260,121 @@ public class TestDataController {
 		//-------------- INGREDIENT_MODEL
 		//----------------------------------------
 
+		IngredientModel ing1 = new IngredientModel ("Onion", true, true);
+		ingredientRepository.save(ing1);
+		
+		IngredientModel ing2 = new IngredientModel ("Rosemary", true, true);
+		ingredientRepository.save(ing2);
+		
+		IngredientModel ing3 = new IngredientModel ("Bacon", false, false);
+		ingredientRepository.save(ing3);
+		
+		IngredientModel ing4 = new IngredientModel ("Olive oil", true, true);
+		ingredientRepository.save(ing4);
+		
+		IngredientModel ing5 = new IngredientModel ("Minced beef", false, false);
+		ingredientRepository.save(ing5);
+		
+		IngredientModel ing6 = new IngredientModel ("Red wine", true, true);
+		ingredientRepository.save(ing6);
+		
+		IngredientModel ing7 = new IngredientModel ("Tomatoes", true, true);
+		ingredientRepository.save(ing7);
+		
+		IngredientModel ing8 = new IngredientModel ("Plum tomatoes", true, true);
+		ingredientRepository.save(ing8);
+		
+		IngredientModel ing9 = new IngredientModel ("Spaghetti", true, false);
+		ingredientRepository.save(ing9);
+		
+		IngredientModel ing10 = new IngredientModel ("Parmesan cheese", true, false);
+		ingredientRepository.save(ing10);
+		
+		IngredientModel ing11 = new IngredientModel ("Eggs", true, false);
+		ingredientRepository.save(ing11);
+		
+		IngredientModel ing12 = new IngredientModel ("Cow milk", true, false);
+		ingredientRepository.save(ing12);
+		
+		IngredientModel ing13 = new IngredientModel ("Flour", true, true);
+		ingredientRepository.save(ing13);
+		
+		IngredientModel ing14 = new IngredientModel ("Sugar", true, true);
+		ingredientRepository.save(ing14);
+		
+		IngredientModel ing15 = new IngredientModel ("Vegetable stock", true, true);
+		ingredientRepository.save(ing15);
+		
+		IngredientModel ing16 = new IngredientModel ("Parsley", true, true);
+		ingredientRepository.save(ing16);
+		
+		IngredientModel ing17 = new IngredientModel ("Vegetable oil", true, true);
+		ingredientRepository.save(ing17);
+		
+		IngredientModel ing18 = new IngredientModel ("Pepper", true, true);
+		ingredientRepository.save(ing18);
+		
+		IngredientModel ing19 = new IngredientModel ("Salt", true, true);
+		ingredientRepository.save(ing19);
+		
+		IngredientModel ing20 = new IngredientModel ("Green pepper", true, true);
+		ingredientRepository.save(ing20);
+		
+		IngredientModel ing21 = new IngredientModel ("Red pepper", true, true);
+		ingredientRepository.save(ing21);
+		
+		IngredientModel ing22 = new IngredientModel ("Carrot", true, true);
+		ingredientRepository.save(ing22);
+		
+		IngredientModel ing23 = new IngredientModel ("Prawn", false, false);
+		ingredientRepository.save(ing23);
+		
+		IngredientModel ing24 = new IngredientModel ("Clams", false, false);
+		ingredientRepository.save(ing24);
+		
+		IngredientModel ing25 = new IngredientModel ("Squid", false, false);
+		ingredientRepository.save(ing25);
+		
+		IngredientModel ing26 = new IngredientModel ("Mussels", false, false);
+		ingredientRepository.save(ing26);
+		
+		IngredientModel ing27 = new IngredientModel ("Rice", true, true);
+		ingredientRepository.save(ing27);
+		
+		IngredientModel ing28 = new IngredientModel ("Garlic", true, true);
+		ingredientRepository.save(ing28);
+		
+		IngredientModel ing29 = new IngredientModel ("Saffron", true, true);
+		ingredientRepository.save(ing29);
+		
+		IngredientModel ing30 = new IngredientModel ("Water", true, true);
+		ingredientRepository.save(ing30);
+		
+		IngredientModel ing31 = new IngredientModel ("Veal", false, false);
+		ingredientRepository.save(ing31);
+		
+		IngredientModel ing32 = new IngredientModel ("Breadcrumbs", true, false);
+		ingredientRepository.save(ing32);
+		
+		IngredientModel ing33 = new IngredientModel ("Butter", true, false);
+		ingredientRepository.save(ing33);
+		
+		IngredientModel ing34 = new IngredientModel ("Lemon", true, true);
+		ingredientRepository.save(ing34);
+		
+		IngredientModel ing35 = new IngredientModel ("Organic stock", true, true);
+		ingredientRepository.save(ing35);
+		
+		IngredientModel ing36 = new IngredientModel ("Cellary", true, true);
+		ingredientRepository.save(ing36);
+		
+		IngredientModel ing37 = new IngredientModel ("Risotto rice", true, true);
+		ingredientRepository.save(ing37);
+		
+		IngredientModel ing38 = new IngredientModel ("Vermouth", true, true);
+		ingredientRepository.save(ing38);
+		
+				
 		
 		//----------------------------------------
 		//-------------- RECIPE_MODEL
