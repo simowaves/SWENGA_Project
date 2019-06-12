@@ -1,6 +1,7 @@
 package at.fh.swenga.jpa.controller;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,38 +28,35 @@ import at.fh.swenga.jpa.model.RecipeModel;
 import at.fh.swenga.jpa.model.UserModel;
 import at.fh.swenga.jpa.model.UserRoleModel;
 
-
 @Controller
 public class TestDataController {
-	
+
 	@Autowired
 	AllergieRepository allergieRepository;
-	
+
 	@Autowired
 	CategorieRepository categorieRepository;
-	
+
 	@Autowired
 	CommentRepository commentRepository;
-	
+
 	@Autowired
 	IngredientRepository ingredientRepository;
-	
+
 	@Autowired
 	PictureRepository pictureRepository;
-	
+
 	@Autowired
 	RecipeCollectionRepository collectionRepository;
-	
+
 	@Autowired
 	RecipeRepository recipeRepository;
-	
+
 	@Autowired
 	UserRepository userRepository;
 
 	@Autowired
 	UserRoleRepository userRoleRepository;
-	
-	
 
 	@RequestMapping("/fillTestData")
 	@Transactional
@@ -378,16 +376,28 @@ public class TestDataController {
 		ingredientRepository.save(ing38);
 		
 				
-		
 		//----------------------------------------
 		//-------------- RECIPE_MODEL
 		//----------------------------------------
-		 //RecipeModel(Date createDate, Date lastEdited, String title, String description, UserModel author,
-		//			Set<IngredientAmountModel> ingredientAmounts, boolean published, boolean enabled, Set<CategorieModel> categories)
-		Date now = new Date();
+		IngredientAmountModel IngAm1 = new IngredientAmountModel("15", ing1);
+		IngredientAmountModel IngAm2 = new IngredientAmountModel("7", ing2);
+
+		Set<IngredientAmountModel> ingSet1 = new HashSet<IngredientAmountModel>();
+		ingSet1.add(IngAm1);
+		ingSet1.add(IngAm2);
 		
-		 //RecipeModel rec1 = new RecipeModel(now, now, "Recipe 1!", "Desciption?", inngredientAmount,true, true, categories);
-		 //recipeRepository.save(rec1);
+		Set<CategorieModel> catSet1 = new HashSet<CategorieModel>();
+		catSet1.add(cat1);
+		catSet1.add(cat2);
+
+
+		//----------------------------------------
+		//-------------- RECIPE_MODEL
+		//----------------------------------------
+		Date now = new Date();
+
+		RecipeModel rec1 = new RecipeModel(now, now, "Test Recipe 1!", "Desciption?", julian, ingSet1 ,true, true, catSet1);
+		recipeRepository.save(rec1);
 		
 		//----------------------------------------
 		//-------------- COMMENT_MODEL
@@ -402,11 +412,6 @@ public class TestDataController {
 
 
 		return "forward:login";
-	}
-	
-	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public String handleLogin() {
-		return "login";
 	}
 
 }

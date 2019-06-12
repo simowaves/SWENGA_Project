@@ -35,4 +35,42 @@ public class IngredientAmountModel implements java.io.Serializable {
 	@Version
 	long version;
 
+	public IngredientAmountModel(String amount, IngredientModel ingredient) {
+		super();
+		this.amount = amount;
+		this.ingredient = ingredient;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getAmount() {
+		return amount;
+	}
+
+	public void setAmount(String amount) {
+		this.amount = amount;
+	}
+
+	public RecipeModel getRecipe() {
+		return recipe;
+	}
+
+	public void setRecipe(RecipeModel recipe) {
+		this.recipe = recipe;
+	}
+
+	public IngredientModel getIngredient() {
+		return ingredient;
+	}
+
+	public void setIngredient(IngredientModel ingredient) {
+		this.ingredient = ingredient;
+	}
+
 }

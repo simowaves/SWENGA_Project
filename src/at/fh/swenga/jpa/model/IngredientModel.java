@@ -39,9 +39,6 @@ public class IngredientModel implements java.io.Serializable{
 	
 	@Column(nullable = false)
 	private boolean vegetarian;
-
-	@ManyToMany(mappedBy = "ingredients", fetch = FetchType.LAZY)
-	private Set<RecipeModel> recipes;
 	
 	@OneToMany(mappedBy="ingredient",fetch=FetchType.LAZY)
     private Set<IngredientAmountModel> ingredientAmounts;
@@ -121,14 +118,6 @@ public class IngredientModel implements java.io.Serializable{
 
 	public void setVegetarian(boolean vegetarian) {
 		this.vegetarian = vegetarian;
-	}
-
-	public Set<RecipeModel> getRecipes() {
-		return recipes;
-	}
-
-	public void setRecipes(Set<RecipeModel> recipes) {
-		this.recipes = recipes;
 	}
 
 	public Set<UserModel> getUsersLoveMe() {

@@ -10,7 +10,7 @@ import at.fh.swenga.jpa.model.IngredientModel;
 @Transactional
 public interface IngredientRepository extends JpaRepository<IngredientModel, Integer> {
 	
-	public IngredientModel findAllByTitle(String title);
+	public IngredientModel findAllByName(String name);
 	
 
 }
