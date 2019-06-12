@@ -53,8 +53,8 @@ public class RecipeModel implements java.io.Serializable {
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	private UserModel author;
 
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-	private Set<IngredientModel> ingredients;
+	@OneToMany(mappedBy="recipe",fetch=FetchType.LAZY)
+    private Set<IngredientAmountModel> ingredientAmounts;
 	
 	@Column(name = "published")
 	private boolean published;
@@ -84,9 +84,146 @@ public class RecipeModel implements java.io.Serializable {
 	@Version
 	long version;
 
-	// TODO: Generate setter/getter Constructor
+	public RecipeModel(Date createDate, Date lastEdited, String title, String description, UserModel author,
+			Set<IngredientAmountModel> ingredientAmounts, boolean published, boolean enabled, Set<CategorieModel> categories) {
+		super();
+		this.createDate = createDate;
+		this.lastEdited = lastEdited;
+		this.title = title;
+		this.description = description;
+		this.author = author;
+		this.ingredientAmounts = ingredientAmounts;
+		this.published = published;
+		this.enabled = enabled;
+		this.categories = categories;
+	}
 
-	public RecipeModel() {
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public Date getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
+	}
+
+	public Date getLastEdited() {
+		return lastEdited;
+	}
+
+	public void setLastEdited(Date lastEdited) {
+		this.lastEdited = lastEdited;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public UserModel getAuthor() {
+		return author;
+	}
+
+	public void setAuthor(UserModel author) {
+		this.author = author;
+	}
+
+	public Set<IngredientAmountModel> getIngredientAmounts() {
+		return ingredientAmounts;
+	}
+
+	public void setIngredientAmounts(Set<IngredientAmountModel> ingredientAmounts) {
+		this.ingredientAmounts = ingredientAmounts;
+	}
+
+	public boolean isPublished() {
+		return published;
+	}
+
+	public void setPublished(boolean published) {
+		this.published = published;
+	}
+
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
+
+	public Set<CategorieModel> getCategories() {
+		return categories;
+	}
+
+	public void setCategories(Set<CategorieModel> categories) {
+		this.categories = categories;
+	}
+
+	public Set<CommentModel> getComments() {
+		return comments;
+	}
+
+	public void setComments(Set<CommentModel> comments) {
+		this.comments = comments;
+	}
+
+	public Set<UserModel> getReportingUsers() {
+		return reportingUsers;
+	}
+
+	public void setReportingUsers(Set<UserModel> reportingUsers) {
+		this.reportingUsers = reportingUsers;
+	}
+
+	public Set<RecipeCollectionModel> getRecipeCollections() {
+		return recipeCollections;
+	}
+
+	public void setRecipeCollections(Set<RecipeCollectionModel> recipeCollections) {
+		this.recipeCollections = recipeCollections;
+	}
+
+	public Set<UserModel> getLikingUsers() {
+		return likingUsers;
+	}
+
+	public void setLikingUsers(Set<UserModel> likingUsers) {
+		this.likingUsers = likingUsers;
+	}
+
+	public PictureModel getPicture() {
+		return picture;
+	}
+
+	public void setPicture(PictureModel picture) {
+		this.picture = picture;
+	}
+
+	public long getVersion() {
+		return version;
+	}
+
+	public void setVersion(long version) {
+		this.version = version;
 	}
 
 }

@@ -37,20 +37,20 @@ public class UserController {
 		if (godRole == null)
 			godRole = new UserRoleModel("ROLE_GOD");
 
-		UserModel admin = new UserModel("admin", "password", true);
+		UserModel admin = new UserModel("admin", "password", "admin@wtf.com", true);
 		admin.encryptPassword();
 		admin.addUserRole(userRole);
 		admin.addUserRole(adminRole);
 		userRepository.save(admin);
 
-		UserModel tim = new UserModel("tim", "password", true);
+		UserModel tim = new UserModel("tim", "password", "admin@wtf.com", true);
 		tim.encryptPassword();
 		tim.addUserRole(userRole);
 		tim.addUserRole(adminRole);
 		tim.addUserRole(godRole);
 		userRepository.save(tim);
 
-		UserModel user = new UserModel("user", "password", true);
+		UserModel user = new UserModel("user", "password", "admin@wtf.com", true);
 		user.encryptPassword();
 		user.addUserRole(userRole);
 		userRepository.save(user);
