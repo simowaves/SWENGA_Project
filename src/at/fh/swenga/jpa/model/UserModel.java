@@ -33,6 +33,9 @@ public class UserModel implements java.io.Serializable {
  
 	@Column(name = "password", nullable = false, length = 60)
 	private String password;
+	
+	@Column(name = "emailAddress", nullable = false, length = 60)
+	private String emailAddress;
  
 	@Column(name = "enabled", nullable = false)
 	private boolean enabled;
@@ -82,9 +85,10 @@ public class UserModel implements java.io.Serializable {
 	public UserModel() {
 	}
  
-	public UserModel(String userName, String password, boolean enabled) {
+	public UserModel(String userName, String password, String emailAddress, boolean enabled) {
 		this.userName = userName;
 		this.password = password;
+		this.emailAddress = emailAddress;
 		this.enabled = enabled;
 	}
  
@@ -96,7 +100,6 @@ public class UserModel implements java.io.Serializable {
 	public void setId(int id) {
 		this.id = id;
 	}
- 
  
  
 	public String getUserName() {
@@ -141,5 +144,111 @@ public class UserModel implements java.io.Serializable {
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		password = passwordEncoder.encode(password);		
 	}
+
+	public String getEmailAddress() {
+		return emailAddress;
+	}
+
+	public void setEmailAddress(String emailAddress) {
+		this.emailAddress = emailAddress;
+	}
+
+	public Set<RecipeModel> getRecipes() {
+		return recipes;
+	}
+
+	public void setRecipes(Set<RecipeModel> recipes) {
+		this.recipes = recipes;
+	}
+
+	public Set<IngredientModel> getLovedIngredients() {
+		return lovedIngredients;
+	}
+
+	public void setLovedIngredients(Set<IngredientModel> lovedIngredients) {
+		this.lovedIngredients = lovedIngredients;
+	}
+
+	public Set<IngredientModel> getHatedIngredients() {
+		return hatedIngredients;
+	}
+
+	public void setHatedIngredients(Set<IngredientModel> hatedIngredients) {
+		this.hatedIngredients = hatedIngredients;
+	}
+
+	public Set<AllergieModel> getAllergies() {
+		return allergies;
+	}
+
+	public void setAllergies(Set<AllergieModel> allergies) {
+		this.allergies = allergies;
+	}
+
+	public Set<CommentModel> getComments() {
+		return comments;
+	}
+
+	public void setComments(Set<CommentModel> comments) {
+		this.comments = comments;
+	}
+
+	public Set<RecipeModel> getReportedRecipes() {
+		return reportedRecipes;
+	}
+
+	public void setReportedRecipes(Set<RecipeModel> reportedRecipes) {
+		this.reportedRecipes = reportedRecipes;
+	}
+
+	public Set<UserModel> getUsersIFollow() {
+		return usersIFollow;
+	}
+
+	public void setUsersIFollow(Set<UserModel> usersIFollow) {
+		this.usersIFollow = usersIFollow;
+	}
+
+	public Set<UserModel> getUsersFollowingMe() {
+		return usersFollowingMe;
+	}
+
+	public void setUsersFollowingMe(Set<UserModel> usersFollowingMe) {
+		this.usersFollowingMe = usersFollowingMe;
+	}
+
+	public Set<RecipeCollectionModel> getRecipeCollections() {
+		return recipeCollections;
+	}
+
+	public void setRecipeCollections(Set<RecipeCollectionModel> recipeCollections) {
+		this.recipeCollections = recipeCollections;
+	}
+
+	public Set<RecipeModel> getLikedRecipes() {
+		return likedRecipes;
+	}
+
+	public void setLikedRecipes(Set<RecipeModel> likedRecipes) {
+		this.likedRecipes = likedRecipes;
+	}
+
+	public PictureModel getPicture() {
+		return picture;
+	}
+
+	public void setPicture(PictureModel picture) {
+		this.picture = picture;
+	}
+
+	public long getVersion() {
+		return version;
+	}
+
+	public void setVersion(long version) {
+		this.version = version;
+	}
+	
+	
 
 }

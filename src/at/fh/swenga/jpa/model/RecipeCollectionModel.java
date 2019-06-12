@@ -35,12 +35,10 @@ public class RecipeCollectionModel implements java.io.Serializable {
 	@ManyToMany(mappedBy = "recipeCollections", fetch = FetchType.LAZY)
 	private Set<RecipeModel> recipes;
 
-	public RecipeCollectionModel(int id, String title, UserModel user, Set<RecipeModel> recipes) {
+	public RecipeCollectionModel(String title, UserModel user) {
 		super();
-		this.id = id;
 		this.title = title;
 		this.user = user;
-		this.recipes = recipes;
 	}
 
 	public int getId() {

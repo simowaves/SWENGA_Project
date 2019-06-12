@@ -35,12 +35,9 @@ public class CategorieModel implements java.io.Serializable {
 	@ManyToMany(mappedBy = "categories", fetch = FetchType.LAZY)
 	private Set<RecipeModel> recipes;
 
-	public CategorieModel(int id, String title, PictureModel picture, Set<RecipeModel> recipes) {
+	public CategorieModel(String title) {
 		super();
-		this.id = id;
 		this.title = title;
-		this.picture = picture;
-		this.recipes = recipes;
 	}
 
 	public int getId() {
