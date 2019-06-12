@@ -11,5 +11,6 @@ import at.fh.swenga.jpa.model.IngredientModel;
 public interface IngredientRepository extends JpaRepository<IngredientModel, Integer> {
 	
 	
+	
 
 }
