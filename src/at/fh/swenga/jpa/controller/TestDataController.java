@@ -22,6 +22,7 @@ import at.fh.swenga.jpa.dao.UserRepository;
 import at.fh.swenga.jpa.dao.UserRoleRepository;
 import at.fh.swenga.jpa.model.AllergieModel;
 import at.fh.swenga.jpa.model.CategorieModel;
+import at.fh.swenga.jpa.model.CommentModel;
 import at.fh.swenga.jpa.model.IngredientAmountModel;
 import at.fh.swenga.jpa.model.IngredientModel;
 import at.fh.swenga.jpa.model.RecipeModel;
@@ -562,7 +563,7 @@ public class TestDataController {
 						+ "5) Roll the crepes up together and slice them using a long and sharp knife, make thin strips. Add the crepe noodles to the hot broth and stir well.\n"
 						+ "\n" + "6) Scoop the crepe soup into bowl and serve piping hot.",
 				tim, ingSet2, true, true, catSet2);
-		recipeRepository.save(rec1);
+		recipeRepository.save(rec2);
 
 		RecipeModel rec3 = new RecipeModel(now, now, "Paella", "PREPARATION: \n" + "\n"
 				+ "MUSSELS: Wash the mussels, removing the beards. Throw away any that donít shut on contact with water.\n"
@@ -579,7 +580,7 @@ public class TestDataController {
 				+ "\n"
 				+ "2) Add the rice and stir well to make sure that it is thoroughly coated. Add water (or the water from boiling the prawn shells or fish stock if using frozen fish), clams and the garlic/saffron/parsley mixture and bring to the boil. Season with salt. Put a lid on it, turn the heat right down and cook very slowly for about ten minutes. Add the prawns and peas and give it a stir. Arrange the mussels and strips of red pepper artistically on top, put the lid back on and leave for another ten minutes - checking that it has enough water. If you think it is getting too dry, add more water, but shake the handle of the pan rather than stir so as not to upset the pattern. Once the rice is cooked and the mussels have opened, it is ready to eat. ",
 				julian, ingSet3, true, true, catSet3);
-		recipeRepository.save(rec1);
+		recipeRepository.save(rec3);
 
 		RecipeModel rec4 = new RecipeModel(now, now, "Wiener Schnitzel",
 				"1) Lay out the schnitzel, remove any skin and beat until thin. Season on both sides with salt and pepper. Place flour and breadcrumbs into separate flat plates, beat the eggs together on a further plate using a fork.\n"
@@ -596,7 +597,7 @@ public class TestDataController {
 						+ "\n" + "7) Serve with parsley potatoes, rice, potato salad or mixed salad.\n" + "\n"
 						+ "Cooking time: depending on the thickness and the meat, 4 ñ 8 minutes",
 				tim, ingSet4, true, true, catSet4);
-		recipeRepository.save(rec1);
+		recipeRepository.save(rec4);
 
 		RecipeModel rec5 = new RecipeModel(now, now, "Basic risotto",
 				"1) Heat the stock. Peel and finely chop the onion and garlic, trim and finely chop the celery. Finely grate the Parmesan.\n"
@@ -614,11 +615,38 @@ public class TestDataController {
 						+ "7) Place a lid on the pan and allow to sit for 2 minutes ñ this is the most important part of making the perfect risotto, as this is when it becomes outrageously creamy and oozy like it should be. Eat it as soon as possible, while the risotto retains its beautiful texture.\n"
 						+ "\n" + "",
 				julian, ingSet5, true, true, catSet5);
-		recipeRepository.save(rec1);
+		recipeRepository.save(rec5);
 
 		// ----------------------------------------
 		// -------------- COMMENT_MODEL
 		// ----------------------------------------
+		
+		CommentModel com1 = new CommentModel("Super recepie!", now, rec1, tim);
+		commentRepository.save(com1);
+		CommentModel com2 = new CommentModel("It tastes really great.", now, rec1, tim);
+		commentRepository.save(com2);
+
+		CommentModel com3 = new CommentModel("I really liked it. Fun to cook!", now, rec2, tim);
+		commentRepository.save(com3);
+		CommentModel com4 = new CommentModel("Tasted wonderfull!", now, rec2, tim);
+		commentRepository.save(com4);
+
+		
+		CommentModel com5 = new CommentModel("Great Paella, i recommend it!", now, rec3, tim);
+		commentRepository.save(com5);
+		CommentModel com6 = new CommentModel("Try to cook it yourself! It is easy and very good.", now, rec3, tim);
+		commentRepository.save(com6);
+
+		
+		CommentModel com7 = new CommentModel("I enjoyed the food, but my wife didn't.", now, rec4, tim);
+		commentRepository.save(com7);
+		CommentModel com8 = new CommentModel("Do you find the errror Lukas? #GrammarNazi", now, rec4, tim);
+		commentRepository.save(com8);
+		
+		CommentModel com9 = new CommentModel("You can use this basic recepie and add what ever you want.", now, rec5, tim);
+		commentRepository.save(com9);
+		CommentModel com10 = new CommentModel("If it is good enough for me, it is good enough for everyone!", now, rec5, tim);
+		commentRepository.save(com10);
 
 		// ----------------------------------------
 		// -------------- RECIPIE_COLLECTION_MODEL
