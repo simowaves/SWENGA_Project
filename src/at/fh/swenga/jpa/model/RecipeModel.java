@@ -53,8 +53,8 @@ public class RecipeModel implements java.io.Serializable {
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	private UserModel author;
 
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-	private Set<IngredientModel> ingredients;
+	@OneToMany(mappedBy="recipe",fetch=FetchType.LAZY)
+    private Set<IngredientAmountModel> ingredientAmounts;
 	
 	@Column(name = "published")
 	private boolean published;
@@ -85,14 +85,14 @@ public class RecipeModel implements java.io.Serializable {
 	long version;
 
 	public RecipeModel(Date createDate, Date lastEdited, String title, String description, UserModel author,
-			Set<IngredientModel> ingredients, boolean published, boolean enabled, Set<CategorieModel> categories) {
+			Set<IngredientAmountModel> ingredientAmounts, boolean published, boolean enabled, Set<CategorieModel> categories) {
 		super();
 		this.createDate = createDate;
 		this.lastEdited = lastEdited;
 		this.title = title;
 		this.description = description;
 		this.author = author;
-		this.ingredients = ingredients;
+		this.ingredientAmounts = ingredientAmounts;
 		this.published = published;
 		this.enabled = enabled;
 		this.categories = categories;
@@ -146,12 +146,12 @@ public class RecipeModel implements java.io.Serializable {
 		this.author = author;
 	}
 
-	public Set<IngredientModel> getIngredients() {
-		return ingredients;
+	public Set<IngredientAmountModel> getIngredientAmounts() {
+		return ingredientAmounts;
 	}
 
-	public void setIngredients(Set<IngredientModel> ingredients) {
-		this.ingredients = ingredients;
+	public void setIngredientAmounts(Set<IngredientAmountModel> ingredientAmounts) {
+		this.ingredientAmounts = ingredientAmounts;
 	}
 
 	public boolean isPublished() {

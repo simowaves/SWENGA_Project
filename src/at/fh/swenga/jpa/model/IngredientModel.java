@@ -11,6 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.Version;
 
@@ -40,6 +42,9 @@ public class IngredientModel implements java.io.Serializable{
 
 	@ManyToMany(mappedBy = "ingredients", fetch = FetchType.LAZY)
 	private Set<RecipeModel> recipes;
+	
+	@OneToMany(mappedBy="incredient",fetch=FetchType.LAZY)
+    private Set<IngredientAmountModel> ingredientAmounts;
 	
 	@ManyToMany(mappedBy = "lovedIngredients", fetch = FetchType.LAZY)
 	private Set<UserModel> usersLoveMe;
