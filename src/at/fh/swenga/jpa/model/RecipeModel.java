@@ -44,10 +44,10 @@ public class RecipeModel implements java.io.Serializable {
 	@Column(nullable = false)
 	private Date lastEdited;
 
-	@Column(nullable = false, length = 30)
+	@Column(nullable = false, length = 100)
 	private String title;
 
-	@Column(nullable = false, length = 500)
+	@Column(nullable = false, length = 5000)
 	private String description;
 
 	@ManyToOne(cascade = CascadeType.PERSIST)

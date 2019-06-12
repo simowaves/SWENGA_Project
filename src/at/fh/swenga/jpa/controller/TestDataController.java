@@ -1,5 +1,6 @@
 package at.fh.swenga.jpa.controller;
 
+import java.util.Date;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,9 @@ import at.fh.swenga.jpa.dao.UserRepository;
 import at.fh.swenga.jpa.dao.UserRoleRepository;
 import at.fh.swenga.jpa.model.AllergieModel;
 import at.fh.swenga.jpa.model.CategorieModel;
+import at.fh.swenga.jpa.model.IngredientAmountModel;
 import at.fh.swenga.jpa.model.IngredientModel;
+import at.fh.swenga.jpa.model.RecipeModel;
 import at.fh.swenga.jpa.model.UserModel;
 import at.fh.swenga.jpa.model.UserRoleModel;
 
@@ -284,7 +287,7 @@ public class TestDataController {
 		IngredientModel ing8 = new IngredientModel ("Plum tomatoes", true, true);
 		ingredientRepository.save(ing8);
 		
-		IngredientModel ing9 = new IngredientModel ("Spaghetti", true, false); //so ein sauhaufen
+		IngredientModel ing9 = new IngredientModel ("Spaghetti", true, false);
 		ingredientRepository.save(ing9);
 		
 		IngredientModel ing10 = new IngredientModel ("Parmesan cheese", true, false);
@@ -379,7 +382,12 @@ public class TestDataController {
 		//----------------------------------------
 		//-------------- RECIPE_MODEL
 		//----------------------------------------
-
+		 //RecipeModel(Date createDate, Date lastEdited, String title, String description, UserModel author,
+		//			Set<IngredientAmountModel> ingredientAmounts, boolean published, boolean enabled, Set<CategorieModel> categories)
+		Date now = new Date();
+		
+		 //RecipeModel rec1 = new RecipeModel(now, now, "Recipe 1!", "Desciption?", inngredientAmount,true, true, categories);
+		 //recipeRepository.save(rec1);
 		
 		//----------------------------------------
 		//-------------- COMMENT_MODEL
