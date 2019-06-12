@@ -18,7 +18,7 @@ import javax.persistence.TemporalType;
 import javax.persistence.Version;
  
 @Entity
-@Table(name = "allergie")
+@Table(name = "comments")
 public class CommentModel implements java.io.Serializable {
  
 	@Id
@@ -27,7 +27,7 @@ public class CommentModel implements java.io.Serializable {
 	private int id;
 	
 	@Column(nullable = false, length = 150)
-	private String comment;
+	private String content;
 	
 	//TODO: add time
 	// Date Only, no time part:
@@ -41,9 +41,9 @@ public class CommentModel implements java.io.Serializable {
 	@ManyToOne (cascade = CascadeType.PERSIST)
 	private UserModel author;
 
-	public CommentModel(String comment, Date createDate, RecipeModel recipe, UserModel author) {
+	public CommentModel(String content, Date createDate, RecipeModel recipe, UserModel author) {
 		super();
-		this.comment = comment;
+		this.content = content;
 		this.createDate = createDate;
 		this.recipe = recipe;
 		this.author = author;
@@ -57,12 +57,12 @@ public class CommentModel implements java.io.Serializable {
 		this.id = id;
 	}
 
-	public String getComment() {
-		return comment;
+	public String getContent() {
+		return content;
 	}
 
-	public void setComment(String comment) {
-		this.comment = comment;
+	public void setContent(String content) {
+		this.content = content;
 	}
 
 	public Date getCreateDate() {

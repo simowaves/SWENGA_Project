@@ -1,9 +1,7 @@
 package at.fh.swenga.jpa.model;
 
-import java.util.Date;
 import java.util.Set;
 
-import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,14 +9,13 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Version;
  
 @Entity
-@Table(name = "allergie")
+@Table(name = "categories")
 public class CategorieModel implements java.io.Serializable {
  
 	@Id
@@ -34,6 +31,13 @@ public class CategorieModel implements java.io.Serializable {
 	
 	@ManyToMany(mappedBy = "categories", fetch = FetchType.LAZY)
 	private Set<RecipeModel> recipes;
+	
+	@Version
+	long version;
+
+	public CategorieModel() {
+		super();
+	}
 
 	public CategorieModel(String title) {
 		super();

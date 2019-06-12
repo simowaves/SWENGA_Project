@@ -12,7 +12,7 @@ import javax.persistence.Table;
 import javax.persistence.Version;
 
 @Entity
-@Table(name = "ingredientAmounts")
+@Table(name = "ingredient_amounts")
 
 @NamedQueries({
 })

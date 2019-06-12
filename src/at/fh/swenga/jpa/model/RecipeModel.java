@@ -66,7 +66,6 @@ public class RecipeModel implements java.io.Serializable {
 	private Set<CategorieModel> categories;
 	
 	@OneToMany(mappedBy="recipe",fetch=FetchType.LAZY)
-    @OrderBy("createDate")
     private Set<CommentModel> comments;
 	
 	@ManyToMany(mappedBy = "reportedRecipes", fetch = FetchType.LAZY)

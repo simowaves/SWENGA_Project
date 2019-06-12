@@ -65,6 +65,7 @@ public class TestDataController {
 		//----------------------------------------
 		//-------------- USER_ROLE_MODEL
 		//----------------------------------------
+		/*
 		UserRoleModel adminRole = userRoleRepository.findTop1ByRole("ROLE_ADMIN");
 		if (adminRole == null)
 			adminRole = new UserRoleModel("ROLE_ADMIN");
@@ -76,11 +77,12 @@ public class TestDataController {
 		UserRoleModel godRole = userRoleRepository.findTop1ByRole("ROLE_GOD");
 		if (godRole == null)
 			godRole = new UserRoleModel("ROLE_GOD");
-		
+		*/
 		
 		//----------------------------------------
 		//-------------- USER_MODEL 
 		//-----------------------------------------
+		/*
 		UserModel tim = new UserModel("tim", "password", "tim@wtf.com", true);
 		tim.encryptPassword();
 		tim.addUserRole(userRole);
@@ -117,10 +119,11 @@ public class TestDataController {
 		user.addUserRole(userRole);
 		userRepository.save(user);
 		
-		
+		*/
 		//----------------------------------------
 		//-------------- ALLERGIE_MODEL
 		//----------------------------------------
+		/*
 		AllergieModel all1 = new AllergieModel("Egg");
 		allergieRepository.save(all1); 
 		
@@ -163,10 +166,11 @@ public class TestDataController {
 		AllergieModel all14 = new AllergieModel("Molluscs");
 		allergieRepository.save(all14);
 		
-		
+		*/
 		//----------------------------------------
 		//-------------- CATEGORIE_MODEL 
 		//----------------------------------------
+		
 		CategorieModel cat1 = new CategorieModel("Italian");
 		categorieRepository.save(cat1);
 		
@@ -260,7 +264,7 @@ public class TestDataController {
 		//----------------------------------------
 		//-------------- INGREDIENT_MODEL
 		//----------------------------------------
-
+		
 		IngredientModel ing1 = new IngredientModel ("Onion", true, true);
 		ingredientRepository.save(ing1);
 		
@@ -375,10 +379,11 @@ public class TestDataController {
 		IngredientModel ing38 = new IngredientModel ("Vermouth", true, true);
 		ingredientRepository.save(ing38);
 		
-				
+		
 		//----------------------------------------
 		//-------------- RECIPE_MODEL
 		//----------------------------------------
+		/*
 		IngredientAmountModel IngAm1 = new IngredientAmountModel("15", ing1);
 		IngredientAmountModel IngAm2 = new IngredientAmountModel("7", ing2);
 
@@ -390,14 +395,14 @@ public class TestDataController {
 		catSet1.add(cat1);
 		catSet1.add(cat2);
 
-
+		*/
 		//----------------------------------------
 		//-------------- RECIPE_MODEL
 		//----------------------------------------
 		Date now = new Date();
 
-		RecipeModel rec1 = new RecipeModel(now, now, "Test Recipe 1!", "Desciption?", julian, ingSet1 ,true, true, catSet1);
-		recipeRepository.save(rec1);
+		//RecipeModel rec1 = new RecipeModel(now, now, "Test Recipe 1!", "Desciption?", julian, ingSet1 ,true, true, catSet1);
+		//recipeRepository.save(rec1);
 		
 		//----------------------------------------
 		//-------------- COMMENT_MODEL

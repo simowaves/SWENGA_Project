@@ -16,7 +16,7 @@ import javax.persistence.Table;
 import javax.persistence.Version;
  
 @Entity
-@Table(name = "allergie")
+@Table(name = "allergies")
 public class AllergieModel implements java.io.Serializable {
  
 	@Id
@@ -35,6 +35,10 @@ public class AllergieModel implements java.io.Serializable {
 	
 	@Version
 	long version;
+
+	public AllergieModel() {
+		super();
+	}
 
 	public AllergieModel(String title) {
 		super();

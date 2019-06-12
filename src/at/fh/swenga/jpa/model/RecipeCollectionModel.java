@@ -18,7 +18,7 @@ import javax.persistence.Table;
 import javax.persistence.Version;
  
 @Entity
-@Table(name = "allergie")
+@Table(name = "recipe_collections")
 public class RecipeCollectionModel implements java.io.Serializable {
  
 	@Id
