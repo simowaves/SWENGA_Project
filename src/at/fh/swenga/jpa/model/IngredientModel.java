@@ -2,6 +2,7 @@ package at.fh.swenga.jpa.model;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -39,6 +40,15 @@ public class IngredientModel implements java.io.Serializable{
 
 	@ManyToMany(mappedBy = "ingredients", fetch = FetchType.LAZY)
 	private Set<RecipeModel> recipes;
+	
+	@ManyToMany(mappedBy = "lovedIngredients", fetch = FetchType.LAZY)
+	private Set<UserModel> usersLoveMe;
+	
+	@ManyToMany(mappedBy = "hatedIngredients", fetch = FetchType.LAZY)
+	private Set<UserModel> usersHateMe;
+	
+	@ManyToMany(fetch=FetchType.LAZY,cascade=CascadeType.PERSIST)
+	private Set<AllergieModel> allergies;
 	
 	@Version
 	long version;

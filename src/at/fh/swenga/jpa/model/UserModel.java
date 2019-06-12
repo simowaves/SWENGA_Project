@@ -12,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.Version;
@@ -42,6 +43,38 @@ public class UserModel implements java.io.Serializable {
 	@OneToMany(mappedBy="author",fetch=FetchType.LAZY)
     @OrderBy("title")
     private Set<RecipeModel> recipes;
+	
+	@ManyToMany(fetch=FetchType.LAZY,cascade=CascadeType.PERSIST)
+	private Set<IngredientModel> lovedIngredients;
+	
+	@ManyToMany(fetch=FetchType.LAZY,cascade=CascadeType.PERSIST)
+	private Set<IngredientModel> hatedIngredients;
+	
+	@ManyToMany(fetch=FetchType.LAZY,cascade=CascadeType.PERSIST)
+	private Set<AllergieModel> allergies;
+	
+	@OneToMany(mappedBy="author",fetch=FetchType.LAZY)
+    @OrderBy("createDate")
+    private Set<CommentModel> comments;
+	
+	@ManyToMany(fetch=FetchType.LAZY,cascade=CascadeType.PERSIST)
+	private Set<RecipeModel> reportedRecipes;
+	
+	@ManyToMany(fetch=FetchType.LAZY,cascade=CascadeType.PERSIST)
+	private Set<UserModel> usersIFollow;
+	
+	@ManyToMany(mappedBy = "usersIFollow", fetch = FetchType.LAZY)
+	private Set<UserModel> usersFollowingMe;
+	
+	@OneToMany(mappedBy="user",fetch=FetchType.LAZY)
+    @OrderBy("title")
+    private Set<RecipeCollectionModel> recipeCollections;
+	
+	@ManyToMany(fetch=FetchType.LAZY,cascade=CascadeType.PERSIST)
+	private Set<RecipeModel> likedRecipes;
+	
+	@OneToOne(cascade = CascadeType.ALL)
+	private PictureModel picture;
 	
 	@Version
 	long version;

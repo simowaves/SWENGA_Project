@@ -13,6 +13,9 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -21,41 +24,69 @@ import javax.persistence.Version;
 @Entity
 @Table(name = "recipes")
 
-
-@NamedQueries({
-})
+@NamedQueries({})
 public class RecipeModel implements java.io.Serializable {
-
 
 	@Id
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
-	//TODO: add time
+
+	// TODO: add time
 	// Date Only, no time part:
 	@Temporal(TemporalType.DATE)
 	@Column(nullable = false)
 	private Date createDate;
-	
+
+	// TODO: add time
+	// Date Only, no time part:
+	@Temporal(TemporalType.DATE)
+	@Column(nullable = false)
+	private Date lastEdited;
+
 	@Column(nullable = false, length = 30)
 	private String title;
-	
+
 	@Column(nullable = false, length = 500)
 	private String description;
-	
-	@ManyToOne (cascade = CascadeType.PERSIST)
+
+	@ManyToOne(cascade = CascadeType.PERSIST)
 	private UserModel author;
-	
-	@ManyToMany(fetch=FetchType.LAZY,cascade=CascadeType.PERSIST)
+
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
 	private Set<IngredientModel> ingredients;
 	
+	@Column(name = "published")
+	private boolean published;
+	
+	@Column(name = "enabled")
+	private boolean enabled;
+	
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+	private Set<CategorieModel> categories;
+	
+	@OneToMany(mappedBy="recipe",fetch=FetchType.LAZY)
+    @OrderBy("createDate")
+    private Set<CommentModel> comments;
+	
+	@ManyToMany(mappedBy = "reportedRecipes", fetch = FetchType.LAZY)
+	private Set<UserModel> reportingUsers;
+	
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+	private Set<RecipeCollectionModel> recipeCollections;
+	
+	@ManyToMany(mappedBy = "likedRecipes", fetch = FetchType.LAZY)
+	private Set<UserModel> likingUsers;
+	
+	@OneToOne(cascade = CascadeType.ALL)
+	private PictureModel picture;
+
 	@Version
 	long version;
-	
+
 	// TODO: Generate setter/getter Constructor
-	
+
 	public RecipeModel() {
 	}
-	
+
 }
