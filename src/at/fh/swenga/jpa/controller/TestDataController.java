@@ -276,7 +276,7 @@ public class TestDataController {
 		ingredientRepository.save(ing5);
 		
 		IngredientModel ing6 = new IngredientModel ("Red wine", true, true);
-		ingredientRepository.save(ing6);
+		ingredientRepository.save(ing6); 
 		
 		IngredientModel ing7 = new IngredientModel ("Tomatoes", true, true);
 		ingredientRepository.save(ing7);
