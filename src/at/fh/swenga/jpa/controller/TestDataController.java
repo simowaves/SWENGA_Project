@@ -284,7 +284,7 @@ public class TestDataController {
 		IngredientModel ing8 = new IngredientModel ("Plum tomatoes", true, true);
 		ingredientRepository.save(ing8);
 		
-		IngredientModel ing9 = new IngredientModel ("Spaghetti", true, false);
+		IngredientModel ing9 = new IngredientModel ("Spaghetti", true, false); //so ein sauhaufen
 		ingredientRepository.save(ing9);
 		
 		IngredientModel ing10 = new IngredientModel ("Parmesan cheese", true, false);
