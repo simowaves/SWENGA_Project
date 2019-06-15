@@ -287,6 +287,7 @@ public class TestDataController {
 		allSetUser1.add(all3);
 		allSetUser1.add(all6);
 		
+		/*
 		Set<IngredientModel> lovedIngUser1 = new HashSet<IngredientModel>();
 		lovedIngUser1.add(ing1);
 		lovedIngUser1.add(ing5);
@@ -296,17 +297,30 @@ public class TestDataController {
 		lovedIngUser1.add(ing25);
 		lovedIngUser1.add(ing30);
 		lovedIngUser1.add(ing35);
+		*/
 		
 		Set<IngredientModel> hatedIngUser1 = new HashSet<IngredientModel>();
 		hatedIngUser1.add(ing8);
 		hatedIngUser1.add(ing27);
 		hatedIngUser1.add(ing38);
 
-		UserModel tim = new UserModel("tim", "password", "tim@wtf.com", true, allSetUser1, lovedIngUser1, hatedIngUser1);
+		UserModel tim = new UserModel("tim", "password", "tim@wtf.com", true, allSetUser1);
 		tim.encryptPassword();
 		tim.addUserRole(userRole);
 		tim.addUserRole(adminRole);
 		tim.addUserRole(godRole);
+		/*
+		tim.addLovedIngredient(ing1);
+		tim.addLovedIngredient(ing5);
+		tim.addLovedIngredient(ing10);
+		tim.addLovedIngredient(ing15);
+		tim.addLovedIngredient(ing20);
+		tim.addLovedIngredient(ing25);
+		
+		tim.addHatedIngredient(ing38);
+		tim.addHatedIngredient(ing8);
+		tim.addHatedIngredient(ing27);
+		*/
 		userRepository.save(tim);
 		
 		Set<AllergieModel> allSetUser2 = new HashSet<AllergieModel>();
@@ -325,7 +339,7 @@ public class TestDataController {
 		hatedIngUser2.add(ing23);
 		hatedIngUser2.add(ing24);
 
-		UserModel julian = new UserModel("julian", "password", "julian@wtf.com", true, allSetUser2, lovedIngUser2, hatedIngUser2);
+		UserModel julian = new UserModel("julian", "password", "julian@wtf.com", true, allSetUser2/*, lovedIngUser2, hatedIngUser2*/);
 		tim.encryptPassword();
 		tim.addUserRole(userRole);
 		tim.addUserRole(adminRole);
@@ -347,7 +361,7 @@ public class TestDataController {
 		hatedIngUser3.add(ing20);
 		hatedIngUser3.add(ing21);
 
-		UserModel lukas = new UserModel("lukas", "password", "lukas@wtf.com", true, allSetUser3, lovedIngUser3, hatedIngUser3);
+		UserModel lukas = new UserModel("lukas", "password", "lukas@wtf.com", true, allSetUser3/*, lovedIngUser3, hatedIngUser3*/);
 		tim.encryptPassword();
 		tim.addUserRole(userRole); 
 		tim.addUserRole(adminRole);
@@ -369,7 +383,7 @@ public class TestDataController {
 		hatedIngUser3.add(ing31);
 		hatedIngUser3.add(ing27);
 
-		UserModel simone = new UserModel("simone", "password", "simone@wtf.com", true, allSetUser4, lovedIngUser4, hatedIngUser4);
+		UserModel simone = new UserModel("simone", "password", "simone@wtf.com", true, allSetUser4/*, lovedIngUser4, hatedIngUser4*/);
 		tim.encryptPassword();
 		tim.addUserRole(userRole);
 		tim.addUserRole(adminRole);

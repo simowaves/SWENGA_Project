@@ -93,6 +93,16 @@ public class UserModel implements java.io.Serializable {
 	}
 	
 	public UserModel(String userName, String password, String emailAddress, boolean enabled,
+			Set<AllergieModel> allergies) {
+		super();
+		this.userName = userName;
+		this.password = password;
+		this.emailAddress = emailAddress;
+		this.enabled = enabled;
+		this.allergies = allergies;
+	}
+	
+	public UserModel(String userName, String password, String emailAddress, boolean enabled,
 			Set<AllergieModel> allergies,Set<IngredientModel> lovedIngredients, Set<IngredientModel> hatedIngredients ) {
 		super();
 		this.userName = userName;
