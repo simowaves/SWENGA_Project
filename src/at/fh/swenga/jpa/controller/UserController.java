@@ -105,7 +105,7 @@ public class UserController {
 
 		if (user != null) {
 			model.addAttribute("user", user);
-			return "user";
+			return "userInfo";
 		} else {
 			model.addAttribute("errorMessage", "Couldn't find user " + id);
 			return "forward:/recipeList";
