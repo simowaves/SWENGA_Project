@@ -64,7 +64,7 @@ public class RecipeModel implements java.io.Serializable {
 	@Column(name = "enabled")
 	private boolean enabled;
 	
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
 	private List<CategorieModel> categories;
 	
 	@OneToMany(mappedBy="recipe",fetch=FetchType.LAZY)
