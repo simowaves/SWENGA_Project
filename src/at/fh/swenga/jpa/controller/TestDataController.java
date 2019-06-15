@@ -287,7 +287,7 @@ public class TestDataController {
 		allSetUser1.add(all3);
 		allSetUser1.add(all6);
 		
-		/*
+		
 		Set<IngredientModel> lovedIngUser1 = new HashSet<IngredientModel>();
 		lovedIngUser1.add(ing1);
 		lovedIngUser1.add(ing5);
@@ -297,7 +297,6 @@ public class TestDataController {
 		lovedIngUser1.add(ing25);
 		lovedIngUser1.add(ing30);
 		lovedIngUser1.add(ing35);
-		*/
 		
 		Set<IngredientModel> hatedIngUser1 = new HashSet<IngredientModel>();
 		hatedIngUser1.add(ing8);
@@ -309,6 +308,7 @@ public class TestDataController {
 		tim.addUserRole(userRole);
 		tim.addUserRole(adminRole);
 		tim.addUserRole(godRole);
+		tim.addLovedIngredient(ing38);
 		/*
 		tim.addLovedIngredient(ing1);
 		tim.addLovedIngredient(ing5);
@@ -319,8 +319,8 @@ public class TestDataController {
 		
 		tim.addHatedIngredient(ing38);
 		tim.addHatedIngredient(ing8);
-		tim.addHatedIngredient(ing27);
-		*/
+		tim.addHatedIngredient(ing27);*/
+		
 		userRepository.save(tim);
 		
 		Set<AllergieModel> allSetUser2 = new HashSet<AllergieModel>();
@@ -419,12 +419,6 @@ public class TestDataController {
 		simone.addUserFollowingMe(julian);
 		simone.addUserFollowingMe(tim);
 		simone.addUserFollowingMe(lukas);
-
-
-
-
-
-
 
 		// ----------------------------------------
 		// -------------- CATEGORIE_MODEL
