@@ -68,15 +68,15 @@ public class TestDataController {
 		// -------------- USER_ROLE_MODEL
 		// ----------------------------------------
 
-		UserRoleModel adminRole = userRoleRepository.findTop1ByRole("ROLE_ADMIN");
+		UserRoleModel adminRole = userRoleRepository.findUserRoleByRole("ROLE_ADMIN");
 		if (adminRole == null)
 			adminRole = new UserRoleModel("ROLE_ADMIN");
 
-		UserRoleModel userRole = userRoleRepository.findTop1ByRole("ROLE_USER");
+		UserRoleModel userRole = userRoleRepository.findUserRoleByRole("ROLE_USER");
 		if (userRole == null)
 			userRole = new UserRoleModel("ROLE_USER");
 
-		UserRoleModel godRole = userRoleRepository.findTop1ByRole("ROLE_GOD");
+		UserRoleModel godRole = userRoleRepository.findUserRoleByRole("ROLE_GOD");
 		if (godRole == null)
 			godRole = new UserRoleModel("ROLE_GOD");
 		

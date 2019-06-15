@@ -1,9 +1,15 @@
 package at.fh.swenga.jpa.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -21,48 +27,54 @@ public class UserController {
 	@Autowired
 	UserRoleRepository userRoleRepository;
 
-	@RequestMapping("/fillUsers")
-	@Transactional
-	public String fillData(Model model) {
-
-		UserRoleModel adminRole = userRoleRepository.findTop1ByRole("ROLE_ADMIN");
-		if (adminRole == null)
-			adminRole = new UserRoleModel("ROLE_ADMIN");
-
-		UserRoleModel userRole = userRoleRepository.findTop1ByRole("ROLE_USER");
-		if (userRole == null)
-			userRole = new UserRoleModel("ROLE_USER");
-
-		UserRoleModel godRole = userRoleRepository.findTop1ByRole("ROLE_GOD");
-		if (godRole == null)
-			godRole = new UserRoleModel("ROLE_GOD");
-
-		UserModel admin = new UserModel("admin", "password", "admin@wtf.com", true);
-		admin.encryptPassword();
-		admin.addUserRole(userRole);
-		admin.addUserRole(adminRole);
-		userRepository.save(admin);
-
-		UserModel tim = new UserModel("tim", "password", "admin@wtf.com", true);
-		tim.encryptPassword();
-		tim.addUserRole(userRole);
-		tim.addUserRole(adminRole);
-		tim.addUserRole(godRole);
-		userRepository.save(tim);
-
-		UserModel user = new UserModel("user", "password", "admin@wtf.com", true);
-		user.encryptPassword();
-		user.addUserRole(userRole);
-		userRepository.save(user);
-
-		return "forward:login";
-	}
-	
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String handleLogin() {
 		return "login";
 	}
-	
-	
+
+	// Spring 4: @RequestMapping(value = "/addVideo", method = RequestMethod.GET)
+	@GetMapping("/register")
+	public String showRegister(Model model) {
+		return "register";
+	}
+
+	// Spring 4: @RequestMapping(value = "/addVideo", method = RequestMethod.POST)
+	@PostMapping("/register")
+	public String register(@Valid UserModel newUserModel, BindingResult bindingResult, Model model) {
+
+		// Any errors? -> Create a String out of all errors and return to the page
+		if (bindingResult.hasErrors()) {
+			String errorMessage = "";
+			for (FieldError fieldError : bindingResult.getFieldErrors()) {
+				errorMessage += fieldError.getField() + " is invalid: " + fieldError.getCode() + "<br>";
+			}
+			model.addAttribute("errorMessage", errorMessage);
+
+			// Multiple ways to "forward"
+			return "forward:/register";
+		}
+
+		// Look for video in the List. One available -> Error
+		UserModel user = userRepository.findUserByUserName(newUserModel.getUserName());
+
+		if (user != null) {
+			model.addAttribute("errorMessage", "UserName already exists!<br>");
+			return "forward:/register";
+		} else if (newUserModel.getPassword() != "TO DO: Passwort2 aus html einfügen!!!") {
+			model.addAttribute("errorMessage", "Passwords are not matching!<br>");
+			return "forward:/register";
+		} else {
+
+			UserRoleModel userRole = userRoleRepository.findUserRoleByRole("ROLE_USER");
+
+			newUserModel.encryptPassword();
+			newUserModel.addUserRole(userRole);
+			userRepository.save(newUserModel);
+
+			model.addAttribute("message", "New user " + newUserModel.getUserName() + " added.");
+		}
+
+		return "forward:/login";
+	}
 
 }
