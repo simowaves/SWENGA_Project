@@ -1,7 +1,9 @@
 package at.fh.swenga.jpa.controller;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 import at.fh.swenga.jpa.dao.AllergieRepository;
 import at.fh.swenga.jpa.dao.CategorieRepository;
@@ -644,7 +645,7 @@ public class TestDataController {
 		ingSet1.add(IngAm52);
 		ingSet1.add(IngAm53);
 
-		Set<CategorieModel> catSet1 = new HashSet<CategorieModel>();
+		List<CategorieModel> catSet1 = new ArrayList<CategorieModel>();
 		catSet1.add(cat1);
 		catSet1.add(cat7);
 		catSet1.add(cat9);
@@ -652,20 +653,20 @@ public class TestDataController {
 		catSet1.add(cat17);
 		catSet1.add(cat26);
 
-		Set<CategorieModel> catSet2 = new HashSet<CategorieModel>();
+		List<CategorieModel> catSet2 = new ArrayList<CategorieModel>();
 		catSet1.add(cat5);
 		catSet1.add(cat27);
 
-		Set<CategorieModel> catSet3 = new HashSet<CategorieModel>();
+		List<CategorieModel> catSet3 = new ArrayList<CategorieModel>();
 		catSet1.add(cat7);
 		catSet1.add(cat11);
 
-		Set<CategorieModel> catSet4 = new HashSet<CategorieModel>();
+		List<CategorieModel> catSet4 = new ArrayList<CategorieModel>();
 		catSet1.add(cat7);
 		catSet1.add(cat9);
 		catSet1.add(cat27);
 
-		Set<CategorieModel> catSet5 = new HashSet<CategorieModel>();
+		List<CategorieModel> catSet5 = new ArrayList<CategorieModel>();
 		catSet1.add(cat1);
 		catSet1.add(cat7);
 

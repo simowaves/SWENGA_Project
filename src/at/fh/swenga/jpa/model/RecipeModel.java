@@ -1,7 +1,9 @@
 package at.fh.swenga.jpa.model;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -16,7 +18,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -64,7 +65,7 @@ public class RecipeModel implements java.io.Serializable {
 	private boolean enabled;
 	
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-	private Set<CategorieModel> categories;
+	private List<CategorieModel> categories;
 	
 	@OneToMany(mappedBy="recipe",fetch=FetchType.LAZY)
     private Set<CommentModel> comments;
@@ -89,7 +90,7 @@ public class RecipeModel implements java.io.Serializable {
 	}
 
 	public RecipeModel(Date createDate, Date lastEdited, String title, String description, UserModel author,
-			Set<IngredientAmountModel> ingredientAmounts, boolean published, boolean enabled, Set<CategorieModel> categories) {
+			Set<IngredientAmountModel> ingredientAmounts, boolean published, boolean enabled, List<CategorieModel> categories) {
 		super();
 		this.createDate = createDate;
 		this.lastEdited = lastEdited;
@@ -179,16 +180,16 @@ public class RecipeModel implements java.io.Serializable {
 		this.enabled = enabled;
 	}
 
-	public Set<CategorieModel> getCategories() {
+	public List<CategorieModel> getCategories() {
 		return categories;
 	}
 
-	public void setCategories(Set<CategorieModel> categories) {
+	public void setCategories(List<CategorieModel> categories) {
 		this.categories = categories;
 	}
 	
 	public void addCategorie(CategorieModel categorie) {
-		if (categories==null) categories = new HashSet<CategorieModel>();
+		if (categories==null) categories = new ArrayList<CategorieModel>();
 		categories.add(categorie);
 	}
 
