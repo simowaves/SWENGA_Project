@@ -32,10 +32,7 @@
 	<context:property-placeholder
 		location="classpath:db.properties" />
 
-	<!-- 
-	<sec:global-method-security
-	secured-annotations="enabled" />
-	-->
+	<!-- <sec:global-method-security secured-annotations="enabled" /> -->
 
 	<!-- - POJOs labeled with the @Controller and @Service annotations are auto-detected. -->
 	<context:component-scan
@@ -67,21 +64,15 @@
 		class="org.thymeleaf.spring5.SpringTemplateEngine">
 		<property name="templateResolver" ref="templateResolver" />
 		<property name="enableSpringELCompiler" value="true" />
+		<property name="additionalDialects">
+			<set>
+				<bean class="org.thymeleaf.extras.springsecurity4.dialect.SpringSecurityDialect" />
+			</set>
+		</property>
 	</bean>
 
 	<bean class="org.thymeleaf.spring5.view.ThymeleafViewResolver">
 		<property name="templateEngine" ref="templateEngine" />
-	</bean>
-
-	<bean id="dataSource"
-		class="org.apache.commons.dbcp2.BasicDataSource">
-		<property name="driverClassName"
-			value="com.mysql.jdbc.Driver" />
-		<property name="url" value="${db.url}" />
-		<property name="username" value="${db.username}" />
-		<property name="password" value="${db.password}" />
-		<property name="initialSize" value="2" />
-		<property name="maxTotal" value="5" />
 	</bean>
 
 	<bean
