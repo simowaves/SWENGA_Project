@@ -49,6 +49,8 @@
 		can handle it, otherwise return 404 -->
 	<mvc:default-servlet-handler />
 
+
+
 	<!-- Für Excel unter anderem... <bean class="org.springframework.web.servlet.view.XmlViewResolver"> 
 		<property name="location"> <value>/WEB-INF/spring-views.xml</value> </property> 
 		</bean> -->
