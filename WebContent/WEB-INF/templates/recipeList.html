@@ -18,12 +18,16 @@
 <div th:replace="~{includes/bootstrap :: bootstrapCSS}" />
 
 <!-- TEMP -->
-	<!-- Local Fav Icon CSS -->
-	<link href="../../sb-admin-2/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-	<!-- Font CSS -->
-	  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-	<!-- Main Custom Local CSS -->
-	<link href="../../sb-admin-2/css/sb-admin-2.min.css" rel="stylesheet" type="text/css">
+<!-- Local Fav Icon CSS -->
+<link href="../../sb-admin-2/vendor/fontawesome-free/css/all.min.css"
+	rel="stylesheet" type="text/css">
+<!-- Font CSS -->
+<link
+	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+	rel="stylesheet">
+<!-- Main Custom Local CSS -->
+<link href="../../sb-admin-2/css/sb-admin-2.min.css" rel="stylesheet"
+	type="text/css">
 <!-- TEMP END -->
 
 <!--  JS temporaly  here, should be at bottom of html to speed loading time-->
@@ -75,8 +79,8 @@
 					data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
 						<h6 class="collapse-header">Custom Components:</h6>
-						<a class="collapse-item" href="sb-admin-2/buttons.html">Buttons</a> <a
-							class="collapse-item" href="sb-admin-2/cards.html">Cards</a>
+						<a class="collapse-item" href="sb-admin-2/buttons.html">Buttons</a>
+						<a class="collapse-item" href="sb-admin-2/cards.html">Cards</a>
 					</div>
 				</div></li>
 
@@ -366,43 +370,43 @@
 					<div class="card-deck">
 
 						<!-- Basic Card Example -->
-						<div th:each="recipe : ${recipes}">
-						
-							<div class="col-xl-4 col-md-6 col-sm-12 mb-4 px-0">
-								<div class="card shadow ">
-									<!-- Image -->
-									<div
-										style="position: relative; overflow: hidden; padding-bottom: 100%;">
-										<img
-										style="position: absolute;"
+						<div th:each="recipe : ${recipes}"
+							class="col-xl-4 col-md-6 col-sm-12 mb-4 px-0">
+							<div class="card shadow ">
+								<!-- Image -->
+								<div
+									style="position: relative; overflow: hidden; padding-bottom: 100%;">
+									<img style="position: absolute;"
 										src="https://images.unsplash.com/photo-1559562649-21c0be156e0d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60"
 										alt="">
-<!-- 										<img class="img-fluid card-img-top" -->
-<!-- 											style="position: absolute;" -->
-<!-- 											th:src="@{download(documentId=${recipe.document.id})}" -->
-<!-- 											alt=""> -->
+									<!-- 										<img class="img-fluid card-img-top" -->
+									<!-- 											style="position: absolute;" -->
+									<!-- 											th:src="@{download(documentId=${recipe.document.id})}" -->
+									<!-- 											alt=""> -->
+								</div>
+								<!-- card body -->
+								<div class="card-body">
+									<div class="row">
+										<div class="col-8">
+											<h6 class="m-0 font-weight-bold text-primary"
+												th:text="${recipe.title}"></h6>
+											by <a href="#" th:text="${recipe.author.userName}"></a>
+										</div>
+										<div class="col-4 text-right">
+											<a href="#" class="btn btn-danger btn-circle"> <i
+												class="fas fa-heart"></i>
+											</a>
+										</div>
 									</div>
-									<!-- card body -->
-									<div class="card-body">
-										<div class="row">
-											<div class="col-8">
-												<h6 class="m-0 font-weight-bold text-primary" th:text="${recipe.title}"></h6>
-												by <a href="#" th:text="${recipe.author.userName}"></a> 
-											</div>
-											<div class="col-4 text-right">
-												<a href="#" class="btn btn-danger btn-circle"> <i
-													class="fas fa-heart"></i>
-												</a>
-											</div>
-										</div>
-										<div th:each="categorie : ${recipe.categories}">
-											<a href="#" class="badge badge-info" th:text="${categorie.title}" ></a> 
-										</div>
+									<div th:each="categorie : ${recipe.categories}">
+										<a href="#" class="badge badge-info"
+											th:text="${categorie.title}"></a>
 									</div>
 								</div>
 							</div>
+
 						</div>
-						
+
 
 						<!-- Basic Card Example -->
 						<div class="col-xl-4 col-md-6 col-sm-12 mb-4 px-0">
