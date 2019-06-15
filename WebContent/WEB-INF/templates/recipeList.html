@@ -92,10 +92,11 @@
 								<!-- card body -->
 								<div class="card-body">
 									<div class="row">
-										<div class="col-8 ml-0 mr-0">
+										<div class="col-8">
 											<a class="m-0 font-weight-bold text-primary"
 												th:href="@{/showRecipe(id=${recipe.id})}"
-												th:text="${recipe.title}"></a> by <a
+												th:text="${recipe.title}">
+												</a> by <a
 												th:href="@{/showUser(id=${recipe.author.id})}"
 												th:text="${recipe.author.userName}"></a>
 										</div>
