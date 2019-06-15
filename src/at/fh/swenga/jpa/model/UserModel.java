@@ -42,7 +42,7 @@ public class UserModel implements java.io.Serializable {
 	@Column(name = "enabled", nullable = false)
 	private boolean enabled;
  
-	@ManyToMany(fetch=FetchType.LAZY,cascade=CascadeType.ALL)
+	@ManyToMany(fetch=FetchType.LAZY,cascade=CascadeType.PERSIST)
 	private Set<UserRoleModel> userRoles;
 	
 	@OneToMany(mappedBy="author",fetch=FetchType.LAZY)
