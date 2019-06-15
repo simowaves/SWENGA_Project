@@ -321,6 +321,7 @@ public class TestDataController {
 		tim.addHatedIngredient(ing8);
 		tim.addHatedIngredient(ing27);
 		*/
+		tim.addHatedIngredient(ing15);
 		userRepository.save(tim);
 		
 		Set<AllergieModel> allSetUser2 = new HashSet<AllergieModel>();
