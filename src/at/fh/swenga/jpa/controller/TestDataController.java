@@ -349,7 +349,7 @@ public class TestDataController {
 
 		UserModel lukas = new UserModel("lukas", "password", "lukas@wtf.com", true, allSetUser3, lovedIngUser3, hatedIngUser3);
 		tim.encryptPassword();
-		tim.addUserRole(userRole);
+		tim.addUserRole(userRole); 
 		tim.addUserRole(adminRole);
 		userRepository.save(lukas);
 		
