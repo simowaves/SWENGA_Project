@@ -67,7 +67,7 @@ public class RecipeModel implements java.io.Serializable {
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
 	private Set<CategorieModel> categories;
 
-	@OneToMany(mappedBy = "recipe", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "recipe", fetch = FetchType.EAGER)
 	private Set<CommentModel> comments;
 
 	@ManyToMany(mappedBy = "reportedRecipes", fetch = FetchType.LAZY)

@@ -758,31 +758,31 @@ public class TestDataController {
 		// -------------- COMMENT_MODEL
 		// ----------------------------------------
 		
-		CommentModel com1 = new CommentModel("Super recepie!", now, rec1, tim);
+		CommentModel com1 = new CommentModel("Super recepie!", now, rec1, simone);
 		commentRepository.save(com1);
 		CommentModel com2 = new CommentModel("It tastes really great.", now, rec1, tim);
 		commentRepository.save(com2);
 
-		CommentModel com3 = new CommentModel("I really liked it. Fun to cook!", now, rec2, tim);
+		CommentModel com3 = new CommentModel("I really liked it. Fun to cook!", now, rec2, lukas);
 		commentRepository.save(com3);
-		CommentModel com4 = new CommentModel("Tasted wonderfull!", now, rec2, tim);
+		CommentModel com4 = new CommentModel("Tasted wonderfull!", now, rec2, simone);
 		commentRepository.save(com4);
 
 		
-		CommentModel com5 = new CommentModel("Great Paella, i recommend it!", now, rec3, tim);
+		CommentModel com5 = new CommentModel("Great Paella, i recommend it!", now, rec3, julian);
 		commentRepository.save(com5);
 		CommentModel com6 = new CommentModel("Try to cook it yourself! It is easy and very good.", now, rec3, tim);
 		commentRepository.save(com6);
 
 		
-		CommentModel com7 = new CommentModel("I enjoyed the food, but my wife didn't.", now, rec4, tim);
+		CommentModel com7 = new CommentModel("I enjoyed the food, but my wife didn't.", now, rec4, simone);
 		commentRepository.save(com7);
-		CommentModel com8 = new CommentModel("Do you find the errror Lukas? #GrammarNazi", now, rec4, tim);
+		CommentModel com8 = new CommentModel("Do you find the errror Lukas? #GrammarNazi", now, rec4, julian);
 		commentRepository.save(com8);
 		
-		CommentModel com9 = new CommentModel("You can use this basic recepie and add what ever you want.", now, rec5, tim);
+		CommentModel com9 = new CommentModel("You can use this basic recepie and add what ever you want.", now, rec5, julian);
 		commentRepository.save(com9);
-		CommentModel com10 = new CommentModel("If it is good enough for me, it is good enough for everyone!", now, rec5, tim);
+		CommentModel com10 = new CommentModel("If it is good enough for me, it is good enough for everyone!", now, rec5, lukas);
 		commentRepository.save(com10);
 
 		// ----------------------------------------
