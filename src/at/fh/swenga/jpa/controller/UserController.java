@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import at.fh.swenga.jpa.dao.RecipeCollectionRepository;
 import at.fh.swenga.jpa.dao.UserRepository;
 import at.fh.swenga.jpa.dao.UserRoleRepository;
+import at.fh.swenga.jpa.model.RecipeCollectionModel;
 import at.fh.swenga.jpa.model.UserModel;
 import at.fh.swenga.jpa.model.UserRoleModel;
 
@@ -26,6 +28,9 @@ public class UserController {
 
 	@Autowired
 	UserRoleRepository userRoleRepository;
+	
+	@Autowired
+	RecipeCollectionRepository recipeCollectionRepository;
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String handleLogin() {
@@ -56,25 +61,37 @@ public class UserController {
 
 		// Look for video in the List. One available -> Error
 		UserModel user = userRepository.findUserByUserName(newUserModel.getUserName());
+		String password = newUserModel.getPassword();
 
 		if (user != null) {
 			model.addAttribute("errorMessage", "UserName already exists!<br>");
 			return "register";
-		} else if (newUserModel.getPassword() != comparePassword) {
+		/*} else if (password.toString() != comparePassword.toString()) {
 			model.addAttribute("errorMessage", "Passwords are not matching!<br>");
-			return "register";
+			return "register";*/
 		} else {
 
 			UserRoleModel userRole = userRoleRepository.findUserRoleByRole("ROLE_USER");
 
 			newUserModel.encryptPassword();
-			newUserModel.addUserRole(userRole);
+			//newUserModel.addUserRole(userRole);
+			newUserModel.setEnabled(true);
+			
+			
 			userRepository.save(newUserModel);
+			
+			userRole.addUser(newUserModel);
+			
+			userRoleRepository.save(userRole);
+			
+			
+			//RecipeCollectionModel recipeCollection = new RecipeCollectionModel("favorites", newUserModel);
+			//recipeCollectionRepository.save(recipeCollection);
 
 			model.addAttribute("message", "New user " + newUserModel.getUserName() + " added.");
 		}
 
-		return "forward:/login";
+		return "login";
 	}
 
 }
