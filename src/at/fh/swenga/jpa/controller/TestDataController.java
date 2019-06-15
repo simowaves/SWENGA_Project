@@ -648,21 +648,21 @@ public class TestDataController {
 
 
 		Set<CategorieModel> catSet2 = new HashSet<CategorieModel>();
-		catSet1.add(cat5);
-		catSet1.add(cat27);
+		catSet2.add(cat5);
+		catSet2.add(cat27);
 
 		Set<CategorieModel> catSet3 = new HashSet<CategorieModel>();
-		catSet1.add(cat7);
-		catSet1.add(cat11);
+		catSet3.add(cat7);
+		catSet3.add(cat11);
 
 		Set<CategorieModel> catSet4 = new HashSet<CategorieModel>();
-		catSet1.add(cat7);
-		catSet1.add(cat9);
-		catSet1.add(cat27);
+		catSet4.add(cat7);
+		catSet4.add(cat9);
+		catSet4.add(cat27);
 
 		Set<CategorieModel> catSet5 = new HashSet<CategorieModel>();
-		catSet1.add(cat1);
-		catSet1.add(cat7);
+		catSet5.add(cat1);
+		catSet5.add(cat7);
 		
 		Set<CategorieModel> catSet6 = new HashSet<CategorieModel>();
 		catSet6.add(cat1);
