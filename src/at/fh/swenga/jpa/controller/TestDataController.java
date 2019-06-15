@@ -567,6 +567,10 @@ public class TestDataController {
 		IngredientAmountModel IngAm51 = new IngredientAmountModel("", ing33);
 		IngredientAmountModel IngAm52 = new IngredientAmountModel("400g", ing37);
 		IngredientAmountModel IngAm53 = new IngredientAmountModel("2 wine glasses of", ing38);
+		
+		IngredientAmountModel IngAm54 = new IngredientAmountModel("2  glasses of", ing38);
+		IngredientAmountModel IngAm55 = new IngredientAmountModel("", ing33);
+
 
 		Set<IngredientAmountModel> ingSet1 = new HashSet<IngredientAmountModel>();
 		ingSet1.add(IngAm1);
@@ -582,53 +586,57 @@ public class TestDataController {
 		ingSet1.add(IngAm11);
 
 		Set<IngredientAmountModel> ingSet2 = new HashSet<IngredientAmountModel>();
-		ingSet1.add(IngAm12);
-		ingSet1.add(IngAm13);
-		ingSet1.add(IngAm14);
-		ingSet1.add(IngAm15);
-		ingSet1.add(IngAm16);
-		ingSet1.add(IngAm17);
-		ingSet1.add(IngAm18);
-		ingSet1.add(IngAm19);
-		ingSet1.add(IngAm20);
+		ingSet2.add(IngAm12);
+		ingSet2.add(IngAm13);
+		ingSet2.add(IngAm14);
+		ingSet2.add(IngAm15);
+		ingSet2.add(IngAm16);
+		ingSet2.add(IngAm17);
+		ingSet2.add(IngAm18);
+		ingSet2.add(IngAm19);
+		ingSet2.add(IngAm20);
 
 		Set<IngredientAmountModel> ingSet3 = new HashSet<IngredientAmountModel>();
-		ingSet1.add(IngAm21);
-		ingSet1.add(IngAm22);
-		ingSet1.add(IngAm23);
-		ingSet1.add(IngAm24);
-		ingSet1.add(IngAm25);
-		ingSet1.add(IngAm26);
-		ingSet1.add(IngAm27);
-		ingSet1.add(IngAm28);
-		ingSet1.add(IngAm29);
-		ingSet1.add(IngAm30);
-		ingSet1.add(IngAm31);
-		ingSet1.add(IngAm32);
-		ingSet1.add(IngAm33);
-		ingSet1.add(IngAm34);
-		ingSet1.add(IngAm35);
+		ingSet3.add(IngAm21);
+		ingSet3.add(IngAm22);
+		ingSet3.add(IngAm23);
+		ingSet3.add(IngAm24);
+		ingSet3.add(IngAm25);
+		ingSet3.add(IngAm26);
+		ingSet3.add(IngAm27);
+		ingSet3.add(IngAm28);
+		ingSet3.add(IngAm29);
+		ingSet3.add(IngAm30);
+		ingSet3.add(IngAm31);
+		ingSet3.add(IngAm32);
+		ingSet3.add(IngAm33);
+		ingSet3.add(IngAm34);
+		ingSet3.add(IngAm35);
 
 		Set<IngredientAmountModel> ingSet4 = new HashSet<IngredientAmountModel>();
-		ingSet1.add(IngAm37);
-		ingSet1.add(IngAm38);
-		ingSet1.add(IngAm39);
-		ingSet1.add(IngAm40);
-		ingSet1.add(IngAm41);
-		ingSet1.add(IngAm42);
-		ingSet1.add(IngAm43);
-		ingSet1.add(IngAm44);
+		ingSet4.add(IngAm37);
+		ingSet4.add(IngAm38);
+		ingSet4.add(IngAm39);
+		ingSet4.add(IngAm40);
+		ingSet4.add(IngAm41);
+		ingSet4.add(IngAm42);
+		ingSet4.add(IngAm43);
+		ingSet4.add(IngAm44);
 
 		Set<IngredientAmountModel> ingSet5 = new HashSet<IngredientAmountModel>();
-		ingSet1.add(IngAm45);
-		ingSet1.add(IngAm46);
-		ingSet1.add(IngAm47);
-		ingSet1.add(IngAm48);
-		ingSet1.add(IngAm49);
-		ingSet1.add(IngAm50);
-		ingSet1.add(IngAm51);
-		ingSet1.add(IngAm52);
-		ingSet1.add(IngAm53);
+		ingSet5.add(IngAm45);
+		ingSet5.add(IngAm46);
+		ingSet5.add(IngAm47);
+		ingSet5.add(IngAm48);
+		ingSet5.add(IngAm49);
+		ingSet5.add(IngAm50);
+		ingSet5.add(IngAm51);
+		ingSet5.add(IngAm52);
+		ingSet5.add(IngAm53);
+		
+		Set<IngredientAmountModel> ingSet6 = new HashSet<IngredientAmountModel>();
+		ingSet5.add(IngAm54);
+		ingSet5.add(IngAm55);
 
 		Set<CategorieModel> catSet1 = new HashSet<CategorieModel>();
 		catSet1.add(cat1);
@@ -639,21 +647,24 @@ public class TestDataController {
 		catSet1.add(cat26);
 
 		Set<CategorieModel> catSet2 = new HashSet<CategorieModel>();
-		catSet1.add(cat5);
-		catSet1.add(cat27);
+		catSet2.add(cat5);
+		catSet2.add(cat27);
 
 		Set<CategorieModel> catSet3 = new HashSet<CategorieModel>();
-		catSet1.add(cat7);
-		catSet1.add(cat11);
+		catSet3.add(cat7);
+		catSet3.add(cat11);
 
 		Set<CategorieModel> catSet4 = new HashSet<CategorieModel>();
-		catSet1.add(cat7);
-		catSet1.add(cat9);
-		catSet1.add(cat27);
+		catSet4.add(cat7);
+		catSet4.add(cat9);
+		catSet4.add(cat27);
 
 		Set<CategorieModel> catSet5 = new HashSet<CategorieModel>();
-		catSet1.add(cat1);
-		catSet1.add(cat7);
+		catSet5.add(cat1);
+		catSet5.add(cat7);
+		
+		Set<CategorieModel> catSet6 = new HashSet<CategorieModel>();
+		catSet6.add(cat1);
 
 		// ----------------------------------------
 		// -------------- RECIPE_MODEL
@@ -746,6 +757,9 @@ public class TestDataController {
 						+ "\n" + "",
 				julian, ingSet5, true, true, catSet5);
 		recipeRepository.save(rec5);
+		
+		RecipeModel rec6 = new RecipeModel(now, now, "Penis", "Penis Penis Penis Penis", lukas, ingSet6, true, true, catSet6);
+		recipeRepository.save(rec6);
 
 		// ----------------------------------------
 		// -------------- COMMENT_MODEL
