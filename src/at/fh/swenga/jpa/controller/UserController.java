@@ -4,7 +4,6 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -12,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import at.fh.swenga.jpa.dao.UserRepository;
 import at.fh.swenga.jpa.dao.UserRoleRepository;
@@ -40,7 +40,7 @@ public class UserController {
 
 	// Spring 4: @RequestMapping(value = "/addVideo", method = RequestMethod.POST)
 	@PostMapping("/register")
-	public String register(@Valid UserModel newUserModel, BindingResult bindingResult, Model model) {
+	public String register(@Valid UserModel newUserModel, BindingResult bindingResult, Model model, @RequestParam("passwordCheck") String comparePassword) {
 
 		// Any errors? -> Create a String out of all errors and return to the page
 		if (bindingResult.hasErrors()) {
@@ -60,7 +60,7 @@ public class UserController {
 		if (user != null) {
 			model.addAttribute("errorMessage", "UserName already exists!<br>");
 			return "forward:/register";
-		} else if (newUserModel.getPassword() != "TO DO: Passwort2 aus html einfügen!!!") {
+		} else if (newUserModel.getPassword() != comparePassword) {
 			model.addAttribute("errorMessage", "Passwords are not matching!<br>");
 			return "forward:/register";
 		} else {
