@@ -357,18 +357,19 @@
 
 
 
-					<!-- Page Heading -->
-					<h1 class="h3 mb-4 text-gray-800">Spaghetti Carbonara</h1>
-
-
-					<!-- Recipe Image -->
+					<!-- Recipe Content -->
+					<h1 class="h3 mb-4 text-gray-800" th:value="${recipe.title}">Spaghetti
+						Carbonara</h1>
 
 					<div class="row">
+						<!-- Recipe Image TODO! -->
 						<div class="col-md-8">
 							<img
 								src="https://images.unsplash.com/photo-1559852925-44ce7f97bc36"
-								class="img-fluid" alt="Responsive image">
+								class="img-fluid rounded" alt="Responsive image">
 						</div>
+
+						<!-- Recipe Ingredients -->
 						<div class="col-md-4">
 							<!-- Dropdown Card Example -->
 							<div class="card shadow md-4">
@@ -387,28 +388,22 @@
 											aria-labelledby="dropdownMenuLink">
 											<div class="dropdown-header">Dropdown Header:</div>
 											<a class="dropdown-item" href="#">Copy Text</a>
+											<!-- Missing implementation -->
 										</div>
 									</div>
 								</div>
-								<!-- Card Body -->
+
+								<!-- Card Content - Ingredients -->
 								<div class="card-body">
 									<ul class="list-group list-group-flush">
-										<li class="list-group-item">2 cloves of garlic</li>
-										<li class="list-group-item">1 onion</li>
-										<li class="list-group-item">2 sprigs of fresh rosemary</li>
-										<li class="list-group-item">6 rashers</li>
-										<li class="list-group-item">dry-cured</li>
-
-									6 rashers dry-cured higher-welfare smoked streaky bacon olive
-									oil 500 g minced beef 200 ml red wine 1 x 280 g jar of
-									sun-dried tomatoes 2 x 400 g tins of plum tomatoes 500 g dried
-									spaghetti Parmesan cheese extra virgin olive oil
+										<li class="list-group-item"
+											th:each="ingredientAmounts : ${recipe.ingredientAmounts}"
+											th:value="${ingredientAmounts.amount}">test</li>
+									</ul>
 								</div>
 							</div>
 						</div>
-
 					</div>
-
 
 					<!-- Dropdown Card Example -->
 					<div class="card shadow mb-4">
@@ -431,34 +426,16 @@
 							</div>
 						</div>
 						<!-- Card Body -->
-						<div class="card-body">Preheat the oven to 180ºC/350ºF/gas
-							4. Peel and finely chop the garlic and onions, pick and finely
-							chop the rosemary, then finely slice the bacon. Heat a splash of
-							oil in a casserole pan on a medium heat, add the bacon, rosemary,
-							garlic and onion and cook for 5 minutes, or until softened,
-							stirring occasionally. Add the minced beef, breaking it apart
-							with the back of a spoon, then cook for 2 to 3 minutes, or until
-							starting to brown, then pour in the wine. Leave to bubble and
-							cook away. Meanwhile, drain and tip the sun-dried tomatoes into a
-							food processor, blitz to a paste, then add to the pan with the
-							tomatoes. Stir well, break the plum tomatoes apart a little.
-							Cover with a lid then place in the oven for 1 hour, removing the
-							lid and giving it a stir after 30 minutes – if it looks a little
-							dry at this stage, add a splash of water to help it along. About
-							10 minutes before the time is up, cook the spaghetti in boiling
-							salted water according to the packet instructions. Once the
-							spaghetti is cooked, drain, reserving a mugful of cooking water,
-							then return to the pan with a few spoons of Bolognese, a good
-							grating of Parmesan and a drizzle of extra virgin olive oil. Toss
-							to coat the spaghetti, loosening with a splash of cooking water,
-							if needed. Divide the spaghetti between plates or bowls, add a
-							good spoonful of Bolognese to each, then serve with a fine
-							grating of Parmesan.</div>
+						<div class="card-body" value="${recipe.description}">
+						</div>
 					</div>
 					<!-- /.container-fluid -->
 
 				</div>
 				<!-- End of Main Content -->
+
+
+
 
 				<!-- Footer -->
 				<footer class="sticky-footer bg-white">
