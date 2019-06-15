@@ -65,7 +65,7 @@ public class RecipeModel implements java.io.Serializable {
 	private boolean enabled;
 	
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
-	private List<CategorieModel> categories;
+	private Set<CategorieModel> categories;
 	
 	@OneToMany(mappedBy="recipe",fetch=FetchType.LAZY)
     private Set<CommentModel> comments;
@@ -90,7 +90,7 @@ public class RecipeModel implements java.io.Serializable {
 	}
 
 	public RecipeModel(Date createDate, Date lastEdited, String title, String description, UserModel author,
-			Set<IngredientAmountModel> ingredientAmounts, boolean published, boolean enabled, List<CategorieModel> categories) {
+			Set<IngredientAmountModel> ingredientAmounts, boolean published, boolean enabled, Set<CategorieModel> categories) {
 		super();
 		this.createDate = createDate;
 		this.lastEdited = lastEdited;
@@ -180,16 +180,16 @@ public class RecipeModel implements java.io.Serializable {
 		this.enabled = enabled;
 	}
 
-	public List<CategorieModel> getCategories() {
+	public Set<CategorieModel> getCategories() {
 		return categories;
 	}
 
-	public void setCategories(List<CategorieModel> categories) {
+	public void setCategories(Set<CategorieModel> categories) {
 		this.categories = categories;
 	}
 	
 	public void addCategorie(CategorieModel categorie) {
-		if (categories==null) categories = new ArrayList<CategorieModel>();
+		if (categories==null) categories = new HashSet<CategorieModel>();
 		categories.add(categorie);
 	}
 

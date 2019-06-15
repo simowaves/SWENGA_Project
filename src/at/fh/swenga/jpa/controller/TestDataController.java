@@ -3,7 +3,6 @@ package at.fh.swenga.jpa.controller;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -639,7 +638,7 @@ public class TestDataController {
 		ingSet5.add(IngAm54);
 		ingSet5.add(IngAm55);
 
-		List<CategorieModel> catSet1 = new ArrayList<CategorieModel>();
+		Set<CategorieModel> catSet1 = new HashSet<CategorieModel>();
 		catSet1.add(cat1);
 		catSet1.add(cat7);
 		catSet1.add(cat9);
@@ -648,24 +647,24 @@ public class TestDataController {
 		catSet1.add(cat26);
 
 
-		List<CategorieModel> catSet2 = new ArrayList<CategorieModel>();
+		Set<CategorieModel> catSet2 = new HashSet<CategorieModel>();
 		catSet1.add(cat5);
 		catSet1.add(cat27);
 
-		List<CategorieModel> catSet3 = new ArrayList<CategorieModel>();
+		Set<CategorieModel> catSet3 = new HashSet<CategorieModel>();
 		catSet1.add(cat7);
 		catSet1.add(cat11);
 
-		List<CategorieModel> catSet4 = new ArrayList<CategorieModel>();
+		Set<CategorieModel> catSet4 = new HashSet<CategorieModel>();
 		catSet1.add(cat7);
 		catSet1.add(cat9);
 		catSet1.add(cat27);
 
-		List<CategorieModel> catSet5 = new ArrayList<CategorieModel>();
+		Set<CategorieModel> catSet5 = new HashSet<CategorieModel>();
 		catSet1.add(cat1);
 		catSet1.add(cat7);
 		
-		List<CategorieModel> catSet6 = new ArrayList<CategorieModel>();
+		Set<CategorieModel> catSet6 = new HashSet<CategorieModel>();
 		catSet6.add(cat1);
 
 
