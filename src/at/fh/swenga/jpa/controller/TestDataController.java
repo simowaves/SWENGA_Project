@@ -301,6 +301,9 @@ public class TestDataController {
 		hatedIngUser1.add(ing8);
 		hatedIngUser1.add(ing27);
 		hatedIngUser1.add(ing38);
+		
+		Set<UserModel> usersFollowingMeUser1 = new HashSet<UserModel>();
+
 
 		UserModel tim = new UserModel("tim", "password", "tim@wtf.com", true, allSetUser1, lovedIngUser1, hatedIngUser1);
 		tim.encryptPassword();
@@ -385,6 +388,9 @@ public class TestDataController {
 		user.encryptPassword();
 		user.addUserRole(userRole);
 		userRepository.save(user);
+		
+		
+	
 
 
 
