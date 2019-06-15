@@ -635,8 +635,8 @@ public class TestDataController {
 		ingSet5.add(IngAm53);
 		
 		Set<IngredientAmountModel> ingSet6 = new HashSet<IngredientAmountModel>();
-		ingSet5.add(IngAm54);
-		ingSet5.add(IngAm55);
+		ingSet6.add(IngAm54);
+		ingSet6.add(IngAm55);
 
 		Set<CategorieModel> catSet1 = new HashSet<CategorieModel>();
 		catSet1.add(cat1);
@@ -648,21 +648,21 @@ public class TestDataController {
 
 
 		Set<CategorieModel> catSet2 = new HashSet<CategorieModel>();
-		catSet1.add(cat5);
-		catSet1.add(cat27);
+		catSet2.add(cat5);
+		catSet2.add(cat27);
 
 		Set<CategorieModel> catSet3 = new HashSet<CategorieModel>();
-		catSet1.add(cat7);
-		catSet1.add(cat11);
+		catSet3.add(cat7);
+		catSet3.add(cat11);
 
 		Set<CategorieModel> catSet4 = new HashSet<CategorieModel>();
-		catSet1.add(cat7);
-		catSet1.add(cat9);
-		catSet1.add(cat27);
+		catSet4.add(cat7);
+		catSet4.add(cat9);
+		catSet4.add(cat27);
 
 		Set<CategorieModel> catSet5 = new HashSet<CategorieModel>();
-		catSet1.add(cat1);
-		catSet1.add(cat7);
+		catSet5.add(cat1);
+		catSet5.add(cat7);
 		
 		Set<CategorieModel> catSet6 = new HashSet<CategorieModel>();
 		catSet6.add(cat1);
@@ -831,6 +831,22 @@ public class TestDataController {
 		recipeCollectionRepository.save(col2);
 		recipeCollectionRepository.save(col3);
 		recipeCollectionRepository.save(col4);
+		
+		// ----------------------------------------
+		// -------------- LIKED_RECIPE & REPORTED RECIPE
+		// ----------------------------------------
+		
+		tim.addLikedRecipe(rec1);
+		tim.addLikedRecipe(rec5);
+		julian.addLikedRecipe(rec2);
+		simone.addLikedRecipe(rec2);
+		simone.addLikedRecipe(rec4);
+		lukas.addLikedRecipe(rec5);
+		
+		julian.addReportedRecipe(rec6);
+		tim.addReportedRecipe(rec6);
+		simone.addReportedRecipe(rec6);
+		
 		
 		return "forward:recipeList";
 	}
