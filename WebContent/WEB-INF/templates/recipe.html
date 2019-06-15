@@ -19,7 +19,6 @@
 	type="text/css">
 </head>
 
-
 <body id="page-top">
 
 	<!-- Page Wrapper -->
@@ -42,7 +41,7 @@
 				<div class="container-fluid">
 
 					<!-- Recipe Content -->
-					<h1 class="h3 mb-4 text-gray-800" th:value="${recipe.title}"></h1>
+					<h1 class="h3 mb-4 text-gray-800" th:text="${recipe.title}"></h1>
 
 					<div class="row">
 						<!-- Recipe Image TODO! -->
@@ -78,10 +77,10 @@
 
 								<!-- Card Content - Ingredients -->
 								<div class="card-body">
-									<ul class="list-group list-group-flush">
-										<li class="list-group-item"
-											th:each="ingredientAmounts : ${recipe.ingredientAmounts}"
-											th:value="${ingredientAmounts.amount}">test</li>
+									<ul class="list-group list-group-flush" th:each="ingredientAmounts : ${recipe.ingredientAmounts}">
+										<li class="list-group-item">
+											<a th:value="${ingredientAmounts.ingredient.name}"></a>
+											</li>
 									</ul>
 								</div>
 							</div>
@@ -109,7 +108,7 @@
 							</div>
 						</div>
 						<!-- Card Body -->
-						<div class="card-body" value="${recipe.description}"></div>
+						<div class="card-body"><p text="${recipe.description}"></p></div>
 					</div>
 					<!-- /.container-fluid -->
 
