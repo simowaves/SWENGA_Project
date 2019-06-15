@@ -17,6 +17,7 @@ import at.fh.swenga.jpa.dao.RecipeCollectionRepository;
 import at.fh.swenga.jpa.dao.UserRepository;
 import at.fh.swenga.jpa.dao.UserRoleRepository;
 import at.fh.swenga.jpa.model.RecipeCollectionModel;
+import at.fh.swenga.jpa.model.RecipeModel;
 import at.fh.swenga.jpa.model.UserModel;
 import at.fh.swenga.jpa.model.UserRoleModel;
 
@@ -28,7 +29,7 @@ public class UserController {
 
 	@Autowired
 	UserRoleRepository userRoleRepository;
-	
+
 	@Autowired
 	RecipeCollectionRepository recipeCollectionRepository;
 
@@ -45,7 +46,8 @@ public class UserController {
 
 	// Spring 4: @RequestMapping(value = "/register", method = RequestMethod.POST)
 	@PostMapping("/register")
-	public String register(@Valid UserModel newUserModel, BindingResult bindingResult, Model model, @RequestParam("passwordCheck") String comparePassword) {
+	public String register(@Valid UserModel newUserModel, BindingResult bindingResult, Model model,
+			@RequestParam("passwordCheck") String comparePassword) {
 
 		// Any errors? -> Create a String out of all errors and return to the page
 		if (bindingResult.hasErrors()) {
@@ -66,32 +68,48 @@ public class UserController {
 		if (user != null) {
 			model.addAttribute("errorMessage", "UserName already exists!<br>");
 			return "register";
-		/*} else if (password.toString() != comparePassword.toString()) {
-			model.addAttribute("errorMessage", "Passwords are not matching!<br>");
-			return "register";*/
+			/*
+			 * } else if (password.toString() != comparePassword.toString()) {
+			 * model.addAttribute("errorMessage", "Passwords are not matching!<br>"); return
+			 * "register";
+			 */
 		} else {
 
 			UserRoleModel userRole = userRoleRepository.findUserRoleByRole("ROLE_USER");
 
 			newUserModel.encryptPassword();
-			//newUserModel.addUserRole(userRole);
+			// newUserModel.addUserRole(userRole);
 			newUserModel.setEnabled(true);
-			
-			
+
 			userRepository.save(newUserModel);
-			
+
 			userRole.addUser(newUserModel);
-			
+
 			userRoleRepository.save(userRole);
-			
-			
-			//RecipeCollectionModel recipeCollection = new RecipeCollectionModel("favorites", newUserModel);
-			//recipeCollectionRepository.save(recipeCollection);
+
+			// RecipeCollectionModel recipeCollection = new
+			// RecipeCollectionModel("favorites", newUserModel);
+			// recipeCollectionRepository.save(recipeCollection);
 
 			model.addAttribute("message", "New user " + newUserModel.getUserName() + " added.");
 		}
 
 		return "login";
+	}
+
+	// Spring 4: @RequestMapping(value = "/showUser", method = RequestMethod.GET)
+	@GetMapping("/showUser")
+	public String showUserDetails(Model model, @RequestParam int id) {
+
+		UserModel user = userRepository.findUserById(id);
+
+		if (user != null) {
+			model.addAttribute("user", user);
+			return "user";
+		} else {
+			model.addAttribute("errorMessage", "Couldn't find user " + id);
+			return "forward:/recipeList";
+		}
 	}
 
 }

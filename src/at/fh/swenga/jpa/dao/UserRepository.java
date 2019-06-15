@@ -18,5 +18,7 @@ public interface UserRepository extends JpaRepository<UserModel, Integer> {
 			+ "FROM UserModel AS u "
 			+ "WHERE LOWER(u.userName) = LOWER(:searchString) ")
 	public UserModel findUserByUserName(@Param("searchString") String searchString);
+	
+	public UserModel findUserById(int id);
 
 }

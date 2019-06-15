@@ -10,6 +10,6 @@ import at.fh.swenga.jpa.model.RecipeModel;
 @Transactional
 public interface RecipeRepository extends JpaRepository<RecipeModel, Integer> {
 	
-	
+	public RecipeModel findRecipeById (int id);
 
 }
