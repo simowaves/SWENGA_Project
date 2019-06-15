@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import at.fh.swenga.jpa.dao.PictureRepository;
 import at.fh.swenga.jpa.dao.RecipeRepository;
 import at.fh.swenga.jpa.model.RecipeModel;
-import at.fh.swenga.model.VideoModel;
 
 @Controller
 public class RecipeController {
