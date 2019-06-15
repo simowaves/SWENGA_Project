@@ -55,6 +55,10 @@ public class IngredientModel implements java.io.Serializable{
 	@Version
 	long version;
 
+	public IngredientModel() {
+		super();
+	}
+
 	public IngredientModel(String name, String description, boolean vegetarian, boolean vegan,
 			Set<AllergieModel> allergies) {
 		super();

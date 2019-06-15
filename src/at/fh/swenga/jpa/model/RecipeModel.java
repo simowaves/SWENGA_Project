@@ -55,42 +55,43 @@ public class RecipeModel implements java.io.Serializable {
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	private UserModel author;
 
-	@OneToMany(mappedBy="recipe",fetch=FetchType.EAGER)
-    private Set<IngredientAmountModel> ingredientAmounts;
-	
+	@OneToMany(mappedBy = "recipe", fetch = FetchType.EAGER)
+	private Set<IngredientAmountModel> ingredientAmounts;
+
 	@Column(name = "published")
 	private boolean published;
-	
+
 	@Column(name = "enabled")
 	private boolean enabled;
-	
+
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
 	private Set<CategorieModel> categories;
-	
-	@OneToMany(mappedBy="recipe",fetch=FetchType.LAZY)
-    private Set<CommentModel> comments;
-	
+
+	@OneToMany(mappedBy = "recipe", fetch = FetchType.LAZY)
+	private Set<CommentModel> comments;
+
 	@ManyToMany(mappedBy = "reportedRecipes", fetch = FetchType.LAZY)
 	private Set<UserModel> reportingUsers;
-	
+
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
 	private Set<RecipeCollectionModel> recipeCollections;
-	
+
 	@ManyToMany(mappedBy = "likedRecipes", fetch = FetchType.LAZY)
 	private Set<UserModel> likingUsers;
-	
+
 	@OneToOne(cascade = CascadeType.ALL)
 	private PictureModel picture;
 
 	@Version
 	long version;
-	
+
 	public RecipeModel() {
 		super();
 	}
 
 	public RecipeModel(Date createDate, Date lastEdited, String title, String description, UserModel author,
-			Set<IngredientAmountModel> ingredientAmounts, boolean published, boolean enabled, Set<CategorieModel> categories) {
+			Set<IngredientAmountModel> ingredientAmounts, boolean published, boolean enabled,
+			Set<CategorieModel> categories) {
 		super();
 		this.createDate = createDate;
 		this.lastEdited = lastEdited;
@@ -98,6 +99,19 @@ public class RecipeModel implements java.io.Serializable {
 		this.description = description;
 		this.author = author;
 		this.ingredientAmounts = ingredientAmounts;
+		this.published = published;
+		this.enabled = enabled;
+		this.categories = categories;
+	}
+
+	public RecipeModel(Date createDate, Date lastEdited, String title, String description, UserModel author,
+			boolean published, boolean enabled, Set<CategorieModel> categories) {
+		super();
+		this.createDate = createDate;
+		this.lastEdited = lastEdited;
+		this.title = title;
+		this.description = description;
+		this.author = author;
 		this.published = published;
 		this.enabled = enabled;
 		this.categories = categories;
@@ -158,9 +172,10 @@ public class RecipeModel implements java.io.Serializable {
 	public void setIngredientAmounts(Set<IngredientAmountModel> ingredientAmounts) {
 		this.ingredientAmounts = ingredientAmounts;
 	}
-	
+
 	public void addIngredientAmount(IngredientAmountModel ingredientAmount) {
-		if (ingredientAmounts==null) ingredientAmounts = new HashSet<IngredientAmountModel>();
+		if (ingredientAmounts == null)
+			ingredientAmounts = new HashSet<IngredientAmountModel>();
 		ingredientAmounts.add(ingredientAmount);
 	}
 
@@ -187,9 +202,10 @@ public class RecipeModel implements java.io.Serializable {
 	public void setCategories(Set<CategorieModel> categories) {
 		this.categories = categories;
 	}
-	
+
 	public void addCategorie(CategorieModel categorie) {
-		if (categories==null) categories = new HashSet<CategorieModel>();
+		if (categories == null)
+			categories = new HashSet<CategorieModel>();
 		categories.add(categorie);
 	}
 
@@ -200,9 +216,10 @@ public class RecipeModel implements java.io.Serializable {
 	public void setComments(Set<CommentModel> comments) {
 		this.comments = comments;
 	}
-	
+
 	public void addComment(CommentModel comment) {
-		if (comments==null) comments = new HashSet<CommentModel>();
+		if (comments == null)
+			comments = new HashSet<CommentModel>();
 		comments.add(comment);
 	}
 
@@ -213,9 +230,10 @@ public class RecipeModel implements java.io.Serializable {
 	public void setReportingUsers(Set<UserModel> reportingUsers) {
 		this.reportingUsers = reportingUsers;
 	}
-	
+
 	public void addReportingUser(UserModel reportingUser) {
-		if (reportingUsers==null) reportingUsers = new HashSet<UserModel>();
+		if (reportingUsers == null)
+			reportingUsers = new HashSet<UserModel>();
 		reportingUsers.add(reportingUser);
 	}
 
@@ -226,9 +244,10 @@ public class RecipeModel implements java.io.Serializable {
 	public void setRecipeCollections(Set<RecipeCollectionModel> recipeCollections) {
 		this.recipeCollections = recipeCollections;
 	}
-	
+
 	public void addRecipeCollection(RecipeCollectionModel recipeCollection) {
-		if (recipeCollections==null) recipeCollections = new HashSet<RecipeCollectionModel>();
+		if (recipeCollections == null)
+			recipeCollections = new HashSet<RecipeCollectionModel>();
 		recipeCollections.add(recipeCollection);
 	}
 
@@ -239,9 +258,10 @@ public class RecipeModel implements java.io.Serializable {
 	public void setLikingUsers(Set<UserModel> likingUsers) {
 		this.likingUsers = likingUsers;
 	}
-	
+
 	public void addLikingUser(UserModel likingUser) {
-		if (likingUsers==null) likingUsers = new HashSet<UserModel>();
+		if (likingUsers == null)
+			likingUsers = new HashSet<UserModel>();
 		likingUsers.add(likingUser);
 	}
 
