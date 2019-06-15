@@ -46,8 +46,7 @@ public class UserController {
 
 	// Spring 4: @RequestMapping(value = "/register", method = RequestMethod.POST)
 	@PostMapping("/register")
-	public String register(@Valid UserModel newUserModel, BindingResult bindingResult, Model model,
-			@RequestParam("passwordCheck") String comparePassword) {
+	public String register(@Valid UserModel newUserModel, BindingResult bindingResult, Model model) {
 
 		// Any errors? -> Create a String out of all errors and return to the page
 		if (bindingResult.hasErrors()) {
@@ -61,31 +60,24 @@ public class UserController {
 			return "register";
 		}
 
-		// Look for video in the List. One available -> Error
+		// Look for user in the database. One available -> Error
 		UserModel user = userRepository.findUserByUserName(newUserModel.getUserName());
-		String password = newUserModel.getPassword();
 
 		if (user != null) {
 			model.addAttribute("errorMessage", "UserName already exists!<br>");
 			return "register";
-			/*
-			 * } else if (password.toString() != comparePassword.toString()) {
-			 * model.addAttribute("errorMessage", "Passwords are not matching!<br>"); return
-			 * "register";
-			 */
 		} else {
 
 			UserRoleModel userRole = userRoleRepository.findUserRoleByRole("ROLE_USER");
+			if (userRole == null)
+				userRole = new UserRoleModel("ROLE_USER");
 
 			newUserModel.encryptPassword();
-			// newUserModel.addUserRole(userRole);
 			newUserModel.setEnabled(true);
-
 			userRepository.save(newUserModel);
-
-			userRole.addUser(newUserModel);
-
-			userRoleRepository.save(userRole);
+			
+			newUserModel.addUserRole(userRole);
+			userRepository.save(newUserModel);
 
 			// RecipeCollectionModel recipeCollection = new
 			// RecipeCollectionModel("favorites", newUserModel);

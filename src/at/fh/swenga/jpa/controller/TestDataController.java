@@ -1,6 +1,5 @@
 package at.fh.swenga.jpa.controller;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -14,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import at.fh.swenga.jpa.dao.AllergieRepository;
 import at.fh.swenga.jpa.dao.CategorieRepository;
 import at.fh.swenga.jpa.dao.CommentRepository;
+import at.fh.swenga.jpa.dao.IngredientAmountRepository;
 import at.fh.swenga.jpa.dao.IngredientRepository;
 import at.fh.swenga.jpa.dao.PictureRepository;
 import at.fh.swenga.jpa.dao.RecipeCollectionRepository;
@@ -44,6 +44,9 @@ public class TestDataController {
 
 	@Autowired
 	IngredientRepository ingredientRepository;
+	
+	@Autowired
+	IngredientAmountRepository ingredientAmountRepository; 
 
 	@Autowired
 	PictureRepository pictureRepository;
@@ -157,8 +160,11 @@ public class TestDataController {
 		Set<AllergieModel> allSet1 = new HashSet<AllergieModel>();
 		allSet1.add(all4);
 
-		IngredientModel ing9 = new IngredientModel("Spaghetti", true, false, allSet1);
+		IngredientModel ing9 = new IngredientModel("Spaghetti", true, false/*, allSet1*/);
 		ingredientRepository.save(ing9);
+		
+		all4.addIngredient(ing9);
+		allergieRepository.save(all4);
 			
 		Set<AllergieModel> allSet2 = new HashSet<AllergieModel>();
 		allSet2.add(all7);
@@ -506,138 +512,12 @@ public class TestDataController {
 
 		CategorieModel cat30 = new CategorieModel("Sauces");
 		categorieRepository.save(cat30);
-
+		
 		// ----------------------------------------
 		// -------------- RECIPE_MODEL
 		// ----------------------------------------
-
-		IngredientAmountModel IngAm1 = new IngredientAmountModel("2 cloves", ing28);
-		IngredientAmountModel IngAm2 = new IngredientAmountModel("1", ing1);
-		IngredientAmountModel IngAm3 = new IngredientAmountModel("2 sprigs", ing2);
-		IngredientAmountModel IngAm4 = new IngredientAmountModel("6 rashers", ing3);
-		IngredientAmountModel IngAm5 = new IngredientAmountModel("", ing4);
-		IngredientAmountModel IngAm6 = new IngredientAmountModel("500g", ing5);
-		IngredientAmountModel IngAm7 = new IngredientAmountModel("200ml", ing6);
-		IngredientAmountModel IngAm8 = new IngredientAmountModel("280g", ing7);
-		IngredientAmountModel IngAm9 = new IngredientAmountModel("800g", ing8);
-		IngredientAmountModel IngAm10 = new IngredientAmountModel("500g", ing9);
-		IngredientAmountModel IngAm11 = new IngredientAmountModel("", ing10);
-
-		IngredientAmountModel IngAm12 = new IngredientAmountModel("", ing19);
-		IngredientAmountModel IngAm13 = new IngredientAmountModel("2", ing11);
-		IngredientAmountModel IngAm14 = new IngredientAmountModel("2/3 cup", ing12);
-		IngredientAmountModel IngAm15 = new IngredientAmountModel("3.5 oz", ing13);
-		IngredientAmountModel IngAm16 = new IngredientAmountModel("1 tsp", ing14);
-		IngredientAmountModel IngAm17 = new IngredientAmountModel("5 cups", ing15);
-		IngredientAmountModel IngAm18 = new IngredientAmountModel("a handfull", ing16);
-		IngredientAmountModel IngAm19 = new IngredientAmountModel("", ing17);
-		IngredientAmountModel IngAm20 = new IngredientAmountModel("", ing18);
-
-		IngredientAmountModel IngAm21 = new IngredientAmountModel("1", ing1);
-		IngredientAmountModel IngAm22 = new IngredientAmountModel("1", ing20);
-		IngredientAmountModel IngAm23 = new IngredientAmountModel("1/2", ing21);
-		IngredientAmountModel IngAm24 = new IngredientAmountModel("2", ing7);
-		IngredientAmountModel IngAm25 = new IngredientAmountModel("2", ing22);
-		IngredientAmountModel IngAm26 = new IngredientAmountModel("200g", ing23);
-		IngredientAmountModel IngAm27 = new IngredientAmountModel("200g", ing24);
-		IngredientAmountModel IngAm28 = new IngredientAmountModel("200g", ing25);
-		IngredientAmountModel IngAm29 = new IngredientAmountModel("12", ing26);
-		IngredientAmountModel IngAm30 = new IngredientAmountModel("350g", ing27);
-		IngredientAmountModel IngAm31 = new IngredientAmountModel("2", ing28);
-		IngredientAmountModel IngAm32 = new IngredientAmountModel("a pinch", ing29);
-		IngredientAmountModel IngAm33 = new IngredientAmountModel("a sprig of", ing16);
-		IngredientAmountModel IngAm34 = new IngredientAmountModel("", ing4);
-		IngredientAmountModel IngAm35 = new IngredientAmountModel("800ml", ing30);
-
-		IngredientAmountModel IngAm37 = new IngredientAmountModel("4", ing31);
-		IngredientAmountModel IngAm38 = new IngredientAmountModel("2", ing11);
-		IngredientAmountModel IngAm39 = new IngredientAmountModel("100g", ing13);
-		IngredientAmountModel IngAm40 = new IngredientAmountModel("100g", ing32);
-		IngredientAmountModel IngAm41 = new IngredientAmountModel("", ing19);
-		IngredientAmountModel IngAm42 = new IngredientAmountModel("", ing18);
-		IngredientAmountModel IngAm43 = new IngredientAmountModel("", ing33);
-		IngredientAmountModel IngAm44 = new IngredientAmountModel("slices of", ing34);
-
-		IngredientAmountModel IngAm45 = new IngredientAmountModel("1.1l", ing35);
-		IngredientAmountModel IngAm46 = new IngredientAmountModel("1 large", ing1);
-		IngredientAmountModel IngAm47 = new IngredientAmountModel("2 cloves of", ing28);
-		IngredientAmountModel IngAm48 = new IngredientAmountModel("1/2 head of", ing36);
-		IngredientAmountModel IngAm49 = new IngredientAmountModel("90g", ing10);
-		IngredientAmountModel IngAm50 = new IngredientAmountModel("1 tsp", ing4);
-		IngredientAmountModel IngAm51 = new IngredientAmountModel("", ing33);
-		IngredientAmountModel IngAm52 = new IngredientAmountModel("400g", ing37);
-		IngredientAmountModel IngAm53 = new IngredientAmountModel("2 wine glasses of", ing38);
+		Date now = new Date();
 		
-		IngredientAmountModel IngAm54 = new IngredientAmountModel("2  glasses of", ing38);
-		IngredientAmountModel IngAm55 = new IngredientAmountModel("", ing33);
-
-
-		Set<IngredientAmountModel> ingSet1 = new HashSet<IngredientAmountModel>();
-		ingSet1.add(IngAm1);
-		ingSet1.add(IngAm2);
-		ingSet1.add(IngAm3);
-		ingSet1.add(IngAm4);
-		ingSet1.add(IngAm5);
-		ingSet1.add(IngAm6);
-		ingSet1.add(IngAm7);
-		ingSet1.add(IngAm8);
-		ingSet1.add(IngAm9);
-		ingSet1.add(IngAm10);
-		ingSet1.add(IngAm11);
-
-		Set<IngredientAmountModel> ingSet2 = new HashSet<IngredientAmountModel>();
-		ingSet2.add(IngAm12);
-		ingSet2.add(IngAm13);
-		ingSet2.add(IngAm14);
-		ingSet2.add(IngAm15);
-		ingSet2.add(IngAm16);
-		ingSet2.add(IngAm17);
-		ingSet2.add(IngAm18);
-		ingSet2.add(IngAm19);
-		ingSet2.add(IngAm20);
-
-		Set<IngredientAmountModel> ingSet3 = new HashSet<IngredientAmountModel>();
-		ingSet3.add(IngAm21);
-		ingSet3.add(IngAm22);
-		ingSet3.add(IngAm23);
-		ingSet3.add(IngAm24);
-		ingSet3.add(IngAm25);
-		ingSet3.add(IngAm26);
-		ingSet3.add(IngAm27);
-		ingSet3.add(IngAm28);
-		ingSet3.add(IngAm29);
-		ingSet3.add(IngAm30);
-		ingSet3.add(IngAm31);
-		ingSet3.add(IngAm32);
-		ingSet3.add(IngAm33);
-		ingSet3.add(IngAm34);
-		ingSet3.add(IngAm35);
-
-		Set<IngredientAmountModel> ingSet4 = new HashSet<IngredientAmountModel>();
-		ingSet4.add(IngAm37);
-		ingSet4.add(IngAm38);
-		ingSet4.add(IngAm39);
-		ingSet4.add(IngAm40);
-		ingSet4.add(IngAm41);
-		ingSet4.add(IngAm42);
-		ingSet4.add(IngAm43);
-		ingSet4.add(IngAm44);
-
-		Set<IngredientAmountModel> ingSet5 = new HashSet<IngredientAmountModel>();
-		ingSet5.add(IngAm45);
-		ingSet5.add(IngAm46);
-		ingSet5.add(IngAm47);
-		ingSet5.add(IngAm48);
-		ingSet5.add(IngAm49);
-		ingSet5.add(IngAm50);
-		ingSet5.add(IngAm51);
-		ingSet5.add(IngAm52);
-		ingSet5.add(IngAm53);
-		
-		Set<IngredientAmountModel> ingSet6 = new HashSet<IngredientAmountModel>();
-		ingSet6.add(IngAm54);
-		ingSet6.add(IngAm55);
-
 		Set<CategorieModel> catSet1 = new HashSet<CategorieModel>();
 		catSet1.add(cat1);
 		catSet1.add(cat7);
@@ -667,12 +547,6 @@ public class TestDataController {
 		Set<CategorieModel> catSet6 = new HashSet<CategorieModel>();
 		catSet6.add(cat1);
 
-
-		// ----------------------------------------
-		// -------------- RECIPE_MODEL
-		// ----------------------------------------
-		Date now = new Date();
-
 		RecipeModel rec1 = new RecipeModel(now, now, "Spaghetti Bolognese",
 				"1) Preheat the oven to 180∫C/350∫F/gas 4.\n" + "\n"
 						+ "2) Peel and finely chop the garlic and onions, pick and finely chop the rosemary, then finely slice the bacon.\n"
@@ -692,7 +566,7 @@ public class TestDataController {
 						+ "\n"
 						+ "10) Divide the spaghetti between plates or bowls, add a good spoonful of Bolognese to each, then serve with a fine grating of Parmesan.\n"
 						+ "\n" + "",
-				julian, ingSet1, true, true, catSet1);
+				julian, true, true, catSet1);
 		recipeRepository.save(rec1);
 
 		RecipeModel rec2 = new RecipeModel(now, now, "Sliced Crepe Broth",
@@ -705,7 +579,7 @@ public class TestDataController {
 						+ "\n"
 						+ "5) Roll the crepes up together and slice them using a long and sharp knife, make thin strips. Add the crepe noodles to the hot broth and stir well.\n"
 						+ "\n" + "6) Scoop the crepe soup into bowl and serve piping hot.",
-				tim, ingSet2, true, true, catSet2);
+				tim, true, true, catSet2);
 		recipeRepository.save(rec2);
 
 		RecipeModel rec3 = new RecipeModel(now, now, "Paella", "PREPARATION: \n" + "\n"
@@ -722,7 +596,7 @@ public class TestDataController {
 				+ "1) Heat some olive oil in a large frying pan. Add the onion, green pepper and carrot and fry gently for about five minutes. Add the chopped tomato and squid (with the tentacles) and fry on a low heat for another ten minutes.\n"
 				+ "\n"
 				+ "2) Add the rice and stir well to make sure that it is thoroughly coated. Add water (or the water from boiling the prawn shells or fish stock if using frozen fish), clams and the garlic/saffron/parsley mixture and bring to the boil. Season with salt. Put a lid on it, turn the heat right down and cook very slowly for about ten minutes. Add the prawns and peas and give it a stir. Arrange the mussels and strips of red pepper artistically on top, put the lid back on and leave for another ten minutes - checking that it has enough water. If you think it is getting too dry, add more water, but shake the handle of the pan rather than stir so as not to upset the pattern. Once the rice is cooked and the mussels have opened, it is ready to eat. ",
-				julian, ingSet3, true, true, catSet3);
+				julian, true, true, catSet3);
 		recipeRepository.save(rec3);
 
 		RecipeModel rec4 = new RecipeModel(now, now, "Wiener Schnitzel",
@@ -739,7 +613,7 @@ public class TestDataController {
 						+ "6) Remove the crispy schnitzel and place on kitchen paper to dry off. Dab carefully to dry the schnitzel. Arrange on the plate and garnish with slices of lemon before serving.\n"
 						+ "\n" + "7) Serve with parsley potatoes, rice, potato salad or mixed salad.\n" + "\n"
 						+ "Cooking time: depending on the thickness and the meat, 4 ñ 8 minutes",
-				tim, ingSet4, true, true, catSet4);
+				tim, true, true, catSet4);
 		recipeRepository.save(rec4);
 
 		RecipeModel rec5 = new RecipeModel(now, now, "Basic risotto",
@@ -757,11 +631,129 @@ public class TestDataController {
 						+ "\n"
 						+ "7) Place a lid on the pan and allow to sit for 2 minutes ñ this is the most important part of making the perfect risotto, as this is when it becomes outrageously creamy and oozy like it should be. Eat it as soon as possible, while the risotto retains its beautiful texture.\n"
 						+ "\n" + "",
-				julian, ingSet5, true, true, catSet5);
+				julian, true, true, catSet5);
 		recipeRepository.save(rec5);
 		
-		RecipeModel rec6 = new RecipeModel(now, now, "Penis", "Penis Penis Penis Penis", lukas, ingSet6, true, true, catSet6);
+		RecipeModel rec6 = new RecipeModel(now, now, "Penis", "Penis Penis Penis Penis", lukas, true, true, catSet6);
 		recipeRepository.save(rec6);
+
+		// ----------------------------------------
+		// -------------- RECIPE_MODEL
+		// ----------------------------------------
+
+		IngredientAmountModel ingAm1 = new IngredientAmountModel("2 cloves", rec1, ing28);
+		ingredientAmountRepository.save(ingAm1);
+		IngredientAmountModel ingAm2 = new IngredientAmountModel("1", rec1, ing1);
+		ingredientAmountRepository.save(ingAm2);
+		IngredientAmountModel ingAm3 = new IngredientAmountModel("2 sprigs", rec1, ing2);
+		ingredientAmountRepository.save(ingAm3);
+		IngredientAmountModel ingAm4 = new IngredientAmountModel("6 rashers", rec1, ing3);
+		ingredientAmountRepository.save(ingAm4);
+		IngredientAmountModel ingAm5 = new IngredientAmountModel("", rec1, ing4);
+		ingredientAmountRepository.save(ingAm5);
+		IngredientAmountModel ingAm6 = new IngredientAmountModel("500g", rec1, ing5);
+		ingredientAmountRepository.save(ingAm6);
+		IngredientAmountModel ingAm7 = new IngredientAmountModel("200ml", rec1, ing6);
+		ingredientAmountRepository.save(ingAm7);
+		IngredientAmountModel ingAm8 = new IngredientAmountModel("280g", rec1, ing7);
+		ingredientAmountRepository.save(ingAm8);
+		IngredientAmountModel ingAm9 = new IngredientAmountModel("800g", rec1, ing8);
+		ingredientAmountRepository.save(ingAm9);
+		IngredientAmountModel ingAm10 = new IngredientAmountModel("500g", rec1, ing9);
+		ingredientAmountRepository.save(ingAm10);
+		IngredientAmountModel ingAm11 = new IngredientAmountModel("", rec1, ing10);
+		ingredientAmountRepository.save(ingAm11);
+
+		IngredientAmountModel ingAm12 = new IngredientAmountModel("", rec2, ing19);
+		ingredientAmountRepository.save(ingAm12);
+		IngredientAmountModel ingAm13 = new IngredientAmountModel("2", rec2, ing11);
+		ingredientAmountRepository.save(ingAm13);
+		IngredientAmountModel ingAm14 = new IngredientAmountModel("2/3 cup", rec2, ing12);
+		ingredientAmountRepository.save(ingAm14);
+		IngredientAmountModel ingAm15 = new IngredientAmountModel("3.5 oz", rec2, ing13);
+		ingredientAmountRepository.save(ingAm15);
+		IngredientAmountModel ingAm16 = new IngredientAmountModel("1 tsp", rec2, ing14);
+		ingredientAmountRepository.save(ingAm16);
+		IngredientAmountModel ingAm17 = new IngredientAmountModel("5 cups", rec2, ing15);
+		ingredientAmountRepository.save(ingAm17);
+		IngredientAmountModel ingAm18 = new IngredientAmountModel("a handfull", rec2, ing16);
+		ingredientAmountRepository.save(ingAm18);
+		IngredientAmountModel ingAm19 = new IngredientAmountModel("", rec2, ing17);
+		ingredientAmountRepository.save(ingAm19);
+		IngredientAmountModel ingAm20 = new IngredientAmountModel("", rec2, ing18);
+		ingredientAmountRepository.save(ingAm20);
+
+		IngredientAmountModel ingAm21 = new IngredientAmountModel("1", rec3, ing1);
+		ingredientAmountRepository.save(ingAm21);
+		IngredientAmountModel ingAm22 = new IngredientAmountModel("1", rec3, ing20);
+		ingredientAmountRepository.save(ingAm22);
+		IngredientAmountModel ingAm23 = new IngredientAmountModel("1/2", rec3, ing21);
+		ingredientAmountRepository.save(ingAm23);
+		IngredientAmountModel ingAm24 = new IngredientAmountModel("2", rec3, ing7);
+		ingredientAmountRepository.save(ingAm24);
+		IngredientAmountModel ingAm25 = new IngredientAmountModel("2", rec3, ing22);
+		ingredientAmountRepository.save(ingAm25);
+		IngredientAmountModel ingAm26 = new IngredientAmountModel("200g", rec3, ing23);
+		ingredientAmountRepository.save(ingAm26);
+		IngredientAmountModel ingAm27 = new IngredientAmountModel("200g", rec3, ing24);
+		ingredientAmountRepository.save(ingAm27);
+		IngredientAmountModel ingAm28 = new IngredientAmountModel("200g", rec3, ing25);
+		ingredientAmountRepository.save(ingAm28);
+		IngredientAmountModel ingAm29 = new IngredientAmountModel("12", rec3, ing26);
+		ingredientAmountRepository.save(ingAm29);
+		IngredientAmountModel ingAm30 = new IngredientAmountModel("350g", rec3, ing27);
+		ingredientAmountRepository.save(ingAm30);
+		IngredientAmountModel ingAm31 = new IngredientAmountModel("2", rec3, ing28);
+		ingredientAmountRepository.save(ingAm31);
+		IngredientAmountModel ingAm32 = new IngredientAmountModel("a pinch", rec3, ing29);
+		ingredientAmountRepository.save(ingAm32);
+		IngredientAmountModel ingAm33 = new IngredientAmountModel("a sprig of", rec3, ing16);
+		ingredientAmountRepository.save(ingAm33);
+		IngredientAmountModel ingAm34 = new IngredientAmountModel("", rec3, ing4);
+		ingredientAmountRepository.save(ingAm34);
+		IngredientAmountModel ingAm35 = new IngredientAmountModel("800ml", rec3, ing30);
+		ingredientAmountRepository.save(ingAm35);
+
+		IngredientAmountModel ingAm37 = new IngredientAmountModel("4", rec4, ing31);
+		ingredientAmountRepository.save(ingAm37);
+		IngredientAmountModel ingAm38 = new IngredientAmountModel("2", rec4, ing11);
+		ingredientAmountRepository.save(ingAm38);
+		IngredientAmountModel ingAm39 = new IngredientAmountModel("100g", rec4, ing13);
+		ingredientAmountRepository.save(ingAm39);
+		IngredientAmountModel ingAm40 = new IngredientAmountModel("100g", rec4, ing32);
+		ingredientAmountRepository.save(ingAm40);
+		IngredientAmountModel ingAm41 = new IngredientAmountModel("", rec4, ing19);
+		ingredientAmountRepository.save(ingAm41);
+		IngredientAmountModel ingAm42 = new IngredientAmountModel("", rec4, ing18);
+		ingredientAmountRepository.save(ingAm42);
+		IngredientAmountModel ingAm43 = new IngredientAmountModel("", rec4, ing33);
+		ingredientAmountRepository.save(ingAm43);
+		IngredientAmountModel ingAm44 = new IngredientAmountModel("slices of", rec4, ing34);
+		ingredientAmountRepository.save(ingAm44);
+
+		IngredientAmountModel ingAm45 = new IngredientAmountModel("1.1l", rec5, ing35);
+		ingredientAmountRepository.save(ingAm45);
+		IngredientAmountModel ingAm46 = new IngredientAmountModel("1 large", rec5, ing1);
+		ingredientAmountRepository.save(ingAm46);
+		IngredientAmountModel ingAm47 = new IngredientAmountModel("2 cloves of", rec5, ing28);
+		ingredientAmountRepository.save(ingAm47);
+		IngredientAmountModel ingAm48 = new IngredientAmountModel("1/2 head of", rec5, ing36);
+		ingredientAmountRepository.save(ingAm48);
+		IngredientAmountModel ingAm49 = new IngredientAmountModel("90g", rec5, ing10);
+		ingredientAmountRepository.save(ingAm49);
+		IngredientAmountModel ingAm50 = new IngredientAmountModel("1 tsp", rec5, ing4);
+		ingredientAmountRepository.save(ingAm50);
+		IngredientAmountModel ingAm51 = new IngredientAmountModel("", rec5, ing33);
+		ingredientAmountRepository.save(ingAm51);
+		IngredientAmountModel ingAm52 = new IngredientAmountModel("400g", rec5, ing37);
+		ingredientAmountRepository.save(ingAm52);
+		IngredientAmountModel ingAm53 = new IngredientAmountModel("2 wine glasses of", rec5, ing38);
+		ingredientAmountRepository.save(ingAm53);
+		
+		IngredientAmountModel ingAm54 = new IngredientAmountModel("2  glasses of", rec6, ing38);
+		ingredientAmountRepository.save(ingAm54);
+		IngredientAmountModel ingAm55 = new IngredientAmountModel("", rec6, ing33);
+		ingredientAmountRepository.save(ingAm55);
 
 		// ----------------------------------------
 		// -------------- COMMENT_MODEL
