@@ -1,5 +1,6 @@
 package at.fh.swenga.jpa.controller;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -9,7 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 import at.fh.swenga.jpa.dao.AllergieRepository;
 import at.fh.swenga.jpa.dao.CategorieRepository;
@@ -646,6 +646,7 @@ public class TestDataController {
 		catSet1.add(cat17);
 		catSet1.add(cat26);
 
+
 		Set<CategorieModel> catSet2 = new HashSet<CategorieModel>();
 		catSet2.add(cat5);
 		catSet2.add(cat27);
@@ -665,6 +666,7 @@ public class TestDataController {
 		
 		Set<CategorieModel> catSet6 = new HashSet<CategorieModel>();
 		catSet6.add(cat1);
+
 
 		// ----------------------------------------
 		// -------------- RECIPE_MODEL
