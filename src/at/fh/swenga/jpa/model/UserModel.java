@@ -118,7 +118,7 @@ public class UserModel implements java.io.Serializable {
 		this.usersIFollow = usersIFollow;
 		this.usersFollowingMe = usersFollowingMe;
 	}
- 
+
  
 	public int getId() {
 		return id;

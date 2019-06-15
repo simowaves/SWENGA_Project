@@ -301,9 +301,6 @@ public class TestDataController {
 		hatedIngUser1.add(ing8);
 		hatedIngUser1.add(ing27);
 		hatedIngUser1.add(ing38);
-		
-		Set<UserModel> usersFollowingMeUser1 = new HashSet<UserModel>();
-
 
 		UserModel tim = new UserModel("tim", "password", "tim@wtf.com", true, allSetUser1, lovedIngUser1, hatedIngUser1);
 		tim.encryptPassword();
@@ -390,7 +387,28 @@ public class TestDataController {
 		userRepository.save(user);
 		
 		
-	
+		tim.addUserIFollow(julian);
+		tim.addUserIFollow(simone);
+		julian.addUserIFollow(tim);
+		julian.addUserIFollow(simone);
+		lukas.addUserIFollow(tim);
+		lukas.addUserIFollow(julian);
+		lukas.addUserIFollow(simone);
+		simone.addUserIFollow(tim);
+		
+		tim.addUserFollowingMe(julian);
+		tim.addUserFollowingMe(simone);
+		tim.addUserFollowingMe(lukas);
+		julian.addUserFollowingMe(tim);
+		julian.addUserFollowingMe(julian);
+		julian.addUserFollowingMe(lukas);
+		simone.addUserFollowingMe(julian);
+		simone.addUserFollowingMe(tim);
+		simone.addUserFollowingMe(lukas);
+
+
+
+
 
 
 
