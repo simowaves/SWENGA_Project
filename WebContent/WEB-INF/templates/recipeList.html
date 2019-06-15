@@ -375,17 +375,21 @@
 									<!-- Image -->
 									<div
 										style="position: relative; overflow: hidden; padding-bottom: 100%;">
-										<img class="img-fluid card-img-top"
-											style="position: absolute;"
-											th:src="@{download(documentId=${recipe.document.id})}"
-											alt="">
+										<img
+										style="position: absolute;"
+										src="https://images.unsplash.com/photo-1559562649-21c0be156e0d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60"
+										alt="">
+<!-- 										<img class="img-fluid card-img-top" -->
+<!-- 											style="position: absolute;" -->
+<!-- 											th:src="@{download(documentId=${recipe.document.id})}" -->
+<!-- 											alt=""> -->
 									</div>
 									<!-- card body -->
 									<div class="card-body">
 										<div class="row">
 											<div class="col-8">
 												<h6 class="m-0 font-weight-bold text-primary" th:text="${recipe.title}"></h6>
-												by <a href="#" th:text="${recipe.author}"></a>
+												by <a href="#" th:text="${recipe.author.userName}"></a> 
 											</div>
 											<div class="col-4 text-right">
 												<a href="#" class="btn btn-danger btn-circle"> <i
@@ -393,11 +397,8 @@
 												</a>
 											</div>
 										</div>
-										<div>
-											<a href="#" class="badge badge-info">meat</a> <a href="#"
-												class="badge badge-info">egg</a> <a href="#"
-												class="badge badge-info">pasta</a> <a href="#"
-												class="badge badge-info">italian</a>
+										<div th:each="categorie : ${recipe.categories}">
+											<a href="#" class="badge badge-info" th:text="${categorie.title}" ></a> 
 										</div>
 									</div>
 								</div>

@@ -20,10 +20,10 @@ public class RecipeController {
 	@Autowired
 	PictureRepository pictureRepository;
 	
-	@RequestMapping(value = { "/", "list" })
+	@RequestMapping(value = { "/", "list", "recipeList" })
 	public String index(Model model) {
-		//List<RecipeModel> recipes = recipeRepository.findAll();
-		//model.addAttribute("recipes", recipes);
+		List<RecipeModel> recipes = recipeRepository.findAll();
+		model.addAttribute("recipes", recipes);
 		return "recipeList";
 	}
 	

@@ -10,6 +10,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -24,11 +25,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 public class UserModel implements java.io.Serializable {
 	
 	@Id
+	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
  
  
-	@Column(name = "username", unique = true, nullable = false, length = 45)
+	@Column(name = "userName", unique = true, nullable = false, length = 45)
 	private String userName;
  
 	@Column(name = "password", nullable = false, length = 60)
@@ -48,9 +50,11 @@ public class UserModel implements java.io.Serializable {
     private Set<RecipeModel> recipes;
 	
 	@ManyToMany(fetch=FetchType.LAZY,cascade=CascadeType.PERSIST)
+	@JoinTable(name = "users_lovedIngredients")
 	private Set<IngredientModel> lovedIngredients;
 	
 	@ManyToMany(fetch=FetchType.LAZY,cascade=CascadeType.PERSIST)
+	@JoinTable(name = "users_hatedIngredients")
 	private Set<IngredientModel> hatedIngredients;
 	
 	@ManyToMany(fetch=FetchType.LAZY,cascade=CascadeType.PERSIST)
@@ -61,6 +65,7 @@ public class UserModel implements java.io.Serializable {
     private Set<CommentModel> comments;
 	
 	@ManyToMany(fetch=FetchType.LAZY,cascade=CascadeType.PERSIST)
+	@JoinTable(name = "users_reportedRecipes")
 	private Set<RecipeModel> reportedRecipes;
 	
 	@ManyToMany(fetch=FetchType.LAZY,cascade=CascadeType.PERSIST)

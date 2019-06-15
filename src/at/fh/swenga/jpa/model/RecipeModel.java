@@ -1,7 +1,9 @@
 package at.fh.swenga.jpa.model;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -16,7 +18,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -63,7 +64,7 @@ public class RecipeModel implements java.io.Serializable {
 	@Column(name = "enabled")
 	private boolean enabled;
 	
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
 	private Set<CategorieModel> categories;
 	
 	@OneToMany(mappedBy="recipe",fetch=FetchType.LAZY)
@@ -83,6 +84,10 @@ public class RecipeModel implements java.io.Serializable {
 
 	@Version
 	long version;
+	
+	public RecipeModel() {
+		super();
+	}
 
 	public RecipeModel(Date createDate, Date lastEdited, String title, String description, UserModel author,
 			Set<IngredientAmountModel> ingredientAmounts, boolean published, boolean enabled, Set<CategorieModel> categories) {
