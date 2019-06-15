@@ -1,6 +1,7 @@
 package at.fh.swenga.jpa.model;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Basic;
@@ -68,6 +69,11 @@ public class AllergieModel implements java.io.Serializable {
 	public void setIngredients(Set<IngredientModel> ingredients) {
 		this.ingredients = ingredients;
 	}
+	
+	public void addIngredient(IngredientModel ingredient) {
+		if (ingredients==null) ingredients = new HashSet<IngredientModel>();
+		ingredients.add(ingredient);
+	}
 
 	public Set<UserModel> getUsers() {
 		return users;
@@ -77,4 +83,8 @@ public class AllergieModel implements java.io.Serializable {
 		this.users = users;
 	}
 	
+	public void addUser(UserModel user) {
+		if (users==null) users = new HashSet<UserModel>();
+		users.add(user);
+	}
 }

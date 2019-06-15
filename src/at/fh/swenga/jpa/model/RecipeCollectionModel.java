@@ -1,6 +1,7 @@
 package at.fh.swenga.jpa.model;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Basic;
@@ -71,5 +72,10 @@ public class RecipeCollectionModel implements java.io.Serializable {
 
 	public void setRecipes(Set<RecipeModel> recipes) {
 		this.recipes = recipes;
+	}
+	
+	public void addRecipe(RecipeModel recipe) {
+		if (recipes==null) recipes = new HashSet<RecipeModel>();
+		recipes.add(recipe);
 	}
 }

@@ -131,13 +131,13 @@ public class UserModel implements java.io.Serializable {
 		this.userRoles = userRoles;
 	}
  
+	public Set<UserRoleModel> getUserRoles() {
+		return userRoles;
+	}
+	
 	public void addUserRole(UserRoleModel userRole) {
 		if (userRoles==null) userRoles = new HashSet<UserRoleModel>();
 		userRoles.add(userRole);
-	}
- 
-	public Set<UserRoleModel> getUserRoles() {
-		return userRoles;
 	}
  
 	public void encryptPassword() {
@@ -173,6 +173,11 @@ public class UserModel implements java.io.Serializable {
 	public void setLovedIngredients(Set<IngredientModel> lovedIngredients) {
 		this.lovedIngredients = lovedIngredients;
 	}
+	
+	public void addLovedIngredient(IngredientModel ingredient) {
+		if (lovedIngredients==null) lovedIngredients = new HashSet<IngredientModel>();
+		lovedIngredients.add(ingredient);
+	}
 
 	public Set<IngredientModel> getHatedIngredients() {
 		return hatedIngredients;
@@ -180,6 +185,11 @@ public class UserModel implements java.io.Serializable {
 
 	public void setHatedIngredients(Set<IngredientModel> hatedIngredients) {
 		this.hatedIngredients = hatedIngredients;
+	}
+	
+	public void addHatedIngredient(IngredientModel ingredient) {
+		if (hatedIngredients==null) hatedIngredients = new HashSet<IngredientModel>();
+		hatedIngredients.add(ingredient);
 	}
 
 	public Set<AllergieModel> getAllergies() {
@@ -189,6 +199,11 @@ public class UserModel implements java.io.Serializable {
 	public void setAllergies(Set<AllergieModel> allergies) {
 		this.allergies = allergies;
 	}
+	
+	public void addAllergie(AllergieModel allergie) {
+		if (allergies==null) allergies = new HashSet<AllergieModel>();
+		allergies.add(allergie);
+	}
 
 	public Set<CommentModel> getComments() {
 		return comments;
@@ -196,6 +211,11 @@ public class UserModel implements java.io.Serializable {
 
 	public void setComments(Set<CommentModel> comments) {
 		this.comments = comments;
+	}
+	
+	public void addComment(CommentModel comment) {
+		if (comments==null) comments = new HashSet<CommentModel>();
+		comments.add(comment);
 	}
 
 	public Set<RecipeModel> getReportedRecipes() {
@@ -205,6 +225,11 @@ public class UserModel implements java.io.Serializable {
 	public void setReportedRecipes(Set<RecipeModel> reportedRecipes) {
 		this.reportedRecipes = reportedRecipes;
 	}
+	
+	public void addReportedRecipe(RecipeModel reportedRecipe) {
+		if (reportedRecipes==null) reportedRecipes = new HashSet<RecipeModel>();
+		reportedRecipes.add(reportedRecipe);
+	}
 
 	public Set<UserModel> getUsersIFollow() {
 		return usersIFollow;
@@ -212,6 +237,11 @@ public class UserModel implements java.io.Serializable {
 
 	public void setUsersIFollow(Set<UserModel> usersIFollow) {
 		this.usersIFollow = usersIFollow;
+	}
+	
+	public void addUserIFollow(UserModel user) {
+		if (usersIFollow==null) usersIFollow = new HashSet<UserModel>();
+		usersIFollow.add(user);
 	}
 
 	public Set<UserModel> getUsersFollowingMe() {
@@ -221,6 +251,11 @@ public class UserModel implements java.io.Serializable {
 	public void setUsersFollowingMe(Set<UserModel> usersFollowingMe) {
 		this.usersFollowingMe = usersFollowingMe;
 	}
+	
+	public void addUserFollowingMe(UserModel user) {
+		if (usersFollowingMe==null) usersFollowingMe = new HashSet<UserModel>();
+		usersFollowingMe.add(user);
+	}
 
 	public Set<RecipeCollectionModel> getRecipeCollections() {
 		return recipeCollections;
@@ -229,6 +264,11 @@ public class UserModel implements java.io.Serializable {
 	public void setRecipeCollections(Set<RecipeCollectionModel> recipeCollections) {
 		this.recipeCollections = recipeCollections;
 	}
+	
+	public void addRecipeCollection(RecipeCollectionModel recipeCollection) {
+		if (recipeCollections==null) recipeCollections = new HashSet<RecipeCollectionModel>();
+		recipeCollections.add(recipeCollection);
+	}
 
 	public Set<RecipeModel> getLikedRecipes() {
 		return likedRecipes;
@@ -236,6 +276,11 @@ public class UserModel implements java.io.Serializable {
 
 	public void setLikedRecipes(Set<RecipeModel> likedRecipes) {
 		this.likedRecipes = likedRecipes;
+	}
+	
+	public void addLikedRecipe(RecipeModel likedRecipe) {
+		if (likedRecipes==null) likedRecipes = new HashSet<RecipeModel>();
+		likedRecipes.add(likedRecipe);
 	}
 
 	public PictureModel getPicture() {
@@ -254,6 +299,4 @@ public class UserModel implements java.io.Serializable {
 		this.version = version;
 	}
 	
-	
-
 }

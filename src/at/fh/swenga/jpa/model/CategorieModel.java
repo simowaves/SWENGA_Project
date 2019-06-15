@@ -1,5 +1,6 @@
 package at.fh.swenga.jpa.model;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -74,5 +75,10 @@ public class CategorieModel implements java.io.Serializable {
 
 	public void setRecipe(Set<RecipeModel> recipes) {
 		this.recipes = recipes;
+	}
+	
+	public void addRecipe(RecipeModel recipe) {
+		if (recipes==null) recipes = new HashSet<RecipeModel>();
+		recipes.add(recipe);
 	}
 }

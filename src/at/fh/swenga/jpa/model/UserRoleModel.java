@@ -1,5 +1,6 @@
 package at.fh.swenga.jpa.model;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -56,6 +57,11 @@ public class UserRoleModel implements java.io.Serializable {
 		this.users = users;
 	}
  
+	public void addUser(UserModel user) {
+		if (users==null) users = new HashSet<UserModel>();
+		users.add(user);
+	}
+	
 	public String getRole() {
 		return role;
 	}

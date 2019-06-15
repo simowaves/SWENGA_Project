@@ -1,6 +1,7 @@
 package at.fh.swenga.jpa.model;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -152,6 +153,11 @@ public class RecipeModel implements java.io.Serializable {
 	public void setIngredientAmounts(Set<IngredientAmountModel> ingredientAmounts) {
 		this.ingredientAmounts = ingredientAmounts;
 	}
+	
+	public void addIngredientAmount(IngredientAmountModel ingredientAmount) {
+		if (ingredientAmounts==null) ingredientAmounts = new HashSet<IngredientAmountModel>();
+		ingredientAmounts.add(ingredientAmount);
+	}
 
 	public boolean isPublished() {
 		return published;
@@ -176,6 +182,11 @@ public class RecipeModel implements java.io.Serializable {
 	public void setCategories(Set<CategorieModel> categories) {
 		this.categories = categories;
 	}
+	
+	public void addCategorie(CategorieModel categorie) {
+		if (categories==null) categories = new HashSet<CategorieModel>();
+		categories.add(categorie);
+	}
 
 	public Set<CommentModel> getComments() {
 		return comments;
@@ -183,6 +194,11 @@ public class RecipeModel implements java.io.Serializable {
 
 	public void setComments(Set<CommentModel> comments) {
 		this.comments = comments;
+	}
+	
+	public void addComment(CommentModel comment) {
+		if (comments==null) comments = new HashSet<CommentModel>();
+		comments.add(comment);
 	}
 
 	public Set<UserModel> getReportingUsers() {
@@ -192,6 +208,11 @@ public class RecipeModel implements java.io.Serializable {
 	public void setReportingUsers(Set<UserModel> reportingUsers) {
 		this.reportingUsers = reportingUsers;
 	}
+	
+	public void addReportingUser(UserModel reportingUser) {
+		if (reportingUsers==null) reportingUsers = new HashSet<UserModel>();
+		reportingUsers.add(reportingUser);
+	}
 
 	public Set<RecipeCollectionModel> getRecipeCollections() {
 		return recipeCollections;
@@ -200,6 +221,11 @@ public class RecipeModel implements java.io.Serializable {
 	public void setRecipeCollections(Set<RecipeCollectionModel> recipeCollections) {
 		this.recipeCollections = recipeCollections;
 	}
+	
+	public void addRecipeCollection(RecipeCollectionModel recipeCollection) {
+		if (recipeCollections==null) recipeCollections = new HashSet<RecipeCollectionModel>();
+		recipeCollections.add(recipeCollection);
+	}
 
 	public Set<UserModel> getLikingUsers() {
 		return likingUsers;
@@ -207,6 +233,11 @@ public class RecipeModel implements java.io.Serializable {
 
 	public void setLikingUsers(Set<UserModel> likingUsers) {
 		this.likingUsers = likingUsers;
+	}
+	
+	public void addLikingUser(UserModel likingUser) {
+		if (likingUsers==null) likingUsers = new HashSet<UserModel>();
+		likingUsers.add(likingUser);
 	}
 
 	public PictureModel getPicture() {

@@ -1,5 +1,6 @@
 package at.fh.swenga.jpa.model;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -126,6 +127,11 @@ public class IngredientModel implements java.io.Serializable{
 	public void setUsersLoveMe(Set<UserModel> usersLoveMe) {
 		this.usersLoveMe = usersLoveMe;
 	}
+	
+	public void addUserLoveMe(UserModel userLoveMe) {
+		if (usersLoveMe==null) usersLoveMe = new HashSet<UserModel>();
+		usersLoveMe.add(userLoveMe);
+	}
 
 	public Set<UserModel> getUsersHateMe() {
 		return usersHateMe;
@@ -133,6 +139,11 @@ public class IngredientModel implements java.io.Serializable{
 
 	public void setUsersHateMe(Set<UserModel> usersHateMe) {
 		this.usersHateMe = usersHateMe;
+	}
+	
+	public void addUserHateMe(UserModel userHateMe) {
+		if (usersHateMe==null) usersHateMe = new HashSet<UserModel>();
+		usersHateMe.add(userHateMe);
 	}
 
 	public Set<AllergieModel> getAllergies() {
@@ -143,4 +154,8 @@ public class IngredientModel implements java.io.Serializable{
 		this.allergies = allergies;
 	}
 
+	public void addAllergie(AllergieModel allergie) {
+		if (allergies==null) allergies = new HashSet<AllergieModel>();
+		allergies.add(allergie);
+	}
 }
