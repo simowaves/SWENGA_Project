@@ -156,38 +156,35 @@ public class TestDataController {
 
 		IngredientModel ing8 = new IngredientModel("Plum tomatoes", true, true);
 		ingredientRepository.save(ing8);
-				
-		Set<AllergieModel> allSet1 = new HashSet<AllergieModel>();
-		allSet1.add(all4);
 
-		IngredientModel ing9 = new IngredientModel("Spaghetti", true, false/*, allSet1*/);
+		IngredientModel ing9 = new IngredientModel("Spaghetti", true, false);
 		ingredientRepository.save(ing9);
 		
-		all4.addIngredient(ing9);
-		allergieRepository.save(all4);
-			
-		Set<AllergieModel> allSet2 = new HashSet<AllergieModel>();
-		allSet2.add(all7);
+		ing9.addAllergie(all4);
+		ingredientRepository.save(ing9);
 				
-		IngredientModel ing10 = new IngredientModel("Parmesan cheese", true, false, allSet2);
+		IngredientModel ing10 = new IngredientModel("Parmesan cheese", true, false);
 		ingredientRepository.save(ing10);
-				
-		Set<AllergieModel> allSet3 = new HashSet<AllergieModel>();
-		allSet3.add(all1);
+		
+		ing10.addAllergie(all7);
+		ingredientRepository.save(ing10);
 
-		IngredientModel ing11 = new IngredientModel("Eggs", true, false, allSet3);
+		IngredientModel ing11 = new IngredientModel("Eggs", true, false);
 		ingredientRepository.save(ing11);
-				
-		Set<AllergieModel> allSet4 = new HashSet<AllergieModel>();
-		allSet4.add(all7);
+		
+		ing11.addAllergie(all1);
+		ingredientRepository.save(ing11);
 
-		IngredientModel ing12 = new IngredientModel("Cow milk", true, false, allSet4);
+		IngredientModel ing12 = new IngredientModel("Cow milk", true, false);
 		ingredientRepository.save(ing12);
-				
-		Set<AllergieModel> allSet5 = new HashSet<AllergieModel>();
-		allSet5.add(all4);
+		
+		ing12.addAllergie(all7);
+		ingredientRepository.save(ing12);
 
-		IngredientModel ing13 = new IngredientModel("Flour", true, true, allSet5);
+		IngredientModel ing13 = new IngredientModel("Flour", true, true);
+		ingredientRepository.save(ing13);
+		
+		ing13.addAllergie(all4);
 		ingredientRepository.save(ing13);
 
 		IngredientModel ing14 = new IngredientModel("Sugar", true, true);
@@ -216,29 +213,29 @@ public class TestDataController {
 
 		IngredientModel ing22 = new IngredientModel("Carrot", true, true);
 		ingredientRepository.save(ing22);
-				
-		Set<AllergieModel> allSet6 = new HashSet<AllergieModel>();
-		allSet6.add(all5);
 
-		IngredientModel ing23 = new IngredientModel("Prawn", false, false, allSet6);
+		IngredientModel ing23 = new IngredientModel("Prawn", false, false);
 		ingredientRepository.save(ing23);
-				
-		Set<AllergieModel> allSet7 = new HashSet<AllergieModel>();
-		allSet7.add(all14);
+		
+		ing23.addAllergie(all5);
+		ingredientRepository.save(ing23);
 
-		IngredientModel ing24 = new IngredientModel("Clams", false, false, allSet7);
+		IngredientModel ing24 = new IngredientModel("Clams", false, false);
 		ingredientRepository.save(ing24);
-				
-		Set<AllergieModel> allSet8 = new HashSet<AllergieModel>();
-		allSet8.add(all4);
+		
+		ing24.addAllergie(all14);
+		ingredientRepository.save(ing24);
 
-		IngredientModel ing25 = new IngredientModel("Squid", false, false, allSet8);
+		IngredientModel ing25 = new IngredientModel("Squid", false, false);
 		ingredientRepository.save(ing25);
-				
-		Set<AllergieModel> allSet9 = new HashSet<AllergieModel>();
-		allSet9.add(all14);
+		
+		ing25.addAllergie(all14);
+		ingredientRepository.save(ing25);
 
 		IngredientModel ing26 = new IngredientModel("Mussels", false, false);
+		ingredientRepository.save(ing26);
+		
+		ing26.addAllergie(all14);
 		ingredientRepository.save(ing26);
 
 		IngredientModel ing27 = new IngredientModel("Rice", true, true);
@@ -255,18 +252,20 @@ public class TestDataController {
 
 		IngredientModel ing31 = new IngredientModel("Veal schnitzel", false, false);
 		ingredientRepository.save(ing31);
-				
-		Set<AllergieModel> allSet10 = new HashSet<AllergieModel>();
-		allSet10.add(all4);
-		allSet10.add(all7);
 
-		IngredientModel ing32 = new IngredientModel("Breadcrumbs", true, false, allSet10);
+		IngredientModel ing32 = new IngredientModel("Breadcrumbs", true, false);
 		ingredientRepository.save(ing32);
-				
-		Set<AllergieModel> allSet11 = new HashSet<AllergieModel>();
-		allSet11.add(all7);
+		
+		ing32.addAllergie(all4);
+		ingredientRepository.save(ing32);
+		
+		ing32.addAllergie(all7);
+		ingredientRepository.save(ing32);
 
-		IngredientModel ing33 = new IngredientModel("Butter", true, false, allSet11);
+		IngredientModel ing33 = new IngredientModel("Butter", true, false);
+		ingredientRepository.save(ing33);
+		
+		ing33.addAllergie(all7);
 		ingredientRepository.save(ing33);
 
 		IngredientModel ing34 = new IngredientModel("Lemon", true, true);
@@ -638,7 +637,7 @@ public class TestDataController {
 		recipeRepository.save(rec6);
 
 		// ----------------------------------------
-		// -------------- RECIPE_MODEL
+		// -------------- INGREDIENT_AMOUNT_MODEL
 		// ----------------------------------------
 
 		IngredientAmountModel ingAm1 = new IngredientAmountModel("2 cloves", rec1, ing28);
@@ -794,35 +793,32 @@ public class TestDataController {
 		RecipeCollectionModel col2 = new RecipeCollectionModel ("Favorites", tim);
 		RecipeCollectionModel col3 = new RecipeCollectionModel ("Favorites", lukas);
 		RecipeCollectionModel col4 = new RecipeCollectionModel ("Favorites", simone);
-
-		Set<RecipeModel> colSet1 = new HashSet<RecipeModel>();
-		colSet1.add(rec1);
-		colSet1.add(rec4);
-		colSet1.add(rec3);
-
-		Set<RecipeModel> colSet2 = new HashSet<RecipeModel>();
-		colSet2.add(rec1);
-		colSet2.add(rec2);
-		
-		Set<RecipeModel> colSet3 = new HashSet<RecipeModel>();
-		colSet3.add(rec5);
-
-		Set<RecipeModel> colSet4 = new HashSet<RecipeModel>();
-		colSet4.add(rec1);
-		colSet4.add(rec2);
-		colSet4.add(rec3);
-		colSet4.add(rec4);
-		colSet4.add(rec5);
-
-		col1.setRecipes(colSet1);
-		col2.setRecipes(colSet2);
-		col3.setRecipes(colSet3);
-		col4.setRecipes(colSet4);
 		
 		recipeCollectionRepository.save(col1);
 		recipeCollectionRepository.save(col2);
 		recipeCollectionRepository.save(col3);
 		recipeCollectionRepository.save(col4);
+		
+		rec1.addRecipeCollection(col1);
+		rec1.addRecipeCollection(col2);
+		rec1.addRecipeCollection(col4);
+		recipeRepository.save(rec1);
+		
+		rec2.addRecipeCollection(col2);
+		rec2.addRecipeCollection(col4);
+		recipeRepository.save(rec2);
+		
+		rec3.addRecipeCollection(col1);
+		rec3.addRecipeCollection(col4);
+		recipeRepository.save(rec3);
+		
+		rec4.addRecipeCollection(col1);
+		rec4.addRecipeCollection(col4);
+		recipeRepository.save(rec4);
+		
+		rec5.addRecipeCollection(col3);
+		rec5.addRecipeCollection(col4);
+		recipeRepository.save(rec5);
 		
 		// ----------------------------------------
 		// -------------- LIKED_RECIPE & REPORTED RECIPE
