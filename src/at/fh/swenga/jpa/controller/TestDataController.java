@@ -823,6 +823,6 @@ public class TestDataController {
 		recipeCollectionRepository.save(col3);
 		recipeCollectionRepository.save(col4);
 		
-		return "forward:login";
+		return "forward:recipeList";
 	}
 }

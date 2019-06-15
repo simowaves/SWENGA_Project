@@ -24,7 +24,7 @@ public class RecipeController {
 	public String index(Model model) {
 		//List<RecipeModel> recipes = recipeRepository.findAll();
 		//model.addAttribute("recipes", recipes);
-		return "index2";
+		return "recipeList";
 	}
 	
 }
