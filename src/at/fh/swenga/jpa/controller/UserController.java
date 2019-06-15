@@ -77,11 +77,16 @@ public class UserController {
 			userRepository.save(newUserModel);
 			
 			newUserModel.addUserRole(userRole);
-			userRepository.save(newUserModel);
+			//userRepository.save(newUserModel);
 
-			// RecipeCollectionModel recipeCollection = new
-			// RecipeCollectionModel("favorites", newUserModel);
-			// recipeCollectionRepository.save(recipeCollection);
+			RecipeCollectionModel recipeCollection = new RecipeCollectionModel("Favorites");
+			recipeCollectionRepository.save(recipeCollection);
+			
+			newUserModel.addRecipeCollection(recipeCollection);
+			userRepository.save(newUserModel);
+			
+			recipeCollection.setUser(newUserModel);
+			recipeCollectionRepository.save(recipeCollection);
 
 			model.addAttribute("message", "New user " + newUserModel.getUserName() + " added.");
 		}
