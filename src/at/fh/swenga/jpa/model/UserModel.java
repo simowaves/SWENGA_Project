@@ -30,7 +30,7 @@ public class UserModel implements java.io.Serializable {
 	private int id;
  
  
-	@Column(name = "username", unique = true, nullable = false, length = 45)
+	@Column(name = "userName", unique = true, nullable = false, length = 45)
 	private String userName;
  
 	@Column(name = "password", nullable = false, length = 60)
