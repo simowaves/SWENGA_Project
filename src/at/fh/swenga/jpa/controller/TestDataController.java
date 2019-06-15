@@ -287,7 +287,6 @@ public class TestDataController {
 		allSetUser1.add(all3);
 		allSetUser1.add(all6);
 		
-		
 		Set<IngredientModel> lovedIngUser1 = new HashSet<IngredientModel>();
 		lovedIngUser1.add(ing1);
 		lovedIngUser1.add(ing5);
@@ -308,85 +307,79 @@ public class TestDataController {
 		tim.addUserRole(userRole);
 		tim.addUserRole(adminRole);
 		tim.addUserRole(godRole);
-		tim.addLovedIngredient(ing38);
-		/*
+		
 		tim.addLovedIngredient(ing1);
 		tim.addLovedIngredient(ing5);
 		tim.addLovedIngredient(ing10);
 		tim.addLovedIngredient(ing15);
 		tim.addLovedIngredient(ing20);
 		tim.addLovedIngredient(ing25);
-		
 		tim.addHatedIngredient(ing38);
 		tim.addHatedIngredient(ing8);
-		tim.addHatedIngredient(ing27);*/
-		
+		tim.addHatedIngredient(ing27);
 		userRepository.save(tim);
+		
 		
 		Set<AllergieModel> allSetUser2 = new HashSet<AllergieModel>();
 		allSetUser2.add(all4);
 		allSetUser2.add(all10);
-		
-		Set<IngredientModel> lovedIngUser2 = new HashSet<IngredientModel>();
-		lovedIngUser2.add(ing2);
-		lovedIngUser2.add(ing7);
-		lovedIngUser2.add(ing12);
-		lovedIngUser2.add(ing17);
-		lovedIngUser2.add(ing22);
 		
 		Set<IngredientModel> hatedIngUser2 = new HashSet<IngredientModel>();
 		hatedIngUser2.add(ing16);
 		hatedIngUser2.add(ing23);
 		hatedIngUser2.add(ing24);
 
-		UserModel julian = new UserModel("julian", "password", "julian@wtf.com", true, allSetUser2/*, lovedIngUser2, hatedIngUser2*/);
-		tim.encryptPassword();
-		tim.addUserRole(userRole);
-		tim.addUserRole(adminRole);
+		UserModel julian = new UserModel("julian", "password", "julian@wtf.com", true, allSetUser2);
+		julian.encryptPassword();
+		julian.addUserRole(userRole);
+		julian.addUserRole(adminRole);
+		
+		julian.addLovedIngredient(ing2);
+		julian.addLovedIngredient(ing7);
+		julian.addLovedIngredient(ing12);
+		julian.addLovedIngredient(ing17);
+		julian.addLovedIngredient(ing22);
+		julian.addHatedIngredient(ing16);
+		julian.addHatedIngredient(ing23);
+		julian.addHatedIngredient(ing24);
 		userRepository.save(julian);
 		
 		Set<AllergieModel> allSetUser3 = new HashSet<AllergieModel>();
 		allSetUser3.add(all14);
 		allSetUser3.add(all13);
-		
-		Set<IngredientModel> lovedIngUser3 = new HashSet<IngredientModel>();
-		lovedIngUser3.add(ing30);
-		lovedIngUser3.add(ing31);
-		lovedIngUser3.add(ing33);
-		lovedIngUser3.add(ing38);
-		lovedIngUser3.add(ing29);
-		
-		Set<IngredientModel> hatedIngUser3 = new HashSet<IngredientModel>();
-		hatedIngUser3.add(ing18);
-		hatedIngUser3.add(ing20);
-		hatedIngUser3.add(ing21);
 
-		UserModel lukas = new UserModel("lukas", "password", "lukas@wtf.com", true, allSetUser3/*, lovedIngUser3, hatedIngUser3*/);
-		tim.encryptPassword();
-		tim.addUserRole(userRole); 
-		tim.addUserRole(adminRole);
+		UserModel lukas = new UserModel("lukas", "password", "lukas@wtf.com", true, allSetUser3);
+		lukas.encryptPassword();
+		lukas.addUserRole(userRole); 
+		lukas.addUserRole(adminRole);
+		
+		lukas.addLovedIngredient(ing30);
+		lukas.addLovedIngredient(ing31);
+		lukas.addLovedIngredient(ing33);
+		lukas.addLovedIngredient(ing38);
+		lukas.addLovedIngredient(ing29);
+		lukas.addHatedIngredient(ing18);
+		lukas.addHatedIngredient(ing20);
+		lukas.addHatedIngredient(ing21);
 		userRepository.save(lukas);
 		
 		Set<AllergieModel> allSetUser4 = new HashSet<AllergieModel>();
 		allSetUser4.add(all7);
 		allSetUser4.add(all8);
-		
-		Set<IngredientModel> lovedIngUser4 = new HashSet<IngredientModel>();
-		lovedIngUser3.add(ing2);
-		lovedIngUser3.add(ing3);
-		lovedIngUser3.add(ing4);
-		lovedIngUser3.add(ing5);
-		lovedIngUser3.add(ing6);
-		
-		Set<IngredientModel> hatedIngUser4 = new HashSet<IngredientModel>();
-		hatedIngUser3.add(ing30);
-		hatedIngUser3.add(ing31);
-		hatedIngUser3.add(ing27);
 
-		UserModel simone = new UserModel("simone", "password", "simone@wtf.com", true, allSetUser4/*, lovedIngUser4, hatedIngUser4*/);
-		tim.encryptPassword();
-		tim.addUserRole(userRole);
-		tim.addUserRole(adminRole);
+		UserModel simone = new UserModel("simone", "password", "simone@wtf.com", true, allSetUser4);
+		simone.encryptPassword();
+		simone.addUserRole(userRole);
+		simone.addUserRole(adminRole);
+		
+		simone.addLovedIngredient(ing2);
+		simone.addLovedIngredient(ing3);
+		simone.addLovedIngredient(ing4);
+		simone.addLovedIngredient(ing5);
+		simone.addLovedIngredient(ing6);
+		simone.addHatedIngredient(ing30);
+		simone.addHatedIngredient(ing31);
+		simone.addHatedIngredient(ing27);
 		userRepository.save(simone);
 
 		UserModel admin = new UserModel("admin", "password", "admin@wtf.com", true);
