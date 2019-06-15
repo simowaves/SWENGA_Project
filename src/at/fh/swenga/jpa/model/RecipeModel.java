@@ -55,7 +55,7 @@ public class RecipeModel implements java.io.Serializable {
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	private UserModel author;
 
-	@OneToMany(mappedBy="recipe",fetch=FetchType.LAZY)
+	@OneToMany(mappedBy="recipe",fetch=FetchType.EAGER)
     private Set<IngredientAmountModel> ingredientAmounts;
 	
 	@Column(name = "published")
