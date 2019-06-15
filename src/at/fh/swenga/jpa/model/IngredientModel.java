@@ -79,6 +79,13 @@ public class IngredientModel implements java.io.Serializable{
 		this.vegan = vegan;
 		this.vegetarian = vegetarian;
 	}
+	
+	public IngredientModel(String name, boolean vegetarian, boolean vegan, Set<AllergieModel> allergies) {
+		super();
+		this.name = name;
+		this.vegan = vegan;
+		this.vegetarian = vegetarian;
+	}
 
 	public int getId() {
 		return id;

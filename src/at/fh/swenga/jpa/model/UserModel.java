@@ -91,6 +91,33 @@ public class UserModel implements java.io.Serializable {
 		this.emailAddress = emailAddress;
 		this.enabled = enabled;
 	}
+	
+	public UserModel(String userName, String password, String emailAddress, boolean enabled,
+			Set<AllergieModel> allergies,Set<IngredientModel> lovedIngredients, Set<IngredientModel> hatedIngredients ) {
+		super();
+		this.userName = userName;
+		this.password = password;
+		this.emailAddress = emailAddress;
+		this.enabled = enabled;
+		this.allergies = allergies;
+		this.lovedIngredients = lovedIngredients;
+		this.hatedIngredients = hatedIngredients;
+	}
+	
+
+	public UserModel(String userName, String password, String emailAddress, boolean enabled,
+			Set<AllergieModel> allergies,Set<IngredientModel> lovedIngredients, Set<IngredientModel> hatedIngredients,Set<UserModel> usersIFollow, Set<UserModel> usersFollowingMe ) {
+		super();
+		this.userName = userName;
+		this.password = password;
+		this.emailAddress = emailAddress;
+		this.enabled = enabled;
+		this.allergies = allergies;
+		this.lovedIngredients = lovedIngredients;
+		this.hatedIngredients = hatedIngredients;
+		this.usersIFollow = usersIFollow;
+		this.usersFollowingMe = usersFollowingMe;
+	}
  
  
 	public int getId() {

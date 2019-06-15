@@ -79,47 +79,7 @@ public class TestDataController {
 		UserRoleModel godRole = userRoleRepository.findTop1ByRole("ROLE_GOD");
 		if (godRole == null)
 			godRole = new UserRoleModel("ROLE_GOD");
-
-		// ----------------------------------------
-		// -------------- USER_MODEL
-		// -----------------------------------------
-
-		UserModel tim = new UserModel("tim", "password", "tim@wtf.com", true);
-		tim.encryptPassword();
-		tim.addUserRole(userRole);
-		tim.addUserRole(adminRole);
-		tim.addUserRole(godRole);
-		userRepository.save(tim);
-
-		UserModel julian = new UserModel("julian", "password", "julian@wtf.com", true);
-		tim.encryptPassword();
-		tim.addUserRole(userRole);
-		tim.addUserRole(adminRole);
-		userRepository.save(julian);
-
-		UserModel lukas = new UserModel("lukas", "password", "lukas@wtf.com", true);
-		tim.encryptPassword();
-		tim.addUserRole(userRole);
-		tim.addUserRole(adminRole);
-		userRepository.save(lukas);
-
-		UserModel simone = new UserModel("simone", "password", "simone@wtf.com", true);
-		tim.encryptPassword();
-		tim.addUserRole(userRole);
-		tim.addUserRole(adminRole);
-		userRepository.save(simone);
-
-		UserModel admin = new UserModel("admin", "password", "admin@wtf.com", true);
-		admin.encryptPassword();
-		admin.addUserRole(userRole);
-		admin.addUserRole(adminRole);
-		userRepository.save(admin);
-
-		UserModel user = new UserModel("user", "password", "user@wtf.com", true);
-		user.encryptPassword();
-		user.addUserRole(userRole);
-		userRepository.save(user);
-
+		
 		// ----------------------------------------
 		// -------------- ALLERGIE_MODEL
 		// ----------------------------------------
@@ -165,6 +125,268 @@ public class TestDataController {
 
 		AllergieModel all14 = new AllergieModel("Molluscs");
 		allergieRepository.save(all14);
+		
+		// ----------------------------------------
+		// -------------- INGREDIENT_MODEL
+		// ----------------------------------------
+		
+		IngredientModel ing1 = new IngredientModel("Onion", true, true);
+		ingredientRepository.save(ing1);
+
+		IngredientModel ing2 = new IngredientModel("Rosemary", true, true);
+		ingredientRepository.save(ing2);
+
+		IngredientModel ing3 = new IngredientModel("Bacon", false, false);
+		ingredientRepository.save(ing3);
+
+		IngredientModel ing4 = new IngredientModel("Olive oil", true, true);
+		ingredientRepository.save(ing4);
+
+		IngredientModel ing5 = new IngredientModel("Minced beef", false, false);
+		ingredientRepository.save(ing5);
+
+		IngredientModel ing6 = new IngredientModel("Red wine", true, true);
+		ingredientRepository.save(ing6);
+
+		IngredientModel ing7 = new IngredientModel("Tomatoes", true, true);
+		ingredientRepository.save(ing7);
+
+		IngredientModel ing8 = new IngredientModel("Plum tomatoes", true, true);
+		ingredientRepository.save(ing8);
+				
+		Set<AllergieModel> allSet1 = new HashSet<AllergieModel>();
+		allSet1.add(all4);
+
+		IngredientModel ing9 = new IngredientModel("Spaghetti", true, false, allSet1);
+		ingredientRepository.save(ing9);
+			
+		Set<AllergieModel> allSet2 = new HashSet<AllergieModel>();
+		allSet2.add(all7);
+				
+		IngredientModel ing10 = new IngredientModel("Parmesan cheese", true, false, allSet2);
+		ingredientRepository.save(ing10);
+				
+		Set<AllergieModel> allSet3 = new HashSet<AllergieModel>();
+		allSet3.add(all1);
+
+		IngredientModel ing11 = new IngredientModel("Eggs", true, false, allSet3);
+		ingredientRepository.save(ing11);
+				
+		Set<AllergieModel> allSet4 = new HashSet<AllergieModel>();
+		allSet4.add(all7);
+
+		IngredientModel ing12 = new IngredientModel("Cow milk", true, false, allSet4);
+		ingredientRepository.save(ing12);
+				
+		Set<AllergieModel> allSet5 = new HashSet<AllergieModel>();
+		allSet5.add(all4);
+
+		IngredientModel ing13 = new IngredientModel("Flour", true, true, allSet5);
+		ingredientRepository.save(ing13);
+
+		IngredientModel ing14 = new IngredientModel("Sugar", true, true);
+		ingredientRepository.save(ing14);
+
+		IngredientModel ing15 = new IngredientModel("Vegetable stock", true, true);
+		ingredientRepository.save(ing15);
+
+		IngredientModel ing16 = new IngredientModel("Parsley", true, true);
+		ingredientRepository.save(ing16);
+
+		IngredientModel ing17 = new IngredientModel("Vegetable oil", true, true);
+		ingredientRepository.save(ing17);
+
+		IngredientModel ing18 = new IngredientModel("Pepper", true, true);
+		ingredientRepository.save(ing18);
+
+		IngredientModel ing19 = new IngredientModel("Salt", true, true);
+		ingredientRepository.save(ing19);
+
+		IngredientModel ing20 = new IngredientModel("Green pepper", true, true);
+		ingredientRepository.save(ing20);
+
+		IngredientModel ing21 = new IngredientModel("Red pepper", true, true);
+		ingredientRepository.save(ing21);
+
+		IngredientModel ing22 = new IngredientModel("Carrot", true, true);
+		ingredientRepository.save(ing22);
+				
+		Set<AllergieModel> allSet6 = new HashSet<AllergieModel>();
+		allSet6.add(all5);
+
+		IngredientModel ing23 = new IngredientModel("Prawn", false, false, allSet6);
+		ingredientRepository.save(ing23);
+				
+		Set<AllergieModel> allSet7 = new HashSet<AllergieModel>();
+		allSet7.add(all14);
+
+		IngredientModel ing24 = new IngredientModel("Clams", false, false, allSet7);
+		ingredientRepository.save(ing24);
+				
+		Set<AllergieModel> allSet8 = new HashSet<AllergieModel>();
+		allSet8.add(all4);
+
+		IngredientModel ing25 = new IngredientModel("Squid", false, false, allSet8);
+		ingredientRepository.save(ing25);
+				
+		Set<AllergieModel> allSet9 = new HashSet<AllergieModel>();
+		allSet9.add(all14);
+
+		IngredientModel ing26 = new IngredientModel("Mussels", false, false);
+		ingredientRepository.save(ing26);
+
+		IngredientModel ing27 = new IngredientModel("Rice", true, true);
+		ingredientRepository.save(ing27);
+
+		IngredientModel ing28 = new IngredientModel("Garlic", true, true);
+		ingredientRepository.save(ing28);
+
+		IngredientModel ing29 = new IngredientModel("Saffron", true, true);
+		ingredientRepository.save(ing29);
+
+		IngredientModel ing30 = new IngredientModel("Water", true, true);
+		ingredientRepository.save(ing30);
+
+		IngredientModel ing31 = new IngredientModel("Veal schnitzel", false, false);
+		ingredientRepository.save(ing31);
+				
+		Set<AllergieModel> allSet10 = new HashSet<AllergieModel>();
+		allSet10.add(all4);
+		allSet10.add(all7);
+
+		IngredientModel ing32 = new IngredientModel("Breadcrumbs", true, false, allSet10);
+		ingredientRepository.save(ing32);
+				
+		Set<AllergieModel> allSet11 = new HashSet<AllergieModel>();
+		allSet11.add(all7);
+
+		IngredientModel ing33 = new IngredientModel("Butter", true, false, allSet11);
+		ingredientRepository.save(ing33);
+
+		IngredientModel ing34 = new IngredientModel("Lemon", true, true);
+		ingredientRepository.save(ing34);
+
+		IngredientModel ing35 = new IngredientModel("Organic stock", true, true);
+		ingredientRepository.save(ing35);
+
+		IngredientModel ing36 = new IngredientModel("Cellary", true, true);
+		ingredientRepository.save(ing36);
+
+		IngredientModel ing37 = new IngredientModel("Risotto rice", true, true);
+		ingredientRepository.save(ing37);
+				
+		IngredientModel ing38 = new IngredientModel("Vermouth", true, true);
+		ingredientRepository.save(ing38);
+
+		// ----------------------------------------
+		// -------------- USER_MODEL
+		// ----------------------------------------
+		
+		Set<AllergieModel> allSetUser1 = new HashSet<AllergieModel>();
+		allSetUser1.add(all2);
+		allSetUser1.add(all3);
+		allSetUser1.add(all6);
+		
+		Set<IngredientModel> lovedIngUser1 = new HashSet<IngredientModel>();
+		lovedIngUser1.add(ing1);
+		lovedIngUser1.add(ing5);
+		lovedIngUser1.add(ing10);
+		lovedIngUser1.add(ing15);
+		lovedIngUser1.add(ing20);
+		lovedIngUser1.add(ing25);
+		lovedIngUser1.add(ing30);
+		lovedIngUser1.add(ing35);
+		
+		Set<IngredientModel> hatedIngUser1 = new HashSet<IngredientModel>();
+		hatedIngUser1.add(ing8);
+		hatedIngUser1.add(ing27);
+		hatedIngUser1.add(ing38);
+
+		UserModel tim = new UserModel("tim", "password", "tim@wtf.com", true, allSetUser1, lovedIngUser1, hatedIngUser1);
+		tim.encryptPassword();
+		tim.addUserRole(userRole);
+		tim.addUserRole(adminRole);
+		tim.addUserRole(godRole);
+		userRepository.save(tim);
+		
+		Set<AllergieModel> allSetUser2 = new HashSet<AllergieModel>();
+		allSetUser2.add(all4);
+		allSetUser2.add(all10);
+		
+		Set<IngredientModel> lovedIngUser2 = new HashSet<IngredientModel>();
+		lovedIngUser2.add(ing2);
+		lovedIngUser2.add(ing7);
+		lovedIngUser2.add(ing12);
+		lovedIngUser2.add(ing17);
+		lovedIngUser2.add(ing22);
+		
+		Set<IngredientModel> hatedIngUser2 = new HashSet<IngredientModel>();
+		hatedIngUser2.add(ing16);
+		hatedIngUser2.add(ing23);
+		hatedIngUser2.add(ing24);
+
+		UserModel julian = new UserModel("julian", "password", "julian@wtf.com", true, allSetUser2, lovedIngUser2, hatedIngUser2);
+		tim.encryptPassword();
+		tim.addUserRole(userRole);
+		tim.addUserRole(adminRole);
+		userRepository.save(julian);
+		
+		Set<AllergieModel> allSetUser3 = new HashSet<AllergieModel>();
+		allSetUser3.add(all14);
+		allSetUser3.add(all13);
+		
+		Set<IngredientModel> lovedIngUser3 = new HashSet<IngredientModel>();
+		lovedIngUser3.add(ing30);
+		lovedIngUser3.add(ing31);
+		lovedIngUser3.add(ing33);
+		lovedIngUser3.add(ing38);
+		lovedIngUser3.add(ing29);
+		
+		Set<IngredientModel> hatedIngUser3 = new HashSet<IngredientModel>();
+		hatedIngUser3.add(ing18);
+		hatedIngUser3.add(ing20);
+		hatedIngUser3.add(ing21);
+
+		UserModel lukas = new UserModel("lukas", "password", "lukas@wtf.com", true, allSetUser3, lovedIngUser3, hatedIngUser3);
+		tim.encryptPassword();
+		tim.addUserRole(userRole);
+		tim.addUserRole(adminRole);
+		userRepository.save(lukas);
+		
+		Set<AllergieModel> allSetUser4 = new HashSet<AllergieModel>();
+		allSetUser4.add(all7);
+		allSetUser4.add(all8);
+		
+		Set<IngredientModel> lovedIngUser4 = new HashSet<IngredientModel>();
+		lovedIngUser3.add(ing2);
+		lovedIngUser3.add(ing3);
+		lovedIngUser3.add(ing4);
+		lovedIngUser3.add(ing5);
+		lovedIngUser3.add(ing6);
+		
+		Set<IngredientModel> hatedIngUser4 = new HashSet<IngredientModel>();
+		hatedIngUser3.add(ing30);
+		hatedIngUser3.add(ing31);
+		hatedIngUser3.add(ing27);
+
+		UserModel simone = new UserModel("simone", "password", "simone@wtf.com", true, allSetUser4, lovedIngUser4, hatedIngUser4);
+		tim.encryptPassword();
+		tim.addUserRole(userRole);
+		tim.addUserRole(adminRole);
+		userRepository.save(simone);
+
+		UserModel admin = new UserModel("admin", "password", "admin@wtf.com", true);
+		admin.encryptPassword();
+		admin.addUserRole(userRole);
+		admin.addUserRole(adminRole);
+		userRepository.save(admin);
+
+		UserModel user = new UserModel("user", "password", "user@wtf.com", true);
+		user.encryptPassword();
+		user.addUserRole(userRole);
+		userRepository.save(user);
+
+
 
 		// ----------------------------------------
 		// -------------- CATEGORIE_MODEL
@@ -259,124 +481,6 @@ public class TestDataController {
 
 		CategorieModel cat30 = new CategorieModel("Sauces");
 		categorieRepository.save(cat30);
-
-		// ----------------------------------------
-		// -------------- INGREDIENT_MODEL
-		// ----------------------------------------
-
-		IngredientModel ing1 = new IngredientModel("Onion", true, true);
-		ingredientRepository.save(ing1);
-
-		IngredientModel ing2 = new IngredientModel("Rosemary", true, true);
-		ingredientRepository.save(ing2);
-
-		IngredientModel ing3 = new IngredientModel("Bacon", false, false);
-		ingredientRepository.save(ing3);
-
-		IngredientModel ing4 = new IngredientModel("Olive oil", true, true);
-		ingredientRepository.save(ing4);
-
-		IngredientModel ing5 = new IngredientModel("Minced beef", false, false);
-		ingredientRepository.save(ing5);
-
-		IngredientModel ing6 = new IngredientModel("Red wine", true, true);
-		ingredientRepository.save(ing6);
-
-		IngredientModel ing7 = new IngredientModel("Tomatoes", true, true);
-		ingredientRepository.save(ing7);
-
-		IngredientModel ing8 = new IngredientModel("Plum tomatoes", true, true);
-		ingredientRepository.save(ing8);
-
-		IngredientModel ing9 = new IngredientModel("Spaghetti", true, false);
-		ingredientRepository.save(ing9);
-
-		IngredientModel ing10 = new IngredientModel("Parmesan cheese", true, false);
-		ingredientRepository.save(ing10);
-
-		IngredientModel ing11 = new IngredientModel("Eggs", true, false);
-		ingredientRepository.save(ing11);
-
-		IngredientModel ing12 = new IngredientModel("Cow milk", true, false);
-		ingredientRepository.save(ing12);
-
-		IngredientModel ing13 = new IngredientModel("Flour", true, true);
-		ingredientRepository.save(ing13);
-
-		IngredientModel ing14 = new IngredientModel("Sugar", true, true);
-		ingredientRepository.save(ing14);
-
-		IngredientModel ing15 = new IngredientModel("Vegetable stock", true, true);
-		ingredientRepository.save(ing15);
-
-		IngredientModel ing16 = new IngredientModel("Parsley", true, true);
-		ingredientRepository.save(ing16);
-
-		IngredientModel ing17 = new IngredientModel("Vegetable oil", true, true);
-		ingredientRepository.save(ing17);
-
-		IngredientModel ing18 = new IngredientModel("Pepper", true, true);
-		ingredientRepository.save(ing18);
-
-		IngredientModel ing19 = new IngredientModel("Salt", true, true);
-		ingredientRepository.save(ing19);
-
-		IngredientModel ing20 = new IngredientModel("Green pepper", true, true);
-		ingredientRepository.save(ing20);
-
-		IngredientModel ing21 = new IngredientModel("Red pepper", true, true);
-		ingredientRepository.save(ing21);
-
-		IngredientModel ing22 = new IngredientModel("Carrot", true, true);
-		ingredientRepository.save(ing22);
-
-		IngredientModel ing23 = new IngredientModel("Prawn", false, false);
-		ingredientRepository.save(ing23);
-
-		IngredientModel ing24 = new IngredientModel("Clams", false, false);
-		ingredientRepository.save(ing24);
-
-		IngredientModel ing25 = new IngredientModel("Squid", false, false);
-		ingredientRepository.save(ing25);
-
-		IngredientModel ing26 = new IngredientModel("Mussels", false, false);
-		ingredientRepository.save(ing26);
-
-		IngredientModel ing27 = new IngredientModel("Rice", true, true);
-		ingredientRepository.save(ing27);
-
-		IngredientModel ing28 = new IngredientModel("Garlic", true, true);
-		ingredientRepository.save(ing28);
-
-		IngredientModel ing29 = new IngredientModel("Saffron", true, true);
-		ingredientRepository.save(ing29);
-
-		IngredientModel ing30 = new IngredientModel("Water", true, true);
-		ingredientRepository.save(ing30);
-
-		IngredientModel ing31 = new IngredientModel("Veal schnitzel", false, false);
-		ingredientRepository.save(ing31);
-
-		IngredientModel ing32 = new IngredientModel("Breadcrumbs", true, false);
-		ingredientRepository.save(ing32);
-
-		IngredientModel ing33 = new IngredientModel("Butter", true, false);
-		ingredientRepository.save(ing33);
-
-		IngredientModel ing34 = new IngredientModel("Lemon", true, true);
-		ingredientRepository.save(ing34);
-
-		IngredientModel ing35 = new IngredientModel("Organic stock", true, true);
-		ingredientRepository.save(ing35);
-
-		IngredientModel ing36 = new IngredientModel("Cellary", true, true);
-		ingredientRepository.save(ing36);
-
-		IngredientModel ing37 = new IngredientModel("Risotto rice", true, true);
-		ingredientRepository.save(ing37);
-
-		IngredientModel ing38 = new IngredientModel("Vermouth", true, true);
-		ingredientRepository.save(ing38);
 
 		// ----------------------------------------
 		// -------------- RECIPE_MODEL
@@ -652,6 +756,7 @@ public class TestDataController {
 		// ----------------------------------------
 		// -------------- RECIPIE_COLLECTION_MODEL
 		// ----------------------------------------
+		
 		RecipeCollectionModel col1 = new RecipeCollectionModel ("Favorites", julian);
 		RecipeCollectionModel col2 = new RecipeCollectionModel ("Favorites", tim);
 		RecipeCollectionModel col3 = new RecipeCollectionModel ("Favorites", lukas);
@@ -688,5 +793,4 @@ public class TestDataController {
 		
 		return "forward:login";
 	}
-
 }
