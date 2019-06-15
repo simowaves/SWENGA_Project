@@ -73,12 +73,10 @@ public class UserController {
 				userRole = new UserRoleModel("ROLE_USER");
 
 			newUserModel.encryptPassword();
-			newUserModel.addUserRole(userRole);
 			newUserModel.setEnabled(true);
-
+			userRepository.save(newUserModel);
 			
-
-			userRole.addUser(newUserModel);
+			newUserModel.addUserRole(userRole);
 			userRepository.save(newUserModel);
 
 			// RecipeCollectionModel recipeCollection = new
