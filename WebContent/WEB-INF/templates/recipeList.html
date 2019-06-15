@@ -31,7 +31,7 @@
 	type="text/css">
 
 <!-- TEMP END -->
-
+<div th:replace="~{includes/bootstrap :: bootstrapJS}" />
 </head>
 
 <body id="page-top">
@@ -41,7 +41,7 @@
 
 		<!-- Sidebar -->
 
-			<div th:replace="~{/includes/navigation :: sidebar}"></div>
+		<div th:replace="~{/includes/navigation :: sidebar}"></div>
 
 		<!-- End of Sidebar -->
 
@@ -72,16 +72,18 @@
 
 						<!-- Basic Card Example -->
 
-						<div class="col-xl-4 col-md-6 col-sm-12 mb-4 px-0" th:each="recipe : ${recipes}">
+						<div class="col-xl-4 col-md-6 col-sm-12 mb-4 px-0"
+							th:each="recipe : ${recipes}">
 
 							<div class="card shadow ">
 								<!-- Image -->
 								<div
 									style="position: relative; overflow: hidden; padding-bottom: 100%;">
-									<a th:href="@{/showRecipe(id=${recipe.id})}"><img style="position: absolute;"
+									<a th:href="@{/showRecipe(id=${recipe.id})}"><img
+										style="position: absolute;"
 										src="https://images.unsplash.com/photo-1559562649-21c0be156e0d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60"
-										alt="" ></a>
-									
+										alt=""></a>
+
 									<!-- 										<img class="img-fluid card-img-top" -->
 									<!-- 											style="position: absolute;" -->
 									<!-- 											th:src="@{download(documentId=${recipe.document.id})}" -->
@@ -90,10 +92,12 @@
 								<!-- card body -->
 								<div class="card-body">
 									<div class="row">
-										<div class="col-8">
-											<a class="m-0 font-weight-bold text-primary" th:href="@{/showRecipe(id=${recipe.id})}"
-												th:text="${recipe.title}" ></a>
-											by <a th:href="@{/showUser(id=${recipe.author.id})}" th:text="${recipe.author.userName}"></a>
+										<div class="col-8 ml-0 mr-0">
+											<a class="m-0 font-weight-bold text-primary"
+												th:href="@{/showRecipe(id=${recipe.id})}"
+												th:text="${recipe.title}"></a> by <a
+												th:href="@{/showUser(id=${recipe.author.id})}"
+												th:text="${recipe.author.userName}"></a>
 										</div>
 										<div class="col-4 text-right">
 											<a href="#" class="btn btn-danger btn-circle"> <i
@@ -101,93 +105,98 @@
 											</a>
 										</div>
 									</div>
-									<div class="row" th:each="categorie : ${recipe.categories}">
-										<a href="#" class="badge badge-info"
-											th:text="${categorie.title}"></a>
+									<div class="row">
+										<div th:each="categorie : ${recipe.categories}">
+											<div class="ml-1 mr-1">
+												<a href="#" class="badge badge-info"
+													th:text="${categorie.title}"></a>
+											</div>
+										</div>
 									</div>
-								
+
+
+								</div>
+
 							</div>
 
+
+
+
+
+
+
+
+
+
+
 						</div>
-
-
-						
-
-						
-
-						
-
-
-
-
 					</div>
+					<!-- /.container-fluid -->
+
 				</div>
-				<!-- /.container-fluid -->
+				<!-- End of Main Content -->
+
+				<!-- Footer -->
+				<footer class="sticky-footer bg-white">
+					<div class="container my-auto">
+						<div class="copyright text-center my-auto">
+							<span>Copyright &copy; Your Website 2019</span>
+						</div>
+					</div>
+				</footer>
+				<!-- End of Footer -->
 
 			</div>
-			<!-- End of Main Content -->
-
-			<!-- Footer -->
-			<footer class="sticky-footer bg-white">
-				<div class="container my-auto">
-					<div class="copyright text-center my-auto">
-						<span>Copyright &copy; Your Website 2019</span>
-					</div>
-				</div>
-			</footer>
-			<!-- End of Footer -->
+			<!-- End of Content Wrapper -->
 
 		</div>
-		<!-- End of Content Wrapper -->
+		<!-- End of Page Wrapper -->
 
-	</div>
-	<!-- End of Page Wrapper -->
+		<!-- Scroll to Top Button-->
+		<a class="scroll-to-top rounded" href="#page-top"> <i
+			class="fas fa-angle-up"></i>
+		</a>
 
-	<!-- Scroll to Top Button-->
-	<a class="scroll-to-top rounded" href="#page-top"> <i
-		class="fas fa-angle-up"></i>
-	</a>
-
-	<!-- Logout Modal-->
-	<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
-		aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-					<button class="close" type="button" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">×</span>
-					</button>
-				</div>
-				<div class="modal-body">Select "Logout" below if you are ready
-					to end your current session.</div>
-				<div class="modal-footer">
-					<button class="btn btn-secondary" type="button"
-						data-dismiss="modal">Cancel</button>
-					<a class="btn btn-primary" href="login.html">Logout</a>
+		<!-- Logout Modal-->
+		<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
+			aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Ready to
+							Leave?</h5>
+						<button class="close" type="button" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">×</span>
+						</button>
+					</div>
+					<div class="modal-body">Select "Logout" below if you are
+						ready to end your current session.</div>
+					<div class="modal-footer">
+						<button class="btn btn-secondary" type="button"
+							data-dismiss="modal">Cancel</button>
+						<a class="btn btn-primary" href="login.html">Logout</a>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
 
-	<!-- Bootstrap core JavaScript-->
-	<script src="vendor/jquery/jquery.min.js"></script>
-	<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+		<!-- Bootstrap core JavaScript-->
+		<script src="vendor/jquery/jquery.min.js"></script>
+		<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-	<!-- Core plugin JavaScript-->
-	<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+		<!-- Core plugin JavaScript-->
+		<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
-	<!-- Custom scripts for all pages-->
-	<script src="js/sb-admin-2.min.js"></script>
+		<!-- Custom scripts for all pages-->
+		<script src="js/sb-admin-2.min.js"></script>
 
-	<!-- Page level plugins -->
-	<script src="vendor/chart.js/Chart.min.js"></script>
+		<!-- Page level plugins -->
+		<script src="vendor/chart.js/Chart.min.js"></script>
 
-	<!-- Page level custom scripts -->
-	<script src="js/demo/chart-area-demo.js"></script>
-	<script src="js/demo/chart-pie-demo.js"></script>
-
+		<!-- Page level custom scripts -->
+		<script src="js/demo/chart-area-demo.js"></script>
+		<script src="js/demo/chart-pie-demo.js"></script>
 </body>
 
 </html>
