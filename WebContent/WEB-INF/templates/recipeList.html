@@ -17,20 +17,7 @@
 <title>WhatToFood - Dashboard</title>
 <div th:replace="~{includes/bootstrap :: bootstrapCSS}" />
 
-<!-- TEMP -->
-
-<!-- Local Fav Icon CSS -->
-<link href="../../sb-admin-2/vendor/fontawesome-free/css/all.min.css"
-	rel="stylesheet" type="text/css">
-<!-- Font CSS -->
-<link
-	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-	rel="stylesheet">
-<!-- Main Custom Local CSS -->
-<link href="../../sb-admin-2/css/sb-admin-2.min.css" rel="stylesheet"
-	type="text/css">
-
-<!-- TEMP END -->
+<!-- JS needs to move to bottom -->
 <div th:replace="~{includes/bootstrap :: bootstrapJS}" />
 </head>
 
@@ -40,9 +27,7 @@
 	<div id="wrapper">
 
 		<!-- Sidebar -->
-
 		<div th:replace="~{/includes/navigation :: sidebar}"></div>
-
 		<!-- End of Sidebar -->
 
 		<!-- Content Wrapper -->
@@ -60,10 +45,10 @@
 					<div
 						class="d-sm-flex align-items-center justify-content-between mb-4">
 						<h1 class="h3 mb-0 text-gray-800">Recipes</h1>
-						<!--  
-						<a href="#"
+						
+						<a href="fillTestData"
 							class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-							class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>-->
+							class="fas fa-download fa-sm text-white-50"></i> Fill Data</a>
 					</div>
 
 					<!-- Content -->
@@ -92,10 +77,11 @@
 								<!-- card body -->
 								<div class="card-body">
 									<div class="row">
-										<div class="col-8 ml-0 mr-0">
+										<div class="col-8">
 											<a class="m-0 font-weight-bold text-primary"
 												th:href="@{/showRecipe(id=${recipe.id})}"
-												th:text="${recipe.title}"></a> by <a
+												th:text="${recipe.title}">
+												</a> by <a
 												th:href="@{/showUser(id=${recipe.author.id})}"
 												th:text="${recipe.author.userName}"></a>
 										</div>
