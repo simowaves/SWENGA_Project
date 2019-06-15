@@ -32,13 +32,13 @@ public class UserController {
 		return "login";
 	}
 
-	// Spring 4: @RequestMapping(value = "/addVideo", method = RequestMethod.GET)
+	// Spring 4: @RequestMapping(value = "/register", method = RequestMethod.GET)
 	@GetMapping("/register")
 	public String showRegister(Model model) {
 		return "register";
 	}
 
-	// Spring 4: @RequestMapping(value = "/addVideo", method = RequestMethod.POST)
+	// Spring 4: @RequestMapping(value = "/register", method = RequestMethod.POST)
 	@PostMapping("/register")
 	public String register(@Valid UserModel newUserModel, BindingResult bindingResult, Model model, @RequestParam("passwordCheck") String comparePassword) {
 
@@ -51,7 +51,7 @@ public class UserController {
 			model.addAttribute("errorMessage", errorMessage);
 
 			// Multiple ways to "forward"
-			return "forward:/register";
+			return "register";
 		}
 
 		// Look for video in the List. One available -> Error
@@ -59,10 +59,10 @@ public class UserController {
 
 		if (user != null) {
 			model.addAttribute("errorMessage", "UserName already exists!<br>");
-			return "forward:/register";
+			return "register";
 		} else if (newUserModel.getPassword() != comparePassword) {
 			model.addAttribute("errorMessage", "Passwords are not matching!<br>");
-			return "forward:/register";
+			return "register";
 		} else {
 
 			UserRoleModel userRole = userRoleRepository.findUserRoleByRole("ROLE_USER");
