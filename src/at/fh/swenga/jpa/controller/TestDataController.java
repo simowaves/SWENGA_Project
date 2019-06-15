@@ -288,7 +288,6 @@ public class TestDataController {
 		allSetUser1.add(all3);
 		allSetUser1.add(all6);
 		
-		/*
 		Set<IngredientModel> lovedIngUser1 = new HashSet<IngredientModel>();
 		lovedIngUser1.add(ing1);
 		lovedIngUser1.add(ing5);
@@ -298,7 +297,6 @@ public class TestDataController {
 		lovedIngUser1.add(ing25);
 		lovedIngUser1.add(ing30);
 		lovedIngUser1.add(ing35);
-		*/
 		
 		Set<IngredientModel> hatedIngUser1 = new HashSet<IngredientModel>();
 		hatedIngUser1.add(ing8);
@@ -310,85 +308,79 @@ public class TestDataController {
 		tim.addUserRole(userRole);
 		tim.addUserRole(adminRole);
 		tim.addUserRole(godRole);
-		/*
+		
 		tim.addLovedIngredient(ing1);
 		tim.addLovedIngredient(ing5);
 		tim.addLovedIngredient(ing10);
 		tim.addLovedIngredient(ing15);
 		tim.addLovedIngredient(ing20);
 		tim.addLovedIngredient(ing25);
-		
 		tim.addHatedIngredient(ing38);
 		tim.addHatedIngredient(ing8);
 		tim.addHatedIngredient(ing27);
-		*/
-		tim.addHatedIngredient(ing15);
 		userRepository.save(tim);
+		
 		
 		Set<AllergieModel> allSetUser2 = new HashSet<AllergieModel>();
 		allSetUser2.add(all4);
 		allSetUser2.add(all10);
-		
-		Set<IngredientModel> lovedIngUser2 = new HashSet<IngredientModel>();
-		lovedIngUser2.add(ing2);
-		lovedIngUser2.add(ing7);
-		lovedIngUser2.add(ing12);
-		lovedIngUser2.add(ing17);
-		lovedIngUser2.add(ing22);
 		
 		Set<IngredientModel> hatedIngUser2 = new HashSet<IngredientModel>();
 		hatedIngUser2.add(ing16);
 		hatedIngUser2.add(ing23);
 		hatedIngUser2.add(ing24);
 
-		UserModel julian = new UserModel("julian", "password", "julian@wtf.com", true, allSetUser2/*, lovedIngUser2, hatedIngUser2*/);
-		tim.encryptPassword();
-		tim.addUserRole(userRole);
-		tim.addUserRole(adminRole);
+		UserModel julian = new UserModel("julian", "password", "julian@wtf.com", true, allSetUser2);
+		julian.encryptPassword();
+		julian.addUserRole(userRole);
+		julian.addUserRole(adminRole);
+		
+		julian.addLovedIngredient(ing2);
+		julian.addLovedIngredient(ing7);
+		julian.addLovedIngredient(ing12);
+		julian.addLovedIngredient(ing17);
+		julian.addLovedIngredient(ing22);
+		julian.addHatedIngredient(ing16);
+		julian.addHatedIngredient(ing23);
+		julian.addHatedIngredient(ing24);
 		userRepository.save(julian);
 		
 		Set<AllergieModel> allSetUser3 = new HashSet<AllergieModel>();
 		allSetUser3.add(all14);
 		allSetUser3.add(all13);
-		
-		Set<IngredientModel> lovedIngUser3 = new HashSet<IngredientModel>();
-		lovedIngUser3.add(ing30);
-		lovedIngUser3.add(ing31);
-		lovedIngUser3.add(ing33);
-		lovedIngUser3.add(ing38);
-		lovedIngUser3.add(ing29);
-		
-		Set<IngredientModel> hatedIngUser3 = new HashSet<IngredientModel>();
-		hatedIngUser3.add(ing18);
-		hatedIngUser3.add(ing20);
-		hatedIngUser3.add(ing21);
 
-		UserModel lukas = new UserModel("lukas", "password", "lukas@wtf.com", true, allSetUser3/*, lovedIngUser3, hatedIngUser3*/);
-		tim.encryptPassword();
-		tim.addUserRole(userRole); 
-		tim.addUserRole(adminRole);
+		UserModel lukas = new UserModel("lukas", "password", "lukas@wtf.com", true, allSetUser3);
+		lukas.encryptPassword();
+		lukas.addUserRole(userRole); 
+		lukas.addUserRole(adminRole);
+		
+		lukas.addLovedIngredient(ing30);
+		lukas.addLovedIngredient(ing31);
+		lukas.addLovedIngredient(ing33);
+		lukas.addLovedIngredient(ing38);
+		lukas.addLovedIngredient(ing29);
+		lukas.addHatedIngredient(ing18);
+		lukas.addHatedIngredient(ing20);
+		lukas.addHatedIngredient(ing21);
 		userRepository.save(lukas);
 		
 		Set<AllergieModel> allSetUser4 = new HashSet<AllergieModel>();
 		allSetUser4.add(all7);
 		allSetUser4.add(all8);
-		
-		Set<IngredientModel> lovedIngUser4 = new HashSet<IngredientModel>();
-		lovedIngUser3.add(ing2);
-		lovedIngUser3.add(ing3);
-		lovedIngUser3.add(ing4);
-		lovedIngUser3.add(ing5);
-		lovedIngUser3.add(ing6);
-		
-		Set<IngredientModel> hatedIngUser4 = new HashSet<IngredientModel>();
-		hatedIngUser3.add(ing30);
-		hatedIngUser3.add(ing31);
-		hatedIngUser3.add(ing27);
 
-		UserModel simone = new UserModel("simone", "password", "simone@wtf.com", true, allSetUser4/*, lovedIngUser4, hatedIngUser4*/);
-		tim.encryptPassword();
-		tim.addUserRole(userRole);
-		tim.addUserRole(adminRole);
+		UserModel simone = new UserModel("simone", "password", "simone@wtf.com", true, allSetUser4);
+		simone.encryptPassword();
+		simone.addUserRole(userRole);
+		simone.addUserRole(adminRole);
+		
+		simone.addLovedIngredient(ing2);
+		simone.addLovedIngredient(ing3);
+		simone.addLovedIngredient(ing4);
+		simone.addLovedIngredient(ing5);
+		simone.addLovedIngredient(ing6);
+		simone.addHatedIngredient(ing30);
+		simone.addHatedIngredient(ing31);
+		simone.addHatedIngredient(ing27);
 		userRepository.save(simone);
 
 		UserModel admin = new UserModel("admin", "password", "admin@wtf.com", true);
@@ -421,12 +413,6 @@ public class TestDataController {
 		simone.addUserFollowingMe(julian);
 		simone.addUserFollowingMe(tim);
 		simone.addUserFollowingMe(lukas);
-
-
-
-
-
-
 
 		// ----------------------------------------
 		// -------------- CATEGORIE_MODEL
@@ -582,6 +568,10 @@ public class TestDataController {
 		IngredientAmountModel IngAm51 = new IngredientAmountModel("", ing33);
 		IngredientAmountModel IngAm52 = new IngredientAmountModel("400g", ing37);
 		IngredientAmountModel IngAm53 = new IngredientAmountModel("2 wine glasses of", ing38);
+		
+		IngredientAmountModel IngAm54 = new IngredientAmountModel("2  glasses of", ing38);
+		IngredientAmountModel IngAm55 = new IngredientAmountModel("", ing33);
+
 
 		Set<IngredientAmountModel> ingSet1 = new HashSet<IngredientAmountModel>();
 		ingSet1.add(IngAm1);
@@ -597,53 +587,57 @@ public class TestDataController {
 		ingSet1.add(IngAm11);
 
 		Set<IngredientAmountModel> ingSet2 = new HashSet<IngredientAmountModel>();
-		ingSet1.add(IngAm12);
-		ingSet1.add(IngAm13);
-		ingSet1.add(IngAm14);
-		ingSet1.add(IngAm15);
-		ingSet1.add(IngAm16);
-		ingSet1.add(IngAm17);
-		ingSet1.add(IngAm18);
-		ingSet1.add(IngAm19);
-		ingSet1.add(IngAm20);
+		ingSet2.add(IngAm12);
+		ingSet2.add(IngAm13);
+		ingSet2.add(IngAm14);
+		ingSet2.add(IngAm15);
+		ingSet2.add(IngAm16);
+		ingSet2.add(IngAm17);
+		ingSet2.add(IngAm18);
+		ingSet2.add(IngAm19);
+		ingSet2.add(IngAm20);
 
 		Set<IngredientAmountModel> ingSet3 = new HashSet<IngredientAmountModel>();
-		ingSet1.add(IngAm21);
-		ingSet1.add(IngAm22);
-		ingSet1.add(IngAm23);
-		ingSet1.add(IngAm24);
-		ingSet1.add(IngAm25);
-		ingSet1.add(IngAm26);
-		ingSet1.add(IngAm27);
-		ingSet1.add(IngAm28);
-		ingSet1.add(IngAm29);
-		ingSet1.add(IngAm30);
-		ingSet1.add(IngAm31);
-		ingSet1.add(IngAm32);
-		ingSet1.add(IngAm33);
-		ingSet1.add(IngAm34);
-		ingSet1.add(IngAm35);
+		ingSet3.add(IngAm21);
+		ingSet3.add(IngAm22);
+		ingSet3.add(IngAm23);
+		ingSet3.add(IngAm24);
+		ingSet3.add(IngAm25);
+		ingSet3.add(IngAm26);
+		ingSet3.add(IngAm27);
+		ingSet3.add(IngAm28);
+		ingSet3.add(IngAm29);
+		ingSet3.add(IngAm30);
+		ingSet3.add(IngAm31);
+		ingSet3.add(IngAm32);
+		ingSet3.add(IngAm33);
+		ingSet3.add(IngAm34);
+		ingSet3.add(IngAm35);
 
 		Set<IngredientAmountModel> ingSet4 = new HashSet<IngredientAmountModel>();
-		ingSet1.add(IngAm37);
-		ingSet1.add(IngAm38);
-		ingSet1.add(IngAm39);
-		ingSet1.add(IngAm40);
-		ingSet1.add(IngAm41);
-		ingSet1.add(IngAm42);
-		ingSet1.add(IngAm43);
-		ingSet1.add(IngAm44);
+		ingSet4.add(IngAm37);
+		ingSet4.add(IngAm38);
+		ingSet4.add(IngAm39);
+		ingSet4.add(IngAm40);
+		ingSet4.add(IngAm41);
+		ingSet4.add(IngAm42);
+		ingSet4.add(IngAm43);
+		ingSet4.add(IngAm44);
 
 		Set<IngredientAmountModel> ingSet5 = new HashSet<IngredientAmountModel>();
-		ingSet1.add(IngAm45);
-		ingSet1.add(IngAm46);
-		ingSet1.add(IngAm47);
-		ingSet1.add(IngAm48);
-		ingSet1.add(IngAm49);
-		ingSet1.add(IngAm50);
-		ingSet1.add(IngAm51);
-		ingSet1.add(IngAm52);
-		ingSet1.add(IngAm53);
+		ingSet5.add(IngAm45);
+		ingSet5.add(IngAm46);
+		ingSet5.add(IngAm47);
+		ingSet5.add(IngAm48);
+		ingSet5.add(IngAm49);
+		ingSet5.add(IngAm50);
+		ingSet5.add(IngAm51);
+		ingSet5.add(IngAm52);
+		ingSet5.add(IngAm53);
+		
+		Set<IngredientAmountModel> ingSet6 = new HashSet<IngredientAmountModel>();
+		ingSet5.add(IngAm54);
+		ingSet5.add(IngAm55);
 
 		List<CategorieModel> catSet1 = new ArrayList<CategorieModel>();
 		catSet1.add(cat1);
@@ -652,6 +646,7 @@ public class TestDataController {
 		catSet1.add(cat16);
 		catSet1.add(cat17);
 		catSet1.add(cat26);
+
 
 		List<CategorieModel> catSet2 = new ArrayList<CategorieModel>();
 		catSet1.add(cat5);
@@ -669,6 +664,10 @@ public class TestDataController {
 		List<CategorieModel> catSet5 = new ArrayList<CategorieModel>();
 		catSet1.add(cat1);
 		catSet1.add(cat7);
+		
+		List<CategorieModel> catSet6 = new ArrayList<CategorieModel>();
+		catSet6.add(cat1);
+
 
 		// ----------------------------------------
 		// -------------- RECIPE_MODEL
@@ -761,6 +760,9 @@ public class TestDataController {
 						+ "\n" + "",
 				julian, ingSet5, true, true, catSet5);
 		recipeRepository.save(rec5);
+		
+		RecipeModel rec6 = new RecipeModel(now, now, "Penis", "Penis Penis Penis Penis", lukas, ingSet6, true, true, catSet6);
+		recipeRepository.save(rec6);
 
 		// ----------------------------------------
 		// -------------- COMMENT_MODEL
