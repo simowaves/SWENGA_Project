@@ -637,7 +637,7 @@ public class TestDataController {
 		recipeRepository.save(rec6);
 
 		// ----------------------------------------
-		// -------------- RECIPE_MODEL
+		// -------------- INGREDIENT_AMOUNT_MODEL
 		// ----------------------------------------
 
 		IngredientAmountModel ingAm1 = new IngredientAmountModel("2 cloves", rec1, ing28);
@@ -793,35 +793,32 @@ public class TestDataController {
 		RecipeCollectionModel col2 = new RecipeCollectionModel ("Favorites", tim);
 		RecipeCollectionModel col3 = new RecipeCollectionModel ("Favorites", lukas);
 		RecipeCollectionModel col4 = new RecipeCollectionModel ("Favorites", simone);
-
-		Set<RecipeModel> colSet1 = new HashSet<RecipeModel>();
-		colSet1.add(rec1);
-		colSet1.add(rec4);
-		colSet1.add(rec3);
-
-		Set<RecipeModel> colSet2 = new HashSet<RecipeModel>();
-		colSet2.add(rec1);
-		colSet2.add(rec2);
-		
-		Set<RecipeModel> colSet3 = new HashSet<RecipeModel>();
-		colSet3.add(rec5);
-
-		Set<RecipeModel> colSet4 = new HashSet<RecipeModel>();
-		colSet4.add(rec1);
-		colSet4.add(rec2);
-		colSet4.add(rec3);
-		colSet4.add(rec4);
-		colSet4.add(rec5);
-
-		col1.setRecipes(colSet1);
-		col2.setRecipes(colSet2);
-		col3.setRecipes(colSet3);
-		col4.setRecipes(colSet4);
 		
 		recipeCollectionRepository.save(col1);
 		recipeCollectionRepository.save(col2);
 		recipeCollectionRepository.save(col3);
 		recipeCollectionRepository.save(col4);
+		
+		rec1.addRecipeCollection(col1);
+		rec1.addRecipeCollection(col2);
+		rec1.addRecipeCollection(col4);
+		recipeRepository.save(rec1);
+		
+		rec2.addRecipeCollection(col2);
+		rec2.addRecipeCollection(col4);
+		recipeRepository.save(rec2);
+		
+		rec3.addRecipeCollection(col1);
+		rec3.addRecipeCollection(col4);
+		recipeRepository.save(rec3);
+		
+		rec4.addRecipeCollection(col1);
+		rec4.addRecipeCollection(col4);
+		recipeRepository.save(rec4);
+		
+		rec5.addRecipeCollection(col3);
+		rec5.addRecipeCollection(col4);
+		recipeRepository.save(rec5);
 		
 		// ----------------------------------------
 		// -------------- LIKED_RECIPE & REPORTED RECIPE
