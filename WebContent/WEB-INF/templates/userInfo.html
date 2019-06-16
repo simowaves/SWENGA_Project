@@ -158,15 +158,17 @@
 												th:text="${likedRecipe.author.userName}"></a>
 										</div>
 										<div class="col-4 text-right">
-											<a href="#" class="btn btn-danger btn-circle"> <i
+										<form th:action="@{/likeRecipe(id=${likedRecipe.id})}" method="post">
+											<a href="#" class="btn btn-danger btn-circle" onclick="this.parentNode.submit()"> <i
 												class="fas fa-heart"></i>
 											</a>
+											</form>
 										</div>
 									</div>
 									<div class="row">
 										<div th:each="categorie : ${likedRecipe.categories}">
 											<div class="ml-1 mr-1">
-												<a href="#" class="badge badge-info"
+												<a th:href="@{/showCategorie(id=${categorie.id})}" class="badge badge-info"
 													th:text="${categorie.title}"></a>
 											</div>
 										</div>
@@ -214,15 +216,17 @@
 												th:text="${likedRecipe.author.userName}"></a>
 										</div>
 										<div class="col-4 text-right">
-											<a href="#" class="btn btn-danger btn-circle"> <i
+											<form th:action="@{/likeRecipe(id=${likedRecipe.id})}" method="post">
+											<a href="#" class="btn btn-danger btn-circle" onclick="this.parentNode.submit()"> <i
 												class="fas fa-heart"></i>
 											</a>
+											</form>
 										</div>
 									</div>
 									<div class="row">
 										<div th:each="categorie : ${likedRecipe.categories}">
 											<div class="ml-1 mr-1">
-												<a href="#" class="badge badge-info"
+												<a th:href="@{/showCategorie(id=${categorie.id})}" class="badge badge-info"
 													th:text="${categorie.title}"></a>
 											</div>
 										</div>
