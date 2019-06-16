@@ -43,8 +43,6 @@ public class CommentController {
 		Date now = new Date();
 		String authorName = principal.getName();
 		UserModel author = userRepository.findUserByUserName(authorName);
-
-		
 		
 		CommentModel commentModel = new CommentModel(content, now);
 		commentRepository.save(commentModel);
