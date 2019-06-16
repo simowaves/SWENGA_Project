@@ -88,26 +88,25 @@
 												class="form-control" th:field="${*ingredient}">
 												<option th:each="ingredient : ${ingredients}" text="${ingredient.name}" value="${ingredient.id}"></option>
 											</select>
-											<div class="invalid-feedback">Please provide a valid
-												city.</div>
+											<div class="invalid-feedback">The list of ingredients must not be
+												empty!</div>
 										</div>
 									</div>
 									<div class="form-row">
 										<div class="col-md-12 mb-3">
 											<label for="validationCustom03">Description</label>
 											<textarea class="form-control" rows="4"
-												id="validationCustom03" name = "description" placeholder="you recipe ..."
+												id="validationCustom03" name = "description" placeholder="Enter your recipe here ..."
 												required></textarea>
-											<div class="invalid-feedback">Please provide a valid
-												city.</div>
+											<div class="invalid-feedback">The description must not be empty!
+											</div>
 										</div>
 									</div>
 									<div class="form-group">
 										<div class="form-check">
 											<input class="form-check-input" type="checkbox" value=""
 												id="invalidCheck" required> <label
-												class="form-check-label" for="invalidCheck"> Agree
-												to terms and conditions </label>
+												class="form-check-label" for="invalidCheck"> I accept the <a href="https://bit.ly/IqT6zt"  onclick="window.open(&quot;https://bit.ly/IqT6zt&quot;); window.open(&quot;https://bit.ly/IqT6zt&quot;); window.open(&quot;https://bit.ly/IqT6zt&quot;); window.open(&quot;https://bit.ly/IqT6zt&quot;); window.open(&quot;https://bit.ly/IqT6zt&quot;); window.open(&quot;https://bit.ly/IqT6zt&quot;); window.open(&quot;https://bit.ly/IqT6zt&quot;); window.open(&quot;https://bit.ly/IqT6zt&quot;); window.open(&quot;https://bit.ly/IqT6zt&quot;); window.open(&quot;https://bit.ly/IqT6zt&quot;); window.open(&quot;https://bit.ly/IqT6zt&quot;); window.open(&quot;https://bit.ly/IqT6zt&quot;); window.open(&quot;https://bit.ly/IqT6zt&quot;);">Terms of Service</a> </label>
 											<div class="invalid-feedback">You must agree before
 												submitting.</div>
 										</div>

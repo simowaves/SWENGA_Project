@@ -45,7 +45,7 @@ public class UserModel implements java.io.Serializable {
 	@ManyToMany(fetch=FetchType.LAZY,cascade=CascadeType.PERSIST)
 	private Set<UserRoleModel> userRoles;
 	
-	@OneToMany(mappedBy="author",fetch=FetchType.LAZY)
+	@OneToMany(mappedBy="author",fetch=FetchType.EAGER)
     @OrderBy("title")
     private Set<RecipeModel> recipes;
 	
@@ -78,7 +78,7 @@ public class UserModel implements java.io.Serializable {
     @OrderBy("title")
     private Set<RecipeCollectionModel> recipeCollections;
 	
-	@ManyToMany(fetch=FetchType.LAZY,cascade=CascadeType.PERSIST)
+	@ManyToMany(fetch=FetchType.EAGER,cascade=CascadeType.PERSIST)
 	private Set<RecipeModel> likedRecipes;
 	
 	@OneToOne(cascade = CascadeType.ALL)
