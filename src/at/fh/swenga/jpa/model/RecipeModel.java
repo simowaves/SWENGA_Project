@@ -76,7 +76,7 @@ public class RecipeModel implements java.io.Serializable {
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
 	private Set<RecipeCollectionModel> recipeCollections;
 
-	@ManyToMany(mappedBy = "likedRecipes", fetch = FetchType.LAZY)
+	@ManyToMany(mappedBy = "likedRecipes", fetch = FetchType.EAGER)
 	private Set<UserModel> likingUsers;
 
 	@OneToOne(cascade = CascadeType.ALL)
@@ -274,6 +274,12 @@ public class RecipeModel implements java.io.Serializable {
 		if (likingUsers == null)
 			likingUsers = new HashSet<UserModel>();
 		likingUsers.add(likingUser);
+	}
+	
+	public void removeLikingUser(UserModel likingUser) {
+		if (likingUsers == null)
+			likingUsers = new HashSet<UserModel>();
+		likingUsers.remove(likingUser);
 	}
 
 	public PictureModel getPicture() {

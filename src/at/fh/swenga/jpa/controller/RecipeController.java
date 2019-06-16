@@ -17,6 +17,7 @@ import at.fh.swenga.jpa.dao.IngredientRepository;
 import at.fh.swenga.jpa.dao.PictureRepository;
 import at.fh.swenga.jpa.dao.RecipeRepository;
 import at.fh.swenga.jpa.dao.UserRepository;
+import at.fh.swenga.jpa.model.CommentModel;
 import at.fh.swenga.jpa.model.IngredientModel;
 import at.fh.swenga.jpa.model.RecipeModel;
 import at.fh.swenga.jpa.model.UserModel;
@@ -114,7 +115,8 @@ public class RecipeController {
 
 			UserModel user = userRepository.findUserByUserName(principal.getName());
 
-			List<RecipeModel> filteredRecipes = recipeRepository.filterRecipesByUserPreferencesAndSearchString(user.getId(), searchString);
+			List<RecipeModel> filteredRecipes = recipeRepository
+					.filterRecipesByUserPreferencesAndSearchString(user.getId(), searchString);
 			List<RecipeModel> orderedRecipes = recipeRepository.findRecipesOrderedByfavoriteIngredients(user.getId());
 
 			List<RecipeModel> recipes = new ArrayList<RecipeModel>();
@@ -127,5 +129,40 @@ public class RecipeController {
 			model.addAttribute("recipes", recipes);
 		}
 		return "recipeList";
+	}
+
+	// Spring 4: @RequestMapping(value = "/likeRecipe", method =
+	// RequestMethod.POST)
+	@PostMapping("/likeRecipe")
+	public String likeRecipe(Model model, @RequestParam int id, Principal principal) {
+
+		RecipeModel recipe = recipeRepository.findRecipeById(id);
+		String userName = principal.getName();
+		UserModel user = userRepository.findUserByUserName(userName);
+
+		if (recipe == null) {
+			model.addAttribute("errorMessage", "Couldn't find recipe " + id);
+			return "forward:/recipeList";
+		}
+		
+		if (recipe.getLikingUsers().contains(user)) {
+			
+			user.removeLikedRecipe(recipe);
+			userRepository.save(user);
+			
+			recipe.removeLikingUser(user);
+			
+		} else {
+			
+			user.addLikedRecipe(recipe);
+			userRepository.save(user);
+
+			recipe.addLikingUser(user);
+			
+		}
+
+		model.addAttribute("recipe", recipe);
+
+		return "recipe";
 	}
 }

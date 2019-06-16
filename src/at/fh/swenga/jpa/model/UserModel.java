@@ -324,6 +324,11 @@ public class UserModel implements java.io.Serializable {
 		if (likedRecipes==null) likedRecipes = new HashSet<RecipeModel>();
 		likedRecipes.add(likedRecipe);
 	}
+	
+	public void removeLikedRecipe(RecipeModel likedRecipe) {
+		if (likedRecipes==null) likedRecipes = new HashSet<RecipeModel>();
+		likedRecipes.remove(likedRecipe);
+	}
 
 	public PictureModel getPicture() {
 		return picture;
@@ -340,5 +345,26 @@ public class UserModel implements java.io.Serializable {
 	public void setVersion(long version) {
 		this.version = version;
 	}
-	
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + id;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		UserModel other = (UserModel) obj;
+		if (id != other.id)
+			return false;
+		return true;
+	}	
 }
