@@ -38,9 +38,9 @@
 			<div id="content">
 
 				<!-- Topbar -->
-				
+
 				<div th:replace="includes/navigation :: topbar"></div>
-				
+
 				<!-- End of Topbar -->
 
 				<!-- #####  Begin Page Content ####### -->
@@ -50,7 +50,9 @@
 					<div
 						class="d-sm-flex align-items-center justify-content-between mb-4">
 						<h1 class="h3 mb-0 text-gray-800">Recipes</h1>
-						
+						<a th:href="@{/createRecipe}"
+							class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+							class="fas fa-download fa-sm text-white-50"></i> Add Recipe</a>
 						<a href="fillTestData"
 							class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
 							class="fas fa-download fa-sm text-white-50"></i> Fill Data</a>
@@ -85,8 +87,7 @@
 										<div class="col-8">
 											<a class="m-0 font-weight-bold text-primary"
 												th:href="@{/showRecipe(id=${recipe.id})}"
-												th:text="${recipe.title}">
-												</a> by <a
+												th:text="${recipe.title}"> </a> by <a
 												th:href="@{/showUser(id=${recipe.author.id})}"
 												th:text="${recipe.author.userName}"></a>
 										</div>

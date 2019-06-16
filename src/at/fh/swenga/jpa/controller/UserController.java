@@ -3,6 +3,7 @@ package at.fh.swenga.jpa.controller;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import at.fh.swenga.jpa.dao.RecipeCollectionRepository;
 import at.fh.swenga.jpa.dao.UserRepository;
@@ -77,11 +79,16 @@ public class UserController {
 			userRepository.save(newUserModel);
 			
 			newUserModel.addUserRole(userRole);
-			userRepository.save(newUserModel);
+			//userRepository.save(newUserModel);
 
-			// RecipeCollectionModel recipeCollection = new
-			// RecipeCollectionModel("favorites", newUserModel);
-			// recipeCollectionRepository.save(recipeCollection);
+			RecipeCollectionModel recipeCollection = new RecipeCollectionModel("Favorites");
+			recipeCollectionRepository.save(recipeCollection);
+			
+			newUserModel.addRecipeCollection(recipeCollection);
+			userRepository.save(newUserModel);
+			
+			recipeCollection.setUser(newUserModel);
+			recipeCollectionRepository.save(recipeCollection);
 
 			model.addAttribute("message", "New user " + newUserModel.getUserName() + " added.");
 		}
@@ -103,5 +110,10 @@ public class UserController {
 			return "forward:/recipeList";
 		}
 	}
-
+	
+	  @RequestMapping(value = "/loggedUserName", method = RequestMethod.GET)
+	  @ResponseBody
+	  public String currentUserName(Authentication authentication) {
+	     return authentication.getName() ;
+	  }
 }
