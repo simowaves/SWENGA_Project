@@ -1,6 +1,7 @@
 package at.fh.swenga.jpa.controller;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -16,7 +17,6 @@ import at.fh.swenga.jpa.dao.IngredientRepository;
 import at.fh.swenga.jpa.dao.PictureRepository;
 import at.fh.swenga.jpa.dao.RecipeRepository;
 import at.fh.swenga.jpa.dao.UserRepository;
-import at.fh.swenga.jpa.model.CommentModel;
 import at.fh.swenga.jpa.model.IngredientModel;
 import at.fh.swenga.jpa.model.RecipeModel;
 import at.fh.swenga.jpa.model.UserModel;
@@ -37,9 +37,34 @@ public class RecipeController {
 	UserRepository userRepository;
 
 	@RequestMapping(value = { "/", "list", "recipeList" })
-	public String index(Model model) {
-		List<RecipeModel> recipes = recipeRepository.findAll();
-		model.addAttribute("recipes", recipes);
+	public String index(Model model, Principal principal) {
+		
+		String userName;
+		
+		if (principal != null) {
+			userName = principal.getName();
+		}else userName = "test";
+		
+		UserModel user = userRepository.findUserByUserName(userName);
+		
+		if (user == null) {
+			List<RecipeModel> recipes = recipeRepository.findAll();
+			model.addAttribute("recipes", recipes);
+		} else {
+			
+			List<RecipeModel> filteredRecipes = recipeRepository.filterRecipesByUserPreferences(user.getId());
+			List<RecipeModel> orderedRecipes = recipeRepository.findRecipesOrderedByfavoriteIngredients(user.getId());
+			
+			List<RecipeModel> recipes = new ArrayList<RecipeModel>();
+
+	        for (RecipeModel recipe : orderedRecipes) {
+	            if(filteredRecipes.contains(recipe)) {
+	                recipes.add(recipe);
+	            }
+	        }
+			model.addAttribute("recipes", recipes);
+		}
+
 		return "recipeList";
 	}
 

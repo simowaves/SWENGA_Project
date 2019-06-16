@@ -22,12 +22,27 @@ public interface RecipeRepository extends JpaRepository<RecipeModel, Integer> {
 			+ "WHERE c.id = :id ")
 	public List<RecipeModel> findRecipesByCategorieId (@Param("id") int id);
 	
-	/*
-	@Query ("SELECT v "
-			+ "FROM VideoModel AS v "
-			+ "JOIN UploaderModel AS u ON v.uploader = u.id "
-			+ "WHERE LOWER(v.title) = LOWER(:searchString) "
-			+ "OR LOWER(u.name) = LOWER(:searchString)")
-	public List<VideoModel> findByTitleOrUploaderName(@Param("searchString") String serachString);
-	*/
+	// filters the recipes and returns all recipes that the user isn't allergic against, or don't have hated Ingredients
+	@Query ("SELECT r "
+			+ "FROM RecipeModel AS r "
+			+ "WHERE r.id not in (SELECT x "
+			+ 	"FROM RecipeModel AS x "
+			+ 	"LEFT JOIN x.ingredientAmounts ia "
+			+ 	"LEFT JOIN ia.ingredient i "
+			+ 	"LEFT JOIN i.allergies a "
+			+ 	"LEFT JOIN a.users ua "
+			+ 	"LEFT JOIN i.usersHateMe iu "
+			+ 	"WHERE ua.id = :userId OR iu.id = :userId " 
+			+ 	"GROUP BY x.id)")
+	public List<RecipeModel> filterRecipesByUserPreferences (@Param("userId") int userId);
+	
+	// sorts all recipes with the amount of loved Ingredients from the user
+	@Query ("SELECT r "
+			+ "FROM RecipeModel AS r "
+			+ "LEFT JOIN r.ingredientAmounts ia "
+			+ "LEFT JOIN ia.ingredient i "
+			+ "LEFT JOIN i.usersLoveMe iu " 
+			+ "GROUP BY r.id "
+			+ "ORDER BY COUNT(CASE iu.id WHEN :userId THEN 1 ELSE NULL END) DESC")
+	public List<RecipeModel> findRecipesOrderedByfavoriteIngredients (@Param("userId") int userId);
 }
