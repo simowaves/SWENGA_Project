@@ -19,8 +19,45 @@ public interface RecipeRepository extends JpaRepository<RecipeModel, Integer> {
 	@Query ("SELECT r "
 			+ "FROM RecipeModel AS r "
 			+ "JOIN r.categories c "
-			+ "WHERE c.id = :id ")
-	public List<RecipeModel> findRecipesByCategorieId (@Param("id") int id);
+			+ "WHERE c.id = :catId ")
+	public List<RecipeModel> findRecipesByCategorieId (@Param("catId") int catId);
+	
+	// filters the recipes and returns all recipes that the user isn't allergic against, or don't have hated Ingredients and it filters of categories
+	@Query ("SELECT r "
+			+ "FROM RecipeModel AS r "
+			+ "JOIN r.categories c "
+			+ "WHERE r.id not in (SELECT x "
+			+ 	"FROM RecipeModel AS x "
+			+ 	"LEFT JOIN x.ingredientAmounts ia "
+			+ 	"LEFT JOIN ia.ingredient i "
+			+ 	"LEFT JOIN i.allergies a "
+			+ 	"LEFT JOIN a.users ua "
+			+ 	"LEFT JOIN i.usersHateMe iu "
+			+ 	"WHERE ua.id = :userId OR iu.id = :userId " 
+			+ 	"GROUP BY x.id) "
+			+ "AND c.id = :catId ")
+	public List<RecipeModel> filterRecipesByUserPreferencesAndCategoryId (@Param("userId") int userId, @Param("catId") int catId);
+		
+	
+	@Query ("SELECT r "
+			+ "FROM RecipeModel AS r "
+			+ "WHERE LOWER(r.title) LIKE CONCAT('%', LOWER(:searchString), '%') ")
+	public List<RecipeModel> findRecipesBySearchString (@Param("searchString") String searchString);
+	
+	// filters the recipes and returns all recipes that the user isn't allergic against, or don't have hated Ingredients
+	@Query ("SELECT r "
+			+ "FROM RecipeModel AS r "
+			+ "WHERE r.id not in (SELECT x "
+			+ 	"FROM RecipeModel AS x "
+			+ 	"LEFT JOIN x.ingredientAmounts ia "
+			+ 	"LEFT JOIN ia.ingredient i "
+			+ 	"LEFT JOIN i.allergies a "
+			+ 	"LEFT JOIN a.users ua "
+			+ 	"LEFT JOIN i.usersHateMe iu "
+			+ 	"WHERE ua.id = :userId OR iu.id = :userId " 
+			+ 	"GROUP BY x.id) "
+			+ "AND LOWER(r.title) LIKE CONCAT('%', LOWER(:searchString), '%') ")
+	public List<RecipeModel> filterRecipesByUserPreferencesAndSearchString (@Param("userId") int userId, @Param("searchString") String searchString);
 	
 	// filters the recipes and returns all recipes that the user isn't allergic against, or don't have hated Ingredients
 	@Query ("SELECT r "

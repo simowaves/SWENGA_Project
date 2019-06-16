@@ -29,42 +29,37 @@ public class RecipeController {
 
 	@Autowired
 	PictureRepository pictureRepository;
-	
+
 	@Autowired
 	IngredientRepository ingredientRepository;
-	
+
 	@Autowired
 	UserRepository userRepository;
 
 	@RequestMapping(value = { "/", "list", "recipeList" })
 	public String index(Model model, Principal principal) {
-		
-		String userName;
-		
-		if (principal != null) {
-			userName = principal.getName();
-		}else userName = "test";
-		
-		UserModel user = userRepository.findUserByUserName(userName);
-		
-		if (user == null) {
+
+		if (principal == null) {
+
 			List<RecipeModel> recipes = recipeRepository.findAll();
 			model.addAttribute("recipes", recipes);
+
 		} else {
-			
+
+			UserModel user = userRepository.findUserByUserName(principal.getName());
+
 			List<RecipeModel> filteredRecipes = recipeRepository.filterRecipesByUserPreferences(user.getId());
 			List<RecipeModel> orderedRecipes = recipeRepository.findRecipesOrderedByfavoriteIngredients(user.getId());
-			
+
 			List<RecipeModel> recipes = new ArrayList<RecipeModel>();
 
-	        for (RecipeModel recipe : orderedRecipes) {
-	            if(filteredRecipes.contains(recipe)) {
-	                recipes.add(recipe);
-	            }
-	        }
+			for (RecipeModel recipe : orderedRecipes) {
+				if (filteredRecipes.contains(recipe)) {
+					recipes.add(recipe);
+				}
+			}
 			model.addAttribute("recipes", recipes);
 		}
-
 		return "recipeList";
 	}
 
@@ -82,26 +77,55 @@ public class RecipeController {
 			return "forward:/recipeList";
 		}
 	}
+
 	@GetMapping(value = "/createRecipe")
 	public String openCreateForm(Model model) {
 		List<IngredientModel> ingredients = ingredientRepository.findAll();
 		model.addAttribute("ingredients", ingredients);
 		return "createRecipe";
 	}
-	
+
 	@PostMapping(value = "/createRecipe")
-	public String reateNewRecipe(Model model, Principal principal, @RequestParam String description, @RequestParam String title) {
-		
+	public String reateNewRecipe(Model model, Principal principal, @RequestParam String description,
+			@RequestParam String title) {
+
 		Date now = new Date();
 		String authorName = principal.getName();
 		UserModel author = userRepository.findUserByUserName(authorName);
-		
+
 		RecipeModel newRecipeModel = new RecipeModel(now, now, title, description, author, true, true);
-		
+
 		recipeRepository.save(newRecipeModel);
-		
+
 		return "forward:/recipeList";
 	}
 
-	
+	// Spring 4: @RequestMapping(value = "/searchRecipes", method =
+	// RequestMethod.GET)
+	@GetMapping("/searchRecipes")
+	public String searchRecipes(Model model, @RequestParam String searchString, Principal principal) {
+
+		if (principal == null) {
+
+			List<RecipeModel> recipes = recipeRepository.findRecipesBySearchString(searchString);
+			model.addAttribute("recipes", recipes);
+
+		} else {
+
+			UserModel user = userRepository.findUserByUserName(principal.getName());
+
+			List<RecipeModel> filteredRecipes = recipeRepository.filterRecipesByUserPreferencesAndSearchString(user.getId(), searchString);
+			List<RecipeModel> orderedRecipes = recipeRepository.findRecipesOrderedByfavoriteIngredients(user.getId());
+
+			List<RecipeModel> recipes = new ArrayList<RecipeModel>();
+
+			for (RecipeModel recipe : orderedRecipes) {
+				if (filteredRecipes.contains(recipe)) {
+					recipes.add(recipe);
+				}
+			}
+			model.addAttribute("recipes", recipes);
+		}
+		return "recipeList";
+	}
 }
