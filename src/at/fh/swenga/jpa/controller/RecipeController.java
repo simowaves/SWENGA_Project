@@ -65,7 +65,7 @@ public class RecipeController {
 	}
 	
 	@PostMapping(value = "/createRecipe")
-	public String reateNewRecipe(Model model, Principal principal, @RequestParam String description, @RequestParam String title) {
+	public String createNewRecipe(Model model, Principal principal, @RequestParam String description, @RequestParam String title) {
 		
 		Date now = new Date();
 		String authorName = principal.getName();
