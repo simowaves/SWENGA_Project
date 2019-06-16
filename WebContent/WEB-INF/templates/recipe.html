@@ -123,12 +123,7 @@
 					
 					<!-- Comments -->
 					<div class="row">
-						<!-- Recipe Image TODO! -->
-						<div class="col-md-8">
-							<img
-								src="https://images.unsplash.com/photo-1559852925-44ce7f97bc36"
-								class="img-fluid rounded" alt="Responsive image">
-						</div>
+						
 
 						<!-- Recipe Ingredients -->
 						<div class="col-md-4">
@@ -170,6 +165,15 @@
 												th:text="${comment.author.userName}"></a>
 											<a
 											th:text="${comment.content}"></a>
+										</li>
+										<li class="list-group list-group-flush">
+										<form class = "form-group" th:action="@{/postComment(id=${recipe.id})}" method="post">
+											<input type="text" class="form-control form-control-user"
+										name="content" placeholder="Write a comment">
+										
+										<!-- a
+												type="submit">Post It!</a>-->
+										</form>
 										</li>
 									</ul>
 								</div>

@@ -44,6 +44,12 @@ public class CommentModel implements java.io.Serializable {
 	public CommentModel() {
 		super();
 	}
+	
+	public CommentModel(String content, Date createDate) {
+		super();
+		this.content = content;
+		this.createDate = createDate;
+	}
 
 	public CommentModel(String content, Date createDate, RecipeModel recipe, UserModel author) {
 		super();
