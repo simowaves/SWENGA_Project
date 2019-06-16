@@ -100,7 +100,7 @@
 									<div class="row">
 										<div th:each="categorie : ${recipe.categories}">
 											<div class="ml-1 mr-1">
-												<a href="#" class="badge badge-info"
+												<a th:href="@{/showCategorie(id=${categorie.id})}" class="badge badge-info"
 													th:text="${categorie.title}"></a>
 											</div>
 										</div>
