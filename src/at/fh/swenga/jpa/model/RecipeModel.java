@@ -88,6 +88,17 @@ public class RecipeModel implements java.io.Serializable {
 	public RecipeModel() {
 		super();
 	}
+	
+	public RecipeModel(Date createDate, Date lastEdited, String title, String description, UserModel author, boolean published, boolean enabled) {
+		super();
+		this.createDate = createDate;
+		this.lastEdited = lastEdited;
+		this.title = title;
+		this.description = description;
+		this.author = author;
+		this.published = published;
+		this.enabled = enabled;
+	}
 
 	public RecipeModel(Date createDate, Date lastEdited, String title, String description, UserModel author,
 			Set<IngredientAmountModel> ingredientAmounts, boolean published, boolean enabled,
