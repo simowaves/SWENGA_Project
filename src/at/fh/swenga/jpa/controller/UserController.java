@@ -1,5 +1,7 @@
 package at.fh.swenga.jpa.controller;
 
+import java.security.Principal;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -97,7 +99,7 @@ public class UserController {
 	}
 
 	// Spring 4: @RequestMapping(value = "/showUser", method = RequestMethod.GET)
-	@GetMapping("/showUser")
+	@GetMapping({"/showUser", "/followUser"})
 	public String showUserDetails(Model model, @RequestParam int id) {
 
 		UserModel user = userRepository.findUserById(id);
@@ -116,4 +118,39 @@ public class UserController {
 	  public String currentUserName(Authentication authentication) {
 	     return authentication.getName() ;
 	  }
+	  
+	// Spring 4: @RequestMapping(value = "/followUser", method =
+		// RequestMethod.POST)
+		@PostMapping("/followUser")
+		public String likeRecipe(Model model, @RequestParam int id, Principal principal) {
+
+			UserModel shownUser = userRepository.findUserById(id);
+			String userName = principal.getName();
+			UserModel user = userRepository.findUserByUserName(userName);
+
+			if (shownUser == null) {
+				model.addAttribute("errorMessage", "Couldn't find user " + id);
+				return "forward:/recipeList";
+			}
+			
+			if (shownUser.getUsersFollowingMe().contains(user)) {
+				
+				user.removeUserIFollow(shownUser);
+				userRepository.save(user);
+				
+				shownUser.removeUserFollowingMe(user);
+				
+			} else {
+				
+				user.addUserIFollow(shownUser);
+				userRepository.save(user);
+
+				shownUser.addUserFollowingMe(user);
+				
+			}
+
+			model.addAttribute("user", shownUser);
+
+			return "userInfo";
+		}
 }

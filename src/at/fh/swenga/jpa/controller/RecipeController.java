@@ -48,24 +48,29 @@ public class RecipeController {
 		} else {
 
 			UserModel user = userRepository.findUserByUserName(principal.getName());
+			
+			if (user == null) {
+				List<RecipeModel> recipes = recipeRepository.findAll();
+				model.addAttribute("recipes", recipes);
+			} else {
+				List<RecipeModel> filteredRecipes = recipeRepository.filterRecipesByUserPreferences(user.getId());
+				List<RecipeModel> orderedRecipes = recipeRepository.findRecipesOrderedByfavoriteIngredients(user.getId());
 
-			List<RecipeModel> filteredRecipes = recipeRepository.filterRecipesByUserPreferences(user.getId());
-			List<RecipeModel> orderedRecipes = recipeRepository.findRecipesOrderedByfavoriteIngredients(user.getId());
+				List<RecipeModel> recipes = new ArrayList<RecipeModel>();
 
-			List<RecipeModel> recipes = new ArrayList<RecipeModel>();
-
-			for (RecipeModel recipe : orderedRecipes) {
-				if (filteredRecipes.contains(recipe)) {
-					recipes.add(recipe);
+				for (RecipeModel recipe : orderedRecipes) {
+					if (filteredRecipes.contains(recipe)) {
+						recipes.add(recipe);
+					}
 				}
+				model.addAttribute("recipes", recipes);
 			}
-			model.addAttribute("recipes", recipes);
 		}
 		return "recipeList";
 	}
 
 	// Spring 4: @RequestMapping(value = "/showRecipe", method = RequestMethod.GET)
-	@GetMapping("/showRecipe")
+	@GetMapping({"/showRecipe", "/likeRecipe"})
 	public String showRecipeDetails(Model model, @RequestParam int id) {
 
 		RecipeModel recipe = recipeRepository.findRecipeById(id);

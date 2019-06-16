@@ -247,6 +247,15 @@
 
 
 					<!-- /.container-fluid -->
+					<!-- Follow Button -->
+					<form class="form-group"
+						th:action="@{/followUser(id=${user.id})}" method="post">
+						<input type="text" class="form-control form-control-user"
+							name="content" placeholder="Hit the Enter Button to Follow!!!"> <a
+							type="submit">Follow</a>
+					</form>
+
+					<!-- End of Follow Button -->
 				</div>
 				<!-- End of Main Content -->
 
