@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import at.fh.swenga.jpa.dao.IngredientRepository;
 import at.fh.swenga.jpa.dao.PictureRepository;
 import at.fh.swenga.jpa.dao.RecipeRepository;
+import at.fh.swenga.jpa.model.IngredientModel;
 import at.fh.swenga.jpa.model.RecipeModel;
 
 @Controller
@@ -21,6 +23,9 @@ public class RecipeController {
 
 	@Autowired
 	PictureRepository pictureRepository;
+	
+	@Autowired
+	IngredientRepository ingredientRepository;
 
 	@RequestMapping(value = { "/", "list", "recipeList" })
 	public String index(Model model) {
@@ -43,5 +48,12 @@ public class RecipeController {
 			return "forward:/recipeList";
 		}
 	}
+	@RequestMapping(value = {"/createRecipe"})
+	public String openCreateForm(Model model) {
+		List<IngredientModel> ingredients = ingredientRepository.findAll();
+		model.addAttribute("ingredients", ingredients);
+		return "createRecipe";
+	}
 
+	
 }

@@ -17,12 +17,16 @@
 <div th:replace="~{includes/bootstrap :: bootstrapCSS}" />
 
 <!-- TEMP -->
-	<!-- Local Fav Icon CSS -->
-	<link href="../../sb-admin-2/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-	<!-- Font CSS -->
-	  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-	<!-- Main Custom Local CSS -->
-	<link href="../../sb-admin-2/css/sb-admin-2.min.css" rel="stylesheet" type="text/css">
+<!-- Local Fav Icon CSS -->
+<link href="../../sb-admin-2/vendor/fontawesome-free/css/all.min.css"
+	rel="stylesheet" type="text/css">
+<!-- Font CSS -->
+<link
+	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+	rel="stylesheet">
+<!-- Main Custom Local CSS -->
+<link href="../../sb-admin-2/css/sb-admin-2.min.css" rel="stylesheet"
+	type="text/css">
 <!-- TEMP END -->
 
 <!--  JS temporaly  here, should be at bottom of html to speed loading time-->
@@ -31,6 +35,10 @@
 
 <body class="bg-gradient-primary">
 
+	<div th:if="${param.logout}" class="alert alert-success">You have
+		been logged out.</div>
+
+	
 	<div class="container">
 
 		<!-- Outer Row -->
@@ -52,7 +60,8 @@
 									<form class="user" th:action="@{/login}" method="post">
 										<div class="form-group">
 											<input type="text" class="form-control form-control-user"
-												id="username" name = "username" placeholder="Enter Username ...">
+												id="username" name="username"
+												placeholder="Enter Username ...">
 										</div>
 
 										<div class="form-group">
@@ -70,8 +79,8 @@
 												<i class="fas fa-exclamation-triangle "></i>
 												Wrong Username or Password
 											</div>
-										</div> --> 
-										
+										</div> -->
+
 
 										<div th:if="${param.error}" class="alert alert-warning"
 											role="alert">Wrong Username or Password</div>

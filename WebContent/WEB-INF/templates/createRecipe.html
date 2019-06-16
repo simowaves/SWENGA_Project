@@ -38,9 +38,9 @@
 			<div id="content">
 
 				<!-- Topbar -->
-				
+
 				<div th:replace="includes/navigation :: topbar"></div>
-				
+
 				<!-- End of Topbar -->
 
 				<!-- #####  Begin Page Content ####### -->
@@ -54,80 +54,183 @@
 					</div>
 
 					<!-- Content -->
-<div sec:authentication=”name”>
+					<div>
 
-					<div class="card-deck">
+						<div class="row">
+							<div class="col-md-4">
+								<div
+									style="position: relative; overflow: hidden; padding-bottom: 100%;"
+									class="rounded">
+									<a><img style="position: absolute;"
+										src="https://images.unsplash.com/photo-1559562649-21c0be156e0d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60"
+										alt=""></a>
+
+									<!-- 										<img class="img-fluid card-img-top" -->
+									<!-- 											style="position: absolute;" -->
+									<!-- 											th:src="@{download(documentId=${recipe.document.id})}" -->
+									<!-- 											alt=""> -->
+								</div>
+								<button>Upload Picture</button>
+							</div>
+							<div class="col-md-8">
+								<form class="needs-validation" novalidate>
+									<div class="form-row">
+										<div class="col-md-4 mb-3">
+											<label for="validationCustom01">Title</label> <input
+												type="text" class="form-control" id="validationCustom01"
+												name="title" placeholder="Title" value="" required>
+											<div class="valid-feedback">Looks good!</div>
+										</div>
+									</div>
+									<div class="form-row">
+										<div class="col-md-12 mb-3">
+											<label for="validationCustom03">Ingredients</label>
+											<select 
+												class="form-control">
+												<option th:each="ingredient : ${ingredients}" text="${ingredient.name}" value="${ingredient.id}"></option>
+											</select>
+											<div class="invalid-feedback">Please provide a valid
+												city.</div>
+										</div>
+									</div>
+									<div class="form-row">
+										<div class="col-md-12 mb-3">
+											<label for="validationCustom03">Description</label>
+											<textarea class="form-control" rows="4"
+												id="validationCustom03" placeholder="you recipe ..."
+												required></textarea>
+											<div class="invalid-feedback">Please provide a valid
+												city.</div>
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="form-check">
+											<input class="form-check-input" type="checkbox" value=""
+												id="invalidCheck" required> <label
+												class="form-check-label" for="invalidCheck"> Agree
+												to terms and conditions </label>
+											<div class="invalid-feedback">You must agree before
+												submitting.</div>
+										</div>
+									</div>
+									<button class="btn btn-primary" type="submit">Submit
+										form</button>
+								</form>
+
+								<script>
+									// Example starter JavaScript for disabling form submissions if there are invalid fields
+									(function() {
+										'use strict';
+										window
+												.addEventListener(
+														'load',
+														function() {
+															// Fetch all the forms we want to apply custom Bootstrap validation styles to
+															var forms = document
+																	.getElementsByClassName('needs-validation');
+															// Loop over them and prevent submission
+															var validation = Array.prototype.filter
+																	.call(
+																			forms,
+																			function(
+																					form) {
+																				form
+																						.addEventListener(
+																								'submit',
+																								function(
+																										event) {
+																									if (form
+																											.checkValidity() === false) {
+																										event
+																												.preventDefault();
+																										event
+																												.stopPropagation();
+																									}
+																									form.classList
+																											.add('was-validated');
+																								},
+																								false);
+																			});
+														}, false);
+									})();
+								</script>
 
 
-
+							</div>
 						</div>
-					</div>
-					<!-- /.container-fluid -->
 
+
+					</div>
+
+
+
+					<div class="card-deck"></div>
 				</div>
-				<!-- End of Main Content -->
-
-				<!-- Footer -->
-				<footer class="sticky-footer bg-white">
-					<div class="container my-auto">
-						<div class="copyright text-center my-auto">
-							<span>Copyright &copy; Your Website 2019</span>
-						</div>
-					</div>
-				</footer>
-				<!-- End of Footer -->
+				<!-- /.container-fluid -->
 
 			</div>
-			<!-- End of Content Wrapper -->
+			<!-- End of Main Content -->
+
+			<!-- Footer -->
+			<footer class="sticky-footer bg-white">
+				<div class="container my-auto">
+					<div class="copyright text-center my-auto">
+						<span>Copyright &copy; Your Website 2019</span>
+					</div>
+				</div>
+			</footer>
+			<!-- End of Footer -->
 
 		</div>
-		<!-- End of Page Wrapper -->
+		<!-- End of Content Wrapper -->
 
-		<!-- Scroll to Top Button-->
-		<a class="scroll-to-top rounded" href="#page-top"> <i
-			class="fas fa-angle-up"></i>
-		</a>
+	</div>
+	<!-- End of Page Wrapper -->
 
-		<!-- Logout Modal-->
-		<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
-			aria-labelledby="exampleModalLabel" aria-hidden="true">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLabel">Ready to
-							Leave?</h5>
-						<button class="close" type="button" data-dismiss="modal"
-							aria-label="Close">
-							<span aria-hidden="true">×</span>
-						</button>
-					</div>
-					<div class="modal-body">Select "Logout" below if you are
-						ready to end your current session.</div>
-					<div class="modal-footer">
-						<button class="btn btn-secondary" type="button"
-							data-dismiss="modal">Cancel</button>
-						<a class="btn btn-primary" href="login.html">Logout</a>
-					</div>
+	<!-- Scroll to Top Button-->
+	<a class="scroll-to-top rounded" href="#page-top"> <i
+		class="fas fa-angle-up"></i>
+	</a>
+
+	<!-- Logout Modal-->
+	<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+					<button class="close" type="button" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+				<div class="modal-body">Select "Logout" below if you are ready
+					to end your current session.</div>
+				<div class="modal-footer">
+					<button class="btn btn-secondary" type="button"
+						data-dismiss="modal">Cancel</button>
+					<a class="btn btn-primary" href="login.html">Logout</a>
 				</div>
 			</div>
 		</div>
+	</div>
 
-		<!-- Bootstrap core JavaScript-->
-		<script src="vendor/jquery/jquery.min.js"></script>
-		<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<!-- Bootstrap core JavaScript-->
+	<script src="vendor/jquery/jquery.min.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-		<!-- Core plugin JavaScript-->
-		<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+	<!-- Core plugin JavaScript-->
+	<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
-		<!-- Custom scripts for all pages-->
-		<script src="js/sb-admin-2.min.js"></script>
+	<!-- Custom scripts for all pages-->
+	<script src="js/sb-admin-2.min.js"></script>
 
-		<!-- Page level plugins -->
-		<script src="vendor/chart.js/Chart.min.js"></script>
+	<!-- Page level plugins -->
+	<script src="vendor/chart.js/Chart.min.js"></script>
 
-		<!-- Page level custom scripts -->
-		<script src="js/demo/chart-area-demo.js"></script>
-		<script src="js/demo/chart-pie-demo.js"></script>
+	<!-- Page level custom scripts -->
+	<script src="js/demo/chart-area-demo.js"></script>
+	<script src="js/demo/chart-pie-demo.js"></script>
 </body>
 
 </html>
