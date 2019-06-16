@@ -42,7 +42,7 @@ public class RecipeController {
 
 		if (principal == null) {
 
-			List<RecipeModel> recipes = recipeRepository.findAll();
+			List<RecipeModel> recipes = recipeRepository.findRecipesOrderedByLikes();
 			model.addAttribute("recipes", recipes);
 
 		} else {

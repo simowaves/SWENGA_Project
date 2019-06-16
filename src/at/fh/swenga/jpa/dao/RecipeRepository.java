@@ -82,4 +82,12 @@ public interface RecipeRepository extends JpaRepository<RecipeModel, Integer> {
 			+ "GROUP BY r.id "
 			+ "ORDER BY COUNT(CASE iu.id WHEN :userId THEN 1 ELSE NULL END) DESC")
 	public List<RecipeModel> findRecipesOrderedByfavoriteIngredients (@Param("userId") int userId);
+	
+	// sorts all recipes with the amount of likes
+		@Query ("SELECT r "
+				+ "FROM RecipeModel AS r "
+				+ "LEFT JOIN r.likingUsers lu "
+				+ "GROUP BY r.id "
+				+ "ORDER BY COUNT(lu.id) DESC")
+		public List<RecipeModel> findRecipesOrderedByLikes ();
 }
