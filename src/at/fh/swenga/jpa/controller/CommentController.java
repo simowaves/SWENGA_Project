@@ -44,6 +44,11 @@ public class CommentController {
 		String authorName = principal.getName();
 		UserModel author = userRepository.findUserByUserName(authorName);
 		
+		if (recipe == null) {
+			model.addAttribute("errorMessage", "Couldn't find recipe " + id);
+			return "forward:/recipeList";
+		}
+		
 		CommentModel commentModel = new CommentModel(content, now);
 		commentRepository.save(commentModel);
 		
@@ -55,12 +60,7 @@ public class CommentController {
 		
 		recipe.addComment(commentModel);
 		
-		if (recipe != null) {
-			model.addAttribute("recipe", recipe);
-		} else {
-			model.addAttribute("errorMessage", "Couldn't find recipe " + id);
-			return "forward:/recipeList";
-		}
+		model.addAttribute("recipe", recipe);
 		
 		return "recipe";
 	}
