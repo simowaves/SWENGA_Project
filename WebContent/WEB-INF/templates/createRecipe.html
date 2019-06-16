@@ -85,7 +85,7 @@
 										<div class="col-md-12 mb-3">
 											<label for="validationCustom03">Ingredients</label>
 											<select 
-												class="form-control">
+												class="form-control" th:field="${*ingredient}">
 												<option th:each="ingredient : ${ingredients}" text="${ingredient.name}" value="${ingredient.id}"></option>
 											</select>
 											<div class="invalid-feedback">Please provide a valid
