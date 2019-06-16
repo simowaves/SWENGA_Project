@@ -70,7 +70,7 @@ public class RecipeController {
 	}
 
 	// Spring 4: @RequestMapping(value = "/showRecipe", method = RequestMethod.GET)
-	@GetMapping({"/showRecipe", "/likeRecipe"})
+	@GetMapping({"/showRecipe", "/likeRecipe", "/reportRecipe"})
 	public String showRecipeDetails(Model model, @RequestParam int id) {
 
 		RecipeModel recipe = recipeRepository.findRecipeById(id);
@@ -170,4 +170,39 @@ public class RecipeController {
 
 		return "recipe";
 	}
+	
+	// Spring 4: @RequestMapping(value = "/reportRecipe", method =
+		// RequestMethod.POST)
+		@PostMapping("/reportRecipe")
+		public String reportRecipe(Model model, @RequestParam int id, Principal principal) {
+
+			RecipeModel recipe = recipeRepository.findRecipeById(id);
+			String userName = principal.getName();
+			UserModel user = userRepository.findUserByUserName(userName);
+
+			if (recipe == null) {
+				model.addAttribute("errorMessage", "Couldn't find recipe " + id);
+				return "forward:/recipeList";
+			}
+			
+			if (recipe.getReportingUsers().contains(user)) {
+				
+				user.removeReportedRecipe(recipe);
+				userRepository.save(user);
+				
+				recipe.removeReportingUser(user);
+				
+			} else {
+				
+				user.addReportedRecipe(recipe);
+				userRepository.save(user);
+
+				recipe.addReportingUser(user);
+				
+			}
+
+			model.addAttribute("recipe", recipe);
+
+			return "recipe";
+		}
 }

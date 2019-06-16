@@ -64,7 +64,7 @@ public class UserModel implements java.io.Serializable {
     @OrderBy("createDate")
     private Set<CommentModel> comments;
 	
-	@ManyToMany(fetch=FetchType.LAZY,cascade=CascadeType.PERSIST)
+	@ManyToMany(fetch=FetchType.EAGER,cascade=CascadeType.PERSIST)
 	@JoinTable(name = "users_reportedRecipes")
 	private Set<RecipeModel> reportedRecipes;
 	
@@ -271,6 +271,11 @@ public class UserModel implements java.io.Serializable {
 	public void addReportedRecipe(RecipeModel reportedRecipe) {
 		if (reportedRecipes==null) reportedRecipes = new HashSet<RecipeModel>();
 		reportedRecipes.add(reportedRecipe);
+	}
+	
+	public void removeReportedRecipe(RecipeModel reportedRecipe) {
+		if (reportedRecipes==null) reportedRecipes = new HashSet<RecipeModel>();
+		reportedRecipes.remove(reportedRecipe);
 	}
 
 	public Set<UserModel> getUsersIFollow() {
