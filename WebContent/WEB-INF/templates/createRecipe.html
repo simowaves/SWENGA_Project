@@ -57,7 +57,7 @@
 
 						<div class="row">
 							<div class="col-md-4">
-								<div 
+								<div
 									style="position: relative; overflow: hidden; padding-bottom: 100%;"
 									class="rounded mb-4">
 									<a><img style="position: absolute;"
@@ -71,7 +71,7 @@
 								</div>
 							</div>
 							<div class="col-md-8">
-								<form class="needs-validation" novalidate method="post">
+								<form class="needs-validation" novalidate th:action="@{/createNewRecipe}" method="post">
 									<div class="form-row">
 										<div class="col-md-4 mb-3">
 											<label for="validationCustom01">Title</label> <input
@@ -84,17 +84,21 @@
 
 										<div class="col-xs-12">
 
+											<!-- expanding Ingredient selection -->
 											<div class="form-group multiple-form-group" data-max=6>
 												<label>Add Ingredients (with data-max=6)</label>
-
-												<div class="form-group input-group" >
-													<input type="text" name="multiple[]" class="form-control" placeholder=" amount "><select
-														class="form-control ml-2" th:field="*{ingredients}">
+												<div class="form-group input-group">
+													<input type="text" name="amount[]" class="form-control"
+														placeholder="amount" required><!-- th:field="*{ingredients}" -->
+														<select
+														class="form-control ml-2"  name="ingredient[]">
 														<selected>Select your ingredient</selected>
 														<option th:each="ingredient : ${ingredients}"
 															th:text="${ingredient.name}" th:value="${ingredient.id}"></option>
-													</select><span class="input-group-btn ml-2"><button type="button"
-															class="btn btn-success btn-circle btn-add"><i class="fas fa-plus"></i></button></span>
+													</select><span class="input-group-btn ml-2"><button
+															type="button" class="btn btn-success btn-circle btn-add">
+															<i class="fas fa-plus"></i>
+														</button></span>
 												</div>
 											</div>
 
@@ -128,43 +132,7 @@
 										form</button>
 								</form>
 
-								<script>
-									// Example starter JavaScript for disabling form submissions if there are invalid fields
-									(function() {
-										'use strict';
-										window
-												.addEventListener(
-														'load',
-														function() {
-															// Fetch all the forms we want to apply custom Bootstrap validation styles to
-															var forms = document
-																	.getElementsByClassName('needs-validation');
-															// Loop over them and prevent submission
-															var validation = Array.prototype.filter
-																	.call(
-																			forms,
-																			function(
-																					form) {
-																				form
-																						.addEventListener(
-																								'submit',
-																								function(
-																										event) {
-																									if (form
-																											.checkValidity() === false) {
-																										event
-																												.preventDefault();
-																										event
-																												.stopPropagation();
-																									}
-																									form.classList
-																											.add('was-validated');
-																								},
-																								false);
-																			});
-														}, false);
-									})();
-								</script>
+
 
 
 							</div>
@@ -225,7 +193,44 @@
 			</div>
 		</div>
 	</div>
-
+	<script>
+	// Example starter JavaScript for disabling form submissions if there are invalid fields
+									(function() {
+										'use strict';
+										window
+												.addEventListener(
+														'load',
+														function() {
+															// Fetch all the forms we want to apply custom Bootstrap validation styles to
+															var forms = document
+																	.getElementsByClassName('needs-validation');
+															// Loop over them and prevent submission
+															var validation = Array.prototype.filter
+																	.call(
+																			forms,
+																			function(
+																					form) {
+																				form
+																						.addEventListener(
+																								'submit',
+																								function(
+																										event) {
+																									if (form
+																											.checkValidity() === false) {
+																										event
+																												.preventDefault();
+																										event
+																												.stopPropagation();
+																									}
+																									form.classList
+																											.add('was-validated');
+																								},
+																								false);
+																			});
+														}, false);
+									})();
+								</script>
+	<!-- Expanding Form script -->
 	<script type="text/javascript">
 	(function ($) {
 	    $(function () {
