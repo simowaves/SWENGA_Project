@@ -61,7 +61,7 @@
 									style="position: relative; overflow: hidden; padding-bottom: 100%;"
 									class="rounded mb-4">
 									<a><img style="position: absolute;"
-										src="https://images.unsplash.com/photo-1559562649-21c0be156e0d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60"
+										src="https://dummyimage.com/400x400/949494/e6e6e6&text=Your+Picture"
 										alt=""></a>
 
 									<!-- 										<img class="img-fluid card-img-top" -->
@@ -71,7 +71,8 @@
 								</div>
 							</div>
 							<div class="col-md-8">
-								<form class="needs-validation" novalidate th:action="@{/createNewRecipe}" method="post">
+								<form class="needs-validation" novalidate
+									th:action="@{/createNewRecipe}" method="post">
 									<div class="form-row">
 										<div class="col-md-4 mb-3">
 											<label for="validationCustom01">Title</label> <input
@@ -89,9 +90,9 @@
 												<label>Add Ingredients (with data-max=6)</label>
 												<div class="form-group input-group">
 													<input type="text" name="amount[]" class="form-control"
-														placeholder="amount" required><!-- th:field="*{ingredients}" -->
-														<select
-														class="form-control ml-2"  name="ingredient[]">
+														placeholder="amount" required>
+													<!-- th:field="*{ingredients}" -->
+													<select class="form-control ml-2" name="ingredient[]">
 														<selected>Select your ingredient</selected>
 														<option th:each="ingredient : ${ingredients}"
 															th:text="${ingredient.name}" th:value="${ingredient.id}"></option>
@@ -101,8 +102,6 @@
 														</button></span>
 												</div>
 											</div>
-
-
 										</div>
 									</div>
 									<div class="form-row">
@@ -114,6 +113,13 @@
 											<div class="invalid-feedback">The description must not
 												be empty!</div>
 										</div>
+									</div>
+									<div>
+									<label for="validationCustom03">Categories</label>
+									<div class="container">
+									TODO <hr>
+									</div>
+									
 									</div>
 									<div class="form-group">
 										<div class="form-check">
