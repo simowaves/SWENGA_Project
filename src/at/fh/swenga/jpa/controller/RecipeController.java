@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,7 +18,6 @@ import at.fh.swenga.jpa.dao.IngredientRepository;
 import at.fh.swenga.jpa.dao.PictureRepository;
 import at.fh.swenga.jpa.dao.RecipeRepository;
 import at.fh.swenga.jpa.dao.UserRepository;
-import at.fh.swenga.jpa.model.CommentModel;
 import at.fh.swenga.jpa.model.IngredientModel;
 import at.fh.swenga.jpa.model.RecipeModel;
 import at.fh.swenga.jpa.model.UserModel;
@@ -84,6 +84,7 @@ public class RecipeController {
 		}
 	}
 
+	@Secured("ROLE_ADMIN")
 	@GetMapping(value = "/createRecipe")
 	public String openCreateForm(Model model) {
 		List<IngredientModel> ingredients = ingredientRepository.findAllIngredientsOrderByName();

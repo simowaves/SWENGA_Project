@@ -10,7 +10,7 @@
 	<http>
 		<csrf />
 		<intercept-url pattern="/login" access="permitAll" />
-		<intercept-url pattern="/deleteEmployee"
+		<intercept-url pattern="/createRecipe"
 			access="hasRole('ADMIN')" />
 		<intercept-url pattern="/**" access="permitAll" />
 		<form-login login-page="/login" />
