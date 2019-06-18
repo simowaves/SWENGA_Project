@@ -63,10 +63,10 @@
 								</div>
 								<div class="input-group mb-3">
 									<div class="custom-file">
-										<input type="file" class="custom-file-input"
-											id="inputGroupFile" name="uploadPicture"> <label
-											class="custom-file-label" for="inputGroupFile01">Upload
-											tasty picture</label>
+										<form enctype="multipart/form-data" method="post" action="upload">
+											<input type="file" class="form-control" id="inputGroupFile" name="uploadPicture">
+											<label class="custom-file-label" for="inputGroupFile01">Upload tasty picture</label>
+										</form>
 									</div>
 								</div>
 							</div>
@@ -161,6 +161,8 @@
 
 										<div class="form-check"></div>
 									</div>
+									
+									<!-- Laut Max muss hier th:href="@{upload(id=${employee.id})} wie bei SwengaGoodies hinzugefügt werden -->
 									<button class="btn btn-primary" type="submit">Create
 										Recipe</button>
 								</form>
