@@ -10,6 +10,7 @@ import java.util.Set;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -41,7 +42,6 @@ public class RecipeController {
 
 	@Autowired
 	UserRepository userRepository;
-	
 
 	@RequestMapping(value = { "/", "list", "recipeList" })
 	public String index(Model model, Principal principal) {
@@ -91,6 +91,7 @@ public class RecipeController {
 		}
 	}
 
+	@Secured("ROLE_ADMIN")
 	@GetMapping(value = "/createRecipe")
 	public String openCreateForm(Model model) {
 		List<IngredientModel> ingredients = ingredientRepository.findAllIngredientsOrderByName();
@@ -100,7 +101,7 @@ public class RecipeController {
 
 	@PostMapping(value = "/createRecipe")
 
-	public String reateNewRecipe(Model model, Principal principal, @RequestParam String description,
+	public String createNewRecipe(Model model, Principal principal, @RequestParam String description,
 			@RequestParam String title) {
 
 		Date now = new Date();
@@ -214,15 +215,17 @@ public class RecipeController {
 		return "recipe";
 	}
 
-	// Spring 4: @RequestMapping(value = "/createNewRecipe", method = RequestMethod.POST)
+	// Spring 4: @RequestMapping(value = "/createNewRecipe", method =
+	// RequestMethod.POST)
 	@PostMapping("/createNewRecipe")
-	public String createNewRecipe(@RequestParam String title, @RequestParam String description, @RequestParam String amount, @RequestParam String ingredient, Principal principal, Model model) {
-		
+	public String createNewRecipe(@RequestParam String title, @RequestParam String description,
+			@RequestParam String amount, @RequestParam String ingredient, Principal principal, Model model) {
+
 		RecipeModel newRecipeModel = new RecipeModel();
 		String userName = principal.getName();
 		UserModel user = userRepository.findUserByUserName(userName);
 		Date now = new Date();
-		
+
 		newRecipeModel.setTitle(title);
 		newRecipeModel.setDescription(description);
 		newRecipeModel.setCreateDate(now);
@@ -230,23 +233,24 @@ public class RecipeController {
 		recipeRepository.save(newRecipeModel);
 		newRecipeModel.setAuthor(user);
 		recipeRepository.save(newRecipeModel);
-		
+
 		if (amount != null) {
-			
+
 			String[] amountValues = amount.split(",");
 			String[] ingredientValues = ingredient.split(",");
-			
-			for (int i = 0; i<amountValues.length; i++) {
-				IngredientModel ingredientModel = ingredientRepository.findIngredientById(Integer.valueOf(ingredientValues[i]));
-				IngredientAmountModel ingredientAmountModel = new IngredientAmountModel(amountValues[i], ingredientModel);
+
+			for (int i = 0; i < amountValues.length; i++) {
+				IngredientModel ingredientModel = ingredientRepository
+						.findIngredientById(Integer.valueOf(ingredientValues[i]));
+				IngredientAmountModel ingredientAmountModel = new IngredientAmountModel(amountValues[i],
+						ingredientModel);
 				newRecipeModel.addIngredientAmount(ingredientAmountModel);
 				recipeRepository.save(newRecipeModel);
 			}
-			//System.out.print("Ingredient: "+ingredient);
-			//System.out.print("Amount: "+ amount);
+			// System.out.print("Ingredient: "+ingredient);
+			// System.out.print("Amount: "+ amount);
 		}
 
-		
 		model.addAttribute("recipe", newRecipeModel);
 		return "recipe";
 	}
