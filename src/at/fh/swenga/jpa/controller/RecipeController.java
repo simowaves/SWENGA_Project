@@ -239,7 +239,7 @@ public class RecipeController {
 	@PostMapping("/createNewRecipe")
 	public String createNewRecipe(@RequestParam String title, @RequestParam String description,
 			@RequestParam String amount, @RequestParam String ingredient, @RequestParam String category,
-			@RequestParam("uploadPicture") MultipartFile file, Principal principal, Model model) {
+			Principal principal, Model model) {
 
 		RecipeModel newRecipeModel = new RecipeModel();
 		String userName = principal.getName();
@@ -254,7 +254,7 @@ public class RecipeController {
 			CategorieModel categoryModel = categorieRepository.findCategorieById(Integer.valueOf(categoryValues[j]));
 			categorySet.add(categoryModel);
 		}
-
+/*
 		//Try&Catch ist notwendig
 		try {
 			PictureModel picture = new PictureModel();
@@ -267,7 +267,7 @@ public class RecipeController {
 		} catch (Exception e) {
 			model.addAttribute("errorMessage", "Error:" + e.getMessage());
 		}
-
+*/
 		newRecipeModel.setTitle(title);
 		newRecipeModel.setDescription(description);
 		newRecipeModel.setCreateDate(now);
