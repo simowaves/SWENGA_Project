@@ -30,7 +30,7 @@ public class CategorieModel implements java.io.Serializable {
 	@OneToOne(cascade = CascadeType.ALL)
 	private PictureModel picture;
 	
-	@ManyToMany(mappedBy = "categories", fetch = FetchType.LAZY)
+	@ManyToMany(mappedBy = "categories", fetch = FetchType.EAGER)
 	private Set<RecipeModel> recipes;
 	
 	@Version

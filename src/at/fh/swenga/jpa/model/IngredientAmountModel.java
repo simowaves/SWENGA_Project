@@ -38,6 +38,11 @@ public class IngredientAmountModel implements java.io.Serializable {
 	public IngredientAmountModel() {
 		super();
 	}
+	
+	public IngredientAmountModel(String amount) {
+		super();
+		this.amount = amount;
+	}
 
 	public IngredientAmountModel(String amount, IngredientModel ingredient) {
 		super();
