@@ -36,7 +36,31 @@ public interface RecipeRepository extends JpaRepository<RecipeModel, Integer> {
 			+ 	"WHERE ua.id = :userId OR iu.id = :userId " 
 			+ 	"GROUP BY x.id) "
 			+ "AND c.id = :catId ")
-	public List<RecipeModel> filterRecipesByUserPreferencesAndCategoryId (@Param("userId") int userId, @Param("catId") int catId);
+	public List<RecipeModel> filterRecipesByUserPreferencesAndCategorieId (@Param("userId") int userId, @Param("catId") int catId);
+	
+	@Query ("SELECT r "
+			+ "FROM RecipeModel AS r "
+			+ "JOIN r.ingredientAmounts ia "
+			+ "JOIN ia.ingredient i "
+			+ "WHERE i.id = :ingId ")
+	public List<RecipeModel> findRecipesByIngredientId (@Param("ingId") int ingId);
+	
+	// filters the recipes and returns all recipes that the user isn't allergic against, or don't have hated Ingredients and it filters of ingredients
+	@Query ("SELECT r "
+			+ "FROM RecipeModel AS r "
+			+ "JOIN r.ingredientAmounts ia "
+			+ "JOIN ia.ingredient i "
+			+ "WHERE r.id not in (SELECT x "
+			+ 	"FROM RecipeModel AS x "
+			+ 	"LEFT JOIN x.ingredientAmounts ia "
+			+ 	"LEFT JOIN ia.ingredient i "
+			+ 	"LEFT JOIN i.allergies a "
+			+ 	"LEFT JOIN a.users ua "
+			+ 	"LEFT JOIN i.usersHateMe iu "
+			+ 	"WHERE ua.id = :userId OR iu.id = :userId " 
+			+ 	"GROUP BY x.id) "
+			+ "AND i.id = :ingId ")
+	public List<RecipeModel> filterRecipesByUserPreferencesAndIngredientId (@Param("userId") int userId, @Param("ingId") int ingId);
 		
 	
 	@Query ("SELECT r "

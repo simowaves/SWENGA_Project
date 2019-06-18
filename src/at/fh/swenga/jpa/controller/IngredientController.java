@@ -18,7 +18,7 @@ import at.fh.swenga.jpa.model.RecipeModel;
 import at.fh.swenga.jpa.model.UserModel;
 
 @Controller
-public class CategorieController {
+public class IngredientController {
 
 	@Autowired
 	RecipeRepository recipeRepository;
@@ -32,20 +32,20 @@ public class CategorieController {
 	@Autowired
 	CommentRepository commentRepository;
 	
-	// Spring 4: @RequestMapping(value = "/showCategorie", method = RequestMethod.GET)
-		@GetMapping("/showCategorie")
-		public String showCategorie(Model model, @RequestParam int id, Principal principal) {
+	// Spring 4: @RequestMapping(value = "/showIngredient", method = RequestMethod.GET)
+		@GetMapping("/showIngredient")
+		public String showIngredient(Model model, @RequestParam int id, Principal principal) {
 			
 			if (principal == null) {
 				
-				List<RecipeModel> recipes = recipeRepository.findRecipesByCategorieId(id);
+				List<RecipeModel> recipes = recipeRepository.findRecipesByIngredientId(id);
 				model.addAttribute("recipes", recipes);
 
 			} else {
 				
 				UserModel user = userRepository.findUserByUserName(principal.getName());
 				
-				List<RecipeModel> filteredRecipes = recipeRepository.filterRecipesByUserPreferencesAndCategorieId(user.getId(), id);
+				List<RecipeModel> filteredRecipes = recipeRepository.filterRecipesByUserPreferencesAndIngredientId(user.getId(), id);
 				List<RecipeModel> orderedRecipes = recipeRepository.findRecipesOrderedByfavoriteIngredients(user.getId());
 
 				List<RecipeModel> recipes = new ArrayList<RecipeModel>();

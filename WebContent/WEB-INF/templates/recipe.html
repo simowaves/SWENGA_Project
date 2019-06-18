@@ -87,7 +87,7 @@
 										<li class="list-group-item"
 											th:each="ingredientAmount : ${recipe.ingredientAmounts}">
 											<a
-											th:text="${ingredientAmount.amount} +' '+${ingredientAmount.ingredient.name}"></a>
+											th:href="@{/showIngredient(id=${ingredientAmount.ingredient.id})}" th:text="${ingredientAmount.amount} +' '+${ingredientAmount.ingredient.name}"></a>
 										</li>
 									</ul>
 								</div>
