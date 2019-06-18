@@ -224,6 +224,10 @@
 			</div>
 		</div>
 	</div>
+
+	<!-- JS needs to move to bottom -->
+	<div th:replace="~{includes/bootstrap :: bootstrapJS}" />
+
 	<script>
 		// Example starter JavaScript for disabling form submissions if there are invalid fields
 		(function() {
@@ -305,8 +309,6 @@
 		})(jQuery);
 	</script>
 
-	<!-- JS needs to move to bottom -->
-	<div th:replace="~{includes/bootstrap :: bootstrapJS}" />
 </body>
 
 </html>
