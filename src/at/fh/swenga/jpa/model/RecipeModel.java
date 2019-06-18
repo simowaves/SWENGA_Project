@@ -70,13 +70,13 @@ public class RecipeModel implements java.io.Serializable {
 	@OneToMany(mappedBy = "recipe", fetch = FetchType.EAGER)
 	private Set<CommentModel> comments;
 
-	@ManyToMany(mappedBy = "reportedRecipes", fetch = FetchType.LAZY)
+	@ManyToMany(mappedBy = "reportedRecipes", fetch = FetchType.EAGER)
 	private Set<UserModel> reportingUsers;
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
 	private Set<RecipeCollectionModel> recipeCollections;
 
-	@ManyToMany(mappedBy = "likedRecipes", fetch = FetchType.LAZY)
+	@ManyToMany(mappedBy = "likedRecipes", fetch = FetchType.EAGER)
 	private Set<UserModel> likingUsers;
 
 	@OneToOne(cascade = CascadeType.ALL)
@@ -247,6 +247,12 @@ public class RecipeModel implements java.io.Serializable {
 			reportingUsers = new HashSet<UserModel>();
 		reportingUsers.add(reportingUser);
 	}
+	
+	public void removeReportingUser(UserModel reportingUser) {
+		if (reportingUsers == null)
+			reportingUsers = new HashSet<UserModel>();
+		reportingUsers.remove(reportingUser);
+	}
 
 	public Set<RecipeCollectionModel> getRecipeCollections() {
 		return recipeCollections;
@@ -275,6 +281,12 @@ public class RecipeModel implements java.io.Serializable {
 			likingUsers = new HashSet<UserModel>();
 		likingUsers.add(likingUser);
 	}
+	
+	public void removeLikingUser(UserModel likingUser) {
+		if (likingUsers == null)
+			likingUsers = new HashSet<UserModel>();
+		likingUsers.remove(likingUser);
+	}
 
 	public PictureModel getPicture() {
 		return picture;
@@ -291,5 +303,29 @@ public class RecipeModel implements java.io.Serializable {
 	public void setVersion(long version) {
 		this.version = version;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + id;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		RecipeModel other = (RecipeModel) obj;
+		if (id != other.id)
+			return false;
+		return true;
+	}
+	
+	
 
 }

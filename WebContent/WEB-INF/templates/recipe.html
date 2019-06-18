@@ -120,12 +120,12 @@
 							th:text="${recipe.description}"></div>
 					</div>
 					<!-- /.container-fluid -->
-					
+
 					<!-- Comments -->
 					<div class="row">
-						
 
-						<!-- Recipe Ingredients -->
+
+						<!-- Recipe Commentss -->
 						<div class="col-md-4">
 							<!-- Dropdown Card Example -->
 							<div class="card shadow md-4">
@@ -159,21 +159,19 @@
 										  -->
 									<ul class="list-group list-group-flush">
 										<li class="list-group-item"
-											th:each="comment : ${recipe.comments}">
-											<a
-												th:href="@{/showUser(id=${comment.author.id})}"
-												th:text="${comment.author.userName}"></a>
-											<a
-											th:text="${comment.content}"></a>
-										</li>
+											th:each="comment : ${recipe.comments}"><a
+											th:href="@{/showUser(id=${comment.author.id})}"
+											th:text="${comment.author.userName}"></a> <a
+											th:text="${comment.content}"></a></li>
 										<li class="list-group list-group-flush">
-										<form class = "form-group" th:action="@{/postComment(id=${recipe.id})}" method="post">
-											<input type="text" class="form-control form-control-user"
-										name="content" placeholder="Write a comment">
-										
-										<!-- a
+											<form class="form-group"
+												th:action="@{/postComment(id=${recipe.id})}" method="post">
+												<input type="text" class="form-control form-control-user"
+													name="content" placeholder="Write a comment">
+
+												<!-- a
 												type="submit">Post It!</a>-->
-										</form>
+											</form>
 										</li>
 									</ul>
 								</div>
@@ -181,6 +179,25 @@
 						</div>
 					</div>
 					<!-- End of comments -->
+					<!-- Like Button -->
+					<form class="form-group"
+						th:action="@{/likeRecipe(id=${recipe.id})}" method="post">
+						<input type="text" class="form-control form-control-user"
+							name="content" placeholder="Hit the Enter Button to Like!!!"> <a
+							type="submit">Like</a>
+					</form>
+
+					<!-- End of Like Button -->
+					
+					<!-- Report Button -->
+					<form class="form-group"
+						th:action="@{/reportRecipe(id=${recipe.id})}" method="post">
+						<input type="text" class="form-control form-control-user"
+							name="content" placeholder="Hit the Enter Button to Report!!!"> <a
+							type="submit">Report</a>
+					</form>
+
+					<!-- End of Report Button -->
 
 				</div>
 				<!-- End of Main Content -->

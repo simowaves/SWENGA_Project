@@ -64,14 +64,14 @@ public class UserModel implements java.io.Serializable {
     @OrderBy("createDate")
     private Set<CommentModel> comments;
 	
-	@ManyToMany(fetch=FetchType.LAZY,cascade=CascadeType.PERSIST)
+	@ManyToMany(fetch=FetchType.EAGER,cascade=CascadeType.PERSIST)
 	@JoinTable(name = "users_reportedRecipes")
 	private Set<RecipeModel> reportedRecipes;
 	
-	@ManyToMany(fetch=FetchType.LAZY,cascade=CascadeType.PERSIST)
+	@ManyToMany(fetch=FetchType.EAGER,cascade=CascadeType.PERSIST)
 	private Set<UserModel> usersIFollow;
 	
-	@ManyToMany(mappedBy = "usersIFollow", fetch = FetchType.LAZY)
+	@ManyToMany(mappedBy = "usersIFollow", fetch = FetchType.EAGER)
 	private Set<UserModel> usersFollowingMe;
 	
 	@OneToMany(mappedBy="user",fetch=FetchType.LAZY)
@@ -272,6 +272,11 @@ public class UserModel implements java.io.Serializable {
 		if (reportedRecipes==null) reportedRecipes = new HashSet<RecipeModel>();
 		reportedRecipes.add(reportedRecipe);
 	}
+	
+	public void removeReportedRecipe(RecipeModel reportedRecipe) {
+		if (reportedRecipes==null) reportedRecipes = new HashSet<RecipeModel>();
+		reportedRecipes.remove(reportedRecipe);
+	}
 
 	public Set<UserModel> getUsersIFollow() {
 		return usersIFollow;
@@ -285,6 +290,11 @@ public class UserModel implements java.io.Serializable {
 		if (usersIFollow==null) usersIFollow = new HashSet<UserModel>();
 		usersIFollow.add(user);
 	}
+	
+	public void removeUserIFollow(UserModel user) {
+		if (usersIFollow==null) usersIFollow = new HashSet<UserModel>();
+		usersIFollow.remove(user);
+	}
 
 	public Set<UserModel> getUsersFollowingMe() {
 		return usersFollowingMe;
@@ -297,6 +307,11 @@ public class UserModel implements java.io.Serializable {
 	public void addUserFollowingMe(UserModel user) {
 		if (usersFollowingMe==null) usersFollowingMe = new HashSet<UserModel>();
 		usersFollowingMe.add(user);
+	}
+	
+	public void removeUserFollowingMe(UserModel user) {
+		if (usersFollowingMe==null) usersFollowingMe = new HashSet<UserModel>();
+		usersFollowingMe.remove(user);
 	}
 
 	public Set<RecipeCollectionModel> getRecipeCollections() {
@@ -324,6 +339,11 @@ public class UserModel implements java.io.Serializable {
 		if (likedRecipes==null) likedRecipes = new HashSet<RecipeModel>();
 		likedRecipes.add(likedRecipe);
 	}
+	
+	public void removeLikedRecipe(RecipeModel likedRecipe) {
+		if (likedRecipes==null) likedRecipes = new HashSet<RecipeModel>();
+		likedRecipes.remove(likedRecipe);
+	}
 
 	public PictureModel getPicture() {
 		return picture;
@@ -340,5 +360,26 @@ public class UserModel implements java.io.Serializable {
 	public void setVersion(long version) {
 		this.version = version;
 	}
-	
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + id;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		UserModel other = (UserModel) obj;
+		if (id != other.id)
+			return false;
+		return true;
+	}	
 }
