@@ -11,12 +11,9 @@
 <meta name="author" content="">
 
 <div th:replace="~{includes/bootstrap :: bootstrapMeta}" />
-<title>SB Admin 2 - Blank</title>
+<title>SB Admin 2 - Recipes</title>
 <div th:replace="~{includes/bootstrap :: bootstrapCSS}" />
 
-<!-- JS needs to go to bottom-->
-<link href="../../sb-admin-2/css/sb-admin-2.min.css" rel="stylesheet"
-	type="text/css">
 </head>
 
 <body id="page-top">
@@ -87,7 +84,8 @@
 										<li class="list-group-item"
 											th:each="ingredientAmount : ${recipe.ingredientAmounts}">
 											<a
-											th:href="@{/showIngredient(id=${ingredientAmount.ingredient.id})}" th:text="${ingredientAmount.amount} +' '+${ingredientAmount.ingredient.name}"></a>
+											th:href="@{/showIngredient(id=${ingredientAmount.ingredient.id})}"
+											th:text="${ingredientAmount.amount} +' '+${ingredientAmount.ingredient.name}"></a>
 										</li>
 									</ul>
 								</div>
@@ -183,18 +181,18 @@
 					<form class="form-group"
 						th:action="@{/likeRecipe(id=${recipe.id})}" method="post">
 						<input type="text" class="form-control form-control-user"
-							name="content" placeholder="Hit the Enter Button to Like!!!"> <a
-							type="submit">Like</a>
+							name="content" placeholder="Hit the Enter Button to Like!!!">
+						<a type="submit">Like</a>
 					</form>
 
 					<!-- End of Like Button -->
-					
+
 					<!-- Report Button -->
 					<form class="form-group"
 						th:action="@{/reportRecipe(id=${recipe.id})}" method="post">
 						<input type="text" class="form-control form-control-user"
-							name="content" placeholder="Hit the Enter Button to Report!!!"> <a
-							type="submit">Report</a>
+							name="content" placeholder="Hit the Enter Button to Report!!!">
+						<a type="submit">Report</a>
 					</form>
 
 					<!-- End of Report Button -->
@@ -249,6 +247,8 @@
 				</div>
 			</div>
 		</div>
+		<!-- JS needs to move to bottom -->
+		<div th:replace="~{includes/bootstrap :: bootstrapJS}" />
 </body>
 
 </html>

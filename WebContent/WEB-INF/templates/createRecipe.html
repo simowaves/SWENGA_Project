@@ -5,20 +5,10 @@
 
 <head>
 
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="">
-<meta name="author" content="">
-
-
 <div th:replace="~{includes/bootstrap :: bootstrapMeta}" />
 <title>WhatToFood - New Recipe</title>
 <div th:replace="~{includes/bootstrap :: bootstrapCSS}" />
 
-<!-- JS needs to move to bottom -->
-<div th:replace="~{includes/bootstrap :: bootstrapJS}" />
 </head>
 
 <body id="page-top">
@@ -57,11 +47,12 @@
 
 						<div class="row">
 							<div class="col-md-4">
-							<!-- TODO : fix picture sizing -->
+								<!-- TODO : fix picture sizing -->
 								<div
 									style="position: relative; overflow: hidden; padding-bottom: 100%;"
 									class="mb-4">
-									<a><img style="position: absolute; width:100%" class="rounded"
+									<a><img style="position: absolute; width: 100%"
+										class="rounded"
 										src="https://dummyimage.com/400x400/949494/e6e6e6&text=Your+Picture"
 										alt=""></a>
 
@@ -74,7 +65,8 @@
 									<div class="custom-file">
 										<input type="file" class="custom-file-input"
 											id="inputGroupFile" name=""> <label
-											class="custom-file-label" for="inputGroupFile01">Upload tasty picture</label>
+											class="custom-file-label" for="inputGroupFile01">Upload
+											tasty picture</label>
 									</div>
 								</div>
 							</div>
@@ -134,7 +126,7 @@
 											<!-- expanding Ingredient selection -->
 											<div class="form-group multiple-form-group" data-max=10>
 												<div class="form-group input-group">
-													<select class="form-control" name="ingredient" required>
+													<select class="form-control" name="category" required>
 														<option selected value="">Select your category</option>
 														<option th:each="category : ${categories}"
 															th:text="${category.title}" th:value="${category.id}"></option>
@@ -312,6 +304,9 @@
 			});
 		})(jQuery);
 	</script>
+
+	<!-- JS needs to move to bottom -->
+	<div th:replace="~{includes/bootstrap :: bootstrapJS}" />
 </body>
 
 </html>

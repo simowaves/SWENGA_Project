@@ -7,15 +7,6 @@
 
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org"
-	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-
-<head>
-
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="">
@@ -23,24 +14,9 @@
 
 
 <div th:replace="~{includes/bootstrap :: bootstrapMeta}" />
-<title th:text="${'Profile of ' + user.userName}" ></title>
+<title th:text="${'Profile of ' + user.userName}"></title>
 <div th:replace="~{includes/bootstrap :: bootstrapCSS}" />
 
-<!-- TEMP -->
-
-<!-- Local Fav Icon CSS -->
-<link href="../../sb-admin-2/vendor/fontawesome-free/css/all.min.css"
-	rel="stylesheet" type="text/css">
-<!-- Font CSS -->
-<link
-	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-	rel="stylesheet">
-<!-- Main Custom Local CSS -->
-<link href="../../sb-admin-2/css/sb-admin-2.min.css" rel="stylesheet"
-	type="text/css">
-
-<!-- TEMP END -->
-<div th:replace="~{includes/bootstrap :: bootstrapJS}" />
 </head>
 
 <body id="page-top">
@@ -61,9 +37,9 @@
 			<div id="content">
 
 				<!-- Topbar -->
-				
+
 				<div th:replace="includes/navigation :: topbar"></div>
-				
+
 				<!-- End of Topbar -->
 
 				<!-- Begin Page Content -->
@@ -86,8 +62,8 @@
 
 										<div>
 											<p>
-												I love <b>bananas</b> 
-												<br> When I'm not traveling I'm having fun with bananas...
+												I love <b>bananas</b> <br> When I'm not traveling I'm
+												having fun with bananas...
 											</p>
 										</div>
 
@@ -121,62 +97,63 @@
 
 							<!-- Tab Content -->
 							<div class="container-fluid mt-4">
-								
 
-									
 
-			<div class="card-deck">
 
-						<!-- Basic Card Example -->
 
-						<div class="col-xl-4 col-md-6 col-sm-12 mb-4 px-0"
-							th:each="likedRecipe : ${user.recipes }">
+								<div class="card-deck">
 
-							<div class="card shadow ">
-								<!-- Image -->
-								<div
-									style="position: relative; overflow: hidden; padding-bottom: 100%;">
-									<a th:href="@{/showRecipe(id=${likedRecipe.id})}"><img
-										style="position: absolute;"
-										src="https://images.unsplash.com/photo-1559562649-21c0be156e0d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60"
-										alt=""></a>
+									<!-- Basic Card Example -->
 
-									<!-- 										<img class="img-fluid card-img-top" -->
-									<!-- 											style="position: absolute;" -->
-									<!-- 											th:src="@{download(documentId=${recipe.document.id})}" -->
-									<!-- 											alt=""> -->
-								</div>
-								<!-- card body -->
-								<div class="card-body">
-									<div class="row">
-										<div class="col-8">
-											<a class="m-0 font-weight-bold text-primary"
-												th:href="@{/showRecipe(id=${likedRecipe.id})}"
-												th:text="${likedRecipe.title}">
-												</a> by <a
-												th:href="@{/showUser(id=${likedRecipe.author.id})}"
-												th:text="${likedRecipe.author.userName}"></a>
-										</div>
-										<div class="col-4 text-right">
-										<form th:action="@{/likeRecipe(id=${likedRecipe.id})}" method="post">
-											<a href="#" class="btn btn-danger btn-circle" onclick="this.parentNode.submit()"> <i
-												class="fas fa-heart"></i>
-											</a>
-											</form>
-										</div>
-									</div>
-									<div class="row">
-										<div th:each="categorie : ${likedRecipe.categories}">
-											<div class="ml-1 mr-1">
-												<a th:href="@{/showCategorie(id=${categorie.id})}" class="badge badge-info"
-													th:text="${categorie.title}"></a>
+									<div class="col-xl-4 col-md-6 col-sm-12 mb-4 px-0"
+										th:each="likedRecipe : ${user.recipes }">
+
+										<div class="card shadow ">
+											<!-- Image -->
+											<div
+												style="position: relative; overflow: hidden; padding-bottom: 100%;">
+												<a th:href="@{/showRecipe(id=${likedRecipe.id})}"><img
+													style="position: absolute;"
+													src="https://images.unsplash.com/photo-1559562649-21c0be156e0d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60"
+													alt=""></a>
+
+												<!-- 										<img class="img-fluid card-img-top" -->
+												<!-- 											style="position: absolute;" -->
+												<!-- 											th:src="@{download(documentId=${recipe.document.id})}" -->
+												<!-- 											alt=""> -->
+											</div>
+											<!-- card body -->
+											<div class="card-body">
+												<div class="row">
+													<div class="col-8">
+														<a class="m-0 font-weight-bold text-primary"
+															th:href="@{/showRecipe(id=${likedRecipe.id})}"
+															th:text="${likedRecipe.title}"> </a> by <a
+															th:href="@{/showUser(id=${likedRecipe.author.id})}"
+															th:text="${likedRecipe.author.userName}"></a>
+													</div>
+													<div class="col-4 text-right">
+														<form th:action="@{/likeRecipe(id=${likedRecipe.id})}"
+															method="post">
+															<a href="#" class="btn btn-danger btn-circle"
+																onclick="this.parentNode.submit()"> <i
+																class="fas fa-heart"></i>
+															</a>
+														</form>
+													</div>
+												</div>
+												<div class="row">
+													<div th:each="categorie : ${likedRecipe.categories}">
+														<div class="ml-1 mr-1">
+															<a th:href="@{/showCategorie(id=${categorie.id})}"
+																class="badge badge-info" th:text="${categorie.title}"></a>
+														</div>
+													</div>
+												</div>
 											</div>
 										</div>
 									</div>
 								</div>
-							</div>
-						</div>
-					</div>
 
 							</div>
 						</div>
@@ -186,55 +163,56 @@
 							<div class="container-fluid mt-4 mb-4">
 								<div class="card-deck">
 
-						<!-- Basic Card Example -->
+									<!-- Basic Card Example -->
 
-						<div class="col-xl-4 col-md-6 col-sm-12 mb-4 px-0"
-							th:each="likedRecipe : ${user.likedRecipes}">
-							<div class="card shadow ">
-								<!-- Image -->
-								<div
-									style="position: relative; overflow: hidden; padding-bottom: 100%;">
-									<a th:href="@{/showRecipe(id=${likedRecipe.id})}"><img
-										style="position: absolute;"
-										src="https://images.unsplash.com/photo-1559562649-21c0be156e0d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60"
-										alt=""></a>
+									<div class="col-xl-4 col-md-6 col-sm-12 mb-4 px-0"
+										th:each="likedRecipe : ${user.likedRecipes}">
+										<div class="card shadow ">
+											<!-- Image -->
+											<div
+												style="position: relative; overflow: hidden; padding-bottom: 100%;">
+												<a th:href="@{/showRecipe(id=${likedRecipe.id})}"><img
+													style="position: absolute;"
+													src="https://images.unsplash.com/photo-1559562649-21c0be156e0d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60"
+													alt=""></a>
 
-									<!-- 										<img class="img-fluid card-img-top" -->
-									<!-- 											style="position: absolute;" -->
-									<!-- 											th:src="@{download(documentId=${recipe.document.id})}" -->
-									<!-- 											alt=""> -->
-								</div>
-								<!-- card body -->
-								<div class="card-body">
-									<div class="row">
-										<div class="col-8">
-											<a class="m-0 font-weight-bold text-primary"
-												th:href="@{/showRecipe(id=${likedRecipe.id})}"
-												th:text="${likedRecipe.title}">
-												</a> by <a
-												th:href="@{/showUser(id=${likedRecipe.author.id})}"
-												th:text="${likedRecipe.author.userName}"></a>
-										</div>
-										<div class="col-4 text-right">
-											<form th:action="@{/likeRecipe(id=${likedRecipe.id})}" method="post">
-											<a href="#" class="btn btn-danger btn-circle" onclick="this.parentNode.submit()"> <i
-												class="fas fa-heart"></i>
-											</a>
-											</form>
-										</div>
-									</div>
-									<div class="row">
-										<div th:each="categorie : ${likedRecipe.categories}">
-											<div class="ml-1 mr-1">
-												<a th:href="@{/showCategorie(id=${categorie.id})}" class="badge badge-info"
-													th:text="${categorie.title}"></a>
+												<!-- 										<img class="img-fluid card-img-top" -->
+												<!-- 											style="position: absolute;" -->
+												<!-- 											th:src="@{download(documentId=${recipe.document.id})}" -->
+												<!-- 											alt=""> -->
+											</div>
+											<!-- card body -->
+											<div class="card-body">
+												<div class="row">
+													<div class="col-8">
+														<a class="m-0 font-weight-bold text-primary"
+															th:href="@{/showRecipe(id=${likedRecipe.id})}"
+															th:text="${likedRecipe.title}"> </a> by <a
+															th:href="@{/showUser(id=${likedRecipe.author.id})}"
+															th:text="${likedRecipe.author.userName}"></a>
+													</div>
+													<div class="col-4 text-right">
+														<form th:action="@{/likeRecipe(id=${likedRecipe.id})}"
+															method="post">
+															<a href="#" class="btn btn-danger btn-circle"
+																onclick="this.parentNode.submit()"> <i
+																class="fas fa-heart"></i>
+															</a>
+														</form>
+													</div>
+												</div>
+												<div class="row">
+													<div th:each="categorie : ${likedRecipe.categories}">
+														<div class="ml-1 mr-1">
+															<a th:href="@{/showCategorie(id=${categorie.id})}"
+																class="badge badge-info" th:text="${categorie.title}"></a>
+														</div>
+													</div>
+												</div>
 											</div>
 										</div>
 									</div>
 								</div>
-							</div>
-						</div>
-					</div>
 
 
 							</div>
@@ -252,11 +230,11 @@
 
 					<!-- /.container-fluid -->
 					<!-- Follow Button -->
-					<form class="form-group"
-						th:action="@{/followUser(id=${user.id})}" method="post">
+					<form class="form-group" th:action="@{/followUser(id=${user.id})}"
+						method="post">
 						<input type="text" class="form-control form-control-user"
-							name="content" placeholder="Hit the Enter Button to Follow!!!"> <a
-							type="submit">Follow</a>
+							name="content" placeholder="Hit the Enter Button to Follow!!!">
+						<a type="submit">Follow</a>
 					</form>
 
 					<!-- End of Follow Button -->
@@ -317,6 +295,9 @@
 
 		<!-- Custom scripts for all pages-->
 		<script src="js/sb-admin-2.min.js"></script>
+
+		<!-- JS at the bottom -->
+		<div th:replace="~{includes/bootstrap :: bootstrapJS}" />
 </body>
 
 </html>
