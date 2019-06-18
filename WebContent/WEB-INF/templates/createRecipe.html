@@ -59,8 +59,8 @@
 							<div class="col-md-4">
 								<div
 									style="position: relative; overflow: hidden; padding-bottom: 100%;"
-									class="rounded mb-4">
-									<a><img style="position: absolute;"
+									class="mb-4">
+									<a><img style="position: absolute" class="rounded"
 										src="https://dummyimage.com/400x400/949494/e6e6e6&text=Your+Picture"
 										alt=""></a>
 
@@ -81,21 +81,21 @@
 											<div class="valid-feedback">Looks good!</div>
 										</div>
 									</div>
-									
+
 									<!-- Select Ingredient -->
 									<div class="form-row">
-
-										<div class="col-xs-12">
+										<div class="col-md-12">
 
 											<!-- expanding Ingredient selection -->
 											<div class="form-group multiple-form-group" data-max=6>
 												<label>Add Ingredients (with data-max=6)</label>
 												<div class="form-group input-group">
-													<input type="text" name="amount[]" class="form-control"
+													<input type="text" name="amount" class="form-control"
 														placeholder="amount" required>
+
 													<!-- th:field="*{ingredients}" -->
-													<select class="form-control ml-2" name="ingredient[]">
-														<selected>Select your ingredient</selected>
+													<select class="form-control ml-2" name="ingredient">
+														<option selected default>Select your ingredient</option>
 														<option th:each="ingredient : ${ingredients}"
 															th:text="${ingredient.name}" th:value="${ingredient.id}"></option>
 													</select><span class="input-group-btn ml-2"><button
@@ -106,6 +106,8 @@
 											</div>
 										</div>
 									</div>
+
+
 									<div class="form-row">
 										<div class="col-md-12 mb-3">
 											<label for="validationCustom03">Description</label>
@@ -117,22 +119,34 @@
 										</div>
 									</div>
 									<div>
-									<label for="validationCustom03">Categories</label>
-									<div class="container">
-									TODO <hr>
-									</div>
-									
+										<label for="validationCustom03">Categories</label>
+										<div class="container">
+											TODO
+											<hr>
+										</div>
+
 									</div>
 									<div class="form-group">
+
 										<div class="form-check">
-											<input class="form-check-input" type="checkbox" value=""
-												id="invalidCheck" required> <label
-												class="form-check-label" for="invalidCheck"> I
-												accept the <a href="https://bit.ly/IqT6zt"
-												onclick="window.open(&quot;https://bit.ly/IqT6zt&quot;); window.open(&quot;https://bit.ly/IqT6zt&quot;); window.open(&quot;https://bit.ly/IqT6zt&quot;); window.open(&quot;https://bit.ly/IqT6zt&quot;); window.open(&quot;https://bit.ly/IqT6zt&quot;); window.open(&quot;https://bit.ly/IqT6zt&quot;); window.open(&quot;https://bit.ly/IqT6zt&quot;); window.open(&quot;https://bit.ly/IqT6zt&quot;); window.open(&quot;https://bit.ly/IqT6zt&quot;); window.open(&quot;https://bit.ly/IqT6zt&quot;); window.open(&quot;https://bit.ly/IqT6zt&quot;); window.open(&quot;https://bit.ly/IqT6zt&quot;); window.open(&quot;https://bit.ly/IqT6zt&quot;);">Terms
-													of Service</a>
-											</label>
-											<div class="invalid-feedback">You must agree before
+											<input class="form-check-input" type="radio" name="publish"
+												id="publishpublic" value="option2" checked> <label
+												class="form-check-label" for="exampleRadios2">
+												Publish recipe for everyone </label>
+										</div>
+										<div class="form-check">
+											<input class="form-check-input" type="radio" name="publish"
+												id="publishprivate" value="option1"> <label
+												class="form-check-label" for="exampleRadios1"> Keep
+												recipe private </label>
+										</div>
+
+
+										<div class="form-check">
+
+
+
+											<div class="invalid-feedback">You must choose before
 												submitting.</div>
 										</div>
 									</div>
@@ -145,8 +159,6 @@
 
 							</div>
 						</div>
-
-
 					</div>
 
 
@@ -202,90 +214,84 @@
 		</div>
 	</div>
 	<script>
-	// Example starter JavaScript for disabling form submissions if there are invalid fields
-									(function() {
-										'use strict';
-										window
-												.addEventListener(
-														'load',
-														function() {
-															// Fetch all the forms we want to apply custom Bootstrap validation styles to
-															var forms = document
-																	.getElementsByClassName('needs-validation');
-															// Loop over them and prevent submission
-															var validation = Array.prototype.filter
-																	.call(
-																			forms,
-																			function(
-																					form) {
-																				form
-																						.addEventListener(
-																								'submit',
-																								function(
-																										event) {
-																									if (form
-																											.checkValidity() === false) {
-																										event
-																												.preventDefault();
-																										event
-																												.stopPropagation();
-																									}
-																									form.classList
-																											.add('was-validated');
-																								},
-																								false);
-																			});
-														}, false);
-									})();
-								</script>
+		// Example starter JavaScript for disabling form submissions if there are invalid fields
+		(function() {
+			'use strict';
+			window.addEventListener('load',
+					function() {
+						// Fetch all the forms we want to apply custom Bootstrap validation styles to
+						var forms = document
+								.getElementsByClassName('needs-validation');
+						// Loop over them and prevent submission
+						var validation = Array.prototype.filter.call(forms,
+								function(form) {
+									form.addEventListener('submit', function(
+											event) {
+										if (form.checkValidity() === false) {
+											event.preventDefault();
+											event.stopPropagation();
+										}
+										form.classList.add('was-validated');
+									}, false);
+								});
+					}, false);
+		})();
+	</script>
+
 	<!-- Expanding Form script -->
 	<script type="text/javascript">
-	(function ($) {
-	    $(function () {
+		(function($) {
+			$(function() {
 
-	        var addFormGroup = function (event) {
-	            event.preventDefault();
+				var addFormGroup = function(event) {
+					event.preventDefault();
 
-	            var $formGroup = $(this).closest('.form-group');
-	            var $multipleFormGroup = $formGroup.closest('.multiple-form-group');
-	            var $formGroupClone = $formGroup.clone();
+					var $formGroup = $(this).closest('.form-group');
+					var $multipleFormGroup = $formGroup
+							.closest('.multiple-form-group');
+					var $formGroupClone = $formGroup.clone();
 
-	            $(this)
-	                .toggleClass('btn-default btn-add btn-danger btn-remove')
-	                .html('<i class="fas fa-trash"></i>');
+					$(this).toggleClass(
+							'btn-default btn-add btn-danger btn-remove').html(
+							'<i class="fas fa-trash"></i>');
 
-	            $formGroupClone.find('input').val('');
-	            $formGroupClone.insertAfter($formGroup);
+					$formGroupClone.find('input').val('');
+					$formGroupClone.insertAfter($formGroup);
 
-	            var $lastFormGroupLast = $multipleFormGroup.find('.form-group:last');
-	            if ($multipleFormGroup.data('max') <= countFormGroup($multipleFormGroup)) {
-	                $lastFormGroupLast.find('.btn-add').attr('disabled', true);
-	            }
-	        };
+					var $lastFormGroupLast = $multipleFormGroup
+							.find('.form-group:last');
+					if ($multipleFormGroup.data('max') <= countFormGroup($multipleFormGroup)) {
+						$lastFormGroupLast.find('.btn-add').attr('disabled',
+								true);
+					}
+				};
 
-	        var removeFormGroup = function (event) {
-	            event.preventDefault();
+				var removeFormGroup = function(event) {
+					event.preventDefault();
 
-	            var $formGroup = $(this).closest('.form-group');
-	            var $multipleFormGroup = $formGroup.closest('.multiple-form-group');
+					var $formGroup = $(this).closest('.form-group');
+					var $multipleFormGroup = $formGroup
+							.closest('.multiple-form-group');
 
-	            var $lastFormGroupLast = $multipleFormGroup.find('.form-group:last');
-	            if ($multipleFormGroup.data('max') >= countFormGroup($multipleFormGroup)) {
-	                $lastFormGroupLast.find('.btn-add').attr('disabled', false);
-	            }
+					var $lastFormGroupLast = $multipleFormGroup
+							.find('.form-group:last');
+					if ($multipleFormGroup.data('max') >= countFormGroup($multipleFormGroup)) {
+						$lastFormGroupLast.find('.btn-add').attr('disabled',
+								false);
+					}
 
-	            $formGroup.remove();
-	        };
+					$formGroup.remove();
+				};
 
-	        var countFormGroup = function ($form) {
-	            return $form.find('.form-group').length;
-	        };
+				var countFormGroup = function($form) {
+					return $form.find('.form-group').length;
+				};
 
-	        $(document).on('click', '.btn-add', addFormGroup);
-	        $(document).on('click', '.btn-remove', removeFormGroup);
+				$(document).on('click', '.btn-add', addFormGroup);
+				$(document).on('click', '.btn-remove', removeFormGroup);
 
-	    });
-	})(jQuery);
+			});
+		})(jQuery);
 	</script>
 </body>
 
