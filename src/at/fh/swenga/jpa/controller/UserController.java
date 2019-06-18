@@ -157,7 +157,7 @@ public class UserController {
 		// Spring 4: @RequestMapping(value = "/showCurrentUser", method =
 		// RequestMethod.GET)
 		@GetMapping("/showCurrentUser")
-		public String likeRecipe(Model model, Principal principal) {
+		public String showCurrentUser(Model model, Principal principal) {
 
 			String userName = principal.getName();
 			UserModel user = userRepository.findUserByUserName(userName);
@@ -170,4 +170,21 @@ public class UserController {
 				return "forward:/recipeList";
 			}
 		}
+		
+		// Spring 4: @RequestMapping(value = "/showCurrentUserPreferences", method =
+				// RequestMethod.GET)
+				@GetMapping("/showCurrentUserPreferences")
+				public String likeRecipe(Model model, Principal principal) {
+
+					String userName = principal.getName();
+					UserModel user = userRepository.findUserByUserName(userName);
+					
+					if (user != null) {
+						model.addAttribute("user", user);
+						return "userPreferences";
+					} else {
+						model.addAttribute("errorMessage", "Couldn't find user ");
+						return "forward:/recipeList";
+					}
+				}
 }
