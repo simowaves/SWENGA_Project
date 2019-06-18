@@ -11,7 +11,7 @@
 <meta name="author" content="">
 
 <div th:replace="~{includes/bootstrap :: bootstrapMeta}" />
-<title>SB Admin 2 - Recipes</title>
+<title th:text="${'Recipe for ' + recipe.title}"></title>
 <div th:replace="~{includes/bootstrap :: bootstrapCSS}" />
 
 </head>
@@ -38,11 +38,18 @@
 				<div class="container-fluid">
 
 					<!-- Recipe Content -->
-					<h1 class="h3 mb-4 text-gray-800" th:text="${recipe.title}"></h1>
+					<h1 class=" mb-4 text-gray-800" th:text="${recipe.title}"> </h1>
+						<a class="h3 mb-4 text-gray-800">by</a>
+						<a class="h3 mb-4"
+							th:text="${recipe.author.userName}"
+							th:href="@{/showUser(id=${recipe.author.id})}"></a>
+					
+
+
 
 					<div class="row">
 						<!-- Recipe Image TODO! -->
-						<div class="col-md-8">
+						<div class="col-md-6">
 							<img
 								src="https://images.unsplash.com/photo-1559852925-44ce7f97bc36"
 								class="img-fluid rounded" alt="Responsive image">
