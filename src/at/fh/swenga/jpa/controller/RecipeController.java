@@ -18,12 +18,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import at.fh.swenga.jpa.dao.CategorieRepository;
 import at.fh.swenga.jpa.dao.IngredientRepository;
 import at.fh.swenga.jpa.dao.PictureRepository;
 import at.fh.swenga.jpa.dao.RecipeRepository;
 import at.fh.swenga.jpa.dao.UserRepository;
+
+import at.fh.swenga.jpa.model.CategorieModel;
+
 import at.fh.swenga.jpa.model.CommentModel;
 import at.fh.swenga.jpa.model.IngredientAmountModel;
+
 import at.fh.swenga.jpa.model.IngredientModel;
 import at.fh.swenga.jpa.model.RecipeModel;
 import at.fh.swenga.jpa.model.UserModel;
@@ -39,6 +44,9 @@ public class RecipeController {
 
 	@Autowired
 	IngredientRepository ingredientRepository;
+	
+	@Autowired
+	CategorieRepository categorieRepository;
 
 	@Autowired
 	UserRepository userRepository;
@@ -96,6 +104,8 @@ public class RecipeController {
 	public String openCreateForm(Model model) {
 		List<IngredientModel> ingredients = ingredientRepository.findAllIngredientsOrderByName();
 		model.addAttribute("ingredients", ingredients);
+		List<CategorieModel> categories = categorieRepository.findAllCategoriesOrderByName();
+		model.addAttribute("categories", categories);
 		return "createRecipe";
 	}
 
