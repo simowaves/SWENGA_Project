@@ -59,9 +59,9 @@
 							<div class="col-md-4">
 								<div
 									style="position: relative; overflow: hidden; padding-bottom: 100%;"
-									class="rounded">
+									class="rounded mb-4">
 									<a><img style="position: absolute;"
-										src="https://images.unsplash.com/photo-1559562649-21c0be156e0d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60"
+										src="https://dummyimage.com/400x400/949494/e6e6e6&text=Your+Picture"
 										alt=""></a>
 
 									<!-- 										<img class="img-fluid card-img-top" -->
@@ -69,10 +69,10 @@
 									<!-- 											th:src="@{download(documentId=${recipe.document.id})}" -->
 									<!-- 											alt=""> -->
 								</div>
-								<button>Upload Picture</button>
 							</div>
 							<div class="col-md-8">
-								<form class="needs-validation" novalidate method="post">
+								<form class="needs-validation" novalidate
+									th:action="@{/createNewRecipe}" method="post">
 									<div class="form-row">
 										<div class="col-md-4 mb-3">
 											<label for="validationCustom01">Title</label> <input
@@ -84,21 +84,26 @@
 									
 									<!-- Select Ingredient -->
 									<div class="form-row">
-										<div class="col-md-3 mb-3">
-											<label for="validationCustom01">Amount</label> <input
-												type="text" class="form-control" id="validationCustom01"
-												name="title" placeholder="2 tablespoons" value="" required>
-											<div class="valid-feedback">Looks good!</div>
-										</div>
-										<div class="col-md-9 mb-3">
-											<label for="validationCustom03">Ingredients</label> <select
-												class="form-control" th:field="*{ingredients}">
-												<selected>Select your ingredient</selected>
-												<option th:each="ingredient : ${ingredients}"
-													th:text="${ingredient.name}" th:value="${ingredient.id}"></option>
-											</select>
-											<div class="invalid-feedback">The list of ingredients
-												must not be empty!</div>
+
+										<div class="col-xs-12">
+
+											<!-- expanding Ingredient selection -->
+											<div class="form-group multiple-form-group" data-max=6>
+												<label>Add Ingredients (with data-max=6)</label>
+												<div class="form-group input-group">
+													<input type="text" name="amount[]" class="form-control"
+														placeholder="amount" required>
+													<!-- th:field="*{ingredients}" -->
+													<select class="form-control ml-2" name="ingredient[]">
+														<selected>Select your ingredient</selected>
+														<option th:each="ingredient : ${ingredients}"
+															th:text="${ingredient.name}" th:value="${ingredient.id}"></option>
+													</select><span class="input-group-btn ml-2"><button
+															type="button" class="btn btn-success btn-circle btn-add">
+															<i class="fas fa-plus"></i>
+														</button></span>
+												</div>
+											</div>
 										</div>
 									</div>
 									<div class="form-row">
@@ -110,6 +115,13 @@
 											<div class="invalid-feedback">The description must not
 												be empty!</div>
 										</div>
+									</div>
+									<div>
+									<label for="validationCustom03">Categories</label>
+									<div class="container">
+									TODO <hr>
+									</div>
+									
 									</div>
 									<div class="form-group">
 										<div class="form-check">
@@ -128,43 +140,7 @@
 										form</button>
 								</form>
 
-								<script>
-									// Example starter JavaScript for disabling form submissions if there are invalid fields
-									(function() {
-										'use strict';
-										window
-												.addEventListener(
-														'load',
-														function() {
-															// Fetch all the forms we want to apply custom Bootstrap validation styles to
-															var forms = document
-																	.getElementsByClassName('needs-validation');
-															// Loop over them and prevent submission
-															var validation = Array.prototype.filter
-																	.call(
-																			forms,
-																			function(
-																					form) {
-																				form
-																						.addEventListener(
-																								'submit',
-																								function(
-																										event) {
-																									if (form
-																											.checkValidity() === false) {
-																										event
-																												.preventDefault();
-																										event
-																												.stopPropagation();
-																									}
-																									form.classList
-																											.add('was-validated');
-																								},
-																								false);
-																			});
-														}, false);
-									})();
-								</script>
+
 
 
 							</div>
@@ -225,6 +201,92 @@
 			</div>
 		</div>
 	</div>
+	<script>
+	// Example starter JavaScript for disabling form submissions if there are invalid fields
+									(function() {
+										'use strict';
+										window
+												.addEventListener(
+														'load',
+														function() {
+															// Fetch all the forms we want to apply custom Bootstrap validation styles to
+															var forms = document
+																	.getElementsByClassName('needs-validation');
+															// Loop over them and prevent submission
+															var validation = Array.prototype.filter
+																	.call(
+																			forms,
+																			function(
+																					form) {
+																				form
+																						.addEventListener(
+																								'submit',
+																								function(
+																										event) {
+																									if (form
+																											.checkValidity() === false) {
+																										event
+																												.preventDefault();
+																										event
+																												.stopPropagation();
+																									}
+																									form.classList
+																											.add('was-validated');
+																								},
+																								false);
+																			});
+														}, false);
+									})();
+								</script>
+	<!-- Expanding Form script -->
+	<script type="text/javascript">
+	(function ($) {
+	    $(function () {
+
+	        var addFormGroup = function (event) {
+	            event.preventDefault();
+
+	            var $formGroup = $(this).closest('.form-group');
+	            var $multipleFormGroup = $formGroup.closest('.multiple-form-group');
+	            var $formGroupClone = $formGroup.clone();
+
+	            $(this)
+	                .toggleClass('btn-default btn-add btn-danger btn-remove')
+	                .html('<i class="fas fa-trash"></i>');
+
+	            $formGroupClone.find('input').val('');
+	            $formGroupClone.insertAfter($formGroup);
+
+	            var $lastFormGroupLast = $multipleFormGroup.find('.form-group:last');
+	            if ($multipleFormGroup.data('max') <= countFormGroup($multipleFormGroup)) {
+	                $lastFormGroupLast.find('.btn-add').attr('disabled', true);
+	            }
+	        };
+
+	        var removeFormGroup = function (event) {
+	            event.preventDefault();
+
+	            var $formGroup = $(this).closest('.form-group');
+	            var $multipleFormGroup = $formGroup.closest('.multiple-form-group');
+
+	            var $lastFormGroupLast = $multipleFormGroup.find('.form-group:last');
+	            if ($multipleFormGroup.data('max') >= countFormGroup($multipleFormGroup)) {
+	                $lastFormGroupLast.find('.btn-add').attr('disabled', false);
+	            }
+
+	            $formGroup.remove();
+	        };
+
+	        var countFormGroup = function ($form) {
+	            return $form.find('.form-group').length;
+	        };
+
+	        $(document).on('click', '.btn-add', addFormGroup);
+	        $(document).on('click', '.btn-remove', removeFormGroup);
+
+	    });
+	})(jQuery);
+	</script>
 </body>
 
 </html>
