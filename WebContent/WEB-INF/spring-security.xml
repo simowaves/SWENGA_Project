@@ -11,7 +11,7 @@
 		<csrf />
 		<intercept-url pattern="/login" access="permitAll" />
 		<intercept-url pattern="/createRecipe"
-			access="hasRole('ADMIN')" />
+			access="hasRole('USER')" />
 		<intercept-url pattern="/**" access="permitAll" />
 		<form-login login-page="/login" />
 		<logout logout-success-url="/login" logout-url="/logout" />
