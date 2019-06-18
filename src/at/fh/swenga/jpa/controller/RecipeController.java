@@ -86,7 +86,7 @@ public class RecipeController {
 
 	@GetMapping(value = "/createRecipe")
 	public String openCreateForm(Model model) {
-		List<IngredientModel> ingredients = ingredientRepository.findAll();
+		List<IngredientModel> ingredients = ingredientRepository.findAllIngredientsOrderByName();
 		model.addAttribute("ingredients", ingredients);
 		return "createRecipe";
 	}
