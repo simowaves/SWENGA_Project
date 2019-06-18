@@ -153,4 +153,21 @@ public class UserController {
 
 			return "userInfo";
 		}
+		
+		// Spring 4: @RequestMapping(value = "/showCurrentUser", method =
+		// RequestMethod.GET)
+		@GetMapping("/showCurrentUser")
+		public String likeRecipe(Model model, Principal principal) {
+
+			String userName = principal.getName();
+			UserModel user = userRepository.findUserByUserName(userName);
+			
+			if (user != null) {
+				model.addAttribute("user", user);
+				return "userInfo";
+			} else {
+				model.addAttribute("errorMessage", "Couldn't find user ");
+				return "forward:/recipeList";
+			}
+		}
 }
