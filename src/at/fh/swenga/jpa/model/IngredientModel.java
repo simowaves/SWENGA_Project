@@ -169,4 +169,27 @@ public class IngredientModel implements java.io.Serializable{
 		if (allergies==null) allergies = new HashSet<AllergieModel>();
 		allergies.add(allergie);
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + id;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		IngredientModel other = (IngredientModel) obj;
+		if (id != other.id)
+			return false;
+		return true;
+	}
+	
 }
