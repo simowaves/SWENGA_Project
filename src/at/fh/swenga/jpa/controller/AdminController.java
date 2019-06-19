@@ -50,4 +50,5 @@ public class AdminController {
 		model.addAttribute("recipes", recipes);
 		return "adminRecipes";
 	}
+	
 }
