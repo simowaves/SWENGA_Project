@@ -45,61 +45,194 @@
 				<!-- Begin Page Content -->
 				<div class="container-fluid">
 
-					
+
 
 
 					<!-- Tab Structure -->
 					<ul class="nav nav-tabs" id="myTab" role="tablist">
 						<li class="nav-item"><a class="nav-link active" id="home-tab"
-							data-toggle="tab" href="#allergiesTab" role="tab" aria-controls="allergiesTab"
-							aria-selected="true">Allergies</a></li>
+							data-toggle="tab" href="#allergiesTab" role="tab"
+							aria-controls="allergiesTab" aria-selected="true">Allergies</a></li>
 						<li class="nav-item"><a class="nav-link" id="profile-tab"
 							data-toggle="tab" href="#likedIngredientsTab" role="tab"
-							aria-controls="likedIngredientsTab" aria-selected="false">Liked Ingredients</a></li>
+							aria-controls="likedIngredientsTab" aria-selected="false">Liked
+								Ingredients</a></li>
 						<li class="nav-item"><a class="nav-link" id="profile-tab"
 							data-toggle="tab" href="#hatedIngredientsTab" role="tab"
-							aria-controls="hatedIngredientsTab" aria-selected="false">Hated Ingredients</a></li>
+							aria-controls="hatedIngredientsTab" aria-selected="false">Hated
+								Ingredients</a></li>
 					</ul>
 					<div class="tab-content" id="myTabContent">
 						<!-- First Tab Content -->
-						<div class="tab-pane fade show active" id="allergiesTab" role="tabpanel"
-							aria-labelledby="home-tab">
+						<div class="tab-pane fade show active" id="allergiesTab"
+							role="tabpanel" aria-labelledby="home-tab">
 
 							<!-- Tab Content -->
 							<div class="container-fluid mt-4">
-							<div class ="row"> <h1 class="h3 mb-4 text-gray-800">Allergies</h1></div>
+								<div class="row">
+									<h1 class="h3 mb-4 text-gray-800">Allergies</h1>
+								</div>
+								<div class="col-md-8">
+									<form class="needs-validation" novalidate
+										th:action="@{/createNewRecipe}" method="post">
 
 
 
-								
 
+										<div>
+											<label for="validationCustom03">Add Allergies (with
+												data-max=6)</label>
+											<div>
+												<!-- expanding Ingredient selection -->
+												<div class="form-group multiple-form-group" data-max=10>
+													<div class="form-group input-group">
+														<select class="form-control" name="category" required>
+															<option selected value="">Select your allergies</option>
+															<option th:each="category : ${categories}"
+																th:text="${category.title}" th:value="${category.id}"></option>
+														</select><span class="input-group-btn ml-2"><button
+																type="button" class="btn btn-success btn-circle btn-add">
+																<i class="fas fa-plus"></i>
+															</button></span>
+													</div>
+												</div>
+
+
+
+
+											</div>
+
+										</div>
+
+
+										<!-- Laut Max muss hier th:href="@{upload(id=${employee.id})} wie bei SwengaGoodies hinzugefügt werden -->
+										<button class="btn btn-primary" type="submit">Create
+											Recipe</button>
+									</form>
+
+
+
+
+								</div>
 							</div>
+
+
+
+
 						</div>
+
 						<!-- Second Tab Content -->
-						<div class="tab-pane fade show active" id="likedIngredientsTab" role="tabpanel"
-							aria-labelledby="home-tab">
+						<div class="tab-pane fade" id="likedIngredientsTab"
+							role="tabpanel" aria-labelledby="likedIngredients-tab">
 
 							<!-- Tab Content -->
 							<div class="container-fluid mt-4">
-							<div class ="row"> <h1 class="h3 mb-4 text-gray-800">Liked Ingredients</h1></div>
+								<div class="row">
+									<h1 class="h3 mb-4 text-gray-800">Liked Ingredients</h1>
+								</div>
+								<div class="col-md-8">
+									<form class="needs-validation" novalidate
+										th:action="@{/createNewRecipe}" method="post">
 
 
 
-								
+
+										<div>
+											<label for="validationCustom03">Add Allergies (with
+												data-max=6)</label>
+											<div>
+												<!-- expanding Ingredient selection -->
+												<div class="form-group multiple-form-group" data-max=10>
+													<div class="form-group input-group">
+														<select class="form-control" name="category" required>
+															<option selected value="">Select your allergies</option>
+															<option th:each="category : ${categories}"
+																th:text="${category.title}" th:value="${category.id}"></option>
+														</select><span class="input-group-btn ml-2"><button
+																type="button" class="btn btn-success btn-circle btn-add">
+																<i class="fas fa-plus"></i>
+															</button></span>
+													</div>
+												</div>
+
+
+
+
+											</div>
+
+										</div>
+
+
+										<!-- Laut Max muss hier th:href="@{upload(id=${employee.id})} wie bei SwengaGoodies hinzugefügt werden -->
+										<button class="btn btn-primary" type="submit">Create
+											Recipe</button>
+									</form>
+
+
+
+
+								</div>
+
+
+
+
 
 							</div>
 						</div>
 						<!-- Third Tab Content -->
-						<div class="tab-pane fade show active" id="hatedIngredientsTab" role="tabpanel"
-							aria-labelledby="home-tab">
+						<div class="tab-pane fade" id="hatedIngredientsTab"
+							role="tabpanel" aria-labelledby="home-tab">
 
 							<!-- Tab Content -->
 							<div class="container-fluid mt-4">
-							<div class ="row"> <h1 class="h3 mb-4 text-gray-800">Hated Ingredients</h1></div>
+								<div class="row">
+									<h1 class="h3 mb-4 text-gray-800">Hated Ingredients</h1>
+								</div>
+								<div class="col-md-8">
+									<form class="needs-validation" novalidate
+										th:action="@{/createNewRecipe}" method="post">
 
 
 
-								
+
+										<div>
+											<label for="validationCustom03">Add Allergies (with
+												data-max=6)</label>
+											<div>
+												<!-- expanding Ingredient selection -->
+												<div class="form-group multiple-form-group" data-max=10>
+													<div class="form-group input-group">
+														<select class="form-control" name="category" required>
+															<option selected value="">Select your allergies</option>
+															<option th:each="category : ${categories}"
+																th:text="${category.title}" th:value="${category.id}"></option>
+														</select><span class="input-group-btn ml-2"><button
+																type="button" class="btn btn-success btn-circle btn-add">
+																<i class="fas fa-plus"></i>
+															</button></span>
+													</div>
+												</div>
+
+
+
+
+											</div>
+
+										</div>
+
+
+										<!-- Laut Max muss hier th:href="@{upload(id=${employee.id})} wie bei SwengaGoodies hinzugefügt werden -->
+										<button class="btn btn-primary" type="submit">Create
+											Recipe</button>
+									</form>
+
+
+
+
+								</div>
+
+
+
 
 							</div>
 						</div>
