@@ -238,6 +238,7 @@ public class UserController {
 		UserModel user = userRepository.findUserByUserName(userName);
 		AllergieModel allergieModel = allergieRepository.findAllergieById(allergy);
 		user.addAllergie(allergieModel);
+		userRepository.save(user);
 		
 		return "/showCurrentUserPreferences";
 	}
@@ -252,6 +253,7 @@ public class UserController {
 		AllergieModel allergieModel = allergieRepository.findAllergieById(allergyId);
 		user.removeAllergie(allergieModel);
 		model.addAttribute("allergies", allergieModel);
+		
 
 		return "forward:/showCurrentUserPreferences";
 	}
