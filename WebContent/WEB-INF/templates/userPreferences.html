@@ -72,7 +72,7 @@
 								<div class="row">
 									<h1 class="h3 mb-4 text-gray-800">Allergies</h1>
 								</div>
-								<div class="col-md-8">
+								<div class="col-md-12">
 									<form class="needs-validation" novalidate
 										th:action="@{/createNewRecipe}" method="post">
 
@@ -91,36 +91,72 @@
 															<option th:each="category : ${categories}"
 																th:text="${category.title}" th:value="${category.id}"></option>
 														</select><span class="input-group-btn ml-2"><button
-																type="button" class="btn btn-success btn-circle btn-add">
-																<i class="fas fa-plus"></i>
-															</button></span>
+																class="btn btn-primary" type="submit">Add
+																Allergy</button></span>
 													</div>
 												</div>
-
-
-
-
 											</div>
-
 										</div>
-
-
-										<!-- Laut Max muss hier th:href="@{upload(id=${employee.id})} wie bei SwengaGoodies hinzugefügt werden -->
-										<button class="btn btn-primary" type="submit">Create
-											Recipe</button>
 									</form>
+								</div>
+							</div>
 
+							<!-- DataTales Example -->
+							<div class="card shadow mb-4">
+								<div class="card-header py-3">
+									<h6 class="m-0 font-weight-bold text-primary">Your Allergies</h6>
+								</div>
+								<div class="card-body">
+									<div class="table-responsive">
+										<table class="table table-bordered" id="dataTable"
+											width="100%" cellspacing="0">
+											<thead>
+												<tr>
+													<th>Name</th>
+													<th>Position</th>
+													<th>Office</th>
+													<th>Age</th>
+													<th>Start date</th>
+													<th>Salary</th>
+												</tr>
+											</thead>
+											<tfoot>
+												<tr>
+													<th>Name</th>
+													<th>Position</th>
+													<th>Office</th>
+													<th>Age</th>
+													<th>Start date</th>
+													<th>Salary</th>
+												</tr>
+											</tfoot>
+											<tbody>
+												<tr>
+													<td>Tiger Nixon</td>
+													<td>System Architect</td>
+													<td>Edinburgh</td>
+													<td>61</td>
+													<td>2011/04/25</td>
+													<td>$320,800</td>
+												</tr>
+												<tr>
+													<td>Garrett Winters</td>
+													<td>Accountant</td>
+													<td>Tokyo</td>
+													<td>63</td>
+													<td>2011/07/25</td>
+													<td>$170,750</td>
+												</tr>
 
-
-
+											</tbody>
+										</table>
+									</div>
 								</div>
 							</div>
 
 
-
-
 						</div>
-
+						<!-- End of First Tab -->
 						<!-- Second Tab Content -->
 						<div class="tab-pane fade" id="likedIngredientsTab"
 							role="tabpanel" aria-labelledby="likedIngredients-tab">
@@ -130,7 +166,7 @@
 								<div class="row">
 									<h1 class="h3 mb-4 text-gray-800">Liked Ingredients</h1>
 								</div>
-								<div class="col-md-8">
+								<div class="col-md-12">
 									<form class="needs-validation" novalidate
 										th:action="@{/createNewRecipe}" method="post">
 
@@ -138,47 +174,83 @@
 
 
 										<div>
-											<label for="validationCustom03">Add Allergies (with
-												data-max=6)</label>
+											<label for="validationCustom03">Add Liked Ingredients
+												(with data-max=6)</label>
 											<div>
 												<!-- expanding Ingredient selection -->
 												<div class="form-group multiple-form-group" data-max=10>
 													<div class="form-group input-group">
 														<select class="form-control" name="category" required>
-															<option selected value="">Select your allergies</option>
+															<option selected value="">Select your Liked
+																Ingredients</option>
 															<option th:each="category : ${categories}"
 																th:text="${category.title}" th:value="${category.id}"></option>
-														</select><span class="input-group-btn ml-2"><button
-																type="button" class="btn btn-success btn-circle btn-add">
-																<i class="fas fa-plus"></i>
-															</button></span>
+														</select><span class="input-group-btn ml-2"> <!-- Laut Max muss hier th:href="@{upload(id=${employee.id})} wie bei SwengaGoodies hinzugefügt werden -->
+															<button class="btn btn-primary" type="submit">Add
+																Ingredient</button></span>
+
+
 													</div>
 												</div>
-
-
-
-
 											</div>
-
 										</div>
-
-
-										<!-- Laut Max muss hier th:href="@{upload(id=${employee.id})} wie bei SwengaGoodies hinzugefügt werden -->
-										<button class="btn btn-primary" type="submit">Create
-											Recipe</button>
 									</form>
-
-
-
-
 								</div>
+							</div>
+							<!-- DataTales Example -->
+							<div class="card shadow mb-4">
+								<div class="card-header py-3">
+									<h6 class="m-0 font-weight-bold text-primary">Your Liked Ingredients</h6>
+								</div>
+								<div class="card-body">
+									<div class="table-responsive">
+										<table class="table table-bordered" id="dataTable"
+											width="100%" cellspacing="0">
+											<thead>
+												<tr>
+													<th>Name</th>
+													<th>Position</th>
+													<th>Office</th>
+													<th>Age</th>
+													<th>Start date</th>
+													<th>Salary</th>
+												</tr>
+											</thead>
+											<tfoot>
+												<tr>
+													<th>Name</th>
+													<th>Position</th>
+													<th>Office</th>
+													<th>Age</th>
+													<th>Start date</th>
+													<th>Salary</th>
+												</tr>
+											</tfoot>
+											<tbody>
+												<tr>
+													<td>Tiger Nixon</td>
+													<td>System Architect</td>
+													<td>Edinburgh</td>
+													<td>61</td>
+													<td>2011/04/25</td>
+													<td>$320,800</td>
+												</tr>
+												<tr>
+													<td>Garrett Winters</td>
+													<td>Accountant</td>
+													<td>Tokyo</td>
+													<td>63</td>
+													<td>2011/07/25</td>
+													<td>$170,750</td>
+												</tr>
 
-
-
-
-
+											</tbody>
+										</table>
+									</div>
+								</div>
 							</div>
 						</div>
+						<!-- End of Second Tab -->
 						<!-- Third Tab Content -->
 						<div class="tab-pane fade" id="hatedIngredientsTab"
 							role="tabpanel" aria-labelledby="home-tab">
@@ -188,7 +260,7 @@
 								<div class="row">
 									<h1 class="h3 mb-4 text-gray-800">Hated Ingredients</h1>
 								</div>
-								<div class="col-md-8">
+								<div class="col-md-12">
 									<form class="needs-validation" novalidate
 										th:action="@{/createNewRecipe}" method="post">
 
@@ -196,56 +268,82 @@
 
 
 										<div>
-											<label for="validationCustom03">Add Allergies (with
-												data-max=6)</label>
+											<label for="validationCustom03">Add Hated Ingredients
+												(with data-max=6)</label>
 											<div>
 												<!-- expanding Ingredient selection -->
 												<div class="form-group multiple-form-group" data-max=10>
 													<div class="form-group input-group">
 														<select class="form-control" name="category" required>
-															<option selected value="">Select your allergies</option>
+															<option selected value="">Select your Hated
+																Ingredients</option>
 															<option th:each="category : ${categories}"
 																th:text="${category.title}" th:value="${category.id}"></option>
 														</select><span class="input-group-btn ml-2"><button
-																type="button" class="btn btn-success btn-circle btn-add">
-																<i class="fas fa-plus"></i>
-															</button></span>
+																class="btn btn-primary" type="submit">Add
+																Ingredient</button></span>
 													</div>
 												</div>
-
-
-
-
 											</div>
-
 										</div>
-
-
-										<!-- Laut Max muss hier th:href="@{upload(id=${employee.id})} wie bei SwengaGoodies hinzugefügt werden -->
-										<button class="btn btn-primary" type="submit">Create
-											Recipe</button>
 									</form>
-
-
-
-
 								</div>
+							</div>
+							<!-- DataTales Example -->
+							<div class="card shadow mb-4">
+								<div class="card-header py-3">
+									<h6 class="m-0 font-weight-bold text-primary">Your Hated Ingredients</h6>
+								</div>
+								<div class="card-body">
+									<div class="table-responsive">
+										<table class="table table-bordered" id="dataTable"
+											width="100%" cellspacing="0">
+											<thead>
+												<tr>
+													<th>Name</th>
+													<th>Position</th>
+													<th>Office</th>
+													<th>Age</th>
+													<th>Start date</th>
+													<th>Salary</th>
+												</tr>
+											</thead>
+											<tfoot>
+												<tr>
+													<th>Name</th>
+													<th>Position</th>
+													<th>Office</th>
+													<th>Age</th>
+													<th>Start date</th>
+													<th>Salary</th>
+												</tr>
+											</tfoot>
+											<tbody>
+												<tr>
+													<td>Tiger Nixon</td>
+													<td>System Architect</td>
+													<td>Edinburgh</td>
+													<td>61</td>
+													<td>2011/04/25</td>
+													<td>$320,800</td>
+												</tr>
+												<tr>
+													<td>Garrett Winters</td>
+													<td>Accountant</td>
+													<td>Tokyo</td>
+													<td>63</td>
+													<td>2011/07/25</td>
+													<td>$170,750</td>
+												</tr>
 
-
-
-
+											</tbody>
+										</table>
+									</div>
+								</div>
 							</div>
 						</div>
+						<!-- End of Third Tab -->
 					</div>
-
-
-
-
-
-
-
-
-
 
 					<!-- /.container-fluid -->
 
