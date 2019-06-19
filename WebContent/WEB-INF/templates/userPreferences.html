@@ -14,7 +14,7 @@
 
 
 <div th:replace="~{includes/bootstrap :: bootstrapMeta}" />
-<title >Your Preferences</title>
+<title>Your Preferences</title>
 <div th:replace="~{includes/bootstrap :: bootstrapCSS}" />
 
 </head>
@@ -74,7 +74,7 @@
 								</div>
 								<div class="col-md-12">
 									<form class="needs-validation" novalidate
-										th:action="@{/createNewRecipe}" method="post">
+										th:action="@{/addAllergy}" method="post">
 
 
 
@@ -104,7 +104,8 @@
 							<!-- DataTales Example -->
 							<div class="card shadow mb-4">
 								<div class="card-header py-3">
-									<h6 class="m-0 font-weight-bold text-primary">Your Allergies</h6>
+									<h6 class="m-0 font-weight-bold text-primary">Your
+										Allergies</h6>
 								</div>
 								<div class="card-body">
 									<div class="table-responsive">
@@ -113,7 +114,7 @@
 											<thead>
 												<tr>
 													<th>Allergy</th>
-													
+
 												</tr>
 											</thead>
 											<tfoot>
@@ -123,13 +124,15 @@
 											</tfoot>
 											<tbody>
 												<tr th:each="allergy : ${user.allergies}">
-							
-							<td th:text="${allergy.title}"></td>
-							
-							<td><form method="post" th:action="@{/removeAllergy(allergyId=${allergy.id})}"><button type="submit"							 
-							class="btn btn-danger"  >Delete</button></form></td>
-							
-						</tr>
+
+													<td th:text="${allergy.title}"></td>
+
+													<td><form method="post"
+															th:action="@{/removeAllergy(allergyId=${allergy.id})}">
+															<button type="submit" class="btn btn-danger">Delete</button>
+														</form></td>
+
+												</tr>
 
 											</tbody>
 										</table>
@@ -183,7 +186,8 @@
 							<!-- DataTales Example -->
 							<div class="card shadow mb-4">
 								<div class="card-header py-3">
-									<h6 class="m-0 font-weight-bold text-primary">Your Liked Ingredients</h6>
+									<h6 class="m-0 font-weight-bold text-primary">Your Liked
+										Ingredients</h6>
 								</div>
 								<div class="card-body">
 									<div class="table-responsive">
@@ -275,7 +279,8 @@
 							<!-- DataTales Example -->
 							<div class="card shadow mb-4">
 								<div class="card-header py-3">
-									<h6 class="m-0 font-weight-bold text-primary">Your Hated Ingredients</h6>
+									<h6 class="m-0 font-weight-bold text-primary">Your Hated
+										Ingredients</h6>
 								</div>
 								<div class="card-body">
 									<div class="table-responsive">
