@@ -72,7 +72,7 @@
 											<td th:text="${user.id}"></td>
 											<td th:text="${user.userName}"></td>
 											<td th:text="${user.emailAddress}"></td>
-											<td th:text="${user.userRoles.role}"></td>
+											<td ><div th:each="uRole : ${user.userRoles}"><span th:text="${uRole.role}"></span></div></td>
 											<td th:text="${#lists.size(user.recipes)}"></td>
 											<td th:text="${#lists.size(user.comments)}"></td>
 											<td><a class="m-0 font-weight-bold text-primary"
