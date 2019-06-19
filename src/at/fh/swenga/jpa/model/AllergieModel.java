@@ -1,17 +1,14 @@
 package at.fh.swenga.jpa.model;
 
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Version;
@@ -87,4 +84,34 @@ public class AllergieModel implements java.io.Serializable {
 		if (users==null) users = new HashSet<UserModel>();
 		users.add(user);
 	}
+	
+	public void removeUser(UserModel user) {
+		if (users==null) users = new HashSet<UserModel>();
+		users.remove(user);
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + id;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		AllergieModel other = (AllergieModel) obj;
+		if (id != other.id)
+			return false;
+		return true;
+	}
+	
+	
+	
 }

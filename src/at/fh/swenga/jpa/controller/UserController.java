@@ -281,6 +281,7 @@ public class UserController {
 	// RequestMethod.POST)
 	@PostMapping("/removeAllergy")
 	public String removeAllergy(@RequestParam int allergyId, Principal principal, Model model) {
+		
 		List<IngredientModel> ingredients = ingredientRepository.findAllIngredientsOrderByName();
 		model.addAttribute("ingredients", ingredients);
 		List<AllergieModel> allergies = allergieRepository.findAllAllergiesOrderByName();
@@ -289,14 +290,13 @@ public class UserController {
 		String userName = principal.getName();
 		UserModel user = userRepository.findUserByUserName(userName);
 		AllergieModel allergieModel = allergieRepository.findAllergieById(allergyId);
+		
 		user.removeAllergie(allergieModel);
+		userRepository.save(user);
+		
 		model.addAttribute("user", user);
 
-		userRepository.save(user);
-		System.out.print("HalloJulian" + allergyId);
-
-		//return "userPreferences";
-		return "forward:/showCurrentUserPreferences";
+		return "userPreferences";
 	}
 	
 	// Spring 4: @RequestMapping(value = "/addLikedIngredient", method =
