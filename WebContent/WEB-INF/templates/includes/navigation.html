@@ -295,10 +295,10 @@
 				<div class="dropdown-divider">
 				</div>
 				<!-- Admin Menu -->
-				<a  sec:authorize="hasRole('ADMIN')" class="dropdown-item" th:href="@{/showCurrentUser}"> <i
+				<a  sec:authorize="hasRole('ADMIN')" class="dropdown-item" th:href="@{/showAdminUsers}"> <i
 					class="fas fas fa-user-cog fa-sm fa-fw mr-2 text-gray-400" method="post"></i>
 					Manage Users
-				</a> <a sec:authorize="hasRole('ADMIN')" class="dropdown-item" th:href="@{/showCurrentUserPreferences}">
+				</a> <a sec:authorize="hasRole('ADMIN')" class="dropdown-item" th:href="@{/showAdminRecipes}">
 					<i class="fas fa-wrench fa-sm fa-fw mr-2 text-gray-400"></i>
 					Manage Recipes
 				</a>
