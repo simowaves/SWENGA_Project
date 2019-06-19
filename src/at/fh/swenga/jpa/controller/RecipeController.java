@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import at.fh.swenga.jpa.dao.CategorieRepository;
 import at.fh.swenga.jpa.dao.CommentRepository;
@@ -53,9 +54,10 @@ public class RecipeController {
 	
 	@Autowired
 	CommentRepository commentRepository;
+	
 
-	//@RequestMapping(value = { "/", "list", "recipeList" })
-	@GetMapping(value = { "/", "list", "recipeList" })
+	@RequestMapping(value = { "/", "list", "recipeList" })
+	//@GetMapping(value = { "/", "list", "recipeList" })
 	public String index(Model model, Principal principal) {
 
 		if (principal == null) {
@@ -89,7 +91,7 @@ public class RecipeController {
 	}
 
 	// Spring 4: @RequestMapping(value = "/showRecipe", method = RequestMethod.GET)
-	@GetMapping({ "/showRecipe", "/likeRecipe", "/reportRecipe" })
+	@GetMapping({ "/showRecipe", "/likeRecipe", "/reportRecipe", "/postComment" })
 	public String showRecipeDetails(Model model, @RequestParam int id) {
 
 		RecipeModel recipe = recipeRepository.findRecipeById(id);
@@ -165,71 +167,59 @@ public class RecipeController {
 	// Spring 4: @RequestMapping(value = "/likeRecipe", method =
 	// RequestMethod.POST)
 	@PostMapping("/likeRecipe")
-	public String likeRecipe(Model model, @RequestParam int id, Principal principal) {
+	public String likeRecipe(Model model, @RequestParam int id, Principal principal, RedirectAttributes redirectAttributes) {
 
 		RecipeModel recipe = recipeRepository.findRecipeById(id);
 		String userName = principal.getName();
-		UserModel user = userRepository.findUserByUserName(userName);
+		UserModel user = userRepository.findUserByUserNameWithLikedRecipes(userName);
 
 		if (recipe == null) {
 			model.addAttribute("errorMessage", "Couldn't find recipe " + id);
 			return "forward:/recipeList";
 		}
 
-		if (recipe.getLikingUsers().contains(user)) {
+		if (userRepository.findLikingUserFromRecipe(id, user.getId()) != null) {
 
 			user.removeLikedRecipe(recipe);
 			userRepository.save(user);
-
-			recipe.removeLikingUser(user);
 
 		} else {
 
 			user.addLikedRecipe(recipe);
 			userRepository.save(user);
-
-			recipe.addLikingUser(user);
-
 		}
+		redirectAttributes.addAttribute("id", id);
 
-		model.addAttribute("recipe", recipe);
-
-		return "recipe";
+		return "redirect:/likeRecipe";
 	}
 
 	// Spring 4: @RequestMapping(value = "/reportRecipe", method =
 	// RequestMethod.POST)
 	@PostMapping("/reportRecipe")
-	public String reportRecipe(Model model, @RequestParam int id, Principal principal) {
+	public String reportRecipe(Model model, @RequestParam int id, Principal principal, RedirectAttributes redirectAttributes) {
 
 		RecipeModel recipe = recipeRepository.findRecipeById(id);
 		String userName = principal.getName();
-		UserModel user = userRepository.findUserByUserName(userName);
+		UserModel user = userRepository.findUserByUserNameWithReportedRecipes(userName);
 
 		if (recipe == null) {
 			model.addAttribute("errorMessage", "Couldn't find recipe " + id);
 			return "forward:/recipeList";
 		}
 
-		if (recipe.getReportingUsers().contains(user)) {
+		if (userRepository.findReportingUserFromRecipe(id, user.getId()) != null) {
 
 			user.removeReportedRecipe(recipe);
 			userRepository.save(user);
-
-			recipe.removeReportingUser(user);
-
 		} else {
-
+			
 			user.addReportedRecipe(recipe);
 			userRepository.save(user);
-
-			recipe.addReportingUser(user);
-
 		}
 
-		model.addAttribute("recipe", recipe);
+		redirectAttributes.addAttribute("id", id);
 
-		return "recipe";
+		return "redirect:/reportRecipe";
 	}
 	
 
