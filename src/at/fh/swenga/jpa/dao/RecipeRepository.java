@@ -13,7 +13,7 @@ import at.fh.swenga.jpa.model.RecipeModel;
 @Repository
 @Transactional
 public interface RecipeRepository extends JpaRepository<RecipeModel, Integer> {
-	
+		
 	public RecipeModel findRecipeById (int id);
 	
 	@Query ("SELECT r "
@@ -113,5 +113,5 @@ public interface RecipeRepository extends JpaRepository<RecipeModel, Integer> {
 				+ "LEFT JOIN r.likingUsers lu "
 				+ "GROUP BY r.id "
 				+ "ORDER BY COUNT(lu.id) DESC")
-		public List<RecipeModel> findRecipesOrderedByLikes ();
+	public List<RecipeModel> findRecipesOrderedByLikes ();
 }
