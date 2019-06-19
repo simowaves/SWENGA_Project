@@ -301,8 +301,8 @@ public class UserController {
 	
 	// Spring 4: @RequestMapping(value = "/addLikedIngredient", method =
 	// RequestMethod.POST)
-	@PostMapping("/addLikedIngredient")
-	public String addLikedIngredient(@RequestParam int ingredient, Principal principal, Model model) {
+	@PostMapping("/addLovedIngredient")
+	public String addLovedIngredient(@RequestParam int ingredient, Principal principal, Model model) {
 		String userName = principal.getName();
 		UserModel user = userRepository.findUserByUserName(userName);
 		IngredientModel ingredientModel = ingredientRepository.findIngredientById(ingredient);
@@ -314,8 +314,8 @@ public class UserController {
 	
 	// Spring 4: @RequestMapping(value = "/removeLikedIngredient", method =
 	// RequestMethod.POST)
-	@PostMapping("/removeLikedIngredient")
-	public String removeLikedIngredient(@RequestParam int ingredient, Principal principal, Model model) {
+	@PostMapping("/removeLovedIngredient")
+	public String removeLovedIngredient(@RequestParam int ingredient, Principal principal, Model model) {
 
 		String userName = principal.getName();
 		UserModel user = userRepository.findUserByUserName(userName);
