@@ -292,8 +292,10 @@ public class RecipeController {
 	}
 	
 	@RequestMapping(value = "/deleteRecipe", method = RequestMethod.GET)
-	public String showuploadRecipe(Model model, @RequestParam("id") int recipeId) {
-		recipeRepository.deleteById(recipeId); 
-		return "uploadRecipePicture";
+	public String deleteRecipe(Model model, @RequestParam("id") int recipeId) {
+		RecipeModel recipeModel = recipeRepository.findRecipeById(recipeId);
+		recipeModel.setEnabled(false);
+		recipeRepository.save(recipeModel);
+		return "forward:/recipeList";
 	}
 }
