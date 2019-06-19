@@ -284,8 +284,7 @@
 				</a> <a class="dropdown-item" th:href="@{/showCurrentUserPreferences}">
 					<i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
 					Preferences
-				</a>
-				<a class="dropdown-item" th:href="@{/showCurrentUser}"> <i
+				</a> <a class="dropdown-item" th:href="@{/showCurrentUser}"> <i
 					class="fas fa-user fa-sm fa-fw mr-2 text-gray-400" method="post"></i>
 					Account Settings
 				</a>
@@ -293,7 +292,21 @@
 									class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
 									Activity Log
 								</a> -->
-				<div class="dropdown-divider"></div>
+				<div class="dropdown-divider">
+				</div>
+				<!-- Admin Menu -->
+				<a  sec:authorize="hasRole('ADMIN')" class="dropdown-item" th:href="@{/showCurrentUser}"> <i
+					class="fas fas fa-user-cog fa-sm fa-fw mr-2 text-gray-400" method="post"></i>
+					Manage Users
+				</a> <a sec:authorize="hasRole('ADMIN')" class="dropdown-item" th:href="@{/showCurrentUserPreferences}">
+					<i class="fas fa-wrench fa-sm fa-fw mr-2 text-gray-400"></i>
+					Manage Recipes
+				</a>
+				<!--  -->
+				<div sec:authorize="hasRole('ADMIN')" class="dropdown-divider">
+				</div>
+				
+				
 
 				<form class="navbar-form navbar-right" th:action="@{/logout}"
 					method="post">
@@ -303,6 +316,7 @@
 					</button>
 				</form>
 			</div></li>
+		<!-- If not Logged in: -->
 		<li sec:authorize="isAnonymous()" class="nav-item no-arrow"><a
 			class="nav-link" href="/SwengaProjectWtf/login" aria-expanded="false">
 				<span class="mr-2 d-none d-lg-inline text-gray-600 small">Login</span>
