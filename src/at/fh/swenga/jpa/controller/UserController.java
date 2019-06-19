@@ -354,4 +354,15 @@ public class UserController {
 		
 		return "forward:/showCurrentUserPreferences";
 	}
+	
+	// Spring 4: @RequestMapping(value = "/updateUserName", method = RequestMethod.POST)
+	@PostMapping("/updateUserName")
+	public String updateUserName(@RequestParam String userName, Principal principal, Model model) {
+		String oldUserName = principal.getName();
+		UserModel user = userRepository.findUserByUserName(oldUserName);
+		user.setUserName(userName);
+		userRepository.save(user);
+	
+		return "showCurrentUserAccountSettings";
+	}
 }
