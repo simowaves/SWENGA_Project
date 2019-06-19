@@ -79,9 +79,11 @@
 											<td th:text="${recipe.author.userName}"></td>
 											<td th:text="${recipe.createDate}"></td>
 											<td th:text="${recipe.lastEdited}"></td>
-											<td th:text="${#lists.size(recipe.reportingUsers)}"></td>
+											<td ><span th:text="${#lists.size(recipe.reportingUsers)}"></span><a th:unless="${#lists.isEmpty(recipe.reportingUsers)}" class="m-0 text-primary ml-2"
+												href="#">clear</a></td>
 											<td><a class="m-0 font-weight-bold text-primary"
 												th:href="@{/showRecipe(id=${recipe.id})}" th:target="_blank">open</a>
+												
 												<a class="m-0 font-weight-bold text-primary"
 												   data-toggle="modal" data-target="#deleteModal">delete</a>
 												</td> <!-- th:href="@{/delete(id=${recipe.id})}"  -->
