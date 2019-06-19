@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import at.fh.swenga.jpa.model.CategorieModel;
+import at.fh.swenga.jpa.model.RecipeModel;
 
 @Repository
 @Transactional
@@ -17,5 +18,7 @@ public interface CategorieRepository extends JpaRepository<CategorieModel, Integ
 			+ "FROM CategorieModel AS c "
 			+ "ORDER BY c.title ")
 	public List<CategorieModel> findAllCategoriesOrderByName();
+	
+	public CategorieModel findCategorieById (int id);
  
 }
