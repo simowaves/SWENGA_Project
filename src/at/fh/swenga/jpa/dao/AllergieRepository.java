@@ -24,4 +24,6 @@ public interface AllergieRepository extends JpaRepository<AllergieModel, Integer
 			+ "ORDER BY a.title")
 	public List<AllergieModel> findAllAllergiesOrderByName();
 
+	public AllergieModel findAllergieById (int id);
+
 }
