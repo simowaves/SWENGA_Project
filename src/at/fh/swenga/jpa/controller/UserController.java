@@ -239,21 +239,26 @@ public class UserController {
 		user.addAllergie(allergieModel);
 		userRepository.save(user);
 		
-		return "/showCurrentUserPreferences";
+		return "forward:/showCurrentUserPreferences";
 	}
 	
 	// Spring 4: @RequestMapping(value = "/removeAllergy", method =
 	// RequestMethod.POST)
 	@PostMapping("/removeAllergy")
 	public String removeAllergy(@RequestParam int allergyId, Principal principal, Model model) {
+		List<IngredientModel> ingredients = ingredientRepository.findAllIngredientsOrderByName();
+		model.addAttribute("ingredients", ingredients);
+		List<AllergieModel> allergies = allergieRepository.findAllAllergiesOrderByName();
+		model.addAttribute("allergies", allergies);
+		
 		String userName = principal.getName();
 		UserModel user = userRepository.findUserByUserName(userName);
 		AllergieModel allergieModel = allergieRepository.findAllergieById(allergyId);
 		user.removeAllergie(allergieModel);
+
 		userRepository.save(user);
 
-
-		return "forward:/showCurrentUserPreferences";
+		return "showCurrentUserPreferences";
 	}
 	
 	// Spring 4: @RequestMapping(value = "/addLikedIngredient", method =
@@ -267,7 +272,7 @@ public class UserController {
 		userRepository.save(user);
 
 		
-		return "/showCurrentUserPreferences";
+		return "forward:/showCurrentUserPreferences";
 	}
 	
 	// Spring 4: @RequestMapping(value = "/removeLikedIngredient", method =
@@ -282,7 +287,7 @@ public class UserController {
 		userRepository.save(user);
 
 		
-		return "/showCurrentUserPreferences";
+		return "forward:/showCurrentUserPreferences";
 	}
 	
 	// Spring 4: @RequestMapping(value = "/addHatedIngredient", method =
@@ -296,7 +301,7 @@ public class UserController {
 		userRepository.save(user);
 
 		
-		return "/showCurrentUserPreferences";
+		return "forward:/showCurrentUserPreferences";
 	}
 	
 	// Spring 4: @RequestMapping(value = "/removeHatedIngredient", method =
@@ -310,6 +315,6 @@ public class UserController {
 		user.removeHatedIngredient(ingredientModel);
 		userRepository.save(user);
 		
-		return "/showCurrentUserPreferences";
+		return "forward:/showCurrentUserPreferences";
 	}
 }
