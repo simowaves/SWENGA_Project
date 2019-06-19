@@ -79,7 +79,7 @@
 							<div class="col-md-8">
 								<div class="row"></div>
 								<form class="user needs-validation" novalidate
-									th:action="@{/register}" method="post">
+									th:action="@{/updateUserName}" method="post">
 									<div class="form-group">
 										<h3>Change your username</h3>
 										<input type="text" class="form-control form-control-user"
@@ -122,20 +122,20 @@
 									th:action="@{/register}" method="post"
 									oninput='password.setCustomValidity(password.value != passwordCheck.value ? "Passwords do not match." : "")'>
 									<div class="form-group">
-									<h3>Change your password</h3>
-									<div class="form-group row">
-										<div class="col-sm-6 mb-3 mb-sm-0">
-											<input type="password" class="form-control form-control-user"
-												name="password" placeholder="Password" id="invalidCheck"
-												required>
-											<div class="invalid-feedback">Password must match!</div>
-										</div>
-										<div class="col-sm-6">
-											<input type="password" class="form-control form-control-user"
-												name="passwordCheck" placeholder="Repeat Password"
-												id="invalidCheck" required>
-										</div>
-										
+										<h3>Change your password</h3>
+										<div class="form-group row">
+											<div class="col-sm-6 mb-3 mb-sm-0">
+												<input type="password"
+													class="form-control form-control-user" name="password"
+													placeholder="Password" id="invalidCheck" required>
+												<div class="invalid-feedback">Password must match!</div>
+											</div>
+											<div class="col-sm-6">
+												<input type="password"
+													class="form-control form-control-user" name="passwordCheck"
+													placeholder="Repeat Password" id="invalidCheck" required>
+											</div>
+
 										</div>
 										<button
 											class="btn btn-primary btn-user btn-block col-md-4 mt-2"

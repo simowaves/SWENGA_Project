@@ -38,21 +38,38 @@
 				<div class="container-fluid">
 
 					<!-- Recipe Content -->
-					<h1 class=" mb-4 text-gray-800" th:text="${recipe.title}"> </h1>
-						<a class="h3 mb-4 text-gray-800">by</a>
-						<a class="h3 mb-4"
-							th:text="${recipe.author.userName}"
-							th:href="@{/showUser(id=${recipe.author.id})}"></a>
-					
 
-
+					<!-- Heading and Author -->
+					<div class="mb-2">
+						<span class="h2 mb-4 text-gray-800" th:text="${recipe.title}"></span>
+						<div>
+							<img class="img-profile rounded-circle"
+								src="https://source.unsplash.com/QAB-WJcbgJk/60x60"> <span
+								class="h5 mb-4 text-gray-800">by</span> <a class="h5 mb-4"
+								th:text="${recipe.author.userName}"
+								th:href="@{/showUser(id=${recipe.author.id})}"></a>
+						</div>
+					</div>
+					<!--  -->
+					<div class="mb-2">
+						<span th:each="categorie : ${recipe.categories}"> <span
+							class="ml-1 mr-1"> <a
+								th:href="@{/showCategorie(id=${categorie.id})}"
+								class="badge badge-info" th:text="${categorie.title}"></a>
+						</span>
+						</span>
+					</div>
 
 					<div class="row">
 						<!-- Recipe Image TODO! -->
-						<div class="col-md-6">
-							<img
-								src="https://images.unsplash.com/photo-1559852925-44ce7f97bc36"
-								class="img-fluid rounded" alt="Responsive image">
+						<div class="col-md-8">
+							<div
+								style="position: relative; overflow: hidden; padding-bottom: 100%;">
+								<a th:href="@{/showRecipe(id=${recipe.id})}"><img
+									style="position: absolute;"
+									src="https://images.unsplash.com/photo-1559562649-21c0be156e0d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60"
+									alt=""></a>
+							</div>
 						</div>
 
 						<!-- Recipe Ingredients -->
@@ -89,8 +106,7 @@
 										  -->
 									<ul class="list-group list-group-flush">
 										<li class="list-group-item"
-											th:each="ingredientAmount : ${ingredientAmounts}">
-											<a
+											th:each="ingredientAmount : ${ingredientAmounts}"><a
 											th:href="@{/showIngredient(id=${ingredientAmount.ingredient.id})}"
 											th:text="${ingredientAmount.amount} +' '+${ingredientAmount.ingredient.name}"></a>
 										</li>
@@ -99,6 +115,7 @@
 							</div>
 						</div>
 					</div>
+
 <!-- Upload Picture -->					
 					<a th:href="@{/uploadRecipePicture(id=${recipe.id})}">Upload Picture</a>
 <!-- Delete Picture -->					
@@ -132,8 +149,6 @@
 
 					<!-- Comments -->
 					<div class="row">
-
-
 						<!-- Recipe Commentss -->
 						<div class="col-md-12">
 							<!-- Dropdown Card Example -->
@@ -158,17 +173,10 @@
 									</div>
 								</div>
 
-								<!-- Card Content - Commentss -->
+								<!-- Card Content - Comments -->
 								<div class="card-body">
-									<!-- <div th:each="comment : ${recipe.comments}">
-										<div class="ml-1 mr-1">
-											<a href="#" class="badge badge-info"
-												th:text="${comment.content}"></a>
-										</div>
-										  -->
 									<ul class="list-group list-group-flush">
-										<li class="list-group-item"
-											th:each="comment : ${comments}"><a
+										<li class="list-group-item" th:each="comment : ${comments}"><a
 											th:href="@{/showUser(id=${comment.author.id})}"
 											th:text="${comment.author.userName}"></a> <a
 											th:text="${comment.content}"></a></li>
@@ -177,9 +185,6 @@
 												th:action="@{/postComment(id=${recipe.id})}" method="post">
 												<input type="text" class="form-control form-control-user"
 													name="content" placeholder="Write a comment">
-
-												<!-- a
-												type="submit">Post It!</a>-->
 											</form>
 										</li>
 									</ul>
@@ -188,22 +193,32 @@
 						</div>
 					</div>
 					<!-- End of comments -->
+
+					<button class="btn btn-danger"
+						th:href="@{/reportRecipe(id=${recipe.id})}">
+						<i class="fas fa-flag mr-2"></i>Report
+					</button>
 					<!-- Like Button -->
 					<form class="form-group"
 						th:action="@{/likeRecipe(id=${recipe.id})}" method="post">
-						<input type="text" class="form-control form-control-user"
-							name="content" placeholder="Hit the Enter Button to Like!!!">
-						<a type="submit">Like</a>
+						<button class="btn btn-danger"
+							th:href="@{/reportRecipe(id=${recipe.id})}" type="submit">
+							<i class="fas fa-heart mr-2"></i>Like
+						</button>
 					</form>
+
 
 					<!-- End of Like Button -->
 
 					<!-- Report Button -->
+
+
 					<form class="form-group"
 						th:action="@{/reportRecipe(id=${recipe.id})}" method="post">
-						<input type="text" class="form-control form-control-user"
-							name="content" placeholder="Hit the Enter Button to Report!!!">
-						<a type="submit">Report</a>
+						<button class="btn btn-danger"
+							th:href="@{/reportRecipe(id=${recipe.id})}" type="submit">
+							<i class="fas fa-flag mr-2"></i>Report
+						</button>
 					</form>
 
 					<!-- End of Report Button -->
