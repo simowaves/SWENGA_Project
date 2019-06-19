@@ -9,12 +9,17 @@
 
 	<http>
 		<csrf />
-		<intercept-url pattern="/login" access="permitAll" />
+		<intercept-url pattern="/adminRecipes"
+			access="hasRole('ADMIN')" />
+		<intercept-url pattern="/adminUsers"
+			access="hasRole('ADMIN')" />
 		<intercept-url pattern="/createRecipe"
 			access="hasRole('USER')" />
+		<intercept-url pattern="/login" access="permitAll" />
 		<intercept-url pattern="/**" access="permitAll" />
 		<form-login login-page="/login" />
 		<logout logout-success-url="/login" logout-url="/logout" />
+
 	</http>
 
 	<authentication-manager>
