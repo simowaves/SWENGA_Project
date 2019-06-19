@@ -100,6 +100,7 @@ public interface RecipeRepository extends JpaRepository<RecipeModel, Integer> {
 	// sorts all recipes with the amount of loved Ingredients from the user
 	@Query ("SELECT r "
 			+ "FROM RecipeModel AS r "
+//			+ "LEFT JOIN FETCH r.categories c "
 			+ "LEFT JOIN r.ingredientAmounts ia "
 			+ "LEFT JOIN ia.ingredient i "
 			+ "LEFT JOIN i.usersLoveMe iu " 
@@ -110,8 +111,9 @@ public interface RecipeRepository extends JpaRepository<RecipeModel, Integer> {
 	// sorts all recipes with the amount of likes
 		@Query ("SELECT r "
 				+ "FROM RecipeModel AS r "
+//				+ "LEFT JOIN FETCH r.categories c "
 				+ "LEFT JOIN r.likingUsers lu "
 				+ "GROUP BY r.id "
 				+ "ORDER BY COUNT(lu.id) DESC")
-	public List<RecipeModel> findRecipesOrderedByLikes ();
+	public List<RecipeModel> findRecipesOrderedByLikesWithCategories ();
 }

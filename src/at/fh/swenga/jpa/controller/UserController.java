@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import at.fh.swenga.jpa.dao.AllergieRepository;
 import at.fh.swenga.jpa.dao.IngredientRepository;
@@ -28,6 +29,7 @@ import at.fh.swenga.jpa.dao.UserRepository;
 import at.fh.swenga.jpa.dao.UserRoleRepository;
 import at.fh.swenga.jpa.model.AllergieModel;
 import at.fh.swenga.jpa.model.CategorieModel;
+import at.fh.swenga.jpa.model.CommentModel;
 import at.fh.swenga.jpa.model.IngredientAmountModel;
 import at.fh.swenga.jpa.model.IngredientModel;
 import at.fh.swenga.jpa.model.RecipeCollectionModel;
@@ -118,7 +120,7 @@ public class UserController {
 	@GetMapping({ "/showUser", "/followUser" })
 	public String showUserDetails(Model model, @RequestParam int id) {
 
-		UserModel user = userRepository.findUserById(id);
+		UserModel user = userRepository.findUserByIdWithRecipesAndLikedRecipes(id);
 
 		if (user != null) {
 			model.addAttribute("user", user);
@@ -138,36 +140,36 @@ public class UserController {
 	// Spring 4: @RequestMapping(value = "/followUser", method =
 	// RequestMethod.POST)
 	@PostMapping("/followUser")
-	public String likeRecipe(Model model, @RequestParam int id, Principal principal) {
+	public String likeRecipe(Model model, @RequestParam int id, Principal principal, RedirectAttributes redirectAttributes) {
 
 		UserModel shownUser = userRepository.findUserById(id);
 		String userName = principal.getName();
-		UserModel user = userRepository.findUserByUserName(userName);
+		UserModel user = userRepository.findUserByUserNameWithUsersIFollow(userName);
 
 		if (shownUser == null) {
 			model.addAttribute("errorMessage", "Couldn't find user " + id);
 			return "forward:/recipeList";
 		}
 
-		if (shownUser.getUsersFollowingMe().contains(user)) {
+		if (userRepository.findUserIFollowFromUser(id, user.getId()) != null) {
 
 			user.removeUserIFollow(shownUser);
 			userRepository.save(user);
 
-			shownUser.removeUserFollowingMe(user);
+			//shownUser.removeUserFollowingMe(user);
 
 		} else {
 
 			user.addUserIFollow(shownUser);
 			userRepository.save(user);
 
-			shownUser.addUserFollowingMe(user);
+			//shownUser.addUserFollowingMe(user);
 
 		}
 
-		model.addAttribute("user", shownUser);
+		redirectAttributes.addAttribute("id", id);
 
-		return "userInfo";
+		return "redirect:/followUser";
 	}
 
 	// Spring 4: @RequestMapping(value = "/showCurrentUser", method =
@@ -176,7 +178,7 @@ public class UserController {
 	public String showCurrentUser(Model model, Principal principal) {
 
 		String userName = principal.getName();
-		UserModel user = userRepository.findUserByUserName(userName);
+		UserModel user = userRepository.findUserByIdWithRecipesAndLikedRecipes(userName);
 
 		if (user != null) {
 			model.addAttribute("user", user);
@@ -197,7 +199,7 @@ public class UserController {
 		model.addAttribute("allergies", allergies);
 
 		String userName = principal.getName();
-		UserModel user = userRepository.findUserByUserName(userName);
+		UserModel user = userRepository.findUserByUserNameWithAllergiesAndLovedIngredientsAndHatedIngredients(userName);
 
 		if (user != null) {
 			model.addAttribute("user", user);

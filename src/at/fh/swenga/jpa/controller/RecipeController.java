@@ -62,7 +62,7 @@ public class RecipeController {
 
 		if (principal == null) {
 
-			List<RecipeModel> recipes = recipeRepository.findRecipesOrderedByLikes();
+			List<RecipeModel> recipes = recipeRepository.findRecipesOrderedByLikesWithCategories();
 			model.addAttribute("recipes", recipes);
 
 		} else {
@@ -70,7 +70,7 @@ public class RecipeController {
 			UserModel user = userRepository.findUserByUserName(principal.getName());
 
 			if (user == null) {
-				List<RecipeModel> recipes = recipeRepository.findAll();
+				List<RecipeModel> recipes = recipeRepository.findRecipesOrderedByLikesWithCategories();
 				model.addAttribute("recipes", recipes);
 			} else {
 				List<RecipeModel> filteredRecipes = recipeRepository.filterRecipesByUserPreferences(user.getId());
