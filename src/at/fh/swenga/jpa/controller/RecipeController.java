@@ -254,7 +254,6 @@ public class RecipeController {
 			categorySet.add(categoryModel);
 		}
 /*
-		//Try&Catch ist notwendig
 		try {
 			PictureModel picture = new PictureModel();
 			picture.setContent(file.getBytes());

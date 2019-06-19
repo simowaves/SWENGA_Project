@@ -57,7 +57,7 @@ public class UserModel implements java.io.Serializable {
 	@JoinTable(name = "users_hatedIngredients")
 	private Set<IngredientModel> hatedIngredients;
 	
-	@ManyToMany(fetch=FetchType.LAZY,cascade=CascadeType.PERSIST)
+	@ManyToMany(fetch=FetchType.EAGER,cascade=CascadeType.PERSIST)
 	private Set<AllergieModel> allergies;
 	
 	@OneToMany(mappedBy="author",fetch=FetchType.LAZY)
@@ -220,6 +220,11 @@ public class UserModel implements java.io.Serializable {
 		if (lovedIngredients==null) lovedIngredients = new HashSet<IngredientModel>();
 		lovedIngredients.add(ingredient);
 	}
+	
+	public void removeLovedIngredient(IngredientModel ingredient) {
+		if (lovedIngredients==null) lovedIngredients = new HashSet<IngredientModel>();
+		lovedIngredients.remove(ingredient);
+	}
 
 	public Set<IngredientModel> getHatedIngredients() {
 		return hatedIngredients;
@@ -232,6 +237,11 @@ public class UserModel implements java.io.Serializable {
 	public void addHatedIngredient(IngredientModel ingredient) {
 		if (hatedIngredients==null) hatedIngredients = new HashSet<IngredientModel>();
 		hatedIngredients.add(ingredient);
+	}
+	
+	public void removeHatedIngredient(IngredientModel ingredient) {
+		if (hatedIngredients==null) hatedIngredients = new HashSet<IngredientModel>();
+		hatedIngredients.remove(ingredient);
 	}
 
 	public Set<AllergieModel> getAllergies() {
