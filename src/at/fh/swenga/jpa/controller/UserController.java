@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -365,7 +366,7 @@ public class UserController {
 		user.setUserName(userName);
 		userRepository.save(user);
 	
-		return "logout";
+		return "forward:/";
 	}
 	
 	// Spring 4: @RequestMapping(value = "/updateEmailAddress", method = RequestMethod.POST)

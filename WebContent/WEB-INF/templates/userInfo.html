@@ -49,8 +49,8 @@
 					<div class="container-fluid mb-4">
 						<div class="row">
 							<div class="col-sm-3">
-								<img class="img-profile rounded-circle img-fluid"
-									src="https://source.unsplash.com/QAB-WJcbgJk/400x400">
+								<img class="img-profile rounded-circle img-fluid" style="object-fit: cover;"
+									src="https://images.unsplash.com/photo-1509460913899-515f1df34fea?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80">
 							</div>
 							<!-- User Info -->
 							<div class="col-8 mt-4 mb-4 ml-4">
@@ -71,7 +71,7 @@
 											<button
 												class="d-none d-inline btn btn-sm btn-outline-primary"
 												type="submit" value="Submit">
-												<i class="fas fa-edit fa-sm text-primary-50"></i>Edit
+												<i class="fas fa-edit fa-sm text-primary-50 mr-1"></i>Edit
 											</button>
 
 											<button
@@ -119,8 +119,8 @@
 											<div
 												style="position: relative; overflow: hidden; padding-bottom: 100%;">
 												<a th:href="@{/showRecipe(id=${likedRecipe.id})}"><img
-													style="position: absolute;"
-													src="https://images.unsplash.com/photo-1559562649-21c0be156e0d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60"
+													style="position: absolute; "
+													src="https://images.unsplash.com/photo-1509460913899-515f1df34fea?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
 													alt=""></a>
 
 												<!-- 										<img class="img-fluid card-img-top" -->
@@ -181,11 +181,6 @@
 													style="position: absolute;"
 													src="https://images.unsplash.com/photo-1559562649-21c0be156e0d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60"
 													alt=""></a>
-
-												<!-- 										<img class="img-fluid card-img-top" -->
-												<!-- 											style="position: absolute;" -->
-												<!-- 											th:src="@{download(documentId=${recipe.document.id})}" -->
-												<!-- 											alt=""> -->
 											</div>
 											<!-- card body -->
 											<div class="card-body">
@@ -225,23 +220,7 @@
 						</div>
 					</div>
 
-
-
-
-
-
-
-
-
-
 					<!-- /.container-fluid -->
-					<!-- Follow Button -->
-					<form class="form-group" th:action="@{/followUser(id=${user.id})}"
-						method="post">
-						<input type="text" class="form-control form-control-user"
-							name="content" placeholder="Hit the Enter Button to Follow!!!">
-						<a type="submit">Follow</a>
-					</form>
 
 					<!-- End of Follow Button -->
 				</div>

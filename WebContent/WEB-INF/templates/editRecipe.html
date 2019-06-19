@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
+
+<div th:replace="~{includes/bootstrap :: bootstrapMeta}" />
+<title th:text="${'Recipe for ' + recipe.title}"></title>
+<div th:replace="~{includes/bootstrap :: bootstrapCSS}" />
+
+</head>
+
+<body id="page-top">
+
+	<!-- Page Wrapper -->
+	<div id="wrapper">
+
+		<!-- Sidebar -->
+		<div th:replace="~{/includes/navigation :: sidebar}"></div>
+		<!-- End of Sidebar -->
+
+		<!-- Content Wrapper -->
+		<div id="content-wrapper" class="d-flex flex-column">
+			<!-- Main Content -->
+			<div id="content">
+
+				<!-- Topbar -->
+				<div th:replace="includes/navigation :: topbar"></div>
+				<!-- End of Topbar -->
+
+				<!-- Begin Page Content -->
+				<div class="container-fluid">
+
+					<!-- Recipe Content -->
+
+					<!-- Heading and Author -->
+					<div class="mb-2">
+						<span class="h2 mb-4 text-gray-800" th:text="${recipe.title}"></span>
+						<div>
+							<img class="img-profile rounded-circle"
+								src="https://source.unsplash.com/QAB-WJcbgJk/60x60"> <span
+								class="h5 mb-4 text-gray-800">by</span> <a class="h5 mb-4"
+								th:text="${recipe.author.userName}"
+								th:href="@{/showUser(id=${recipe.author.id})}"></a>
+						</div>
+					</div>
+					<!--  -->
+					<div class="mb-2">
+						<span th:each="categorie : ${recipe.categories}"> <span
+							class="ml-1 mr-1"> <a
+								th:href="@{/showCategorie(id=${categorie.id})}"
+								class="badge badge-info" th:text="${categorie.title}"></a>
+						</span>
+						</span>
+					</div>
+
+					<div class="row">
+						<!-- Recipe Image TODO! -->
+						<div class="col-md-8">
+							<div
+								style="position: relative; overflow: hidden; padding-bottom: 100%;">
+								<a th:href="@{/showRecipe(id=${recipe.id})}"><img
+									style="position: absolute;"
+									src="https://images.unsplash.com/photo-1559562649-21c0be156e0d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60"
+									alt=""></a>
+							</div>
+						</div>
+
+						<!-- Recipe Ingredients -->
+						<div class="col-md-4">
+							<!-- Dropdown Card Example -->
+							<div class="card shadow md-4">
+								<!-- Card Header - Dropdown -->
+								<div
+									class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+									<h6 class="m-0 font-weight-bold text-primary">Ingredients</h6>
+									<div class="dropdown no-arrow">
+										<a class="dropdown-toggle" href="#" role="button"
+											id="dropdownMenuLink" data-toggle="dropdown"
+											aria-haspopup="true" aria-expanded="false"> <i
+											class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+										</a>
+										<div
+											class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+											aria-labelledby="dropdownMenuLink">
+											<div class="dropdown-header">Dropdown Header:</div>
+											<a class="dropdown-item" href="#">Copy Text</a>
+											<!-- Missing implementation -->
+										</div>
+									</div>
+								</div>
+
+								<!-- Card Content - Ingredients -->
+								<div class="card-body">
+									<!-- <div th:each="ingredientAmount : ${ingredientAmounts}">
+										<div class="ml-1 mr-1">
+											<a href="#" class="badge badge-info"
+												th:text="${ingredientAmount.amount}"></a>
+										</div>
+										  -->
+									<ul class="list-group list-group-flush">
+										<li class="list-group-item"
+											th:each="ingredientAmount : ${ingredientAmounts}"><a
+											th:href="@{/showIngredient(id=${ingredientAmount.ingredient.id})}"
+											th:text="${ingredientAmount.amount} +' '+${ingredientAmount.ingredient.name}"></a>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+
+<!-- Upload Picture -->					
+					<a th:href="@{/uploadRecipePicture(id=${recipe.id})}">Upload Picture</a>
+<!-- Delete Picture -->					
+					<a th:href="@{/deleteRecipe(id=${recipe.id})}">Delete Picture</a>
+<!-- End Upload Picture -->
+					<!-- Dropdown Card Example -->
+					<div class="card shadow mb-4">
+						<!-- Card Header - Dropdown -->
+						<div
+							class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+							<h6 class="m-0 font-weight-bold text-primary">How to make it</h6>
+							<div class="dropdown no-arrow">
+								<a class="dropdown-toggle" href="#" role="button"
+									id="dropdownMenuLink" data-toggle="dropdown"
+									aria-haspopup="true" aria-expanded="false"> <i
+									class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+								</a>
+								<div
+									class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+									aria-labelledby="dropdownMenuLink">
+									<div class="dropdown-header">Dropdown Header:</div>
+									<a class="dropdown-item" href="#">Copy Text</a>
+								</div>
+							</div>
+						</div>
+						<!-- Card Body -->
+						<div class="card-body" style="white-space: pre-wrap;"
+							th:text="${recipe.description}"></div>
+					</div>
+					<!-- /.container-fluid -->
+
+					<!-- Comments -->
+					<div class="row">
+						<!-- Recipe Commentss -->
+						<div class="col-md-12">
+							<!-- Dropdown Card Example -->
+							<div class="card shadow md-4">
+								<!-- Comment Header - Dropdown -->
+								<div
+									class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+									<h6 class="m-0 font-weight-bold text-primary">Comments</h6>
+									<div class="dropdown no-arrow">
+										<a class="dropdown-toggle" href="#" role="button"
+											id="dropdownMenuLink" data-toggle="dropdown"
+											aria-haspopup="true" aria-expanded="false"> <i
+											class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+										</a>
+										<div
+											class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+											aria-labelledby="dropdownMenuLink">
+											<div class="dropdown-header">Dropdown Header:</div>
+											<a class="dropdown-item" href="#">Copy Text</a>
+											<!-- Missing implementation -->
+										</div>
+									</div>
+								</div>
+
+								<!-- Card Content - Comments -->
+								<div class="card-body">
+									<ul class="list-group list-group-flush">
+										<li class="list-group-item" th:each="comment : ${comments}"><a
+											th:href="@{/showUser(id=${comment.author.id})}"
+											th:text="${comment.author.userName}"></a> <a
+											th:text="${comment.content}"></a></li>
+										<li class="list-group list-group-flush">
+											<form class="form-group"
+												th:action="@{/postComment(id=${recipe.id})}" method="post">
+												<input type="text" class="form-control form-control-user"
+													name="content" placeholder="Write a comment">
+											</form>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- End of comments -->
+
+					<button class="btn btn-danger"
+						th:href="@{/reportRecipe(id=${recipe.id})}">
+						<i class="fas fa-flag mr-2"></i>Report
+					</button>
+					<!-- Like Button -->
+					<form class="form-group"
+						th:action="@{/likeRecipe(id=${recipe.id})}" method="post">
+						<button class="btn btn-danger"
+							th:href="@{/reportRecipe(id=${recipe.id})}" type="submit">
+							<i class="fas fa-heart mr-2"></i>Like
+						</button>
+					</form>
+
+
+					<!-- End of Like Button -->
+
+					<!-- Report Button -->
+
+
+					<form class="form-group"
+						th:action="@{/reportRecipe(id=${recipe.id})}" method="post">
+						<button class="btn btn-danger"
+							th:href="@{/reportRecipe(id=${recipe.id})}" type="submit">
+							<i class="fas fa-flag mr-2"></i>Report
+						</button>
+					</form>
+
+					<!-- End of Report Button -->
+
+				</div>
+				<!-- End of Main Content -->
+
+
+
+
+				<!-- Footer -->
+				<footer class="sticky-footer bg-white">
+					<div class="container my-auto">
+						<div class="copyright text-center my-auto">
+							<span>Copyright &copy; Your Website 2019</span>
+						</div>
+					</div>
+				</footer>
+				<!-- End of Footer -->
+
+			</div>
+			<!-- End of Content Wrapper -->
+
+		</div>
+		<!-- End of Page Wrapper -->
+
+		<!-- Scroll to Top Button-->
+		<a class="scroll-to-top rounded" href="#page-top"> <i
+			class="fas fa-angle-up"></i>
+		</a>
+
+		<!-- Logout Modal-->
+		<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
+			aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Ready to
+							Leave?</h5>
+						<button class="close" type="button" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">×</span>
+						</button>
+					</div>
+					<div class="modal-body">Select "Logout" below if you are
+						ready to end your current session.</div>
+					<div class="modal-footer">
+						<button class="btn btn-secondary" type="button"
+							data-dismiss="modal">Cancel</button>
+						<a class="btn btn-primary" href="login.html">Logout</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- JS needs to move to bottom -->
+		<div th:replace="~{includes/bootstrap :: bootstrapJS}" />
+</body>
+
+</html>
