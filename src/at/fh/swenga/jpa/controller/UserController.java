@@ -334,7 +334,7 @@ public class UserController {
 		user.setUserName(userName);
 		userRepository.save(user);
 	
-		return "logout";
+		return "forward:/showCurrentUserPreferences";
 	}
 	
 	// Spring 4: @RequestMapping(value = "/updateEmailAddress", method = RequestMethod.POST)
@@ -345,7 +345,7 @@ public class UserController {
 		user.setEmailAddress(emailAddress);
 		userRepository.save(user);
 	
-		return "logout";
+		return "forward:/showCurrentUserPreferences";
 	}
 	
 	// Spring 4: @RequestMapping(value = "/updatePassword", method = RequestMethod.POST)
@@ -354,8 +354,9 @@ public class UserController {
 		String oldUserName = principal.getName();
 		UserModel user = userRepository.findUserByUserName(oldUserName);
 		user.setPassword(password);
+		user.encryptPassword();
 		userRepository.save(user);
 	
-		return "logout";
+		return "forward:/showCurrentUserPreferences";
 	}
 }
