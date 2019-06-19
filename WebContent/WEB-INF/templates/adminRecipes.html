@@ -33,12 +33,6 @@
 
 					<!-- Page Heading -->
 					<h1 class="h3 mb-2 text-gray-800">Recipes Administration</h1>
-					<p class="mb-4">
-						DataTables is a third party plugin that is used to generate the
-						demo table below. For more information about DataTables, please
-						visit the <a target="_blank" href="https://datatables.net">official
-							DataTables documentation</a>.
-					</p>
 					
 					<!-- DataTales Example -->
 					<div class="card shadow mb-4">
@@ -84,7 +78,7 @@
 											<td><a class="m-0 font-weight-bold text-primary"
 												th:href="@{/showRecipe(id=${recipe.id})}" th:target="_blank">open</a>
 												
-												<a class="m-0 font-weight-bold text-primary"
+												<a href="#" class="m-0 font-weight-bold text-primary"
 												   data-toggle="modal" data-target="#deleteModal">delete</a>
 												</td> <!-- th:href="@{/delete(id=${recipe.id})}"  -->
 										</tr>

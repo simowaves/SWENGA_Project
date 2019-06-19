@@ -42,7 +42,7 @@ public class UserModel implements java.io.Serializable {
 	@Column(name = "enabled", nullable = false)
 	private boolean enabled;
  
-	@ManyToMany(fetch=FetchType.LAZY,cascade=CascadeType.PERSIST)
+	@ManyToMany(fetch=FetchType.EAGER,cascade=CascadeType.PERSIST)
 	private Set<UserRoleModel> userRoles;
 	
 	@OneToMany(mappedBy="author",fetch=FetchType.EAGER)
@@ -60,7 +60,7 @@ public class UserModel implements java.io.Serializable {
 	@ManyToMany(fetch=FetchType.EAGER,cascade=CascadeType.PERSIST)
 	private Set<AllergieModel> allergies;
 	
-	@OneToMany(mappedBy="author",fetch=FetchType.LAZY)
+	@OneToMany(mappedBy="author",fetch=FetchType.EAGER)
     @OrderBy("createDate")
     private Set<CommentModel> comments;
 	
