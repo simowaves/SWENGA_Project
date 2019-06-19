@@ -88,8 +88,8 @@
 													<div class="form-group input-group">
 														<select class="form-control" name="category" required>
 															<option selected value="">Select your allergies</option>
-															<option th:each="category : ${categories}"
-																th:text="${category.title}" th:value="${category.id}"></option>
+															<option th:each="allergy : ${allergies}"
+																th:text="${allergy.title}" th:value="${allergy.id}"></option>
 														</select><span class="input-group-btn ml-2"><button
 																class="btn btn-primary" type="submit">Add
 																Allergy</button></span>
@@ -180,11 +180,11 @@
 												<!-- expanding Ingredient selection -->
 												<div class="form-group multiple-form-group" data-max=10>
 													<div class="form-group input-group">
-														<select class="form-control" name="category" required>
+														<select class="form-control" name="ingredient" required>
 															<option selected value="">Select your Liked
 																Ingredients</option>
-															<option th:each="category : ${categories}"
-																th:text="${category.title}" th:value="${category.id}"></option>
+															<option th:each="ingredient : ${ingredients}"
+																th:text="${ingredient.name}" th:value="${ingredient.id}"></option>
 														</select><span class="input-group-btn ml-2"> <!-- Laut Max muss hier th:href="@{upload(id=${employee.id})} wie bei SwengaGoodies hinzugefügt werden -->
 															<button class="btn btn-primary" type="submit">Add
 																Ingredient</button></span>
@@ -274,11 +274,11 @@
 												<!-- expanding Ingredient selection -->
 												<div class="form-group multiple-form-group" data-max=10>
 													<div class="form-group input-group">
-														<select class="form-control" name="category" required>
+														<select class="form-control" name="ingredient" required>
 															<option selected value="">Select your Hated
 																Ingredients</option>
-															<option th:each="category : ${categories}"
-																th:text="${category.title}" th:value="${category.id}"></option>
+															<option th:each="ingredient : ${ingredients}"
+																th:text="${ingredient.name}" th:value="${ingredient.id}"></option>
 														</select><span class="input-group-btn ml-2"><button
 																class="btn btn-primary" type="submit">Add
 																Ingredient</button></span>
