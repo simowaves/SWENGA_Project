@@ -246,6 +246,11 @@ public class UserModel implements java.io.Serializable {
 		if (allergies==null) allergies = new HashSet<AllergieModel>();
 		allergies.add(allergie);
 	}
+	
+	public void removeAllergie(AllergieModel allergie) {
+		if (allergies==null) allergies = new HashSet<AllergieModel>();
+		allergies.remove(allergie);
+	}
 
 	public Set<CommentModel> getComments() {
 		return comments;

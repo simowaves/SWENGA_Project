@@ -1,7 +1,10 @@
 package at.fh.swenga.jpa.controller;
 
 import java.security.Principal;
+import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.validation.Valid;
 
@@ -24,6 +27,8 @@ import at.fh.swenga.jpa.dao.RecipeCollectionRepository;
 import at.fh.swenga.jpa.dao.UserRepository;
 import at.fh.swenga.jpa.dao.UserRoleRepository;
 import at.fh.swenga.jpa.model.AllergieModel;
+import at.fh.swenga.jpa.model.CategorieModel;
+import at.fh.swenga.jpa.model.IngredientAmountModel;
 import at.fh.swenga.jpa.model.IngredientModel;
 import at.fh.swenga.jpa.model.RecipeCollectionModel;
 import at.fh.swenga.jpa.model.RecipeModel;
@@ -41,10 +46,10 @@ public class UserController {
 
 	@Autowired
 	RecipeCollectionRepository recipeCollectionRepository;
-	
+
 	@Autowired
 	IngredientRepository ingredientRepository;
-	
+
 	@Autowired
 	AllergieRepository allergieRepository;
 
@@ -190,7 +195,7 @@ public class UserController {
 		model.addAttribute("ingredients", ingredients);
 		List<AllergieModel> allergies = allergieRepository.findAllAllergiesOrderByName();
 		model.addAttribute("allergies", allergies);
-		
+
 		String userName = principal.getName();
 		UserModel user = userRepository.findUserByUserName(userName);
 
@@ -202,4 +207,33 @@ public class UserController {
 			return "forward:/recipeList";
 		}
 	}
+
+	// Spring 4: @RequestMapping(value = "/addAllergy", method =
+	// RequestMethod.POST)
+	@PostMapping("/addAllergy")
+	public String addAllergy(@RequestParam int allergy, Principal principal, Model model) {
+
+		String userName = principal.getName();
+		UserModel user = userRepository.findUserByUserName(userName);
+		Date now = new Date();
+		AllergieModel allergieModel = allergieRepository.findAllergieById(allergy);
+		user.addAllergie(allergieModel);
+		
+		return "/showCurrentUserPreferences";
+	}
+	
+	// Spring 4: @RequestMapping(value = "/addAllergy", method =
+	// RequestMethod.POST)
+	@PostMapping("/removeAllergy")
+	public String removeAllergy(@RequestParam int allergy, Principal principal, Model model) {
+
+		String userName = principal.getName();
+		UserModel user = userRepository.findUserByUserName(userName);
+		Date now = new Date();
+		AllergieModel allergieModel = allergieRepository.findAllergieById(allergy);
+		user.removeAllergie(allergieModel);
+		
+		return "/showCurrentUserPreferences";
+	}
+	
 }
