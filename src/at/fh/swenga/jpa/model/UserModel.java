@@ -49,11 +49,11 @@ public class UserModel implements java.io.Serializable {
     @OrderBy("title")
     private Set<RecipeModel> recipes;
 	
-	@ManyToMany(fetch=FetchType.LAZY,cascade=CascadeType.PERSIST)
+	@ManyToMany(fetch=FetchType.EAGER,cascade=CascadeType.PERSIST)
 	@JoinTable(name = "users_lovedIngredients")
 	private Set<IngredientModel> lovedIngredients;
 	
-	@ManyToMany(fetch=FetchType.LAZY,cascade=CascadeType.PERSIST)
+	@ManyToMany(fetch=FetchType.EAGER,cascade=CascadeType.PERSIST)
 	@JoinTable(name = "users_hatedIngredients")
 	private Set<IngredientModel> hatedIngredients;
 	

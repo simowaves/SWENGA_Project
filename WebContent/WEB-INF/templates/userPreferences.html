@@ -54,8 +54,8 @@
 							data-toggle="tab" href="#allergiesTab" role="tab"
 							aria-controls="allergiesTab" aria-selected="true">Allergies</a></li>
 						<li class="nav-item"><a class="nav-link" id="profile-tab"
-							data-toggle="tab" href="#likedIngredientsTab" role="tab"
-							aria-controls="likedIngredientsTab" aria-selected="false">Liked
+							data-toggle="tab" href="#lovedIngredientsTab" role="tab"
+							aria-controls="lovedIngredientsTab" aria-selected="false">Loved
 								Ingredients</a></li>
 						<li class="nav-item"><a class="nav-link" id="profile-tab"
 							data-toggle="tab" href="#hatedIngredientsTab" role="tab"
@@ -144,30 +144,30 @@
 						</div>
 						<!-- End of First Tab -->
 						<!-- Second Tab Content -->
-						<div class="tab-pane fade" id="likedIngredientsTab"
-							role="tabpanel" aria-labelledby="likedIngredients-tab">
+						<div class="tab-pane fade" id="lovedIngredientsTab"
+							role="tabpanel" aria-labelledby="lovedIngredients-tab">
 
 							<!-- Tab Content -->
 							<div class="container-fluid mt-4">
 								<div class="row">
-									<h1 class="h3 mb-4 text-gray-800">Liked Ingredients</h1>
+									<h1 class="h3 mb-4 text-gray-800">Loved Ingredients</h1>
 								</div>
 								<div class="col-md-12">
 									<form class="needs-validation" novalidate
-										th:action="@{/createNewRecipe}" method="post">
+										th:action="@{/addLovedIngredient}" method="post">
 
 
 
 
 										<div>
-											<label for="validationCustom03">Add Liked Ingredients
+											<label for="validationCustom03">Add Loved Ingredients
 												(with data-max=6)</label>
 											<div>
 												<!-- expanding Ingredient selection -->
 												<div class="form-group multiple-form-group" data-max=10>
 													<div class="form-group input-group">
 														<select class="form-control" name="ingredient" required>
-															<option selected value="">Select your Liked
+															<option selected value="">Select your Loved
 																Ingredients</option>
 															<option th:each="ingredient : ${ingredients}"
 																th:text="${ingredient.name}" th:value="${ingredient.id}"></option>
@@ -186,7 +186,7 @@
 							<!-- DataTales Example -->
 							<div class="card shadow mb-4">
 								<div class="card-header py-3">
-									<h6 class="m-0 font-weight-bold text-primary">Your Liked
+									<h6 class="m-0 font-weight-bold text-primary">Your Loved
 										Ingredients</h6>
 								</div>
 								<div class="card-body">
@@ -195,47 +195,31 @@
 											width="100%" cellspacing="0">
 											<thead>
 												<tr>
-													<th>Name</th>
-													<th>Position</th>
-													<th>Office</th>
-													<th>Age</th>
-													<th>Start date</th>
-													<th>Salary</th>
+													<th>Allergy</th>
+
 												</tr>
 											</thead>
 											<tfoot>
 												<tr>
-													<th>Name</th>
-													<th>Position</th>
-													<th>Office</th>
-													<th>Age</th>
-													<th>Start date</th>
-													<th>Salary</th>
+													<th>Allergy</th>
 												</tr>
 											</tfoot>
 											<tbody>
-												<tr>
-													<td>Tiger Nixon</td>
-													<td>System Architect</td>
-													<td>Edinburgh</td>
-													<td>61</td>
-													<td>2011/04/25</td>
-													<td>$320,800</td>
-												</tr>
-												<tr>
-													<td>Garrett Winters</td>
-													<td>Accountant</td>
-													<td>Tokyo</td>
-													<td>63</td>
-													<td>2011/07/25</td>
-													<td>$170,750</td>
+												<tr th:each="lovedIngredient : ${user.lovedIngredients}">
+
+													<td th:text="${lovedIngredient.name}"></td>
+
+													<td><form method="post"
+															th:action="@{/removeLovedIngredient(ingredient=${lovedIngredient.id})}">
+															<button type="submit" class="btn btn-danger">Delete</button>
+														</form></td>
+
 												</tr>
 
 											</tbody>
 										</table>
 									</div>
 								</div>
-							</div>
 						</div>
 						<!-- End of Second Tab -->
 						<!-- Third Tab Content -->
@@ -249,7 +233,7 @@
 								</div>
 								<div class="col-md-12">
 									<form class="needs-validation" novalidate
-										th:action="@{/createNewRecipe}" method="post">
+										th:action="@{/addHatedIngredient}" method="post">
 
 
 
@@ -288,40 +272,25 @@
 											width="100%" cellspacing="0">
 											<thead>
 												<tr>
-													<th>Name</th>
-													<th>Position</th>
-													<th>Office</th>
-													<th>Age</th>
-													<th>Start date</th>
-													<th>Salary</th>
+													<th>Hated Ingredients</th>
+
 												</tr>
 											</thead>
 											<tfoot>
 												<tr>
-													<th>Name</th>
-													<th>Position</th>
-													<th>Office</th>
-													<th>Age</th>
-													<th>Start date</th>
-													<th>Salary</th>
+													<th>Hated Ingredients</th>
 												</tr>
 											</tfoot>
 											<tbody>
-												<tr>
-													<td>Tiger Nixon</td>
-													<td>System Architect</td>
-													<td>Edinburgh</td>
-													<td>61</td>
-													<td>2011/04/25</td>
-													<td>$320,800</td>
-												</tr>
-												<tr>
-													<td>Garrett Winters</td>
-													<td>Accountant</td>
-													<td>Tokyo</td>
-													<td>63</td>
-													<td>2011/07/25</td>
-													<td>$170,750</td>
+												<tr th:each="hatedIngredient : ${user.hatedIngredients}">
+
+													<td th:text="${hatedIngredient.name}"></td>
+
+													<td><form method="post"
+															th:action="@{/removeHatedIngredient(ingredient=${hatedIngredient.id})}">
+															<button type="submit" class="btn btn-danger">Delete</button>
+														</form></td>
+
 												</tr>
 
 											</tbody>
