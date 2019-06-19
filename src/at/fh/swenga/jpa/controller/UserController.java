@@ -228,6 +228,41 @@ public class UserController {
 			return "forward:/recipeList";
 		}
 	}
+	
+	// Spring 4: @RequestMapping(value = "/showCurrentUserPreferences", method =
+	// RequestMethod.GET)
+	@GetMapping("/showCurrentUserAccountSettings")
+	public String showCurrentUserAccountSettings(Model model, Principal principal) {
+		String userName = principal.getName();
+		UserModel user = userRepository.findUserByUserName(userName);
+
+		if (user != null) {
+			model.addAttribute("user", user);
+			return "accountSettings";
+		} else {
+			model.addAttribute("errorMessage", "Couldn't find user ");
+			return "forward:/recipeList";
+		}
+	}
+	
+	// Spring 4: @RequestMapping(value = "/showCurrentUserPreferences", method =
+	// RequestMethod.GET)
+	@PostMapping("/showCurrentUserAccountSettings")
+	public String showCurrentUserAccountSettingsPost(Model model, Principal principal) {
+		String userName = principal.getName();
+		UserModel user = userRepository.findUserByUserName(userName);
+
+		if (user != null) {
+			model.addAttribute("user", user);
+			return "accountSettings";
+		} else {
+			model.addAttribute("errorMessage", "Couldn't find user ");
+			return "forward:/recipeList";
+		}
+	}
+	
+	
+	
 
 	// Spring 4: @RequestMapping(value = "/addAllergy", method =
 	// RequestMethod.POST)
