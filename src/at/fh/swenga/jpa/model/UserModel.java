@@ -42,43 +42,43 @@ public class UserModel implements java.io.Serializable {
 	@Column(name = "enabled", nullable = false)
 	private boolean enabled;
  
-	@ManyToMany(fetch=FetchType.EAGER,cascade=CascadeType.PERSIST)
+	@ManyToMany(fetch=FetchType.LAZY,cascade=CascadeType.PERSIST)
 	private Set<UserRoleModel> userRoles;
 	
-	@OneToMany(mappedBy="author",fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="author",fetch=FetchType.LAZY)
     @OrderBy("title")
     private Set<RecipeModel> recipes;
 	
-	@ManyToMany(fetch=FetchType.EAGER,cascade=CascadeType.PERSIST)
+	@ManyToMany(fetch=FetchType.LAZY,cascade=CascadeType.PERSIST)
 	@JoinTable(name = "users_lovedIngredients")
 	private Set<IngredientModel> lovedIngredients;
 	
-	@ManyToMany(fetch=FetchType.EAGER,cascade=CascadeType.PERSIST)
+	@ManyToMany(fetch=FetchType.LAZY,cascade=CascadeType.PERSIST)
 	@JoinTable(name = "users_hatedIngredients")
 	private Set<IngredientModel> hatedIngredients;
 	
-	@ManyToMany(fetch=FetchType.EAGER,cascade=CascadeType.PERSIST)
+	@ManyToMany(fetch=FetchType.LAZY,cascade=CascadeType.PERSIST)
 	private Set<AllergieModel> allergies;
 	
-	@OneToMany(mappedBy="author",fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="author",fetch=FetchType.LAZY)
     @OrderBy("createDate")
     private Set<CommentModel> comments;
 	
-	@ManyToMany(fetch=FetchType.EAGER,cascade=CascadeType.PERSIST)
+	@ManyToMany(fetch=FetchType.LAZY,cascade=CascadeType.PERSIST)
 	@JoinTable(name = "users_reportedRecipes")
 	private Set<RecipeModel> reportedRecipes;
 	
-	@ManyToMany(fetch=FetchType.EAGER,cascade=CascadeType.PERSIST)
+	@ManyToMany(fetch=FetchType.LAZY,cascade=CascadeType.PERSIST)
 	private Set<UserModel> usersIFollow;
 	
-	@ManyToMany(mappedBy = "usersIFollow", fetch = FetchType.EAGER)
+	@ManyToMany(mappedBy = "usersIFollow", fetch = FetchType.LAZY)
 	private Set<UserModel> usersFollowingMe;
 	
 	@OneToMany(mappedBy="user",fetch=FetchType.LAZY)
     @OrderBy("title")
     private Set<RecipeCollectionModel> recipeCollections;
 	
-	@ManyToMany(fetch=FetchType.EAGER,cascade=CascadeType.PERSIST)
+	@ManyToMany(fetch=FetchType.LAZY,cascade=CascadeType.PERSIST)
 	private Set<RecipeModel> likedRecipes;
 	
 	@OneToOne(cascade = CascadeType.ALL)

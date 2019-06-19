@@ -81,7 +81,7 @@
 
 								<!-- Card Content - Ingredients -->
 								<div class="card-body">
-									<!-- <div th:each="ingredientAmount : ${recipe.ingredientAmounts}">
+									<!-- <div th:each="ingredientAmount : ${ingredientAmounts}">
 										<div class="ml-1 mr-1">
 											<a href="#" class="badge badge-info"
 												th:text="${ingredientAmount.amount}"></a>
@@ -89,7 +89,7 @@
 										  -->
 									<ul class="list-group list-group-flush">
 										<li class="list-group-item"
-											th:each="ingredientAmount : ${recipe.ingredientAmounts}">
+											th:each="ingredientAmount : ${ingredientAmounts}">
 											<a
 											th:href="@{/showIngredient(id=${ingredientAmount.ingredient.id})}"
 											th:text="${ingredientAmount.amount} +' '+${ingredientAmount.ingredient.name}"></a>
@@ -168,7 +168,7 @@
 										  -->
 									<ul class="list-group list-group-flush">
 										<li class="list-group-item"
-											th:each="comment : ${recipe.comments}"><a
+											th:each="comment : ${comments}"><a
 											th:href="@{/showUser(id=${comment.author.id})}"
 											th:text="${comment.author.userName}"></a> <a
 											th:text="${comment.content}"></a></li>
