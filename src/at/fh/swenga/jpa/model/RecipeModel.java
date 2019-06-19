@@ -55,7 +55,7 @@ public class RecipeModel implements java.io.Serializable {
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	private UserModel author;
 
-	@OneToMany(mappedBy = "recipe", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "recipe", fetch = FetchType.LAZY)
 	private Set<IngredientAmountModel> ingredientAmounts;
 
 	@Column(name = "published")
@@ -67,16 +67,16 @@ public class RecipeModel implements java.io.Serializable {
 	@ManyToMany(fetch = FetchType.EAGER)//, cascade = CascadeType.PERSIST)
 	private Set<CategorieModel> categories;
 
-	@OneToMany(mappedBy = "recipe", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "recipe", fetch = FetchType.LAZY)
 	private Set<CommentModel> comments;
 
-	@ManyToMany(mappedBy = "reportedRecipes", fetch = FetchType.EAGER)
+	@ManyToMany(mappedBy = "reportedRecipes", fetch = FetchType.LAZY)
 	private Set<UserModel> reportingUsers;
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
 	private Set<RecipeCollectionModel> recipeCollections;
 
-	@ManyToMany(mappedBy = "likedRecipes", fetch = FetchType.EAGER)
+	@ManyToMany(mappedBy = "likedRecipes", fetch = FetchType.LAZY)
 	private Set<UserModel> likingUsers;
 
 	@OneToOne(cascade = CascadeType.ALL)

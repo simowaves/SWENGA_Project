@@ -5,11 +5,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,18 +15,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 
 import at.fh.swenga.jpa.dao.CategorieRepository;
+import at.fh.swenga.jpa.dao.CommentRepository;
 import at.fh.swenga.jpa.dao.IngredientAmountRepository;
 import at.fh.swenga.jpa.dao.IngredientRepository;
 import at.fh.swenga.jpa.dao.PictureRepository;
 import at.fh.swenga.jpa.dao.RecipeRepository;
 import at.fh.swenga.jpa.dao.UserRepository;
 import at.fh.swenga.jpa.model.CategorieModel;
+import at.fh.swenga.jpa.model.CommentModel;
 import at.fh.swenga.jpa.model.IngredientAmountModel;
 import at.fh.swenga.jpa.model.IngredientModel;
-import at.fh.swenga.jpa.model.PictureModel;
 import at.fh.swenga.jpa.model.RecipeModel;
 import at.fh.swenga.jpa.model.UserModel;
 
@@ -52,8 +50,12 @@ public class RecipeController {
 
 	@Autowired
 	UserRepository userRepository;
+	
+	@Autowired
+	CommentRepository commentRepository;
 
-	@RequestMapping(value = { "/", "list", "recipeList" })
+	//@RequestMapping(value = { "/", "list", "recipeList" })
+	@GetMapping(value = { "/", "list", "recipeList" })
 	public String index(Model model, Principal principal) {
 
 		if (principal == null) {
@@ -93,6 +95,10 @@ public class RecipeController {
 		RecipeModel recipe = recipeRepository.findRecipeById(id);
 
 		if (recipe != null) {
+			List<IngredientAmountModel> ingredientAmounts = ingredientAmountRepository.findIngredientAmountsByRecipeId(id);
+			model.addAttribute("ingredientAmounts", ingredientAmounts);
+			List<CommentModel> comments = commentRepository.findCommentByRecipeId(id);
+			model.addAttribute("comments", comments);
 			model.addAttribute("recipe", recipe);
 			return "recipe";
 		} else {
