@@ -207,6 +207,27 @@ public class UserController {
 			return "forward:/recipeList";
 		}
 	}
+	
+	// Spring 4: @RequestMapping(value = "/showCurrentUserPreferences", method =
+	// RequestMethod.GET)
+	@PostMapping("/showCurrentUserPreferences")
+	public String likeRecipePost(Model model, Principal principal) {
+		List<IngredientModel> ingredients = ingredientRepository.findAllIngredientsOrderByName();
+		model.addAttribute("ingredients", ingredients);
+		List<AllergieModel> allergies = allergieRepository.findAllAllergiesOrderByName();
+		model.addAttribute("allergies", allergies);
+
+		String userName = principal.getName();
+		UserModel user = userRepository.findUserByUserName(userName);
+
+		if (user != null) {
+			model.addAttribute("user", user);
+			return "userPreferences";
+		} else {
+			model.addAttribute("errorMessage", "Couldn't find user ");
+			return "forward:/recipeList";
+		}
+	}
 
 	// Spring 4: @RequestMapping(value = "/addAllergy", method =
 	// RequestMethod.POST)
@@ -230,8 +251,9 @@ public class UserController {
 		UserModel user = userRepository.findUserByUserName(userName);
 		AllergieModel allergieModel = allergieRepository.findAllergieById(allergyId);
 		user.removeAllergie(allergieModel);
-		
-		return "userPreferences";
+		model.addAttribute("allergies", allergieModel);
+
+		return "forward:/showCurrentUserPreferences";
 	}
 	
 	// Spring 4: @RequestMapping(value = "/addLikedIngredient", method =
