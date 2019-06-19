@@ -382,7 +382,7 @@ public class UserController {
 	public String updatePassword(@RequestParam String password, Principal principal, Model model) {
 		String oldUserName = principal.getName();
 		UserModel user = userRepository.findUserByUserName(oldUserName);
-		user.setEmailAddress(password);
+		user.setPassword(password);
 		userRepository.save(user);
 	
 		return "logout";
