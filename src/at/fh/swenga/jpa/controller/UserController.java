@@ -255,6 +255,7 @@ public class UserController {
 		UserModel user = userRepository.findUserByUserName(userName);
 		AllergieModel allergieModel = allergieRepository.findAllergieById(allergyId);
 		user.removeAllergie(allergieModel);
+		model.addAttribute("user", user);
 
 		userRepository.save(user);
 
