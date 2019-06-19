@@ -100,7 +100,6 @@ public class RecipeController {
 		}
 	}
 
-	@Secured("ROLE_ADMIN")
 	@GetMapping(value = "/createRecipe")
 	public String openCreateForm(Model model) {
 		List<IngredientModel> ingredients = ingredientRepository.findAllIngredientsOrderByName();

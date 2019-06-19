@@ -1,6 +1,7 @@
 package at.fh.swenga.jpa.controller;
 
 import java.security.Principal;
+import java.util.List;
 
 import javax.validation.Valid;
 
@@ -17,9 +18,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import at.fh.swenga.jpa.dao.AllergieRepository;
+import at.fh.swenga.jpa.dao.IngredientRepository;
 import at.fh.swenga.jpa.dao.RecipeCollectionRepository;
 import at.fh.swenga.jpa.dao.UserRepository;
 import at.fh.swenga.jpa.dao.UserRoleRepository;
+import at.fh.swenga.jpa.model.AllergieModel;
+import at.fh.swenga.jpa.model.IngredientModel;
 import at.fh.swenga.jpa.model.RecipeCollectionModel;
 import at.fh.swenga.jpa.model.RecipeModel;
 import at.fh.swenga.jpa.model.UserModel;
@@ -36,6 +41,12 @@ public class UserController {
 
 	@Autowired
 	RecipeCollectionRepository recipeCollectionRepository;
+	
+	@Autowired
+	IngredientRepository ingredientRepository;
+	
+	@Autowired
+	AllergieRepository allergieRepository;
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String handleLogin() {
@@ -79,16 +90,16 @@ public class UserController {
 			newUserModel.encryptPassword();
 			newUserModel.setEnabled(true);
 			userRepository.save(newUserModel);
-			
+
 			newUserModel.addUserRole(userRole);
-			//userRepository.save(newUserModel);
+			// userRepository.save(newUserModel);
 
 			RecipeCollectionModel recipeCollection = new RecipeCollectionModel("Favorites");
 			recipeCollectionRepository.save(recipeCollection);
-			
+
 			newUserModel.addRecipeCollection(recipeCollection);
 			userRepository.save(newUserModel);
-			
+
 			recipeCollection.setUser(newUserModel);
 			recipeCollectionRepository.save(recipeCollection);
 
@@ -99,7 +110,7 @@ public class UserController {
 	}
 
 	// Spring 4: @RequestMapping(value = "/showUser", method = RequestMethod.GET)
-	@GetMapping({"/showUser", "/followUser"})
+	@GetMapping({ "/showUser", "/followUser" })
 	public String showUserDetails(Model model, @RequestParam int id) {
 
 		UserModel user = userRepository.findUserById(id);
@@ -112,79 +123,83 @@ public class UserController {
 			return "forward:/recipeList";
 		}
 	}
-	
-	  @RequestMapping(value = "/loggedUserName", method = RequestMethod.GET)
-	  @ResponseBody
-	  public String currentUserName(Authentication authentication) {
-	     return authentication.getName() ;
-	  }
-	  
+
+	@RequestMapping(value = "/loggedUserName", method = RequestMethod.GET)
+	@ResponseBody
+	public String currentUserName(Authentication authentication) {
+		return authentication.getName();
+	}
+
 	// Spring 4: @RequestMapping(value = "/followUser", method =
-		// RequestMethod.POST)
-		@PostMapping("/followUser")
-		public String likeRecipe(Model model, @RequestParam int id, Principal principal) {
+	// RequestMethod.POST)
+	@PostMapping("/followUser")
+	public String likeRecipe(Model model, @RequestParam int id, Principal principal) {
 
-			UserModel shownUser = userRepository.findUserById(id);
-			String userName = principal.getName();
-			UserModel user = userRepository.findUserByUserName(userName);
+		UserModel shownUser = userRepository.findUserById(id);
+		String userName = principal.getName();
+		UserModel user = userRepository.findUserByUserName(userName);
 
-			if (shownUser == null) {
-				model.addAttribute("errorMessage", "Couldn't find user " + id);
-				return "forward:/recipeList";
-			}
-			
-			if (shownUser.getUsersFollowingMe().contains(user)) {
-				
-				user.removeUserIFollow(shownUser);
-				userRepository.save(user);
-				
-				shownUser.removeUserFollowingMe(user);
-				
-			} else {
-				
-				user.addUserIFollow(shownUser);
-				userRepository.save(user);
+		if (shownUser == null) {
+			model.addAttribute("errorMessage", "Couldn't find user " + id);
+			return "forward:/recipeList";
+		}
 
-				shownUser.addUserFollowingMe(user);
-				
-			}
+		if (shownUser.getUsersFollowingMe().contains(user)) {
 
-			model.addAttribute("user", shownUser);
+			user.removeUserIFollow(shownUser);
+			userRepository.save(user);
 
+			shownUser.removeUserFollowingMe(user);
+
+		} else {
+
+			user.addUserIFollow(shownUser);
+			userRepository.save(user);
+
+			shownUser.addUserFollowingMe(user);
+
+		}
+
+		model.addAttribute("user", shownUser);
+
+		return "userInfo";
+	}
+
+	// Spring 4: @RequestMapping(value = "/showCurrentUser", method =
+	// RequestMethod.GET)
+	@GetMapping("/showCurrentUser")
+	public String showCurrentUser(Model model, Principal principal) {
+
+		String userName = principal.getName();
+		UserModel user = userRepository.findUserByUserName(userName);
+
+		if (user != null) {
+			model.addAttribute("user", user);
 			return "userInfo";
+		} else {
+			model.addAttribute("errorMessage", "Couldn't find user ");
+			return "forward:/recipeList";
 		}
-		
-		// Spring 4: @RequestMapping(value = "/showCurrentUser", method =
-		// RequestMethod.GET)
-		@GetMapping("/showCurrentUser")
-		public String showCurrentUser(Model model, Principal principal) {
+	}
 
-			String userName = principal.getName();
-			UserModel user = userRepository.findUserByUserName(userName);
-			
-			if (user != null) {
-				model.addAttribute("user", user);
-				return "userInfo";
-			} else {
-				model.addAttribute("errorMessage", "Couldn't find user ");
-				return "forward:/recipeList";
-			}
+	// Spring 4: @RequestMapping(value = "/showCurrentUserPreferences", method =
+	// RequestMethod.GET)
+	@GetMapping("/showCurrentUserPreferences")
+	public String likeRecipe(Model model, Principal principal) {
+		List<IngredientModel> ingredients = ingredientRepository.findAllIngredientsOrderByName();
+		model.addAttribute("ingredients", ingredients);
+		List<AllergieModel> allergies = allergieRepository.findAllAllergiesOrderByName();
+		model.addAttribute("allergies", allergies);
+		
+		String userName = principal.getName();
+		UserModel user = userRepository.findUserByUserName(userName);
+
+		if (user != null) {
+			model.addAttribute("user", user);
+			return "userPreferences";
+		} else {
+			model.addAttribute("errorMessage", "Couldn't find user ");
+			return "forward:/recipeList";
 		}
-		
-		// Spring 4: @RequestMapping(value = "/showCurrentUserPreferences", method =
-				// RequestMethod.GET)
-				@GetMapping("/showCurrentUserPreferences")
-				public String likeRecipe(Model model, Principal principal) {
-
-					String userName = principal.getName();
-					UserModel user = userRepository.findUserByUserName(userName);
-					
-					if (user != null) {
-						model.addAttribute("user", user);
-						return "userPreferences";
-					} else {
-						model.addAttribute("errorMessage", "Couldn't find user ");
-						return "forward:/recipeList";
-					}
-				}
+	}
 }
