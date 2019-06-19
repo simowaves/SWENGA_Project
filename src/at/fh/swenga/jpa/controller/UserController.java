@@ -258,8 +258,10 @@ public class UserController {
 		model.addAttribute("user", user);
 
 		userRepository.save(user);
+		System.out.print("HalloJulian" + allergyId);
 
-		return "showCurrentUserPreferences";
+		//return "userPreferences";
+		return "forward:/showCurrentUserPreferences";
 	}
 	
 	// Spring 4: @RequestMapping(value = "/addLikedIngredient", method =
@@ -271,7 +273,6 @@ public class UserController {
 		IngredientModel ingredientModel = ingredientRepository.findIngredientById(ingredient);
 		user.addLovedIngredient(ingredientModel);
 		userRepository.save(user);
-
 		
 		return "forward:/showCurrentUserPreferences";
 	}
