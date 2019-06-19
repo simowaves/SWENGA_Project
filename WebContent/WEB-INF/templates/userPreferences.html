@@ -72,7 +72,7 @@
 								<div class="row">
 									<h1 class="h3 mb-4 text-gray-800">Allergies</h1>
 								</div>
-								<div class="col-md-12">
+								<div class="col-md-6">
 									<form class="needs-validation" novalidate
 										th:action="@{/addAllergy}" method="post">
 
@@ -111,17 +111,6 @@
 									<div class="table-responsive">
 										<table class="table table-bordered" id="dataTable"
 											width="100%" cellspacing="0">
-											<thead>
-												<tr>
-													<th>Allergy</th>
-
-												</tr>
-											</thead>
-											<tfoot>
-												<tr>
-													<th>Allergy</th>
-												</tr>
-											</tfoot>
 											<tbody>
 												<tr th:each="allergy : ${user.allergies}">
 
@@ -129,7 +118,7 @@
 
 													<td><form method="post"
 															th:action="@{/removeAllergy(allergyId=${allergy.id})}">
-															<button type="submit" class="btn btn-danger">Delete</button>
+															<button  class="btn btn-danger">Delete</button>
 														</form></td>
 
 												</tr>
@@ -193,17 +182,7 @@
 									<div class="table-responsive">
 										<table class="table table-bordered" id="dataTable"
 											width="100%" cellspacing="0">
-											<thead>
-												<tr>
-													<th>Allergy</th>
-
-												</tr>
-											</thead>
-											<tfoot>
-												<tr>
-													<th>Allergy</th>
-												</tr>
-											</tfoot>
+										
 											<tbody>
 												<tr th:each="lovedIngredient : ${user.lovedIngredients}">
 
@@ -211,7 +190,7 @@
 
 													<td><form method="post"
 															th:action="@{/removeLovedIngredient(ingredient=${lovedIngredient.id})}">
-															<button type="submit" class="btn btn-danger">Delete</button>
+															<button type="submit" class="btn btn-danger">Unlove</button>
 														</form></td>
 
 												</tr>
@@ -220,6 +199,7 @@
 										</table>
 									</div>
 								</div>
+							</div>
 						</div>
 						<!-- End of Second Tab -->
 						<!-- Third Tab Content -->
@@ -270,17 +250,7 @@
 									<div class="table-responsive">
 										<table class="table table-bordered" id="dataTable"
 											width="100%" cellspacing="0">
-											<thead>
-												<tr>
-													<th>Hated Ingredients</th>
-
-												</tr>
-											</thead>
-											<tfoot>
-												<tr>
-													<th>Hated Ingredients</th>
-												</tr>
-											</tfoot>
+											
 											<tbody>
 												<tr th:each="hatedIngredient : ${user.hatedIngredients}">
 
@@ -288,7 +258,7 @@
 
 													<td><form method="post"
 															th:action="@{/removeHatedIngredient(ingredient=${hatedIngredient.id})}">
-															<button type="submit" class="btn btn-danger">Delete</button>
+															<button type="submit" class="btn btn-danger">Unhate</button>
 														</form></td>
 
 												</tr>
