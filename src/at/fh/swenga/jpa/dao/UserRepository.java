@@ -87,7 +87,26 @@ public interface UserRepository extends JpaRepository<UserModel, Integer> {
 			+ "WHERE LOWER(u.userName) = LOWER(:userName) ")
 	public UserModel findUserByUserNameWithAllergiesAndLovedIngredientsAndHatedIngredients(@Param("userName") String userName);
 	
+	// give me the user with the username with its allergies
+	@Query ("SELECT u "
+			+ "FROM UserModel AS u "
+			+ "JOIN FETCH u.allergies a "
+			+ "WHERE LOWER(u.userName) = LOWER(:userName) ")
+	public UserModel findUserByUserNameWithAllergies(@Param("userName") String userName);
 	
+	// give me the user with the username with its lovedIngredients
+	@Query ("SELECT u "
+			+ "FROM UserModel AS u "
+			+ "JOIN FETCH u.lovedIngredients li "
+			+ "WHERE LOWER(u.userName) = LOWER(:userName) ")
+	public UserModel findUserByUserNameWithLovedIngredients(@Param("userName") String userName);
+	
+	// give me the user with the username with its hatedIngredients
+	@Query ("SELECT u "
+			+ "FROM UserModel AS u "
+			+ "JOIN FETCH u.hatedIngredients hi "
+			+ "WHERE LOWER(u.userName) = LOWER(:userName) ")
+	public UserModel findUserByUserNameWithHatedIngredients(@Param("userName") String userName);
 		
-		
+	
 }
