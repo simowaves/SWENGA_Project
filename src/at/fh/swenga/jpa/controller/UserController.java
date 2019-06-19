@@ -233,7 +233,6 @@ public class UserController {
 	// RequestMethod.POST)
 	@PostMapping("/addAllergy")
 	public String addAllergy(@RequestParam int allergy, Principal principal, Model model) {
-
 		String userName = principal.getName();
 		UserModel user = userRepository.findUserByUserName(userName);
 		AllergieModel allergieModel = allergieRepository.findAllergieById(allergy);
@@ -247,13 +246,12 @@ public class UserController {
 	// RequestMethod.POST)
 	@PostMapping("/removeAllergy")
 	public String removeAllergy(@RequestParam int allergyId, Principal principal, Model model) {
-
 		String userName = principal.getName();
 		UserModel user = userRepository.findUserByUserName(userName);
 		AllergieModel allergieModel = allergieRepository.findAllergieById(allergyId);
 		user.removeAllergie(allergieModel);
-		model.addAttribute("allergies", allergieModel);
-		
+		userRepository.save(user);
+
 
 		return "forward:/showCurrentUserPreferences";
 	}
@@ -262,11 +260,12 @@ public class UserController {
 	// RequestMethod.POST)
 	@PostMapping("/addLikedIngredient")
 	public String addLikedIngredient(@RequestParam int ingredient, Principal principal, Model model) {
-
 		String userName = principal.getName();
 		UserModel user = userRepository.findUserByUserName(userName);
 		IngredientModel ingredientModel = ingredientRepository.findIngredientById(ingredient);
 		user.addLovedIngredient(ingredientModel);
+		userRepository.save(user);
+
 		
 		return "/showCurrentUserPreferences";
 	}
@@ -280,6 +279,8 @@ public class UserController {
 		UserModel user = userRepository.findUserByUserName(userName);
 		IngredientModel ingredientModel = ingredientRepository.findIngredientById(ingredient);
 		user.removeLovedIngredient(ingredientModel);
+		userRepository.save(user);
+
 		
 		return "/showCurrentUserPreferences";
 	}
@@ -288,11 +289,12 @@ public class UserController {
 	// RequestMethod.POST)
 	@PostMapping("/addHatedIngredient")
 	public String addHatedIngredient(@RequestParam int ingredient, Principal principal, Model model) {
-
 		String userName = principal.getName();
 		UserModel user = userRepository.findUserByUserName(userName);
 		IngredientModel ingredientModel = ingredientRepository.findIngredientById(ingredient);
 		user.addHatedIngredient(ingredientModel);
+		userRepository.save(user);
+
 		
 		return "/showCurrentUserPreferences";
 	}
@@ -306,6 +308,7 @@ public class UserController {
 		UserModel user = userRepository.findUserByUserName(userName);
 		IngredientModel ingredientModel = ingredientRepository.findIngredientById(ingredient);
 		user.removeHatedIngredient(ingredientModel);
+		userRepository.save(user);
 		
 		return "/showCurrentUserPreferences";
 	}
