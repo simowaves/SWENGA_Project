@@ -86,7 +86,7 @@
 												<!-- expanding Ingredient selection -->
 												<div class="form-group multiple-form-group" data-max=10>
 													<div class="form-group input-group">
-														<select class="form-control" name="category" required>
+														<select class="form-control" name="allergy" required>
 															<option selected value="">Select your allergies</option>
 															<option th:each="allergy : ${allergies}"
 																th:text="${allergy.title}" th:value="${allergy.id}"></option>
