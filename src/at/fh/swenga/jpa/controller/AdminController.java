@@ -50,15 +50,19 @@ public class AdminController {
 	@PostMapping("/clearRecipeReporters")
 	public String clearRecipeReporters(Model model, @RequestParam int recId) {
 		
-		RecipeModel recipe = recipeRepository.findRecipeById(recId);
+		RecipeModel recipe = recipeRepository.findRecipeByIdWithReportingUsers(recId);
+		List<UserModel> users = userRepository.findUsersThatReportedRecipe(recId);
 		
 		
 		if (recipe == null) {
 			model.addAttribute("errorMessage", "Couldn't find recipe " + recId);
-			return "error";
+			return "errorPage";
 		}
-		recipe.setReportingUsers(null);
-		recipeRepository.save(recipe);
+	
+		for (UserModel user : users) {
+			user.removeReportedRecipe(recipe);
+			userRepository.save(user);
+		}
 		
 		return "redirect:/showAdminRecipes";
 	}
