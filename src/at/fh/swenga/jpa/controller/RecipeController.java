@@ -326,8 +326,18 @@ public class RecipeController {
 		RecipeModel recipeModel = recipeRepository.findRecipeById(id);
 		recipeModel.setEnabled(false);
 		recipeRepository.save(recipeModel);
-		return "forward:/recipeList"; 
+		return "redirect:/recipeList"; 
 	}
+	
+	// Spring 4: @RequestMapping(value = "/deleteRecipe", method =
+		// RequestMethod.POST)
+		@PostMapping("/deleteRecipeAdmin")
+		public String deleteRecipeAdmin(Model model, @RequestParam int id) {
+			RecipeModel recipeModel = recipeRepository.findRecipeById(id);
+			recipeModel.setEnabled(false);
+			recipeRepository.save(recipeModel);
+			return "redirect:/showAdminRecipes"; 
+		}
 	
 	
 	// Spring 4: @RequestMapping(value = "/editRecipe", method =

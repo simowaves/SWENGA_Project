@@ -141,7 +141,8 @@ public interface RecipeRepository extends JpaRepository<RecipeModel, Integer> {
 	// give me all the users with its userRoles and comments and recipes
 	@Query ("SELECT DISTINCT r "
 			+ "FROM RecipeModel AS r "
-			+ "LEFT JOIN FETCH r.reportingUsers ru ")
+			+ "LEFT JOIN FETCH r.reportingUsers ru "
+			+ "WHERE r.enabled = true ")
 	public List<RecipeModel> findRecipesWithReportingUsers();
 	
 
