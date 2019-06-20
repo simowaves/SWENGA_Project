@@ -63,7 +63,7 @@ public class RecipeController {
 
 		if (principal == null) {
 
-			List<RecipeModel> recipes = recipeRepository.findRecipesOrderedByLikesWithCategories();
+			List<RecipeModel> recipes = recipeRepository.findRecipesOrderedByLikes();
 			model.addAttribute("recipes", recipes);
 
 		} else {
@@ -71,11 +71,36 @@ public class RecipeController {
 			UserModel user = userRepository.findUserByUserName(principal.getName());
 
 			if (user == null) {
-				List<RecipeModel> recipes = recipeRepository.findRecipesOrderedByLikesWithCategories();
+				List<RecipeModel> recipes = recipeRepository.findRecipesOrderedByLikes();
 				model.addAttribute("recipes", recipes);
 			} else {
 
 				List<RecipeModel> recipes = recipeRepository.findRecipesFilteredByUserPreferences(user.getId());
+				model.addAttribute("recipes", recipes);
+			}
+		}
+		return "recipeList";
+	}
+	
+	@RequestMapping(value = { "mostRecentRecipes" })
+	//@GetMapping(value = { "/", "list", "recipeList" })
+	public String recentRecipes(Model model, Principal principal) {
+
+		if (principal == null) {
+
+			List<RecipeModel> recipes = recipeRepository.findRecipesOrderedByLastEdited();
+			model.addAttribute("recipes", recipes);
+
+		} else {
+
+			UserModel user = userRepository.findUserByUserName(principal.getName());
+
+			if (user == null) {
+				List<RecipeModel> recipes = recipeRepository.findRecipesOrderedByLastEdited();
+				model.addAttribute("recipes", recipes);
+			} else {
+
+				List<RecipeModel> recipes = recipeRepository.findRecipesFilteredByUserPreferencesOrderedByLastEdited(user.getId());
 				model.addAttribute("recipes", recipes);
 			}
 		}
@@ -301,8 +326,18 @@ public class RecipeController {
 		RecipeModel recipeModel = recipeRepository.findRecipeById(id);
 		recipeModel.setEnabled(false);
 		recipeRepository.save(recipeModel);
-		return "forward:/recipeList"; 
+		return "redirect:/recipeList"; 
 	}
+	
+	// Spring 4: @RequestMapping(value = "/deleteRecipe", method =
+		// RequestMethod.POST)
+		@PostMapping("/deleteRecipeAdmin")
+		public String deleteRecipeAdmin(Model model, @RequestParam int id) {
+			RecipeModel recipeModel = recipeRepository.findRecipeById(id);
+			recipeModel.setEnabled(false);
+			recipeRepository.save(recipeModel);
+			return "redirect:/showAdminRecipes"; 
+		}
 	
 	
 	// Spring 4: @RequestMapping(value = "/editRecipe", method =
@@ -314,13 +349,13 @@ public class RecipeController {
 		RecipeModel recipeModel = recipeRepository.findRecipeById(id);
 		List<IngredientModel> ingredientModel = ingredientRepository.findAllIngredientsOrderByName();
 		List<CategorieModel> categoryModel = categorieRepository.findAllCategoriesOrderByName();
-		List<IngredientAmountModel> amountModel = ingredientAmountRepository.findIngredientAmountsByRecipeId(id);
+		List<IngredientAmountModel> ingredientAmountModel = ingredientAmountRepository.findIngredientAmountsByRecipeId(id);
 		
 		model.addAttribute("user", user);
 		model.addAttribute("recipe", recipeModel);
 		model.addAttribute("ingredients", ingredientModel);
 		model.addAttribute("categories", categoryModel);
-		model.addAttribute("amounts", amountModel);
+		model.addAttribute("ingredientAmounts", ingredientAmountModel);
 		return "editRecipe";
 	}
 	
@@ -340,9 +375,7 @@ public class RecipeController {
 	// Spring 4: @RequestMapping(value = "/addIngredientAndAmount", method =
 	// RequestMethod.POST)
 	@PostMapping("/addIngredientAndAmount")
-	public String addIngredientAndAmount(@RequestParam int ingredient,@RequestParam int recipeId, @RequestParam String amount, Principal principal, Model model) {
-		String userName = principal.getName();
-		UserModel user = userRepository.findUserByUserName(userName);
+	public String addIngredientAndAmount(@RequestParam int recipeId, @RequestParam int ingredient, @RequestParam String amount, Principal principal) {
 		RecipeModel recipeModel = recipeRepository.findRecipeById(recipeId);
 		IngredientAmountModel ingredientAmountModel = new IngredientAmountModel();
 		IngredientModel ingredientModel = ingredientRepository.findIngredientById(ingredient);
@@ -351,10 +384,39 @@ public class RecipeController {
 		ingredientAmountModel.setAmount(amount);
 		ingredientAmountRepository.save(ingredientAmountModel);
 		
-		/*model.addAttribute("recipe", recipeModel);
-		model.addAttribute("ingredients", ingredientModel);
-		model.addAttribute("amount", ingredientAmountModel);
-		model.addAttribute("user", user);*/
+		return "forward:/editRecipe";
+	}
+	
+	// Spring 4: @RequestMapping(value = "/removeIngredientAndAmount", method =
+	// RequestMethod.POST)
+	@PostMapping("/removeIngredientAndAmount")
+	public String removeIngredientAndAmount(@RequestParam int recipeId, @RequestParam int ingredientAmountId, @RequestParam String amount, Principal principal, Model model) {
+		RecipeModel recipeModel = recipeRepository.findRecipeById(recipeId);
+		IngredientAmountModel ingredientAmountModel = ingredientAmountRepository.findIngredientAmountsById(ingredientAmountId);
+		recipeModel.removeIngredientAmount(ingredientAmountModel);
+		recipeRepository.save(recipeModel);
+
+		return "forward:/editRecipe";
+	}
+	
+	// Spring 4: @RequestMapping(value = "/addCategory", method = RequestMethod.POST)
+	@PostMapping("/addCategory")
+	public String addCategory(@RequestParam int category, @RequestParam int recipeId, Principal principal, Model model) {
+		RecipeModel recipeModel = recipeRepository.findRecipeById(recipeId);
+		CategorieModel categorieModel = categorieRepository.findCategorieById(category);
+		recipeModel.addCategorie(categorieModel);
+		recipeRepository.save(recipeModel);
+		
+		return "forward:/editRecipe";
+	}
+	
+	// Spring 4: @RequestMapping(value = "/removeCategory", method = RequestMethod.POST)
+	@PostMapping("/removeCategory")
+	public String removeCategory(@RequestParam int category, @RequestParam int recipeId, Principal principal, Model model) {
+		RecipeModel recipeModel = recipeRepository.findRecipeById(recipeId);
+		CategorieModel categorieModel = categorieRepository.findCategorieById(category);
+		recipeModel.removeCategorie(categorieModel);
+		recipeRepository.save(recipeModel);
 		
 		return "forward:/editRecipe";
 	}

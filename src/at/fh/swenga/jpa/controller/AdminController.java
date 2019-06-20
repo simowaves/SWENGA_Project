@@ -1,22 +1,18 @@
 package at.fh.swenga.jpa.controller;
 
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 
 import at.fh.swenga.jpa.dao.CommentRepository;
 import at.fh.swenga.jpa.dao.PictureRepository;
 import at.fh.swenga.jpa.dao.RecipeRepository;
 import at.fh.swenga.jpa.dao.UserRepository;
-import at.fh.swenga.jpa.model.PictureModel;
 import at.fh.swenga.jpa.model.RecipeModel;
 import at.fh.swenga.jpa.model.UserModel;
 
@@ -49,6 +45,22 @@ public class AdminController {
 		List<RecipeModel> recipes = recipeRepository.findRecipesWithReportingUsers();
 		model.addAttribute("recipes", recipes);
 		return "adminRecipes";
+	}
+	
+	@PostMapping("/clearRecipeReporters")
+	public String clearRecipeReporters(Model model, @RequestParam int recId) {
+		
+		RecipeModel recipe = recipeRepository.findRecipeById(recId);
+		
+		
+		if (recipe == null) {
+			model.addAttribute("errorMessage", "Couldn't find recipe " + recId);
+			return "error";
+		}
+		recipe.setReportingUsers(null);
+		recipeRepository.save(recipe);
+		
+		return "redirect:/showAdminRecipes";
 	}
 	
 }

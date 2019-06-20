@@ -255,6 +255,13 @@
 				</a>
 				<div class="dropdown-divider"></div>
 
+				</a> <a class="dropdown-item" > <i
+					class="fas fa-user fa-sm fa-fw mr-2 text-gray-400" method="post" th:href="@{/showCurrentUserAccountSettings}"></i>
+					Account Settings
+				</a>
+				<div class="dropdown-divider">
+				</div>
+				
 				<!-- Admin Menu -->
 				<a sec:authorize="hasRole('ADMIN')" class="dropdown-item"
 					th:href="@{/showAdminUsers}"> <i
