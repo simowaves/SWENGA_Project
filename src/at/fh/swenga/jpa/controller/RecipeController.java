@@ -24,6 +24,7 @@ import at.fh.swenga.jpa.dao.IngredientRepository;
 import at.fh.swenga.jpa.dao.PictureRepository;
 import at.fh.swenga.jpa.dao.RecipeRepository;
 import at.fh.swenga.jpa.dao.UserRepository;
+import at.fh.swenga.jpa.model.AllergieModel;
 import at.fh.swenga.jpa.model.CategorieModel;
 import at.fh.swenga.jpa.model.CommentModel;
 import at.fh.swenga.jpa.model.IngredientAmountModel;
@@ -323,7 +324,28 @@ public class RecipeController {
 		return "editRecipe";
 	}
 	
-	
+	// Spring 4: @RequestMapping(value = "/addIngredientAndAmount", method =
+	// RequestMethod.POST)
+	@PostMapping("/addIngredientAndAmount")
+	public String addIngredientAndAmount(@RequestParam int ingredient,@RequestParam int recipeId, @RequestParam String amount, Principal principal, Model model) {
+		String userName = principal.getName();
+		UserModel user = userRepository.findUserByUserName(userName);
+		RecipeModel recipeModel = recipeRepository.findRecipeById(recipeId);
+		IngredientAmountModel ingredientAmountModel = new IngredientAmountModel();
+		IngredientModel ingredientModel = ingredientRepository.findIngredientById(ingredient);
+		ingredientAmountModel.setRecipe(recipeModel);
+		ingredientAmountModel.setIngredient(ingredientModel);
+		ingredientAmountModel.setAmount(amount);
+		ingredientAmountRepository.save(ingredientAmountModel);
+		
+		/*model.addAttribute("recipe", recipeModel);
+		model.addAttribute("ingredients", ingredientModel);
+		model.addAttribute("amount", ingredientAmountModel);
+		model.addAttribute("user", user);*/
+		
+		return "forward:/editRecipe";
+	}
+
 
 	public static void main(String[] args) {
 	}
