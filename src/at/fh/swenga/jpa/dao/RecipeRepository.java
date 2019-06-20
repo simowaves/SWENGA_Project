@@ -258,6 +258,23 @@ public interface RecipeRepository extends JpaRepository<RecipeModel, Integer> {
 			+ "ORDER BY COUNT(CASE uli.id WHEN :userId THEN 1 ELSE NULL END) DESC ")
 	public List<RecipeModel> findRecipesFilteredByUserPreferencesAndIngredient(@Param("userId") int userId, @Param("ingId") int ingId);
 	
-
+	// give me all the recipes from users that the user is following
+	 @Query ("SELECT r "
+	   + "FROM RecipeModel AS r "
+	   + "LEFT JOIN r.ingredientAmounts ia "
+	   + "LEFT JOIN ia.ingredient i "
+	   + "LEFT JOIN i.usersHateMe uhi "
+	   + "LEFT JOIN i.allergies a "
+	   + "LEFT JOIN a.users ua "
+	   + "LEFT JOIN r.author au "
+	   + "LEFT JOIN au.usersFollowingMe ufm "
+	   + "WHERE r.enabled = true "
+	   + "AND r.published = true "
+	   + "AND ufm.id = :userId "
+	   + "GROUP BY r "
+	   + "HAVING COUNT(CASE uhi.id WHEN :userId THEN 1 ELSE NULL END) = 0 "
+	   + "AND COUNT(CASE ua.id WHEN :userId THEN 1 ELSE NULL END) = 0 "
+	   + "ORDER BY r.lastEdited DESC ")
+	 public List<RecipeModel> findRecipesFilteredByUserPreferencesAndFollowedByUserOrderedByLastEdited(@Param("userId") int userId);
 	
 }

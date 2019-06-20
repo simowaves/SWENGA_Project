@@ -16,7 +16,7 @@
 	<div th:if="${param.logout}" class="alert alert-success">You have
 		been logged out.</div>
 
-	
+
 	<div class="container">
 
 		<!-- Outer Row -->
@@ -63,6 +63,9 @@
 									</form>
 									<div class="text-center">
 										<a class="small" href="register.html">Create an Account!</a>
+									</div>
+									<div class="text-center">
+										<a class="small" th:href="@{/}">Find recipe as a guest</a>
 									</div>
 								</div>
 							</div>

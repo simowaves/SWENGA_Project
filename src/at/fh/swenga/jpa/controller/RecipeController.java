@@ -1,7 +1,6 @@
 package at.fh.swenga.jpa.controller;
 
 import java.security.Principal;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -17,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import at.fh.swenga.jpa.dao.AllergieRepository;
 import at.fh.swenga.jpa.dao.CategorieRepository;
 import at.fh.swenga.jpa.dao.CommentRepository;
 import at.fh.swenga.jpa.dao.IngredientAmountRepository;
@@ -55,6 +55,9 @@ public class RecipeController {
 	
 	@Autowired
 	CommentRepository commentRepository;
+	
+	@Autowired
+	AllergieRepository allergieRepository;
 	
 
 	@RequestMapping(value = { "list", "recipeList" })
@@ -107,7 +110,7 @@ public class RecipeController {
 		return "recipeList";
 	}
 	
-	@RequestMapping(value = { "followingRecipes" })
+	@RequestMapping(value = { "/followingRecipes" })
 	//@GetMapping(value = { "/", "list", "followingRecipes" })
 	public String followingRecipes(Model model, Principal principal) {
 
@@ -124,13 +127,26 @@ public class RecipeController {
 				return "errorPage";
 			} else {
 
-				//List<RecipeModel> recipes = recipeRepository.findRecipesFilteredByUserPreferencesAndFollowedByUserOrderedByLastEdited(user.getId());
-				List<RecipeModel> recipes = recipeRepository.findRecipesFilteredByUserPreferencesOrderedByLastEdited(user.getId());
+				List<RecipeModel> recipes = recipeRepository.findRecipesFilteredByUserPreferencesAndFollowedByUserOrderedByLastEdited(user.getId());
+				//List<RecipeModel> recipes = recipeRepository.findRecipesFilteredByUserPreferencesOrderedByLastEdited(user.getId());
 
 				model.addAttribute("recipes", recipes);
 			}
 		}
 		return "recipeList";
+	}
+	
+	// Spring 4: @RequestMapping(value = "/ingredientsList", method = RequestMethod.GET)
+	@GetMapping("/advancedSearch")
+	public String categoriesList(Model model) {
+		
+			List<IngredientModel> ingredients = ingredientRepository.findAll();
+			model.addAttribute("ingredients", ingredients);
+			
+			List<AllergieModel> allergies = allergieRepository.findAll();
+			model.addAttribute("allergies", allergies);
+			
+		return "/advancedSearch";
 	}
 
 	// Spring 4: @RequestMapping(value = "/showRecipe", method = RequestMethod.GET)

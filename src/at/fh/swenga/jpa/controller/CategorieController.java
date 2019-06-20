@@ -1,7 +1,6 @@
 package at.fh.swenga.jpa.controller;
 
 import java.security.Principal;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,10 +9,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import at.fh.swenga.jpa.dao.CategorieRepository;
 import at.fh.swenga.jpa.dao.CommentRepository;
 import at.fh.swenga.jpa.dao.PictureRepository;
 import at.fh.swenga.jpa.dao.RecipeRepository;
 import at.fh.swenga.jpa.dao.UserRepository;
+import at.fh.swenga.jpa.model.CategorieModel;
 import at.fh.swenga.jpa.model.RecipeModel;
 import at.fh.swenga.jpa.model.UserModel;
 
@@ -32,36 +33,38 @@ public class CategorieController {
 	@Autowired
 	CommentRepository commentRepository;
 	
+	@Autowired
+	CategorieRepository categorieRepository;
+	
 	// Spring 4: @RequestMapping(value = "/showCategorie", method = RequestMethod.GET)
-		@GetMapping("/showCategorie")
-		public String showCategorie(Model model, @RequestParam int id, Principal principal) {
+	@GetMapping("/showCategorie")
+	public String showCategorie(Model model, @RequestParam int id, Principal principal) {
+		
+		if (principal == null) {
 			
-			if (principal == null) {
-				
-				List<RecipeModel> recipes = recipeRepository.findRecipesByCategorieId(id);
-				model.addAttribute("recipes", recipes);
+			List<RecipeModel> recipes = recipeRepository.findRecipesByCategorieId(id);
+			model.addAttribute("recipes", recipes);
 
-			} else {
-				
-				UserModel user = userRepository.findUserByUserName(principal.getName());
-				/*
-				
-				List<RecipeModel> filteredRecipes = recipeRepository.filterRecipesByUserPreferencesAndCategorieId(user.getId(), id);
-				List<RecipeModel> orderedRecipes = recipeRepository.findRecipesOrderedByfavoriteIngredients(user.getId());
-
-				List<RecipeModel> recipes = new ArrayList<RecipeModel>();
-
-				for (RecipeModel recipe : orderedRecipes) {
-					if (filteredRecipes.contains(recipe)) {
-						recipes.add(recipe);
-					}
-				}
-				*/
-				List<RecipeModel> recipes = recipeRepository.findRecipesFilteredByUserPreferencesAndCategorie(user.getId(), id);
-				
-				model.addAttribute("recipes", recipes);
-			}
-			return "recipeList";
+		} else {
+			
+			UserModel user = userRepository.findUserByUserName(principal.getName());
+			List<RecipeModel> recipes = recipeRepository.findRecipesFilteredByUserPreferencesAndCategorie(user.getId(), id);
+			
+			model.addAttribute("recipes", recipes);
 		}
+		return "recipeList";
+	}
+	
+	// Spring 4: @RequestMapping(value = "/categoriesList", method = RequestMethod.GET)
+	@GetMapping("/categoriesList")
+	public String categoriesList(Model model) {
+		
+
+			List<CategorieModel> categories = categorieRepository.findAll();
+			
+			model.addAttribute("categories", categories);
+			
+		return "/categoriesList";
+	}
 
 }

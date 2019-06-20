@@ -61,7 +61,14 @@
 						<!-- Cards Recipes -->
 
 						<div class="card-deck">
-							<div th:replace="~{includes/fragments :: recipeCard}" />
+
+
+							<!-- Basic Card -->
+							<div class="col-xl-3 col-md-6 col-sm-12 mb-4 px-0"
+								th:each="recipe : ${recipes}">
+								<!-- Card Content -->
+								<div th:replace="~{includes/fragments :: recipeCardContent}" />
+							</div>
 						</div>
 					</div>
 					<!-- END Featured Recipe -->
