@@ -120,12 +120,13 @@
 
 											<tbody>
 												<tr th:each="categorie : ${recipe.categories}">
-
+		
 													<td th:text="${categorie.title}"></td>
-													<td><form method="post">
+													<td><form method="post" th:action="@{/removeCategory(category=${categorie.id}, recipeId=${recipe.id})}"
+															>
 															<button type="submit" class="btn btn-danger">Remove</button>
 														</form></td>
-
+<!-- th:action="@{/removeCategory{category=${categorie.id}, recipeId=${recipe.id}}}" -->
 												</tr>
 
 											</tbody>
@@ -186,7 +187,7 @@
 											width="100%" cellspacing="0">
 
 											<tbody>
-												<tr th:each="ingredientAmount : ${amounts}">
+												<tr th:each="ingredientAmount : ${ingredientAmounts}">
 
 													<td th:text="${ingredientAmount.amount}"></td>
 													<td th:text="${ingredientAmount.ingredient.name}"></td>
