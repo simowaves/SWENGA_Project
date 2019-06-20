@@ -1,5 +1,7 @@
 package at.fh.swenga.jpa.dao;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -107,6 +109,14 @@ public interface UserRepository extends JpaRepository<UserModel, Integer> {
 			+ "LEFT JOIN FETCH u.hatedIngredients hi "
 			+ "WHERE LOWER(u.userName) = LOWER(:userName) ")
 	public UserModel findUserByUserNameWithHatedIngredients(@Param("userName") String userName);
+	
+	// give me the user with the username with its hatedIngredients
+	@Query ("SELECT DISTINCT u "
+			+ "FROM UserModel AS u "
+			+ "LEFT JOIN FETCH u.userRoles ur "
+			+ "LEFT JOIN FETCH u.comments c "
+			+ "LEFT JOIN FETCH u.recipes r ")
+	public List<UserModel> findUsersWithUserRolesAndRecipesAndComments();
 		
 	
 }

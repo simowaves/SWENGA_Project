@@ -38,7 +38,7 @@ public class AdminController {
 	// Spring 4: @RequestMapping(value = "/showAdminUsers", method = RequestMethod.GET)
 	@GetMapping("/showAdminUsers")
 	public String showAdminUsers(Model model) {
-		List<UserModel> users = userRepository.findAll();
+		List<UserModel> users = userRepository.findUsersWithUserRolesAndRecipesAndComments();
 		model.addAttribute("users", users);
 		return "adminUsers";
 	}
