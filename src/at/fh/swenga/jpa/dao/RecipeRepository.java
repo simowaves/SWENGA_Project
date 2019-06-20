@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import at.fh.swenga.jpa.model.RecipeModel;
+import at.fh.swenga.jpa.model.UserModel;
 
 @Repository
 @Transactional
@@ -116,4 +117,10 @@ public interface RecipeRepository extends JpaRepository<RecipeModel, Integer> {
 				+ "GROUP BY r.id "
 				+ "ORDER BY COUNT(lu.id) DESC")
 	public List<RecipeModel> findRecipesOrderedByLikesWithCategories ();
+		
+	// give me all the users with its userRoles and comments and recipes
+	@Query ("SELECT DISTINCT r "
+			+ "FROM RecipeModel AS r "
+			+ "LEFT JOIN FETCH r.reportingUsers ru ")
+	public List<RecipeModel> findRecipesWithReportingUsers();
 }
