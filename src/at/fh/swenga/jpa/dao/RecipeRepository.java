@@ -133,6 +133,9 @@ public interface RecipeRepository extends JpaRepository<RecipeModel, Integer> {
 			+ "LEFT JOIN FETCH r.reportingUsers ru ")
 	public List<RecipeModel> findRecipesWithReportingUsers();
 	
+
+	public List<RecipeModel> findTop3ByOrderByTitleAsc();
+
 	// ---------------------------------------------------------------------------- new filter Query ----------------------------------------
 	
 	// give me all the recipes that the user can eat
@@ -207,7 +210,6 @@ public interface RecipeRepository extends JpaRepository<RecipeModel, Integer> {
 			+ "AND COUNT(CASE ua.id WHEN :userId THEN 1 ELSE NULL END) = 0 "
 			+ "ORDER BY COUNT(CASE uli.id WHEN :userId THEN 1 ELSE NULL END) DESC ")
 	public List<RecipeModel> findRecipesFilteredByUserPreferencesAndIngredient(@Param("userId") int userId, @Param("ingId") int ingId);
-	
 	
 	
 }

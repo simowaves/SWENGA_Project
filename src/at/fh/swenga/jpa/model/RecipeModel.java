@@ -189,6 +189,12 @@ public class RecipeModel implements java.io.Serializable {
 			ingredientAmounts = new HashSet<IngredientAmountModel>();
 		ingredientAmounts.add(ingredientAmount);
 	}
+	
+	public void removeIngredientAmount(IngredientAmountModel ingredientAmount) {
+		if (ingredientAmounts == null)
+			ingredientAmounts = new HashSet<IngredientAmountModel>();
+		ingredientAmounts.remove(ingredientAmount);
+	}
 
 	public boolean isPublished() {
 		return published;
@@ -218,6 +224,12 @@ public class RecipeModel implements java.io.Serializable {
 		if (categories == null)
 			categories = new HashSet<CategorieModel>();
 		categories.add(categorie);
+	}
+	
+	public void removeCategorie(CategorieModel categorie) {
+		if (categories == null)
+			categories = new HashSet<CategorieModel>();
+		categories.remove(categorie);
 	}
 
 	public Set<CommentModel> getComments() {

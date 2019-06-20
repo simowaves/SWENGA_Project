@@ -57,7 +57,7 @@ public class RecipeController {
 	CommentRepository commentRepository;
 	
 
-	@RequestMapping(value = { "/", "list", "recipeList" })
+	@RequestMapping(value = { "list", "recipeList" })
 	//@GetMapping(value = { "/", "list", "recipeList" })
 	public String index(Model model, Principal principal) {
 
@@ -314,22 +314,33 @@ public class RecipeController {
 		RecipeModel recipeModel = recipeRepository.findRecipeById(id);
 		List<IngredientModel> ingredientModel = ingredientRepository.findAllIngredientsOrderByName();
 		List<CategorieModel> categoryModel = categorieRepository.findAllCategoriesOrderByName();
-		List<IngredientAmountModel> amountModel = ingredientAmountRepository.findIngredientAmountsByRecipeId(id);
+		List<IngredientAmountModel> ingredientAmountModel = ingredientAmountRepository.findIngredientAmountsByRecipeId(id);
 		
 		model.addAttribute("user", user);
 		model.addAttribute("recipe", recipeModel);
 		model.addAttribute("ingredients", ingredientModel);
 		model.addAttribute("categories", categoryModel);
-		model.addAttribute("amounts", amountModel);
+		model.addAttribute("ingredientAmounts", ingredientAmountModel);
 		return "editRecipe";
 	}
 	
+
+	@RequestMapping(value = "/", method = RequestMethod.GET)
+	public String langingPage(Model model) {
+		List<RecipeModel> recipeModel = recipeRepository.findTop3ByOrderByTitleAsc();
+		List<CategorieModel> categorieModel = categorieRepository.findTop3ByOrderByTitleAsc();
+		List<UserModel> userModel = userRepository.findTop3ByOrderByIdAsc();
+		
+		model.addAttribute("recipes", recipeModel);
+		model.addAttribute("authors", userModel);
+		model.addAttribute("categories", categorieModel);
+		return "landing";
+	}	
+
 	// Spring 4: @RequestMapping(value = "/addIngredientAndAmount", method =
 	// RequestMethod.POST)
 	@PostMapping("/addIngredientAndAmount")
-	public String addIngredientAndAmount(@RequestParam int ingredient,@RequestParam int recipeId, @RequestParam String amount, Principal principal, Model model) {
-		String userName = principal.getName();
-		UserModel user = userRepository.findUserByUserName(userName);
+	public String addIngredientAndAmount(@RequestParam int recipeId, @RequestParam int ingredient, @RequestParam String amount, Principal principal) {
 		RecipeModel recipeModel = recipeRepository.findRecipeById(recipeId);
 		IngredientAmountModel ingredientAmountModel = new IngredientAmountModel();
 		IngredientModel ingredientModel = ingredientRepository.findIngredientById(ingredient);
@@ -338,15 +349,45 @@ public class RecipeController {
 		ingredientAmountModel.setAmount(amount);
 		ingredientAmountRepository.save(ingredientAmountModel);
 		
-		/*model.addAttribute("recipe", recipeModel);
-		model.addAttribute("ingredients", ingredientModel);
-		model.addAttribute("amount", ingredientAmountModel);
-		model.addAttribute("user", user);*/
+		return "forward:/editRecipe";
+	}
+	
+	// Spring 4: @RequestMapping(value = "/removeIngredientAndAmount", method =
+	// RequestMethod.POST)
+	@PostMapping("/removeIngredientAndAmount")
+	public String removeIngredientAndAmount(@RequestParam int recipeId, @RequestParam int ingredientAmountId, @RequestParam String amount, Principal principal, Model model) {
+		RecipeModel recipeModel = recipeRepository.findRecipeById(recipeId);
+		IngredientAmountModel ingredientAmountModel = ingredientAmountRepository.findIngredientAmountsById(ingredientAmountId);
+		recipeModel.removeIngredientAmount(ingredientAmountModel);
+		recipeRepository.save(recipeModel);
+
+		return "forward:/editRecipe";
+	}
+	
+	// Spring 4: @RequestMapping(value = "/addCategory", method = RequestMethod.POST)
+	@PostMapping("/addCategory")
+	public String addCategory(@RequestParam int category, @RequestParam int recipeId, Principal principal, Model model) {
+		RecipeModel recipeModel = recipeRepository.findRecipeById(recipeId);
+		CategorieModel categorieModel = categorieRepository.findCategorieById(category);
+		recipeModel.addCategorie(categorieModel);
+		recipeRepository.save(recipeModel);
+		
+		return "forward:/editRecipe";
+	}
+	
+	// Spring 4: @RequestMapping(value = "/removeCategory", method = RequestMethod.POST)
+	@PostMapping("/removeCategory")
+	public String removeCategory(@RequestParam int category, @RequestParam int recipeId, Principal principal, Model model) {
+		RecipeModel recipeModel = recipeRepository.findRecipeById(recipeId);
+		CategorieModel categorieModel = categorieRepository.findCategorieById(category);
+		recipeModel.removeCategorie(categorieModel);
+		recipeRepository.save(recipeModel);
 		
 		return "forward:/editRecipe";
 	}
 
 
 	public static void main(String[] args) {
+
 	}
 }
