@@ -112,17 +112,17 @@
 							class="d-sm-flex align-items-center justify-content-between mb-4">
 							<h1 class="h3 mb-0 text-gray-800">Top Categories</h1>
 						</div>
-						<div>
-							<div class="card bg-dark text-white col-xl-2 col-md-4 mb-4"
-								href="#">
+						<div class="card-deck">
+							<span class="card bg-dark text-white col-xl-2 col-md-4 mb-4"
+								th:href="@{/showCategorie}" th:each="categorie : ${categories}">
 								<img
-									src="https://images.unsplash.com/photo-1498579150354-977475b7ea0b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
-									class="card-img" alt="...">
+								src="https://images.unsplash.com/photo-1498579150354-977475b7ea0b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
+								class="card-img" alt="...">
 								<div class="card-img-overlay">
-									<h3 class="card-title">Italian</h3>
+									<h3 class="card-title" th:text="${categorie.title}"></h3>
 									<p class="card-text"></p>
 								</div>
-							</div>
+							</span>
 						</div>
 					</div>
 					<!-- END Top Categories -->
@@ -134,13 +134,35 @@
 							class="d-sm-flex align-items-center justify-content-between mb-4">
 							<h1 class="h3 mb-0 text-gray-800">Top Users</h1>
 						</div>
-						<div>
-							<img class="img-profile rounded-circle"
-								src="https://source.unsplash.com/QAB-WJcbgJk/60x60"><a class="h5 mb-4"
-								th:text="${recipe.author.userName}"
-								th:href="@{/showUser(id=${recipe.author.id})}"></a>
-						</div>
+						<div class="card-deck">
+							<div class="card col-xl-2 col-md-4 mb-4"
+								th:each=" tuser : ${authors}">
+								<div class="card-body">
+									<div class="row no-gutters align-items-center">
+										<div class="col mr-2">
+											<img class="img-profile rounded-circle"
+												src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
+										</div>
+										<div class="col">
+											<div>
+												<a class="h5 mb-4" th:text="${tuser.userName}"
+													th:href="@{/showUser(id=${tuser.id})}"></a>
+											</div>
+											<!--  
+											<div>
+												<span>Recipes:</span>
+												<span class="h5 mb-4" th:text="#list.size(tuser.recipes)}"
+													th:href="@{/showUser(id=${tuser.id})}"></span>
+											</div> -->
 
+										</div>
+
+
+
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
 					<!-- END Authors  -->
 

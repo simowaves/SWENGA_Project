@@ -123,4 +123,6 @@ public interface RecipeRepository extends JpaRepository<RecipeModel, Integer> {
 			+ "FROM RecipeModel AS r "
 			+ "LEFT JOIN FETCH r.reportingUsers ru ")
 	public List<RecipeModel> findRecipesWithReportingUsers();
+	
+	public List<RecipeModel> findTop3ByOrderByTitleAsc();
 }

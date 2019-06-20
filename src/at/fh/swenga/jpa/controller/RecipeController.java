@@ -87,7 +87,7 @@ public class RecipeController {
 				model.addAttribute("recipes", recipes);
 			}
 		}
-		return "landing";
+		return "recipes";
 	}
 
 	// Spring 4: @RequestMapping(value = "/showRecipe", method = RequestMethod.GET)
@@ -318,8 +318,15 @@ public class RecipeController {
 		return "editRecipe";
 	}
 	
-	
-
-	public static void main(String[] args) {
+	@RequestMapping(value = "/landing", method = RequestMethod.GET)
+	public String langingPage(Model model) {
+		List<RecipeModel> recipeModel = recipeRepository.findTop3ByOrderByTitleAsc();
+		List<CategorieModel> categorieModel = categorieRepository.findTop3ByOrderByTitleAsc();
+		List<UserModel> userModel = userRepository.findTop3ByOrderByIdAsc();
+		
+		model.addAttribute("recipes", recipeModel);
+		model.addAttribute("authors", userModel);
+		model.addAttribute("categories", categorieModel);
+		return "landing";
 	}
 }

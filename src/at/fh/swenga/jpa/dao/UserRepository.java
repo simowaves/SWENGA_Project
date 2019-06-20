@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import at.fh.swenga.jpa.model.RecipeModel;
 import at.fh.swenga.jpa.model.UserModel;
 
 @Repository
@@ -117,6 +118,13 @@ public interface UserRepository extends JpaRepository<UserModel, Integer> {
 			+ "LEFT JOIN FETCH u.comments c "
 			+ "LEFT JOIN FETCH u.recipes r ")
 	public List<UserModel> findUsersWithUserRolesAndRecipesAndComments();
-		
 	
+	@Query ("SELECT u "
+			+ "FROM UserModel AS u "
+			+ "LEFT JOIN FETCH u.recipes r "
+			+ "ORDER BY u.userName ")
+	public List<UserModel> findTop3ByOrderByIdAscAndRecipes();
+	
+	public List<UserModel> findTop3ByOrderByIdAsc();
+
 }
