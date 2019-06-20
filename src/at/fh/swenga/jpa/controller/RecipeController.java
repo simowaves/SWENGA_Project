@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import at.fh.swenga.jpa.dao.AllergieRepository;
 import at.fh.swenga.jpa.dao.CategorieRepository;
 import at.fh.swenga.jpa.dao.CommentRepository;
 import at.fh.swenga.jpa.dao.IngredientAmountRepository;
@@ -23,6 +24,7 @@ import at.fh.swenga.jpa.dao.IngredientRepository;
 import at.fh.swenga.jpa.dao.PictureRepository;
 import at.fh.swenga.jpa.dao.RecipeRepository;
 import at.fh.swenga.jpa.dao.UserRepository;
+import at.fh.swenga.jpa.model.AllergieModel;
 import at.fh.swenga.jpa.model.CategorieModel;
 import at.fh.swenga.jpa.model.CommentModel;
 import at.fh.swenga.jpa.model.IngredientAmountModel;
@@ -53,6 +55,9 @@ public class RecipeController {
 	
 	@Autowired
 	CommentRepository commentRepository;
+	
+	@Autowired
+	AllergieRepository allergieRepository;
 	
 
 	@RequestMapping(value = { "list", "recipeList" })
@@ -129,6 +134,19 @@ public class RecipeController {
 			}
 		}
 		return "recipeList";
+	}
+	
+	// Spring 4: @RequestMapping(value = "/ingredientsList", method = RequestMethod.GET)
+	@GetMapping("/advancedSearch")
+	public String categoriesList(Model model) {
+		
+			List<IngredientModel> ingredients = ingredientRepository.findAll();
+			model.addAttribute("ingredients", ingredients);
+			
+			List<AllergieModel> allergies = allergieRepository.findAll();
+			model.addAttribute("allergies", allergies);
+			
+		return "/advancedSearch";
 	}
 
 	// Spring 4: @RequestMapping(value = "/showRecipe", method = RequestMethod.GET)

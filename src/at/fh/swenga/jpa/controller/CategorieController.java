@@ -57,7 +57,7 @@ public class CategorieController {
 	
 	// Spring 4: @RequestMapping(value = "/categoriesList", method = RequestMethod.GET)
 	@GetMapping("/categoriesList")
-	public String categoriesList(Model model, @RequestParam int id, Principal principal) {
+	public String categoriesList(Model model) {
 		
 
 			List<CategorieModel> categories = categorieRepository.findAll();
