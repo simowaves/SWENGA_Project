@@ -1,15 +1,12 @@
 package at.fh.swenga.jpa.controller;
 
 import java.security.Principal;
-import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,7 +16,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import at.fh.swenga.jpa.dao.AllergieRepository;
@@ -28,12 +24,8 @@ import at.fh.swenga.jpa.dao.RecipeCollectionRepository;
 import at.fh.swenga.jpa.dao.UserRepository;
 import at.fh.swenga.jpa.dao.UserRoleRepository;
 import at.fh.swenga.jpa.model.AllergieModel;
-import at.fh.swenga.jpa.model.CategorieModel;
-import at.fh.swenga.jpa.model.CommentModel;
-import at.fh.swenga.jpa.model.IngredientAmountModel;
 import at.fh.swenga.jpa.model.IngredientModel;
 import at.fh.swenga.jpa.model.RecipeCollectionModel;
-import at.fh.swenga.jpa.model.RecipeModel;
 import at.fh.swenga.jpa.model.UserModel;
 import at.fh.swenga.jpa.model.UserRoleModel;
 
@@ -78,7 +70,6 @@ public class UserController {
 			}
 			model.addAttribute("errorMessage", errorMessage);
 
-			// Multiple ways to "forward"
 			return "register";
 		}
 
@@ -129,12 +120,6 @@ public class UserController {
 			model.addAttribute("errorMessage", "Couldn't find user " + id);
 			return "forward:/recipeList";
 		}
-	}
-
-	@RequestMapping(value = "/loggedUserName", method = RequestMethod.GET)
-	@ResponseBody
-	public String currentUserName(Authentication authentication) {
-		return authentication.getName();
 	}
 
 	// Spring 4: @RequestMapping(value = "/followUser", method =
@@ -212,27 +197,6 @@ public class UserController {
 	
 	// Spring 4: @RequestMapping(value = "/showCurrentUserPreferences", method =
 	// RequestMethod.GET)
-	@PostMapping("/showCurrentUserPreferences")
-	public String likeRecipePost(Model model, Principal principal) {
-		List<IngredientModel> ingredients = ingredientRepository.findAllIngredientsOrderByName();
-		model.addAttribute("ingredients", ingredients);
-		List<AllergieModel> allergies = allergieRepository.findAllAllergiesOrderByName();
-		model.addAttribute("allergies", allergies);
-
-		String userName = principal.getName();
-		UserModel user = userRepository.findUserByUserName(userName);
-
-		if (user != null) {
-			model.addAttribute("user", user);
-			return "userPreferences";
-		} else {
-			model.addAttribute("errorMessage", "Couldn't find user ");
-			return "forward:/recipeList";
-		}
-	}
-	
-	// Spring 4: @RequestMapping(value = "/showCurrentUserPreferences", method =
-	// RequestMethod.GET)
 	@GetMapping("/showCurrentUserAccountSettings")
 	public String showCurrentUserAccountSettings(Model model, Principal principal) {
 		String userName = principal.getName();
@@ -246,25 +210,6 @@ public class UserController {
 			return "forward:/recipeList";
 		}
 	}
-	
-	// Spring 4: @RequestMapping(value = "/showCurrentUserPreferences", method =
-	// RequestMethod.GET)
-	@PostMapping("/showCurrentUserAccountSettings")
-	public String showCurrentUserAccountSettingsPost(Model model, Principal principal) {
-		String userName = principal.getName();
-		UserModel user = userRepository.findUserByUserName(userName);
-
-		if (user != null) {
-			model.addAttribute("user", user);
-			return "accountSettings";
-		} else {
-			model.addAttribute("errorMessage", "Couldn't find user ");
-			return "forward:/recipeList";
-		}
-	}
-	
-	
-	
 
 	// Spring 4: @RequestMapping(value = "/addAllergy", method =
 	// RequestMethod.POST)
@@ -356,8 +301,9 @@ public class UserController {
 		UserModel user = userRepository.findUserByUserName(oldUserName);
 		user.setUserName(userName);
 		userRepository.save(user);
+		SecurityContextHolder.clearContext();
 	
-		return "logout";
+		return "redirect:/login";
 	}
 	
 	// Spring 4: @RequestMapping(value = "/updateEmailAddress", method = RequestMethod.POST)
@@ -368,7 +314,7 @@ public class UserController {
 		user.setEmailAddress(emailAddress);
 		userRepository.save(user);
 	
-		return "forward:/showCurrentUserAccountSettings";
+		return "redirect:/showCurrentUserAccountSettings";
 	}
 	
 	// Spring 4: @RequestMapping(value = "/updatePassword", method = RequestMethod.POST)
@@ -381,6 +327,6 @@ public class UserController {
 
 		userRepository.save(user);
 	
-		return "forward:/showCurrentUserAccountSettings";
+		return "redirect:/showCurrentUserAccountSettings";
 	}
 }
