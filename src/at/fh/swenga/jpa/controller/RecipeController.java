@@ -63,7 +63,7 @@ public class RecipeController {
 
 		if (principal == null) {
 
-			List<RecipeModel> recipes = recipeRepository.findRecipesOrderedByLikesWithCategories();
+			List<RecipeModel> recipes = recipeRepository.findRecipesOrderedByLikes();
 			model.addAttribute("recipes", recipes);
 
 		} else {
@@ -71,11 +71,36 @@ public class RecipeController {
 			UserModel user = userRepository.findUserByUserName(principal.getName());
 
 			if (user == null) {
-				List<RecipeModel> recipes = recipeRepository.findRecipesOrderedByLikesWithCategories();
+				List<RecipeModel> recipes = recipeRepository.findRecipesOrderedByLikes();
 				model.addAttribute("recipes", recipes);
 			} else {
 
 				List<RecipeModel> recipes = recipeRepository.findRecipesFilteredByUserPreferences(user.getId());
+				model.addAttribute("recipes", recipes);
+			}
+		}
+		return "recipeList";
+	}
+	
+	@RequestMapping(value = { "mostRecentRecipes" })
+	//@GetMapping(value = { "/", "list", "recipeList" })
+	public String recentRecipes(Model model, Principal principal) {
+
+		if (principal == null) {
+
+			List<RecipeModel> recipes = recipeRepository.findRecipesOrderedByLastEdited();
+			model.addAttribute("recipes", recipes);
+
+		} else {
+
+			UserModel user = userRepository.findUserByUserName(principal.getName());
+
+			if (user == null) {
+				List<RecipeModel> recipes = recipeRepository.findRecipesOrderedByLastEdited();
+				model.addAttribute("recipes", recipes);
+			} else {
+
+				List<RecipeModel> recipes = recipeRepository.findRecipesFilteredByUserPreferencesOrderedByLastEdited(user.getId());
 				model.addAttribute("recipes", recipes);
 			}
 		}
