@@ -103,7 +103,7 @@
 									<!-- Basic Card Example -->
 
 									<div class="col-xl-3 col-md-6 col-sm-12 mb-4 px-0"
-										th:each="recipe : ${user.recipes }">
+										th:each="recipe : ${recipes }">
 
 										<div th:replace="~{includes/fragments :: recipeCardContent}" />
 									</div>
@@ -120,7 +120,7 @@
 									<!-- Basic Card Example -->
 
 									<div class="col-xl-3 col-md-6 col-sm-12 mb-4 px-0"
-										th:each="recipe : ${user.likedRecipes}">
+										th:each="recipe : ${likedRecipes}">
 
 										<div th:replace="~{includes/fragments :: recipeCardContent}" />
 									</div>

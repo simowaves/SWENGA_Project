@@ -39,8 +39,16 @@ public interface RecipeRepository extends JpaRepository<RecipeModel, Integer> {
 	@Query ("SELECT r "
 			+ "FROM RecipeModel AS r "
 			+ "JOIN r.author u "
-			+ "WHERE u.id = :userId ")
+			+ "WHERE u.id = :userId "
+			+ "AND r.enabled = true ")
 	public List<RecipeModel> findRecipesByUserId (@Param("userId") int userId);
+	
+	@Query ("SELECT r "
+			+ "FROM RecipeModel AS r "
+			+ "JOIN r.likingUsers u "
+			+ "WHERE u.id = :userId "
+			+ "AND r.enabled = true ")
+	public List<RecipeModel> findRecipesByLikingUserId (@Param("userId") int userId);
 	
 	/*
 	
