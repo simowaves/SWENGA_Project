@@ -425,7 +425,7 @@ public class RecipeController {
 		recipeModel.removeCategorie(categorieModel);
 		recipeRepository.save(recipeModel);
 		
-		redirectAttributes.addAttribute("recipeId", recipeId);
+		redirectAttributes.addAttribute("id", recipeId);
 		
 		return "redirect:/editRecipe";
 	}

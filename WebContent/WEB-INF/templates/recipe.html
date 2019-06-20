@@ -88,10 +88,10 @@
 									</button>
 								</form>
 								<form class="form-group"
-									th:action="@{/editRecipe(id=${recipe.id})}" method="post">
-									<button class="btn btn-warning" type="submit">
+									th:action="@{/editRecipe(id=${recipe.id})}">
+									<a class="btn btn-warning" th:href="@{/editRecipe(id=${recipe.id})}" type="submit">
 										<i class="fas fa-wrench mr-2"></i>Edit
-									</button>
+									</a>
 								</form>
 								<form class="form-group"
 									th:action="@{/deleteRecipe(id=${recipe.id})}" method="post">
