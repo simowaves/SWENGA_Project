@@ -66,7 +66,9 @@
 							<div class="text-center">
 								<a class="small" href="login.html">Already have an account?
 									Login!</a>
-
+							</div>
+							<div class="text-center">
+								<a class="small" th:href="@{/}">Find recipe as a guest</a>
 							</div>
 						</div>
 					</div>
@@ -101,7 +103,7 @@
 					}, false);
 		})();
 	</script>
-	
+
 	<!--  JS temporaly  here, should be at bottom of html to speed loading time-->
 	<div th:replace="~{includes/bootstrap :: bootstrapJS}" />
 </body>
