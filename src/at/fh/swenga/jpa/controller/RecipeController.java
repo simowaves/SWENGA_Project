@@ -504,7 +504,7 @@ public class RecipeController {
 	@PostMapping("/setDescription")
 	public String setDescription(@RequestParam int recipeId, @RequestParam String description, Principal principal, RedirectAttributes redirectAttributes) {
 		RecipeModel recipeModel = recipeRepository.findRecipeById(recipeId);
-		recipeModel.setTitle(description);
+		recipeModel.setDescription(description);
 		recipeRepository.save(recipeModel);
 		
 		redirectAttributes.addAttribute("id", recipeId);
