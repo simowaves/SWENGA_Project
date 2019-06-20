@@ -90,6 +90,7 @@
 
 
 											<!-- th:field="*{ingredients}" -->
+											
 											<select class="form-control ml-2" name="category" required>
 												<option selected value="">Select your category</option>
 												<option th:each="category : ${categories}"
@@ -149,10 +150,12 @@
 											th:action="@{/addIngredientAndAmount(recipeId=${recipe.id})}"
 											method="post">
 											<div class="form-group input-group">
+												
 												<input type="text" name="amount" class="form-control"
 													placeholder="amount" required>
 
 												<!-- th:field="*{ingredients}" -->
+												
 												<select class="form-control ml-2" name="ingredient" required>
 													<option selected value="">Select your ingredient</option>
 													<option th:each="ingredient : ${ingredients}"
@@ -161,6 +164,7 @@
 														type="submit" class="btn btn-success btn-circle btn-add">
 														<i class="fas fa-plus"></i>
 													</button></span>
+												
 											</div>
 										</form>
 									</div>
@@ -192,9 +196,10 @@
 
 													<td th:text="${ingredientAmount.amount}"></td>
 													<td th:text="${ingredientAmount.ingredient.name}"></td>
-													<td><form method="post">
+													<td><form method="post" th:action="@{/removeIngredientAndAmount(amount=${ingredientAmount.amount}, ingredientAmountId=${ingredientAmount.ingredient.id}, recipeId=${recipe.id})}"
+															>
 															<button type="submit" class="btn btn-danger">Remove</button>
-														</form></td>
+														</form>
 
 												</tr>
 

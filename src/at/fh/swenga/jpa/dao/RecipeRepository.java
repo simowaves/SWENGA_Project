@@ -14,8 +14,21 @@ import at.fh.swenga.jpa.model.UserModel;
 @Repository
 @Transactional
 public interface RecipeRepository extends JpaRepository<RecipeModel, Integer> {
-		
-	public RecipeModel findRecipeById (int id);
+	
+	
+	
+	@Query("SELECT r "
+			+ "FROM RecipeModel r "
+			+ "WHERE r.enabled = true "
+			+ "AND r.id = :id ")
+	public RecipeModel findRecipeById (@Param("id") int id);
+	
+	@Query("SELECT r "
+			+ "FROM RecipeModel r "
+			+ "JOIN FETCH r.ingredientAmounts ia "
+			+ "WHERE r.enabled = true "
+			+ "AND r.id = :id ")
+	public RecipeModel findRecipeByIdWithIngredientAmounts (@Param("id") int id);
 	
 	@Query ("SELECT r "
 			+ "FROM RecipeModel AS r "
@@ -245,5 +258,6 @@ public interface RecipeRepository extends JpaRepository<RecipeModel, Integer> {
 			+ "ORDER BY COUNT(CASE uli.id WHEN :userId THEN 1 ELSE NULL END) DESC ")
 	public List<RecipeModel> findRecipesFilteredByUserPreferencesAndIngredient(@Param("userId") int userId, @Param("ingId") int ingId);
 	
+
 	
 }
