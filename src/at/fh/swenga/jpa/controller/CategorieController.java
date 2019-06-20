@@ -44,6 +44,7 @@ public class CategorieController {
 			} else {
 				
 				UserModel user = userRepository.findUserByUserName(principal.getName());
+				/*
 				
 				List<RecipeModel> filteredRecipes = recipeRepository.filterRecipesByUserPreferencesAndCategorieId(user.getId(), id);
 				List<RecipeModel> orderedRecipes = recipeRepository.findRecipesOrderedByfavoriteIngredients(user.getId());
@@ -55,6 +56,9 @@ public class CategorieController {
 						recipes.add(recipe);
 					}
 				}
+				*/
+				List<RecipeModel> recipes = recipeRepository.findRecipesFilteredByUserPreferencesAndCategorie(user.getId(), id);
+				
 				model.addAttribute("recipes", recipes);
 			}
 			return "recipeList";

@@ -19,8 +19,10 @@ public interface CommentRepository extends JpaRepository<CommentModel, Integer> 
 	@Query ("SELECT c "
 			+ "FROM CommentModel AS c "
 			+ "JOIN c.recipe r "
+			+ "JOIN c.author u "
 			+ "WHERE r.id = :recId "
+			+ "AND u.enabled = true "
 			+ "ORDER BY c.createDate")
-	public List<CommentModel> findCommentByRecipeId(@Param("recId") int recId);	
+	public List<CommentModel> findCommentsByRecipeId(@Param("recId") int recId);	
 
 }
