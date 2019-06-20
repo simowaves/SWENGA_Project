@@ -82,7 +82,8 @@
 													th:action="@{/clearRecipeReporters(recId=${recipe.id})}"
 													method="post">
 													<span th:text="${#lists.size(recipe.reportingUsers)}"></span>
-													<button th:unless="${#lists.isEmpty(recipe.reportingUsers)}"
+													<button
+														th:unless="${#lists.isEmpty(recipe.reportingUsers)}"
 														class="btn btn-link" type="submit">clear</button>
 												</form>
 											</td>
@@ -107,13 +108,7 @@
 			<!-- End of Main Content -->
 
 			<!-- Footer -->
-			<footer class="sticky-footer bg-white">
-				<div class="container my-auto">
-					<div class="copyright text-center my-auto">
-						<span>Copyright &copy; Your Website 2019</span>
-					</div>
-				</div>
-			</footer>
+			<div th:replace="includes/navigation :: footer"></div>
 			<!-- End of Footer -->
 
 		</div>

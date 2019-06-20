@@ -79,8 +79,7 @@
 											<td th:text="${#lists.size(user.recipes)}"></td>
 											<td th:text="${#lists.size(user.comments)}"></td>
 											<td><button class="btn btn-sm btn-primary mb-2"
-													th:href="@{/showUser(id=${user.id})}"
-													th:target="_blank">View</button>
+													th:href="@{/showUser(id=${user.id})}" th:target="_blank">View</button>
 												<form th:action="@{/deleteUserAdmin(id=${user.id})}"
 													method="post">
 													<button class="btn btn-sm btn-danger" type="submit">Delete</button>
@@ -99,13 +98,7 @@
 			<!-- End of Main Content -->
 
 			<!-- Footer -->
-			<footer class="sticky-footer bg-white">
-				<div class="container my-auto">
-					<div class="copyright text-center my-auto">
-						<span>Copyright &copy; Your Website 2019</span>
-					</div>
-				</div>
-			</footer>
+			<div th:replace="includes/navigation :: footer"></div>
 			<!-- End of Footer -->
 
 		</div>
