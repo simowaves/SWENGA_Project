@@ -105,7 +105,7 @@ public class RecipeController {
 		return "recipeList";
 	}
 	
-	@RequestMapping(value = { "followingRecipes" })
+	@RequestMapping(value = { "/followingRecipes" })
 	//@GetMapping(value = { "/", "list", "followingRecipes" })
 	public String followingRecipes(Model model, Principal principal) {
 
@@ -122,8 +122,8 @@ public class RecipeController {
 				return "errorPage";
 			} else {
 
-				//List<RecipeModel> recipes = recipeRepository.findRecipesFilteredByUserPreferencesAndFollowedByUserOrderedByLastEdited(user.getId());
-				List<RecipeModel> recipes = recipeRepository.findRecipesFilteredByUserPreferencesOrderedByLastEdited(user.getId());
+				List<RecipeModel> recipes = recipeRepository.findRecipesFilteredByUserPreferencesAndFollowedByUserOrderedByLastEdited(user.getId());
+				//List<RecipeModel> recipes = recipeRepository.findRecipesFilteredByUserPreferencesOrderedByLastEdited(user.getId());
 
 				model.addAttribute("recipes", recipes);
 			}
