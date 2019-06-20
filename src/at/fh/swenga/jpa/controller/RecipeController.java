@@ -74,17 +74,8 @@ public class RecipeController {
 				List<RecipeModel> recipes = recipeRepository.findRecipesOrderedByLikesWithCategories();
 				model.addAttribute("recipes", recipes);
 			} else {
-				List<RecipeModel> filteredRecipes = recipeRepository.filterRecipesByUserPreferences(user.getId());
-				List<RecipeModel> orderedRecipes = recipeRepository
-						.findRecipesOrderedByfavoriteIngredients(user.getId());
 
-				List<RecipeModel> recipes = new ArrayList<RecipeModel>();
-
-				for (RecipeModel recipe : orderedRecipes) {
-					if (filteredRecipes.contains(recipe)) {
-						recipes.add(recipe);
-					}
-				}
+				List<RecipeModel> recipes = recipeRepository.findRecipesFilteredByUserPreferences(user.getId());
 				model.addAttribute("recipes", recipes);
 			}
 		}
@@ -100,7 +91,7 @@ public class RecipeController {
 		if (recipe != null) {
 			List<IngredientAmountModel> ingredientAmounts = ingredientAmountRepository.findIngredientAmountsByRecipeId(id);
 			model.addAttribute("ingredientAmounts", ingredientAmounts);
-			List<CommentModel> comments = commentRepository.findCommentByRecipeId(id);
+			List<CommentModel> comments = commentRepository.findCommentsByRecipeId(id);
 			model.addAttribute("comments", comments);
 			model.addAttribute("recipe", recipe);
 			return "recipe";
@@ -148,7 +139,7 @@ public class RecipeController {
 		} else {
 
 			UserModel user = userRepository.findUserByUserName(principal.getName());
-
+/*
 			List<RecipeModel> filteredRecipes = recipeRepository
 					.filterRecipesByUserPreferencesAndSearchString(user.getId(), searchString);
 			List<RecipeModel> orderedRecipes = recipeRepository.findRecipesOrderedByfavoriteIngredients(user.getId());
@@ -160,6 +151,9 @@ public class RecipeController {
 					recipes.add(recipe);
 				}
 			}
+			*/
+			List<RecipeModel> recipes = recipeRepository.findRecipesFilteredByUserPreferencesAndSearchString(user.getId(), searchString);
+			
 			model.addAttribute("recipes", recipes);
 		}
 		return "recipeList";
