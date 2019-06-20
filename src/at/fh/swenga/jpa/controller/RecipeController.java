@@ -1,7 +1,6 @@
 package at.fh.swenga.jpa.controller;
 
 import java.security.Principal;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -24,7 +23,6 @@ import at.fh.swenga.jpa.dao.IngredientRepository;
 import at.fh.swenga.jpa.dao.PictureRepository;
 import at.fh.swenga.jpa.dao.RecipeRepository;
 import at.fh.swenga.jpa.dao.UserRepository;
-import at.fh.swenga.jpa.model.AllergieModel;
 import at.fh.swenga.jpa.model.CategorieModel;
 import at.fh.swenga.jpa.model.CommentModel;
 import at.fh.swenga.jpa.model.IngredientAmountModel;
