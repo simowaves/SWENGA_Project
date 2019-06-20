@@ -77,8 +77,7 @@
 							<div>
 								<form class="form-group"
 									th:action="@{/likeRecipe(id=${recipe.id})}" method="post">
-									<button class="btn btn-danger"
-										type="submit">
+									<button class="btn btn-danger" type="submit">
 										<i class="fas fa-heart mr-2"></i>Like
 									</button>
 								</form>
@@ -92,6 +91,12 @@
 									th:action="@{/editRecipe(id=${recipe.id})}" method="post">
 									<button class="btn btn-warning" type="submit">
 										<i class="fas fa-wrench mr-2"></i>Edit
+									</button>
+								</form>
+								<form class="form-group"
+									th:action="@{/deleteRecipe(id=${recipe.id})}" method="post">
+									<button class="btn btn-danger" type="submit">
+										<i class="fas fa-heart mr-2"></i>Delete
 									</button>
 								</form>
 							</div>
@@ -141,8 +146,6 @@
 					<!-- Upload Picture -->
 					<a th:href="@{/uploadRecipePicture(id=${recipe.id})}">Upload
 						Picture</a>
-					<!-- Delete Picture -->
-					<a th:href="@{/deleteRecipe(id=${recipe.id})}">Delete Picture</a>
 					<!-- End Upload Picture -->
 					<!-- Dropdown Card Example -->
 					<div class="card shadow mb-4">
