@@ -359,8 +359,9 @@ public class UserController {
 			recipe.setEnabled(false);
 			recipeRepository.save(recipe);
 		}
+		SecurityContextHolder.clearContext();
 		
-		return "redirect:/recipeList"; 
+		return "login"; 
 	}
 	
 	// Spring 4: @RequestMapping(value = "/deleteUserAdmin", method =
