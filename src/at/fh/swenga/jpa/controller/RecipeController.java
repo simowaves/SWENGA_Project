@@ -299,12 +299,14 @@ public class RecipeController {
 		return "recipe";
 	}
 	
-	@RequestMapping(value = "/deleteRecipe", method = RequestMethod.GET)
-	public String deleteRecipe(Model model, @RequestParam("id") int recipeId) {
-		RecipeModel recipeModel = recipeRepository.findRecipeById(recipeId);
+	// Spring 4: @RequestMapping(value = "/deleteRecipe", method =
+	// RequestMethod.POST)
+	@PostMapping("/deleteRecipe")
+	public String deleteRecipe(Model model, @RequestParam int id) {
+		RecipeModel recipeModel = recipeRepository.findRecipeById(id);
 		recipeModel.setEnabled(false);
 		recipeRepository.save(recipeModel);
-		return "forward:/recipeList";
+		return "forward:/recipeList"; 
 	}
 	
 	
