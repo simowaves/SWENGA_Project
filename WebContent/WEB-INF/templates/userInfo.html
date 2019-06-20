@@ -51,7 +51,7 @@
 							<div class="col-sm-3">
 								<img class="img-profile rounded-circle img-fluid"
 									style="object-fit: cover;"
-									src="https://images.unsplash.com/photo-1509460913899-515f1df34fea?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80">
+									src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80">
 							</div>
 							<!-- User Info -->
 							<div class="col-8 mt-4 mb-4 ml-4">
@@ -105,14 +105,11 @@
 							<!-- Tab Content -->
 							<div class="container-fluid mt-4">
 
-
-
-
 								<div class="card-deck">
 
 									<!-- Basic Card Example -->
 
-									<div class="col-xl-4 col-md-6 col-sm-12 mb-4 px-0"
+									<div class="col-xl-3 col-md-6 col-sm-12 mb-4 px-0"
 										th:each="likedRecipe : ${user.recipes }">
 
 										<div class="card shadow ">
@@ -121,7 +118,7 @@
 												style="position: relative; overflow: hidden; padding-bottom: 100%;">
 												<a th:href="@{/showRecipe(id=${likedRecipe.id})}"><img
 													style="position: absolute;"
-													src="https://images.unsplash.com/photo-1509460913899-515f1df34fea?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
+													src="https://images.unsplash.com/photo-1467632499275-7a693a761056?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
 													alt=""></a>
 
 												<!-- 										<img class="img-fluid card-img-top" -->
@@ -172,7 +169,7 @@
 
 									<!-- Basic Card Example -->
 
-									<div class="col-xl-4 col-md-6 col-sm-12 mb-4 px-0"
+									<div class="col-xl-3 col-md-6 col-sm-12 mb-4 px-0"
 										th:each="likedRecipe : ${user.likedRecipes}">
 										<div class="card shadow ">
 											<!-- Image -->
