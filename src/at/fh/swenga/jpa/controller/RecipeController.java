@@ -294,4 +294,7 @@ public class RecipeController {
 		recipeRepository.save(recipeModel);
 		return "forward:/recipeList";
 	}
+
+	public static void main(String[] args) {
+	}
 }
