@@ -122,7 +122,7 @@ public class RecipeController {
 			return "recipe";
 		} else {
 			model.addAttribute("errorMessage", "Couldn't find recipe " + id);
-			return "forward:/recipeList";
+			return "errorPage";
 		}
 	}
 

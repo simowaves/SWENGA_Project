@@ -11,8 +11,9 @@
 		<csrf />
 		<intercept-url pattern="/adminRecipes"
 			access="hasRole('ADMIN')" />
-		<intercept-url pattern="/adminUsers"
+		<intercept-url pattern="/showAdminUsers"
 			access="hasRole('ADMIN')" />
+			
 		<intercept-url pattern="/createRecipe"
 			access="hasRole('USER')" />
 		<intercept-url pattern="/login" access="permitAll" />
