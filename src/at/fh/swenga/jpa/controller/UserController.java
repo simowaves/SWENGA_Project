@@ -26,6 +26,7 @@ import at.fh.swenga.jpa.dao.UserRoleRepository;
 import at.fh.swenga.jpa.model.AllergieModel;
 import at.fh.swenga.jpa.model.IngredientModel;
 import at.fh.swenga.jpa.model.RecipeCollectionModel;
+import at.fh.swenga.jpa.model.RecipeModel;
 import at.fh.swenga.jpa.model.UserModel;
 import at.fh.swenga.jpa.model.UserRoleModel;
 
@@ -328,5 +329,15 @@ public class UserController {
 		userRepository.save(user);
 	
 		return "redirect:/showCurrentUserAccountSettings";
+	}
+	
+	// Spring 4: @RequestMapping(value = "/deleteUser", method =
+	// RequestMethod.POST)
+	@PostMapping("/deleteUser")
+	public String deleteUser(Model model, @RequestParam int id) {
+		UserModel user = userRepository.findUserById(id);
+		user.setEnabled(false);
+		userRepository.save(user);
+		return "redirect:/recipeList"; 
 	}
 }

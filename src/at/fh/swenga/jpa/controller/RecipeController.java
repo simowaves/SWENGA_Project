@@ -326,7 +326,7 @@ public class RecipeController {
 		RecipeModel recipeModel = recipeRepository.findRecipeById(id);
 		recipeModel.setEnabled(false);
 		recipeRepository.save(recipeModel);
-		return "forward:/recipeList"; 
+		return "redirect:/recipeList"; 
 	}
 	
 	
