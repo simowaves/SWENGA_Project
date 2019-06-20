@@ -385,7 +385,7 @@ public class RecipeController {
 		ingredientAmountModel.setIngredient(ingredientModel);
 		ingredientAmountRepository.save(ingredientAmountModel);
 		
-		redirectAttributes.addAttribute("recipeId", recipeId);
+		redirectAttributes.addAttribute("idA", recipeId);
 		
 		return "redirect:/editRecipe";
 	}
@@ -399,7 +399,7 @@ public class RecipeController {
 		recipeModel.removeIngredientAmount(ingredientAmountModel);
 		recipeRepository.save(recipeModel);
 
-		redirectAttributes.addAttribute("recipeId", recipeId);
+		redirectAttributes.addAttribute("id", recipeId);
 		
 		return "redirect:/editRecipe";
 	}
@@ -412,7 +412,7 @@ public class RecipeController {
 		recipeModel.addCategorie(categorieModel);
 		recipeRepository.save(recipeModel);
 		
-		redirectAttributes.addAttribute("recipeId", recipeId);
+		redirectAttributes.addAttribute("id", recipeId);
 		
 		return "redirect:/editRecipe";
 	}
