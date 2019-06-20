@@ -57,7 +57,7 @@ public class RecipeController {
 	CommentRepository commentRepository;
 	
 
-	@RequestMapping(value = { "/", "list", "recipeList" })
+	@RequestMapping(value = { "list", "recipeList" })
 	//@GetMapping(value = { "/", "list", "recipeList" })
 	public String index(Model model, Principal principal) {
 
@@ -79,7 +79,7 @@ public class RecipeController {
 				model.addAttribute("recipes", recipes);
 			}
 		}
-		return "recipes";
+		return "recipeList";
 	}
 
 	// Spring 4: @RequestMapping(value = "/showRecipe", method = RequestMethod.GET)
@@ -325,7 +325,7 @@ public class RecipeController {
 	}
 	
 
-	@RequestMapping(value = "/landing", method = RequestMethod.GET)
+	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String langingPage(Model model) {
 		List<RecipeModel> recipeModel = recipeRepository.findTop3ByOrderByTitleAsc();
 		List<CategorieModel> categorieModel = categorieRepository.findTop3ByOrderByTitleAsc();
