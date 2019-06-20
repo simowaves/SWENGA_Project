@@ -46,7 +46,7 @@ public class AdminController {
 	// Spring 4: @RequestMapping(value = "/showAdminRecipes", method = RequestMethod.GET)
 	@GetMapping("/showAdminRecipes")
 	public String showAdminRecipes(Model model) {
-		List<RecipeModel> recipes = recipeRepository.findAll();
+		List<RecipeModel> recipes = recipeRepository.findRecipesWithReportingUsers();
 		model.addAttribute("recipes", recipes);
 		return "adminRecipes";
 	}

@@ -110,7 +110,7 @@ public interface UserRepository extends JpaRepository<UserModel, Integer> {
 			+ "WHERE LOWER(u.userName) = LOWER(:userName) ")
 	public UserModel findUserByUserNameWithHatedIngredients(@Param("userName") String userName);
 	
-	// give me the user with the username with its hatedIngredients
+	// give me all the users with its userRoles and comments and recipes
 	@Query ("SELECT DISTINCT u "
 			+ "FROM UserModel AS u "
 			+ "LEFT JOIN FETCH u.userRoles ur "

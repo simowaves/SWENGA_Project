@@ -6,7 +6,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -131,13 +130,12 @@ public class UserController {
 			return "forward:/recipeList";
 		}
 	}
-/*
+
 	@RequestMapping(value = "/loggedUserName", method = RequestMethod.GET)
 	@ResponseBody
 	public String currentUserName(Authentication authentication) {
 		return authentication.getName();
 	}
-	*/
 
 	// Spring 4: @RequestMapping(value = "/followUser", method =
 	// RequestMethod.POST)
@@ -194,7 +192,7 @@ public class UserController {
 	// Spring 4: @RequestMapping(value = "/showCurrentUserPreferences", method =
 	// RequestMethod.GET)
 	@GetMapping("/showCurrentUserPreferences")
-	public String showCurrentUserPreferences(Model model, Principal principal) {
+	public String likeRecipe(Model model, Principal principal) {
 		List<IngredientModel> ingredients = ingredientRepository.findAllIngredientsOrderByName();
 		model.addAttribute("ingredients", ingredients);
 		List<AllergieModel> allergies = allergieRepository.findAllAllergiesOrderByName();
@@ -202,6 +200,27 @@ public class UserController {
 
 		String userName = principal.getName();
 		UserModel user = userRepository.findUserByUserNameWithAllergiesAndLovedIngredientsAndHatedIngredients(userName);
+
+		if (user != null) {
+			model.addAttribute("user", user);
+			return "userPreferences";
+		} else {
+			model.addAttribute("errorMessage", "Couldn't find user ");
+			return "forward:/recipeList";
+		}
+	}
+	
+	// Spring 4: @RequestMapping(value = "/showCurrentUserPreferences", method =
+	// RequestMethod.GET)
+	@PostMapping("/showCurrentUserPreferences")
+	public String likeRecipePost(Model model, Principal principal) {
+		List<IngredientModel> ingredients = ingredientRepository.findAllIngredientsOrderByName();
+		model.addAttribute("ingredients", ingredients);
+		List<AllergieModel> allergies = allergieRepository.findAllAllergiesOrderByName();
+		model.addAttribute("allergies", allergies);
+
+		String userName = principal.getName();
+		UserModel user = userRepository.findUserByUserName(userName);
 
 		if (user != null) {
 			model.addAttribute("user", user);
@@ -243,33 +262,43 @@ public class UserController {
 			return "forward:/recipeList";
 		}
 	}
+	
+	
+	
 
 	// Spring 4: @RequestMapping(value = "/addAllergy", method =
 	// RequestMethod.POST)
 	@PostMapping("/addAllergy")
 	public String addAllergy(@RequestParam int allergy, Principal principal, Model model) {
 		String userName = principal.getName();
-		UserModel user = userRepository.findUserByUserNameWithAllergies(userName);
+		UserModel user = userRepository.findUserByUserName(userName);
 		AllergieModel allergieModel = allergieRepository.findAllergieById(allergy);
 		user.addAllergie(allergieModel);
 		userRepository.save(user);
 		
-		return "redirect:/showCurrentUserPreferences";
+		return "forward:/showCurrentUserPreferences";
 	}
 	
 	// Spring 4: @RequestMapping(value = "/removeAllergy", method =
 	// RequestMethod.POST)
 	@PostMapping("/removeAllergy")
 	public String removeAllergy(@RequestParam int allergyId, Principal principal, Model model) {
-
+		
+		List<IngredientModel> ingredients = ingredientRepository.findAllIngredientsOrderByName();
+		model.addAttribute("ingredients", ingredients);
+		List<AllergieModel> allergies = allergieRepository.findAllAllergiesOrderByName();
+		model.addAttribute("allergies", allergies);
+		
 		String userName = principal.getName();
-		UserModel user = userRepository.findUserByUserNameWithAllergies(userName);
+		UserModel user = userRepository.findUserByUserName(userName);
 		AllergieModel allergieModel = allergieRepository.findAllergieById(allergyId);
 		
 		user.removeAllergie(allergieModel);
 		userRepository.save(user);
+		
+		model.addAttribute("user", user);
 
-		return "redirect:/showCurrentUserPreferences";
+		return "userPreferences";
 	}
 	
 	// Spring 4: @RequestMapping(value = "/addLikedIngredient", method =
@@ -277,12 +306,12 @@ public class UserController {
 	@PostMapping("/addLovedIngredient")
 	public String addLovedIngredient(@RequestParam int ingredient, Principal principal, Model model) {
 		String userName = principal.getName();
-		UserModel user = userRepository.findUserByUserNameWithLovedIngredients(userName);
+		UserModel user = userRepository.findUserByUserName(userName);
 		IngredientModel ingredientModel = ingredientRepository.findIngredientById(ingredient);
 		user.addLovedIngredient(ingredientModel);
 		userRepository.save(user);
 		
-		return "redirect:/showCurrentUserPreferences";
+		return "forward:/showCurrentUserPreferences";
 	}
 	
 	// Spring 4: @RequestMapping(value = "/removeLikedIngredient", method =
@@ -291,12 +320,13 @@ public class UserController {
 	public String removeLovedIngredient(@RequestParam int ingredient, Principal principal, Model model) {
 
 		String userName = principal.getName();
-		UserModel user = userRepository.findUserByUserNameWithLovedIngredients(userName);
+		UserModel user = userRepository.findUserByUserName(userName);
 		IngredientModel ingredientModel = ingredientRepository.findIngredientById(ingredient);
 		user.removeLovedIngredient(ingredientModel);
 		userRepository.save(user);
+
 		
-		return "redirect:/showCurrentUserPreferences";
+		return "forward:/showCurrentUserPreferences";
 	}
 	
 	// Spring 4: @RequestMapping(value = "/addHatedIngredient", method =
@@ -304,13 +334,13 @@ public class UserController {
 	@PostMapping("/addHatedIngredient")
 	public String addHatedIngredient(@RequestParam int ingredient, Principal principal, Model model) {
 		String userName = principal.getName();
-		UserModel user = userRepository.findUserByUserNameWithHatedIngredients(userName);
+		UserModel user = userRepository.findUserByUserName(userName);
 		IngredientModel ingredientModel = ingredientRepository.findIngredientById(ingredient);
 		user.addHatedIngredient(ingredientModel);
 		userRepository.save(user);
 
 		
-		return "redirect:/showCurrentUserPreferences";
+		return "forward:/showCurrentUserPreferences";
 	}
 	
 	// Spring 4: @RequestMapping(value = "/removeHatedIngredient", method =
@@ -319,12 +349,12 @@ public class UserController {
 	public String removeHatedIngredient(@RequestParam int ingredient, Principal principal, Model model) {
 
 		String userName = principal.getName();
-		UserModel user = userRepository.findUserByUserNameWithHatedIngredients(userName);
+		UserModel user = userRepository.findUserByUserName(userName);
 		IngredientModel ingredientModel = ingredientRepository.findIngredientById(ingredient);
 		user.removeHatedIngredient(ingredientModel);
 		userRepository.save(user);
 		
-		return "redirect:/showCurrentUserPreferences";
+		return "forward:/showCurrentUserPreferences";
 	}
 	
 	// Spring 4: @RequestMapping(value = "/updateUserName", method = RequestMethod.POST)
@@ -335,7 +365,7 @@ public class UserController {
 		user.setUserName(userName);
 		userRepository.save(user);
 	
-		return "forward:/";
+		return "logout";
 	}
 	
 	// Spring 4: @RequestMapping(value = "/updateEmailAddress", method = RequestMethod.POST)
@@ -346,7 +376,7 @@ public class UserController {
 		user.setEmailAddress(emailAddress);
 		userRepository.save(user);
 	
-		return "logout";
+		return "forward:/showCurrentUserAccountSettings";
 	}
 	
 	// Spring 4: @RequestMapping(value = "/updatePassword", method = RequestMethod.POST)
@@ -355,8 +385,10 @@ public class UserController {
 		String oldUserName = principal.getName();
 		UserModel user = userRepository.findUserByUserName(oldUserName);
 		user.setPassword(password);
+		user.encryptPassword();
+
 		userRepository.save(user);
 	
-		return "logout";
+		return "forward:/showCurrentUserAccountSettings";
 	}
 }
