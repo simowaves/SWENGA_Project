@@ -74,6 +74,28 @@
 
 						<!-- Recipe Ingredients -->
 						<div class="col-md-4">
+							<div>
+								<form class="form-group"
+									th:action="@{/likeRecipe(id=${recipe.id})}" method="post">
+									<button class="btn btn-danger"
+										type="submit">
+										<i class="fas fa-heart mr-2"></i>Like
+									</button>
+								</form>
+								<form class="form-group"
+									th:action="@{/reportRecipe(id=${recipe.id})}" method="post">
+									<button class="btn btn-danger" type="submit">
+										<i class="fas fa-flag mr-2"></i>Report
+									</button>
+								</form>
+								<form class="form-group"
+									th:action="@{/editRecipe(id=${recipe.id})}" method="post">
+									<button class="btn btn-warning" type="submit">
+										<i class="fas fa-wrench mr-2"></i>Edit
+									</button>
+								</form>
+							</div>
+
 							<!-- Dropdown Card Example -->
 							<div class="card shadow md-4">
 								<!-- Card Header - Dropdown -->
@@ -116,11 +138,12 @@
 						</div>
 					</div>
 
-<!-- Upload Picture -->					
-					<a th:href="@{/uploadRecipePicture(id=${recipe.id})}">Upload Picture</a>
-<!-- Delete Picture -->					
+					<!-- Upload Picture -->
+					<a th:href="@{/uploadRecipePicture(id=${recipe.id})}">Upload
+						Picture</a>
+					<!-- Delete Picture -->
 					<a th:href="@{/deleteRecipe(id=${recipe.id})}">Delete Picture</a>
-<!-- End Upload Picture -->
+					<!-- End Upload Picture -->
 					<!-- Dropdown Card Example -->
 					<div class="card shadow mb-4">
 						<!-- Card Header - Dropdown -->
@@ -193,36 +216,6 @@
 						</div>
 					</div>
 					<!-- End of comments -->
-
-					<button class="btn btn-danger"
-						th:href="@{/reportRecipe(id=${recipe.id})}">
-						<i class="fas fa-flag mr-2"></i>Report
-					</button>
-					<!-- Like Button -->
-					<form class="form-group"
-						th:action="@{/likeRecipe(id=${recipe.id})}" method="post">
-						<button class="btn btn-danger"
-							th:href="@{/reportRecipe(id=${recipe.id})}" type="submit">
-							<i class="fas fa-heart mr-2"></i>Like
-						</button>
-					</form>
-
-
-					<!-- End of Like Button -->
-
-					<!-- Report Button -->
-
-
-					<form class="form-group"
-						th:action="@{/reportRecipe(id=${recipe.id})}" method="post">
-						<button class="btn btn-danger"
-							th:href="@{/reportRecipe(id=${recipe.id})}" type="submit">
-							<i class="fas fa-flag mr-2"></i>Report
-						</button>
-					</form>
-
-					<!-- End of Report Button -->
-
 				</div>
 				<!-- End of Main Content -->
 

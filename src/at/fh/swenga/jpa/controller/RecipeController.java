@@ -309,4 +309,7 @@ public class RecipeController {
 	}
 	
 	
+
+	public static void main(String[] args) {
+	}
 }
