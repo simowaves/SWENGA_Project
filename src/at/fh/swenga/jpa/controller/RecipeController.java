@@ -106,6 +106,32 @@ public class RecipeController {
 		}
 		return "recipeList";
 	}
+	
+	@RequestMapping(value = { "followingRecipes" })
+	//@GetMapping(value = { "/", "list", "followingRecipes" })
+	public String followingRecipes(Model model, Principal principal) {
+
+		if (principal == null) {
+			model.addAttribute("errorMessage", "No User logged in.");
+			return "errorPage";
+
+		} else {
+
+			UserModel user = userRepository.findUserByUserName(principal.getName());
+
+			if (user == null) {
+				model.addAttribute("errorMessage", "No User logged in.");
+				return "errorPage";
+			} else {
+
+				//List<RecipeModel> recipes = recipeRepository.findRecipesFilteredByUserPreferencesAndFollowedByUserOrderedByLastEdited(user.getId());
+				List<RecipeModel> recipes = recipeRepository.findRecipesFilteredByUserPreferencesOrderedByLastEdited(user.getId());
+
+				model.addAttribute("recipes", recipes);
+			}
+		}
+		return "recipeList";
+	}
 
 	// Spring 4: @RequestMapping(value = "/showRecipe", method = RequestMethod.GET)
 	@GetMapping({ "/showRecipe", "/likeRecipe", "/reportRecipe", "/postComment" })
@@ -385,7 +411,7 @@ public class RecipeController {
 		ingredientAmountModel.setIngredient(ingredientModel);
 		ingredientAmountRepository.save(ingredientAmountModel);
 		
-		redirectAttributes.addAttribute("idA", recipeId);
+		redirectAttributes.addAttribute("id", recipeId);
 		
 		return "redirect:/editRecipe";
 	}
@@ -394,7 +420,7 @@ public class RecipeController {
 	// RequestMethod.POST)
 	@PostMapping("/removeIngredientAndAmount")
 	public String removeIngredientAndAmount(@RequestParam int recipeId, @RequestParam int ingredientAmountId, @RequestParam String amount, Principal principal, RedirectAttributes redirectAttributes) {
-		RecipeModel recipeModel = recipeRepository.findRecipeById(recipeId);
+		RecipeModel recipeModel = recipeRepository.findRecipeByIdWithIngredientAmounts(recipeId);
 		IngredientAmountModel ingredientAmountModel = ingredientAmountRepository.findIngredientAmountsById(ingredientAmountId);
 		recipeModel.removeIngredientAmount(ingredientAmountModel);
 		recipeRepository.save(recipeModel);
