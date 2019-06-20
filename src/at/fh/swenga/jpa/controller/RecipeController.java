@@ -308,10 +308,10 @@ public class RecipeController {
 		List<IngredientModel> ingredientModel = ingredientRepository.findAllIngredientsOrderByName();
 		List<CategorieModel> categoryModel = categorieRepository.findAllCategoriesOrderByName();
 		
-		model.addAttribute(user);
-		model.addAttribute(recipeModel);
-		model.addAttribute(ingredientModel);
-		model.addAttribute(categoryModel);
+		model.addAttribute("user", user);
+		model.addAttribute("recipe", recipeModel);
+		model.addAttribute("ingredients", ingredientModel);
+		model.addAttribute("categories", categoryModel);
 		return "editRecipe";
 	}
 	
