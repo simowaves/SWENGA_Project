@@ -27,8 +27,8 @@
 
 	<!-- Nav Item - Utilities Collapse Menu -->
 	<li class="nav-item"><a class="nav-link"
-		th:href="@{/mostRecentRecipes}"> <i class="fas fa-fw fa-pepper-hot"></i>
-			<span>Most Recent</span>
+		th:href="@{/mostRecentRecipes}"> <i
+			class="fas fa-fw fa-pepper-hot"></i> <span>Most Recent</span>
 	</a></li>
 
 	<!-- Nav Item - Tables -->
@@ -42,8 +42,9 @@
 	<div class="sidebar-heading">Search by</div>
 
 	<!-- Nav Item - Pages Collapse Menu -->
-	<li class="nav-item"><a class="nav-link" th:href="@{/categoriesList}"> <i
-			class="fas fa-fw fa-folder-open"></i> <span>Categories</span>
+	<li class="nav-item"><a class="nav-link"
+		th:href="@{/categoriesList}"> <i class="fas fa-fw fa-folder-open"></i>
+			<span>Categories</span>
 	</a></li>
 
 	<!-- Nav Item - Charts -->
@@ -52,10 +53,11 @@
 	</a></li>
 
 	<!-- Nav Item - Tables -->
-	<li class="nav-item"><a class="nav-link" th:href="@{/advancedSearch}"> <i
-			class="fas fa-fw fa-search-plus"></i> <span>Advanced Search</span>
+	<li class="nav-item"><a class="nav-link"
+		th:href="@{/advancedSearch}"> <i class="fas fa-fw fa-search-plus"></i>
+			<span>Advanced Search</span>
 	</a></li>
-	
+
 	<!-- Divider -->
 	<hr class="sidebar-divider d-none d-md-block">
 
@@ -250,22 +252,23 @@
 					class="fas fa-user fa-sm fa-fw mr-2 text-gray-400" method="post"></i>
 					Profile
 				</a> <a class="dropdown-item" th:href="@{/showCurrentUserPreferences}">
-					<i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+					<i class="fas fa-list-alt fa-sm fa-fw mr-2 text-gray-400"></i>
 					Preferences
 				</a>
 				<div class="dropdown-divider"></div>
 
-				</a> <a class="dropdown-item" > <i
-					class="fas fa-user fa-sm fa-fw mr-2 text-gray-400" method="post" th:href="@{/showCurrentUserAccountSettings}"></i>
-					Account Settings
+				<a class="dropdown-item" method="post"
+					th:href="@{/showCurrentUserAccountSettings}"> <i
+					class="fas fa-cog fa-sm fa-fw mr-2 text-gray-400"></i> Account
+					Settings
 				</a>
-				<div class="dropdown-divider">
-				</div>
-				
+
+				<div class="dropdown-divider"></div>
+
 				<!-- Admin Menu -->
 				<a sec:authorize="hasRole('ADMIN')" class="dropdown-item"
 					th:href="@{/showAdminUsers}"> <i
-					class="fas fas fa-user-cog fa-sm fa-fw mr-2 text-gray-400"></i>
+					class="fas fas fa-users-cog fa-sm fa-fw mr-2 text-gray-400"></i>
 					Manage Users
 				</a> <a sec:authorize="hasRole('ADMIN')" class="dropdown-item"
 					th:href="@{/showAdminRecipes}"> <i
@@ -300,3 +303,15 @@
 	</ul>
 
 </nav>
+
+
+
+<!-- Footer -->
+<footer class="sticky-footer bg-white" th:fragment="footer">
+	<div class="container my-auto">
+		<div class="copyright text-center my-auto">
+			<span>Copyright &copy; Your Website 2019</span>
+		</div>
+	</div>
+</footer>
+<!-- Footer END-->

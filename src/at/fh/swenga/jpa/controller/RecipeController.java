@@ -122,7 +122,7 @@ public class RecipeController {
 			return "recipe";
 		} else {
 			model.addAttribute("errorMessage", "Couldn't find recipe " + id);
-			return "forward:/recipeList";
+			return "errorPage";
 		}
 	}
 
@@ -350,7 +350,7 @@ public class RecipeController {
 	
 	// Spring 4: @RequestMapping(value = "/editRecipe", method =
 	// RequestMethod.POST)
-	@PostMapping("/editRecipe")
+	@GetMapping("/editRecipe")
 	public String editRecipe(Model model, Principal principal, @RequestParam int id) {
 		String userName = principal.getName();
 		UserModel user = userRepository.findUserByUserName(userName);
@@ -383,50 +383,59 @@ public class RecipeController {
 	// Spring 4: @RequestMapping(value = "/addIngredientAndAmount", method =
 	// RequestMethod.POST)
 	@PostMapping("/addIngredientAndAmount")
-	public String addIngredientAndAmount(@RequestParam int recipeId, @RequestParam int ingredient, @RequestParam String amount, Principal principal) {
+	public String addIngredientAndAmount(@RequestParam int recipeId, @RequestParam int ingredient, @RequestParam String amount, RedirectAttributes redirectAttributes) {
 		RecipeModel recipeModel = recipeRepository.findRecipeById(recipeId);
 		IngredientAmountModel ingredientAmountModel = new IngredientAmountModel();
 		IngredientModel ingredientModel = ingredientRepository.findIngredientById(ingredient);
-		ingredientAmountModel.setRecipe(recipeModel);
-		ingredientAmountModel.setIngredient(ingredientModel);
 		ingredientAmountModel.setAmount(amount);
 		ingredientAmountRepository.save(ingredientAmountModel);
+		ingredientAmountModel.setRecipe(recipeModel);
+		ingredientAmountModel.setIngredient(ingredientModel);
+		ingredientAmountRepository.save(ingredientAmountModel);
 		
-		return "forward:/editRecipe";
+		redirectAttributes.addAttribute("idA", recipeId);
+		
+		return "redirect:/editRecipe";
 	}
 	
 	// Spring 4: @RequestMapping(value = "/removeIngredientAndAmount", method =
 	// RequestMethod.POST)
 	@PostMapping("/removeIngredientAndAmount")
-	public String removeIngredientAndAmount(@RequestParam int recipeId, @RequestParam int ingredientAmountId, @RequestParam String amount, Principal principal, Model model) {
+	public String removeIngredientAndAmount(@RequestParam int recipeId, @RequestParam int ingredientAmountId, @RequestParam String amount, Principal principal, RedirectAttributes redirectAttributes) {
 		RecipeModel recipeModel = recipeRepository.findRecipeById(recipeId);
 		IngredientAmountModel ingredientAmountModel = ingredientAmountRepository.findIngredientAmountsById(ingredientAmountId);
 		recipeModel.removeIngredientAmount(ingredientAmountModel);
 		recipeRepository.save(recipeModel);
 
-		return "forward:/editRecipe";
+		redirectAttributes.addAttribute("id", recipeId);
+		
+		return "redirect:/editRecipe";
 	}
 	
 	// Spring 4: @RequestMapping(value = "/addCategory", method = RequestMethod.POST)
 	@PostMapping("/addCategory")
-	public String addCategory(@RequestParam int category, @RequestParam int recipeId, Principal principal, Model model) {
+	public String addCategory(@RequestParam int category, @RequestParam int recipeId, Principal principal, RedirectAttributes redirectAttributes) {
 		RecipeModel recipeModel = recipeRepository.findRecipeById(recipeId);
 		CategorieModel categorieModel = categorieRepository.findCategorieById(category);
 		recipeModel.addCategorie(categorieModel);
 		recipeRepository.save(recipeModel);
 		
-		return "forward:/editRecipe";
+		redirectAttributes.addAttribute("id", recipeId);
+		
+		return "redirect:/editRecipe";
 	}
 	
 	// Spring 4: @RequestMapping(value = "/removeCategory", method = RequestMethod.POST)
 	@PostMapping("/removeCategory")
-	public String removeCategory(@RequestParam int category, @RequestParam int recipeId, Principal principal, Model model) {
+	public String removeCategory(@RequestParam int category, @RequestParam int recipeId, Principal principal, RedirectAttributes redirectAttributes) {
 		RecipeModel recipeModel = recipeRepository.findRecipeById(recipeId);
 		CategorieModel categorieModel = categorieRepository.findCategorieById(category);
 		recipeModel.removeCategorie(categorieModel);
 		recipeRepository.save(recipeModel);
 		
-		return "forward:/editRecipe";
+		redirectAttributes.addAttribute("id", recipeId);
+		
+		return "redirect:/editRecipe";
 	}
 
 
