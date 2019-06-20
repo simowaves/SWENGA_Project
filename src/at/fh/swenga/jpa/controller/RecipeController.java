@@ -342,7 +342,7 @@ public class RecipeController {
 	
 	// Spring 4: @RequestMapping(value = "/editRecipe", method =
 	// RequestMethod.POST)
-	@PostMapping("/editRecipe")
+	@GetMapping("/editRecipe")
 	public String editRecipe(Model model, Principal principal, @RequestParam int id) {
 		String userName = principal.getName();
 		UserModel user = userRepository.findUserByUserName(userName);
