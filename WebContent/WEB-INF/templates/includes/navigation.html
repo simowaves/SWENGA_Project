@@ -18,76 +18,44 @@
 	<hr class="sidebar-divider">
 
 	<!-- Heading -->
-	<div class="sidebar-heading">Interface</div>
+	<div class="sidebar-heading">Find Recipes</div>
 
 	<!-- Nav Item - Pages Collapse Menu -->
-	<li class="nav-item"><a class="nav-link collapsed" href="#"
-		data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true"
-		aria-controls="collapseTwo"> <i class="fas fa-fw fa-cog"></i> <span>Components</span>
-	</a>
-		<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo"
-			data-parent="#accordionSidebar">
-			<div class="bg-white py-2 collapse-inner rounded">
-				<h6 class="collapse-header">Custom Components:</h6>
-				<a class="collapse-item" href="buttons.html">Buttons</a> <a
-					class="collapse-item" href="cards.html">Cards</a>
-			</div>
-		</div></li>
+	<li class="nav-item"><a class="nav-link" th:href="@{/recipeList}">
+			<i class="fas fa-fw fa-book"></i> <span>All Recipes</span>
+	</a></li>
 
 	<!-- Nav Item - Utilities Collapse Menu -->
-	<li class="nav-item"><a class="nav-link collapsed" href="#"
-		data-toggle="collapse" data-target="#collapseUtilities"
-		aria-expanded="true" aria-controls="collapseUtilities"> <i
-			class="fas fa-fw fa-wrench"></i> <span>Utilities</span>
-	</a>
-		<div id="collapseUtilities" class="collapse"
-			aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-			<div class="bg-white py-2 collapse-inner rounded">
-				<h6 class="collapse-header">Custom Utilities:</h6>
-				<a class="collapse-item" href="utilities-color.html">Colors</a> <a
-					class="collapse-item" href="utilities-border.html">Borders</a> <a
-					class="collapse-item" href="utilities-animation.html">Animations</a>
-				<a class="collapse-item" href="utilities-other.html">Other</a>
-			</div>
-		</div></li>
-
-	<!-- Divider -->
-	<hr class="sidebar-divider">
-
-	<!-- Heading -->
-	<div class="sidebar-heading">Addons</div>
-
-	<!-- Nav Item - Pages Collapse Menu -->
-	<li class="nav-item"><a class="nav-link collapsed" href="#"
-		data-toggle="collapse" data-target="#collapsePages"
-		aria-expanded="true" aria-controls="collapsePages"> <i
-			class="fas fa-fw fa-folder"></i> <span>Pages</span>
-	</a>
-		<div id="collapsePages" class="collapse"
-			aria-labelledby="headingPages" data-parent="#accordionSidebar">
-			<div class="bg-white py-2 collapse-inner rounded">
-				<h6 class="collapse-header">Login Screens:</h6>
-				<a class="collapse-item" href="login.html">Login</a> <a
-					class="collapse-item" href="register.html">Register</a> <a
-					class="collapse-item" href="forgot-password.html">Forgot
-					Password</a>
-				<div class="collapse-divider"></div>
-				<h6 class="collapse-header">Other Pages:</h6>
-				<a class="collapse-item" href="404.html">404 Page</a> <a
-					class="collapse-item" href="blank.html">Blank Page</a>
-			</div>
-		</div></li>
-
-	<!-- Nav Item - Charts -->
-	<li class="nav-item"><a class="nav-link" href="charts.html"> <i
-			class="fas fa-fw fa-chart-area"></i> <span>Charts</span>
+	<li class="nav-item"><a class="nav-link"
+		th:href="@{/mostRecentRecipes}"> <i class="fas fa-fw fa-pepper-hot"></i>
+			<span>Most Recent</span>
 	</a></li>
 
 	<!-- Nav Item - Tables -->
 	<li class="nav-item"><a class="nav-link" href="tables.html"> <i
-			class="fas fa-fw fa-table"></i> <span>Tables</span>
+			class="fas fa-fw fa-users"></i> <span>Following</span>
+	</a></li>
+	<!-- Divider -->
+	<hr class="sidebar-divider">
+
+	<!-- Heading -->
+	<div class="sidebar-heading">Search by</div>
+
+	<!-- Nav Item - Pages Collapse Menu -->
+	<li class="nav-item"><a class="nav-link" th:href="@{/categoriesList}"> <i
+			class="fas fa-fw fa-folder-open"></i> <span>Categories</span>
 	</a></li>
 
+	<!-- Nav Item - Charts -->
+	<li class="nav-item"><a class="nav-link" th:href="@{/}"> <i
+			class="fas fa-fw fa-seedling"></i> <span>Ingredients</span>
+	</a></li>
+
+	<!-- Nav Item - Tables -->
+	<li class="nav-item"><a class="nav-link" th:href="@{/advancedSearch}"> <i
+			class="fas fa-fw fa-search-plus"></i> <span>Advanced Search</span>
+	</a></li>
+	
 	<!-- Divider -->
 	<hr class="sidebar-divider d-none d-md-block">
 
@@ -284,25 +252,27 @@
 				</a> <a class="dropdown-item" th:href="@{/showCurrentUserPreferences}">
 					<i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
 					Preferences
-				</a> 
-				<div class="dropdown-divider">
-				</div>
-				
+				</a>
+				<div class="dropdown-divider"></div>
+
 				<!-- Admin Menu -->
-				<a  sec:authorize="hasRole('ADMIN')" class="dropdown-item" th:href="@{/showAdminUsers}" > <i
+				<a sec:authorize="hasRole('ADMIN')" class="dropdown-item"
+					th:href="@{/showAdminUsers}"> <i
 					class="fas fas fa-user-cog fa-sm fa-fw mr-2 text-gray-400"></i>
 					Manage Users
-				</a> <a sec:authorize="hasRole('ADMIN')" class="dropdown-item" th:href="@{/showAdminRecipes}">
-					<i class="fas fa-wrench fa-sm fa-fw mr-2 text-gray-400"></i>
-					Manage Recipes
+				</a> <a sec:authorize="hasRole('ADMIN')" class="dropdown-item"
+					th:href="@{/showAdminRecipes}"> <i
+					class="fas fa-wrench fa-sm fa-fw mr-2 text-gray-400"></i> Manage
+					Recipes
 				</a>
 				<!--  -->
 				<div sec:authorize="hasRole('ADMIN')" class="dropdown-divider">
 				</div>
-				
-				
 
-				<form class="navbar-form navbar-right" th:action="@{/logout}" method="post">
+
+
+				<form class="navbar-form navbar-right" th:action="@{/logout}"
+					method="post">
 					<button class="dropdown-item" type="submit">
 						<i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
 						Logout
@@ -311,12 +281,11 @@
 			</div></li>
 		<!-- If not Logged in: -->
 		<li sec:authorize="isAnonymous()" class="nav-item no-arrow"><a
-			class="nav-link" href="/SwengaProjectWtf/login" aria-expanded="false">
-				<span class="mr-2 d-none d-lg-inline text-gray-600 small">Login</span>
+			class="nav-link" th:href="@{/login}" aria-expanded="false"> <span
+				class="mr-2 d-none d-lg-inline text-gray-600 small">Login</span>
 		</a></li>
 		<li sec:authorize="isAnonymous()" class="nav-item no-arrow"><a
-			class="nav-link" href="/SwengaProjectWtf/register"
-			aria-expanded="false"> <span
+			class="nav-link" th:href="@{/register}" aria-expanded="false"> <span
 				class="mr-2 d-none d-lg-inline text-gray-600 small">Create
 					Account</span>
 		</a></li>
