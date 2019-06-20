@@ -1,42 +1,35 @@
 
+<!-- Card Content -->
+<div class="card shadow " th:fragment="recipeCardContent">
+	<!-- Image -->
+	<div
+		style="position: relative; overflow: hidden; padding-bottom: 100%;">
+		<a th:href="@{/showRecipe(id=${recipe.id})}"> <img
+			style="position: absolute;" class="bg-light"
+			src="https://images.unsplash.com/photo-1559054663-e8d23213f55c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
+			alt=""></a>
 
-
-<!-- Basic Card -->
-<div class="col-xl-3 col-md-6 col-sm-12 mb-4 px-0"
-	th:fragment="recipeCard" th:each="recipe : ${recipes}">
-	<div class="card shadow ">
-		<!-- Image -->
-		<div
-			style="position: relative; overflow: hidden; padding-bottom: 100%;">
-			<a th:href="@{/showRecipe(id=${recipe.id})}">
-			<img
-				style="position: absolute;" class="bg-light"
-				src="https://images.unsplash.com/photo-1559562649-21c0be156e0d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60"
-				alt=""></a>
-
-		</div>
-		<!-- card body -->
-		<div class="card-body">
-			<div class="row">
-				<div class="col-8">
-					<a class="m-0 font-weight-bold text-primary"
-						th:href="@{/showRecipe(id=${recipe.id})}"
-						th:text="${recipe.title}"> </a> by <a
-						th:href="@{/showUser(id=${recipe.author.id})}"
-						th:text="${recipe.author.userName}"></a>
-				</div>
-				<div class="col-4 text-right">
-					<a href="#" class="btn btn-danger btn-circle"> <i
-						class="fas fa-heart"></i>
-					</a>
-				</div>
+	</div>
+	<!-- card body -->
+	<div class="card-body">
+		<div class="row">
+			<div class="col-8">
+				<a class="m-0 font-weight-bold text-primary"
+					th:href="@{/showRecipe(id=${recipe.id})}" th:text="${recipe.title}">
+				</a> by <a th:href="@{/showUser(id=${recipe.author.id})}"
+					th:text="${recipe.author.userName}"></a>
 			</div>
-			<div class="row">
-				<div th:each="categorie : ${recipe.categories}">
-					<div class="ml-1 mr-1">
-						<a th:href="@{/showCategorie(id=${categorie.id})}"
-							class="badge badge-info" th:text="${categorie.title}"></a>
-					</div>
+			<div class="col-4 text-right">
+				<a href="#" class="btn btn-danger btn-circle"> <i
+					class="fas fa-heart"></i>
+				</a>
+			</div>
+		</div>
+		<div class="row">
+			<div th:each="categorie : ${recipe.categories}">
+				<div class="ml-1 mr-1">
+					<a th:href="@{/showCategorie(id=${categorie.id})}"
+						class="badge badge-info" th:text="${categorie.title}"></a>
 				</div>
 			</div>
 		</div>
