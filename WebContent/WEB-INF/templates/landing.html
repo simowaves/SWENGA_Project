@@ -80,16 +80,20 @@
 							<h1 class="h3 mb-0 text-gray-800">Top Categories</h1>
 						</div>
 						<div class="card-deck">
-							<a class="card bg-dark text-white col-xl-2 col-md-4 mb-4"
-								th:href="@{/showCategorie}" th:each="categorie : ${categories}">
-								<img
-								src="https://images.unsplash.com/photo-1498579150354-977475b7ea0b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
-								class="card-img" alt="...">
-								<div class="card-img-overlay">
-									<h3 class="card-title" th:text="${categorie.title}"></h3>
-									<p class="card-text"></p>
-								</div>
-							</a>
+
+							<div class=" col-xl-2 col-md-4 mb-4"
+								th:each="categorie : ${categories}">
+								<a class="card bg-dark text-white"
+									th:href="@{/showCategorie(id=${categorie.id})}"> <img
+									src="https://images.unsplash.com/photo-1498579150354-977475b7ea0b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
+									class="card-img" alt="...">
+									<div class="card-img-overlay">
+										<h3 class="card-title" th:text="${categorie.title}"></h3>
+										<p class="card-text"></p>
+									</div>
+								</a>
+							</div>
+
 						</div>
 					</div>
 					<!-- END Top Categories -->
@@ -104,30 +108,19 @@
 						<div class="card-deck">
 							<div class="card col-xl-2 col-md-4 mb-4"
 								th:each=" tuser : ${authors}">
-								<div class="card-body">
-									<div class="row no-gutters align-items-center">
-										<div class="col mr-2">
-											<img class="img-profile rounded-circle"
-												src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
-										</div>
-										<div class="col">
-											<div>
-												<a class="h5 mb-4" th:text="${tuser.userName}"
-													th:href="@{/showUser(id=${tuser.id})}"></a>
+								<a th:href="@{/showUser(id=${tuser.id})}">
+									<div class="card-body">
+										<div class="row no-gutters align-items-center">
+											<div class="col mr-2">
+												<img class="img-profile rounded-circle"
+													src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
 											</div>
-											<!--  
-											<div>
-												<span>Recipes:</span>
-												<span class="h5 mb-4" th:text="#list.size(tuser.recipes)}"
-													th:href="@{/showUser(id=${tuser.id})}"></span>
-											</div> -->
-
+											<div class="col">
+												<span class="h5 mb-4" th:text="${tuser.userName}"></span>
+											</div>
 										</div>
-
-
-
 									</div>
-								</div>
+								</a>
 							</div>
 						</div>
 					</div>
@@ -139,26 +132,17 @@
 						<div
 							class="d-sm-flex align-items-center justify-content-between mb-4">
 							<h1 class="h3 mb-0 text-gray-800">Ingredients of the day</h1>
-							<!--  
-						<a href="#"
-							class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-							class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>-->
 						</div>
 						<div class="row">
 
 							<!-- Pending Requests Card Example -->
-							<div class="col-xl-2 col-md-3 mb-4">
-								<div class="card border-left-primary shadow h-100 py-2">
-									<div class="card-body">
-										<div class="row no-gutters align-items-center">
-											<div class="col mr-2">
-												<div class="h5 mb-0 font-weight-bold text-gray-800">Zutat
-													1</div>
-											</div>
+							<div class="col-xl-2" th:each=" ingredient : ${ingredients} ">
+								<a class="card mb-4 btn"
+									th:href="@{/showIngredient(id=${ingredient.id})}">
+									<div class="card-body text-center" th:text="${ingredient.name}"></div>
 
-										</div>
-									</div>
-								</div>
+								</a>
+
 							</div>
 						</div>
 					</div>
