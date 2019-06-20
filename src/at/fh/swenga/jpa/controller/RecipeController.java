@@ -433,6 +433,8 @@ public class RecipeController {
 		recipeModel.removeIngredientAmount(ingredientAmountModel);
 		recipeRepository.save(recipeModel);
 
+		ingredientAmountRepository.deleteById(ingredientAmountId);
+		
 		redirectAttributes.addAttribute("id", recipeId);
 		
 		return "redirect:/editRecipe";
