@@ -119,13 +119,24 @@ public interface RecipeRepository extends JpaRepository<RecipeModel, Integer> {
 	public List<RecipeModel> findRecipesOrderedByfavoriteIngredients (@Param("userId") int userId);
 	*/
 	// sorts all recipes with the amount of likes
-		@Query ("SELECT r "
-				+ "FROM RecipeModel AS r "
+	@Query ("SELECT r "
+			+ "FROM RecipeModel AS r "
 //				+ "LEFT JOIN FETCH r.categories c "
-				+ "LEFT JOIN r.likingUsers lu "
-				+ "GROUP BY r.id "
-				+ "ORDER BY COUNT(lu.id) DESC")
-	public List<RecipeModel> findRecipesOrderedByLikesWithCategories ();
+			+ "LEFT JOIN r.likingUsers lu "
+			+ "WHERE r.enabled = true "
+			+ "AND r.published = true "
+			+ "GROUP BY r.id "
+			+ "ORDER BY COUNT(lu.id) DESC")
+	public List<RecipeModel> findRecipesOrderedByLikes();
+		
+	// sorts all recipes with the amount of likes
+	@Query ("SELECT r "
+			+ "FROM RecipeModel AS r "
+//				+ "LEFT JOIN FETCH r.categories c "
+			+ "WHERE r.enabled = true "
+			+ "AND r.published = true "
+			+ "ORDER BY r.lastEdited DESC")
+	public List<RecipeModel> findRecipesOrderedByLastEdited();
 		
 	// give me all the users with its userRoles and comments and recipes
 	@Query ("SELECT DISTINCT r "
@@ -154,6 +165,22 @@ public interface RecipeRepository extends JpaRepository<RecipeModel, Integer> {
 			+ "AND COUNT(CASE ua.id WHEN :userId THEN 1 ELSE NULL END) = 0 "
 			+ "ORDER BY COUNT(CASE uli.id WHEN :userId THEN 1 ELSE NULL END) DESC ")
 	public List<RecipeModel> findRecipesFilteredByUserPreferences(@Param("userId") int userId);
+	
+	// give me all the recipes that the user can eat
+	@Query ("SELECT r "
+			+ "FROM RecipeModel AS r "
+			+ "LEFT JOIN r.ingredientAmounts ia "
+			+ "LEFT JOIN ia.ingredient i "
+			+ "LEFT JOIN i.usersHateMe uhi "
+			+ "LEFT JOIN i.allergies a "
+			+ "LEFT JOIN a.users ua "
+			+ "WHERE r.enabled = true "
+			+ "AND r.published = true "
+			+ "GROUP BY r "
+			+ "HAVING COUNT(CASE uhi.id WHEN :userId THEN 1 ELSE NULL END) = 0 "
+			+ "AND COUNT(CASE ua.id WHEN :userId THEN 1 ELSE NULL END) = 0 "
+			+ "ORDER BY r.lastEdited DESC ")
+	public List<RecipeModel> findRecipesFilteredByUserPreferencesOrderedByLastEdited(@Param("userId") int userId);
 		
 	
 	// give me all the recipes that the user can eat
