@@ -39,16 +39,27 @@
 
 					<!-- Recipe Content -->
 
-					<!-- Heading and Author -->
+					<!-- Heading and Author th:action="@{/addTitlerecipeId=${recipe.id})}" -->
 					<div class="mb-2">
-						<div class="form-row">
-							<div class="col-md-4 mb-3">
-								<label for="validationCustom01">Title</label> <input type="text"
-									class="form-control" id="validationCustom01" name="title"
-									th:placeholder="${recipe.title}" value="" required>
-								<div class="valid-feedback">Looks good!</div>
+						<form method="post">
+							<div class="form-group input-group">
+
+								<div class="col-md-4 mb-3">
+									<label for="validationCustom01">Title</label>
+									<div class="row">
+										<input type="text" class="form-control"
+											id="validationCustom01" name="title"
+											th:placeholder="${recipe.title}" value="" required>
+
+
+										<button class="btn btn-primary" type="submit">Save</button>
+										<div class="valid-feedback">Looks good!</div>
+									</div>
+
+								</div>
 							</div>
-						</div>
+						</form>
+
 						<div>
 							<img class="img-profile rounded-circle"
 								src="https://source.unsplash.com/QAB-WJcbgJk/60x60"> <span
@@ -86,20 +97,24 @@
 											category</h6>
 									</div>
 									<div class="card-body">
+
 										<div class="form-group input-group">
 
 
 											<!-- th:field="*{ingredients}" -->
-											
-											<select class="form-control ml-2" name="category" required>
-												<option selected value="">Select your category</option>
-												<option th:each="category : ${categories}"
-													th:text="${category.title}" th:value="${category.id}"></option>
-											</select><span class="input-group-btn ml-2"><button
-													type="button" class="btn btn-success btn-circle btn-add">
-													<i class="fas fa-plus"></i>
-												</button></span>
+											<form method="post"
+												th:action="@{/addCategory(recipeId=${recipe.id})}">
+												<select class="form-control ml-2" name="category" required>
+													<option selected value="">Select your category</option>
+													<option th:each="category : ${categories}"
+														th:text="${category.title}" th:value="${category.id}"></option>
+												</select><span class="input-group-btn ml-2"><button
+														type="button" class="btn btn-success btn-circle btn-add">
+														<i class="fas fa-plus"></i>
+													</button></span>
+													</form>
 										</div>
+										
 									</div>
 
 								</div>
@@ -150,12 +165,12 @@
 											th:action="@{/addIngredientAndAmount(recipeId=${recipe.id})}"
 											method="post">
 											<div class="form-group input-group">
-												
+
 												<input type="text" name="amount" class="form-control"
 													placeholder="amount" required>
 
 												<!-- th:field="*{ingredients}" -->
-												
+
 												<select class="form-control ml-2" name="ingredient" required>
 													<option selected value="">Select your ingredient</option>
 													<option th:each="ingredient : ${ingredients}"
@@ -164,7 +179,7 @@
 														type="submit" class="btn btn-success btn-circle btn-add">
 														<i class="fas fa-plus"></i>
 													</button></span>
-												
+
 											</div>
 										</form>
 									</div>
@@ -196,11 +211,10 @@
 
 													<td th:text="${ingredientAmount.amount}"></td>
 													<td th:text="${ingredientAmount.ingredient.name}"></td>
-													<td><form method="post" th:action="@{/removeIngredientAndAmount(amount=${ingredientAmount.amount}, ingredientAmountId=${ingredientAmount.ingredient.id}, recipeId=${recipe.id})}"
-															>
+													<td><form method="post"
+															th:action="@{/removeIngredientAndAmount(amount=${ingredientAmount.amount}, ingredientAmountId=${ingredientAmount.id}, recipeId=${recipe.id})}">
 															<button type="submit" class="btn btn-danger">Remove</button>
 														</form>
-
 												</tr>
 
 											</tbody>
