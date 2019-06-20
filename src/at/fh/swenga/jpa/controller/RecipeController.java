@@ -301,10 +301,17 @@ public class RecipeController {
 	// Spring 4: @RequestMapping(value = "/editRecipe", method =
 	// RequestMethod.POST)
 	@PostMapping("/editRecipe")
-	public String editRecipe(Model model, Principal principal) {
-
+	public String editRecipe(Model model, Principal principal, @RequestParam int id) {
+		String userName = principal.getName();
+		UserModel user = userRepository.findUserByUserName(userName);
+		RecipeModel recipeModel = recipeRepository.findRecipeById(id);
+		List<IngredientModel> ingredientModel = ingredientRepository.findAllIngredientsOrderByName();
+		List<CategorieModel> categoryModel = categorieRepository.findAllCategoriesOrderByName();
 		
-
+		model.addAttribute(user);
+		model.addAttribute(recipeModel);
+		model.addAttribute(ingredientModel);
+		model.addAttribute(categoryModel);
 		return "editRecipe";
 	}
 	
