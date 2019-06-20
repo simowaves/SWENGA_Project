@@ -234,7 +234,7 @@ public class RecipeController {
 	// Spring 4: @RequestMapping(value = "/createNewRecipe", method = RequestMethod.POST)
 	@PostMapping("/createNewRecipe")
 	public String createNewRecipe(@RequestParam String title, @RequestParam String description,
-			@RequestParam String amount, @RequestParam String ingredient, @RequestParam String category,
+			@RequestParam String amount, @RequestParam String ingredient, @RequestParam String category, @RequestParam boolean publish,
 			Principal principal, Model model) {
 
 		RecipeModel newRecipeModel = new RecipeModel();
@@ -244,7 +244,7 @@ public class RecipeController {
 		String[] amountValues = amount.split(",");
 		String[] ingredientValues = ingredient.split(",");
 		String[] categoryValues = category.split(",");
-		Set<CategorieModel> categorySet = new HashSet<CategorieModel>();
+		Set<CategorieModel> categorySet = new HashSet<CategorieModel>();		
 
 		for (int j = 0; j < categoryValues.length; j++) {
 			CategorieModel categoryModel = categorieRepository.findCategorieById(Integer.valueOf(categoryValues[j]));
@@ -263,6 +263,8 @@ public class RecipeController {
 			model.addAttribute("errorMessage", "Error:" + e.getMessage());
 		}
 */
+		
+		newRecipeModel.setPublished(publish);
 		newRecipeModel.setTitle(title);
 		newRecipeModel.setDescription(description);
 		newRecipeModel.setCreateDate(now);
