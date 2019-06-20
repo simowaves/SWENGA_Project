@@ -17,7 +17,8 @@ public interface UserRepository extends JpaRepository<UserModel, Integer> {
 	
 	@Query ("SELECT u "
 			+ "FROM UserModel AS u "
-			+ "WHERE LOWER(u.userName) = LOWER(:searchString) ")
+			+ "WHERE LOWER(u.userName) = LOWER(:searchString) " 
+			+ "AND u.enabled = true ")
 	public UserModel findUserByUserName(@Param("searchString") String searchString);
 	
 	public UserModel findUserById(int id);
@@ -26,28 +27,32 @@ public interface UserRepository extends JpaRepository<UserModel, Integer> {
 	@Query ("SELECT u "
 			+ "FROM UserModel AS u "
 			+ "LEFT JOIN u.reportedRecipes r "
-			+ "WHERE r.id = :recId AND u.id = :userId")
+			+ "WHERE r.id = :recId AND u.id = :userId " 
+			+ "AND u.enabled = true ")
 	public UserModel findReportingUserFromRecipe(@Param("recId") int recId, @Param("userId") int userId);
 	
 	// give me the user that has reported that recipe
 	@Query ("SELECT u "
 			+ "FROM UserModel AS u "
 			+ "LEFT JOIN u.likedRecipes r "
-			+ "WHERE r.id = :recId AND u.id = :userId")
+			+ "WHERE r.id = :recId AND u.id = :userId " 
+			+ "AND u.enabled = true ")
 	public UserModel findLikingUserFromRecipe(@Param("recId") int recId, @Param("userId") int userId);
 	
 	// give me the user with the username with its reportedRecipes
 	@Query ("SELECT u "
 			+ "FROM UserModel AS u "
 			+ "LEFT JOIN FETCH u.reportedRecipes r "
-			+ "WHERE LOWER(u.userName) = LOWER(:searchString) ")
+			+ "WHERE LOWER(u.userName) = LOWER(:searchString) "
+			+ "AND u.enabled = true ")
 	public UserModel findUserByUserNameWithReportedRecipes(@Param("searchString") String searchString);
 		
 	// give me the user with the username with its likedRecipes
 	@Query ("SELECT u "
 			+ "FROM UserModel AS u "
 			+ "LEFT JOIN FETCH u.likedRecipes r "
-			+ "WHERE LOWER(u.userName) = LOWER(:searchString) ")
+			+ "WHERE LOWER(u.userName) = LOWER(:searchString) "
+			+ "AND u.enabled = true ")
 	public UserModel findUserByUserNameWithLikedRecipes(@Param("searchString") String searchString);
 	
 	
@@ -56,7 +61,8 @@ public interface UserRepository extends JpaRepository<UserModel, Integer> {
 			+ "FROM UserModel AS u "
 			+ "LEFT JOIN FETCH u.likedRecipes lr "
 			+ "LEFT JOIN FETCH u.recipes r "
-			+ "WHERE u.id = :userId ")
+			+ "WHERE u.id = :userId "
+			+ "AND u.enabled = true ")
 	public UserModel findUserByIdWithRecipesAndLikedRecipes(@Param("userId") int userId);
 		
 	// give me the user with the username with its recipes and likedRecipes
@@ -64,21 +70,24 @@ public interface UserRepository extends JpaRepository<UserModel, Integer> {
 			+ "FROM UserModel AS u "
 			+ "LEFT JOIN FETCH u.likedRecipes lr "
 			+ "LEFT JOIN FETCH u.recipes r "
-			+ "WHERE LOWER(u.userName) = LOWER(:userName) ")
+			+ "WHERE LOWER(u.userName) = LOWER(:userName) "
+			+ "AND u.enabled = true ")
 	public UserModel findUserByIdWithRecipesAndLikedRecipes(@Param("userName") String userName);
 	
 	// give me the user with the username with its recipes and likedRecipes
 	@Query ("SELECT u "
 			+ "FROM UserModel AS u "
 			+ "LEFT JOIN FETCH u.usersIFollow uif "
-			+ "WHERE LOWER(u.userName) = LOWER(:userName) ")
+			+ "WHERE LOWER(u.userName) = LOWER(:userName) "
+			+ "AND u.enabled = true ")
 	public UserModel findUserByUserNameWithUsersIFollow(@Param("userName") String userName);
 	
 	// give me the user that has reported that recipe
 	@Query ("SELECT u "
 			+ "FROM UserModel AS u "
 			+ "LEFT JOIN u.usersIFollow uif "
-			+ "WHERE uif.id = :otherUserId AND u.id = :userId")
+			+ "WHERE uif.id = :otherUserId AND u.id = :userId "
+			+ "AND u.enabled = true ")
 	public UserModel findUserIFollowFromUser(@Param("otherUserId") int recId, @Param("userId") int userId);
 	
 	// give me the user with the username with its allergies and lovedIngredients and hatedIngredients
@@ -87,21 +96,24 @@ public interface UserRepository extends JpaRepository<UserModel, Integer> {
 			+ "LEFT JOIN FETCH u.allergies a "
 			+ "LEFT JOIN FETCH u.lovedIngredients li "
 			+ "LEFT JOIN FETCH u.hatedIngredients hi "
-			+ "WHERE LOWER(u.userName) = LOWER(:userName) ")
+			+ "WHERE LOWER(u.userName) = LOWER(:userName) "
+			+ "AND u.enabled = true ")
 	public UserModel findUserByUserNameWithAllergiesAndLovedIngredientsAndHatedIngredients(@Param("userName") String userName);
 	
 	// give me the user with the username with its allergies
 	@Query ("SELECT u "
 			+ "FROM UserModel AS u "
 			+ "LEFT JOIN FETCH u.allergies a "
-			+ "WHERE LOWER(u.userName) = LOWER(:userName) ")
+			+ "WHERE LOWER(u.userName) = LOWER(:userName) "
+			+ "AND u.enabled = true ")
 	public UserModel findUserByUserNameWithAllergies(@Param("userName") String userName);
 	
 	// give me the user with the username with its lovedIngredients
 	@Query ("SELECT u "
 			+ "FROM UserModel AS u "
 			+ "LEFT JOIN FETCH u.lovedIngredients li "
-			+ "WHERE LOWER(u.userName) = LOWER(:userName) ")
+			+ "WHERE LOWER(u.userName) = LOWER(:userName) "
+			+ "AND u.enabled = true ")
 	public UserModel findUserByUserNameWithLovedIngredients(@Param("userName") String userName);
 	
 	// give me the user with the username with its hatedIngredients
@@ -116,12 +128,14 @@ public interface UserRepository extends JpaRepository<UserModel, Integer> {
 			+ "FROM UserModel AS u "
 			+ "LEFT JOIN FETCH u.userRoles ur "
 			+ "LEFT JOIN FETCH u.comments c "
-			+ "LEFT JOIN FETCH u.recipes r ")
+			+ "LEFT JOIN FETCH u.recipes r "
+			+ "WHERE u.enabled = true ")
 	public List<UserModel> findUsersWithUserRolesAndRecipesAndComments();
 	
 	@Query ("SELECT u "
 			+ "FROM UserModel AS u "
 			+ "LEFT JOIN FETCH u.recipes r "
+			+ "WHERE u.enabled = true "
 			+ "ORDER BY u.userName ")
 	public List<UserModel> findTop3ByOrderByIdAscAndRecipes();
 	

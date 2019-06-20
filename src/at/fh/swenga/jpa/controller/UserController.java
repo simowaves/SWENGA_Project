@@ -340,4 +340,14 @@ public class UserController {
 		userRepository.save(user);
 		return "redirect:/recipeList"; 
 	}
+	
+	// Spring 4: @RequestMapping(value = "/deleteUser", method =
+	// RequestMethod.POST)
+	@PostMapping("/deleteUserAdmin")
+	public String deleteUserAdmin(Model model, @RequestParam int id) {
+		UserModel user = userRepository.findUserById(id);
+		user.setEnabled(false);
+		userRepository.save(user);
+		return "redirect:/showAdminUsers"; 
+	}
 }
