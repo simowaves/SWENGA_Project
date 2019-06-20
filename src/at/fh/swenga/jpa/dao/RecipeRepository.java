@@ -23,6 +23,12 @@ public interface RecipeRepository extends JpaRepository<RecipeModel, Integer> {
 			+ "WHERE c.id = :catId ")
 	public List<RecipeModel> findRecipesByCategorieId (@Param("catId") int catId);
 	
+	@Query ("SELECT r "
+			+ "FROM RecipeModel AS r "
+			+ "JOIN r.author u "
+			+ "WHERE u.id = :userId ")
+	public List<RecipeModel> findRecipesByUserId (@Param("userId") int userId);
+	
 	/*
 	
 	// filters the recipes and returns all recipes that the user isn't allergic against, or don't have hated Ingredients and it filters of categories

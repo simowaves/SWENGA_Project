@@ -1,5 +1,6 @@
 package at.fh.swenga.jpa.controller;
 
+import java.awt.image.RescaleOp;
 import java.security.Principal;
 import java.util.List;
 
@@ -21,6 +22,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import at.fh.swenga.jpa.dao.AllergieRepository;
 import at.fh.swenga.jpa.dao.IngredientRepository;
 import at.fh.swenga.jpa.dao.RecipeCollectionRepository;
+import at.fh.swenga.jpa.dao.RecipeRepository;
 import at.fh.swenga.jpa.dao.UserRepository;
 import at.fh.swenga.jpa.dao.UserRoleRepository;
 import at.fh.swenga.jpa.model.AllergieModel;
@@ -41,6 +43,9 @@ public class UserController {
 
 	@Autowired
 	RecipeCollectionRepository recipeCollectionRepository;
+	
+	@Autowired
+	RecipeRepository recipeRepository;
 
 	@Autowired
 	IngredientRepository ingredientRepository;
@@ -334,20 +339,32 @@ public class UserController {
 	// Spring 4: @RequestMapping(value = "/deleteUser", method =
 	// RequestMethod.POST)
 	@PostMapping("/deleteUser")
-	public String deleteUser(Model model, @RequestParam int id) {
-		UserModel user = userRepository.findUserById(id);
+	public String deleteUser(Model model, Principal principal) {
+		String userName = principal.getName();
+		UserModel user = userRepository.findUserByUserName(userName);
 		user.setEnabled(false);
 		userRepository.save(user);
+		List<RecipeModel> recipes = recipeRepository.findRecipesByUserId(user.getId());
+		for (RecipeModel recipe : recipes) {
+			recipe.setEnabled(false);
+			recipeRepository.save(recipe);
+		}
+		
 		return "redirect:/recipeList"; 
 	}
 	
-	// Spring 4: @RequestMapping(value = "/deleteUser", method =
+	// Spring 4: @RequestMapping(value = "/deleteUserAdmin", method =
 	// RequestMethod.POST)
 	@PostMapping("/deleteUserAdmin")
 	public String deleteUserAdmin(Model model, @RequestParam int id) {
 		UserModel user = userRepository.findUserById(id);
 		user.setEnabled(false);
 		userRepository.save(user);
+		List<RecipeModel> recipes = recipeRepository.findRecipesByUserId(id);
+		for (RecipeModel recipe : recipes) {
+			recipe.setEnabled(false);
+			recipeRepository.save(recipe);
+		}
 		return "redirect:/showAdminUsers"; 
 	}
 }

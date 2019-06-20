@@ -122,7 +122,7 @@ public class RecipeController {
 			return "recipe";
 		} else {
 			model.addAttribute("errorMessage", "Couldn't find recipe " + id);
-			return "forward:/recipeList";
+			return "errorPage";
 		}
 	}
 
@@ -322,11 +322,19 @@ public class RecipeController {
 	// Spring 4: @RequestMapping(value = "/deleteRecipe", method =
 	// RequestMethod.POST)
 	@PostMapping("/deleteRecipe")
-	public String deleteRecipe(Model model, @RequestParam int id) {
+	public String deleteRecipe(Model model, @RequestParam int id, Principal principal) {
 		RecipeModel recipeModel = recipeRepository.findRecipeById(id);
-		recipeModel.setEnabled(false);
-		recipeRepository.save(recipeModel);
-		return "redirect:/recipeList"; 
+		String userName = principal.getName();
+		UserModel user = userRepository.findUserByUserName(userName);
+		if (user == recipeModel.getAuthor()) {
+			recipeModel.setEnabled(false);
+			recipeRepository.save(recipeModel);
+			return "redirect:/recipeList"; 
+		} else {
+			model.addAttribute("errorMessage", "You can't delete this recipe, because it doesn't belong to you!! ");
+			return "errorPage";
+		}
+		
 	}
 	
 	// Spring 4: @RequestMapping(value = "/deleteRecipe", method =
