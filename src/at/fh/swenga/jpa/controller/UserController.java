@@ -1,6 +1,5 @@
 package at.fh.swenga.jpa.controller;
 
-import java.awt.image.RescaleOp;
 import java.security.Principal;
 import java.util.List;
 
@@ -117,14 +116,19 @@ public class UserController {
 	@GetMapping({ "/showUser", "/followUser" })
 	public String showUserDetails(Model model, @RequestParam int id) {
 
-		UserModel user = userRepository.findUserByIdWithRecipesAndLikedRecipes(id);
+		UserModel user = userRepository.findUserById(id);
+		List<RecipeModel> recipes = recipeRepository.findRecipesByUserId(id);
+		List<RecipeModel> likedRecipes = recipeRepository.findRecipesByLikingUserId(id);
 
 		if (user != null) {
+			
 			model.addAttribute("user", user);
+			model.addAttribute("recipes", recipes);
+			model.addAttribute("likedRecipes", likedRecipes);
 			return "userInfo";
 		} else {
 			model.addAttribute("errorMessage", "Couldn't find user " + id);
-			return "forward:/recipeList";
+			return "errorPage";
 		}
 	}
 
@@ -168,15 +172,21 @@ public class UserController {
 	@GetMapping("/showCurrentUser")
 	public String showCurrentUser(Model model, Principal principal) {
 
-		String userName = principal.getName();
-		UserModel user = userRepository.findUserByIdWithRecipesAndLikedRecipes(userName);
+		String userName = principal.getName();		
+		UserModel user = userRepository.findUserByUserName(userName);
+		
 
 		if (user != null) {
+			List<RecipeModel> recipes = recipeRepository.findRecipesByUserId(user.getId());
+			List<RecipeModel> likedRecipes = recipeRepository.findRecipesByLikingUserId(user.getId());
+			
 			model.addAttribute("user", user);
+			model.addAttribute("recipes", recipes);
+			model.addAttribute("likedRecipes", likedRecipes);
 			return "userInfo";
 		} else {
-			model.addAttribute("errorMessage", "Couldn't find user ");
-			return "forward:/recipeList";
+			model.addAttribute("errorMessage", "You are not logged in");
+			return "errorPage";
 		}
 	}
 

@@ -21,7 +21,11 @@ public interface UserRepository extends JpaRepository<UserModel, Integer> {
 			+ "AND u.enabled = true ")
 	public UserModel findUserByUserName(@Param("searchString") String searchString);
 	
-	public UserModel findUserById(int id);
+	@Query ("SELECT u "
+			+ "FROM UserModel u "
+			+ "WHERE u.id = :id "
+			+ "AND u.enabled = true ")
+	public UserModel findUserById(@Param("id") int id);
 	
 	// give me the user that has reported that recipe
 	@Query ("SELECT u "
