@@ -22,5 +22,7 @@ public interface IngredientRepository extends JpaRepository<IngredientModel, Int
 	public List<IngredientModel> findAllIngredientsOrderByName();
 	
 	public IngredientModel findIngredientById(int id);
+	
+	public List<IngredientModel> findTop3ByOrderById();
 
 }

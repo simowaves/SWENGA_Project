@@ -60,9 +60,25 @@ public class RecipeController {
 	AllergieRepository allergieRepository;
 	
 
+	@RequestMapping(value = "/", method = RequestMethod.GET)
+	public String langingPage(Model model) {
+		List<RecipeModel> recipes = recipeRepository.findTop3ByOrderByTitleAsc();
+		List<CategorieModel> categories = categorieRepository.findTop3ByOrderByTitleAsc();
+		List<UserModel> authors = userRepository.findTop3ByOrderByIdAsc();
+		List<IngredientModel> ingredients = ingredientRepository.findTop3ByOrderById();
+		
+		model.addAttribute("recipes", recipes);
+		model.addAttribute("authors", authors);
+		model.addAttribute("categories", categories);
+		model.addAttribute("ingredients", ingredients);
+		return "landing";
+	}
+
 	@RequestMapping(value = { "list", "recipeList" })
 	//@GetMapping(value = { "/", "list", "recipeList" })
 	public String index(Model model, Principal principal) {
+		
+		model.addAttribute("header", "All Recipes");
 
 		if (principal == null) {
 
@@ -88,6 +104,8 @@ public class RecipeController {
 	@RequestMapping(value = { "mostRecentRecipes" })
 	//@GetMapping(value = { "/", "list", "recipeList" })
 	public String recentRecipes(Model model, Principal principal) {
+		
+		model.addAttribute("header", "Most Recent Recipes");
 
 		if (principal == null) {
 
@@ -113,6 +131,8 @@ public class RecipeController {
 	@RequestMapping(value = { "/followingRecipes" })
 	//@GetMapping(value = { "/", "list", "followingRecipes" })
 	public String followingRecipes(Model model, Principal principal) {
+		
+		model.addAttribute("header", "Recipes By Friends");
 
 		if (principal == null) {
 			model.addAttribute("errorMessage", "No User logged in.");
@@ -407,19 +427,6 @@ public class RecipeController {
 		model.addAttribute("categories", categoryModel);
 		model.addAttribute("ingredientAmounts", ingredientAmountModel);
 		return "editRecipe";
-	}
-	
-
-	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String langingPage(Model model) {
-		List<RecipeModel> recipeModel = recipeRepository.findTop3ByOrderByTitleAsc();
-		List<CategorieModel> categorieModel = categorieRepository.findTop3ByOrderByTitleAsc();
-		List<UserModel> userModel = userRepository.findTop3ByOrderByIdAsc();
-		
-		model.addAttribute("recipes", recipeModel);
-		model.addAttribute("authors", userModel);
-		model.addAttribute("categories", categorieModel);
-		return "landing";
 	}	
 
 	// Spring 4: @RequestMapping(value = "/addIngredientAndAmount", method =
