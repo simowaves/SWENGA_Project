@@ -296,4 +296,17 @@ public class RecipeController {
 		recipeRepository.save(recipeModel);
 		return "forward:/recipeList";
 	}
+	
+	
+	// Spring 4: @RequestMapping(value = "/editRecipe", method =
+	// RequestMethod.POST)
+	@PostMapping("/editRecipe")
+	public String editRecipe(Model model, Principal principal) {
+
+		
+
+		return "editRecipe";
+	}
+	
+	
 }
