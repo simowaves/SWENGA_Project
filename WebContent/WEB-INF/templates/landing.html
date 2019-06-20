@@ -80,7 +80,7 @@
 							<h1 class="h3 mb-0 text-gray-800">Top Categories</h1>
 						</div>
 						<div class="card-deck">
-							<span class="card bg-dark text-white col-xl-2 col-md-4 mb-4"
+							<a class="card bg-dark text-white col-xl-2 col-md-4 mb-4"
 								th:href="@{/showCategorie}" th:each="categorie : ${categories}">
 								<img
 								src="https://images.unsplash.com/photo-1498579150354-977475b7ea0b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
@@ -89,7 +89,7 @@
 									<h3 class="card-title" th:text="${categorie.title}"></h3>
 									<p class="card-text"></p>
 								</div>
-							</span>
+							</a>
 						</div>
 					</div>
 					<!-- END Top Categories -->

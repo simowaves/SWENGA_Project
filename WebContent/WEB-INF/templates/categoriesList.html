@@ -6,7 +6,7 @@
 <head>
 
 <div th:replace="~{includes/bootstrap :: bootstrapMeta}" />
-<title>WhatToFood - Dashboard</title>
+<title>WhatToFood - Categories</title>
 <div th:replace="~{includes/bootstrap :: bootstrapCSS}" />
 
 </head>
@@ -33,117 +33,80 @@
 				<!-- End of Topbar -->
 
 				<!-- #####  Begin Page Content ####### -->
-				<div class="container-fluid">
+				<div>
 
 					<!-- Page Heading -->
-					<div
-						class="d-sm-flex align-items-center justify-content-between mb-4">
-						<h1 class="h3 mb-0 text-gray-800">Recipes</h1>
-						<a sec:authorize="isAuthenticated()" th:href="@{/createRecipe}"
-							class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-							class="fas fa-download fa-sm text-white-50"></i> Add Recipe</a> <a
-							href="fillTestData"
-							class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-							class="fas fa-download fa-sm text-white-50"></i> Fill Data</a>
+					<div class="container-fluid">
+						<div
+							class="d-sm-flex align-items-center justify-content-between mb-4">
+							<h1 class="h3 mb-0 text-gray-800">Search by Categories</h1>
+						</div>
 					</div>
-
 					<!-- Content -->
-
+					<div class="container-fluid">
 					<div class="card-deck">
-
-						<!-- Basic Card Example -->
-
-						<div class="col-xl-4 col-md-6 col-sm-12 mb-4 px-0"
-							th:each="recipe : ${recipes}">
-
-							<div class="card shadow ">
-								<!-- Image -->
-								<div
-									style="position: relative; overflow: hidden; padding-bottom: 100%;">
-									<a th:href="@{/showRecipe(id=${recipe.id})}"><img
-										style="position: absolute;"
-										src="https://images.unsplash.com/photo-1559562649-21c0be156e0d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60"
-										alt=""></a>
-
-									<!-- 										<img class="img-fluid card-img-top" -->
-									<!-- 											style="position: absolute;" -->
-									<!-- 											th:src="@{download(documentId=${recipe.document.id})}" -->
-									<!-- 											alt=""> -->
-								</div>
-								<!-- card body -->
-								<div class="card-body">
-									<div class="row">
-										<div class="col-8">
-											<a class="m-0 font-weight-bold text-primary"
-												th:href="@{/showRecipe(id=${recipe.id})}"
-												th:text="${recipe.title}"> </a> by <a
-												th:href="@{/showUser(id=${recipe.author.id})}"
-												th:text="${recipe.author.userName}"></a>
-										</div>
-										<div class="col-4 text-right">
-											<a href="#" class="btn btn-danger btn-circle"> <i
-												class="fas fa-heart"></i>
-											</a>
-										</div>
+						
+							<div class=" col-xl-3 col-md-4 mb-4"
+								th:each="categorie : ${categories}"
+								>
+								<a class="card bg-dark text-white" th:href="@{/showCategorie(id=${categorie.id})}">
+									<img
+										src="https://images.unsplash.com/photo-1498579150354-977475b7ea0b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
+										class="card-img" alt="...">
+									<div class="card-img-overlay">
+										<h3 class="card-title" th:text="${categorie.title}"></h3>
+										<p class="card-text"></p>
 									</div>
-									<div class="row">
-										<div th:each="categorie : ${recipe.categories}">
-											<div class="ml-1 mr-1">
-												<a th:href="@{/showCategorie(id=${categorie.id})}"
-													class="badge badge-info" th:text="${categorie.title}"></a>
-											</div>
-										</div>
-									</div>
-								</div>
+								</a>
 							</div>
 						</div>
 					</div>
-					<!-- /.container-fluid -->
-
 				</div>
-				<!-- End of Main Content -->
-
-				<!-- Footer -->
-				<div th:replace="includes/navigation :: footer"></div>
-				<!-- End of Footer -->
+				<!-- /.container-fluid -->
 
 			</div>
-			<!-- End of Content Wrapper -->
+			<!-- End of Main Content -->
+
+			<!-- Footer -->
+			<div th:replace="includes/navigation :: footer"></div>
+			<!-- End of Footer -->
 
 		</div>
-		<!-- End of Page Wrapper -->
+		<!-- End of Content Wrapper -->
 
-		<!-- Scroll to Top Button-->
-		<a class="scroll-to-top rounded" href="#page-top"> <i
-			class="fas fa-angle-up"></i>
-		</a>
+	</div>
+	<!-- End of Page Wrapper -->
 
-		<!-- Logout Modal-->
-		<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
-			aria-labelledby="exampleModalLabel" aria-hidden="true">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLabel">Ready to
-							Leave?</h5>
-						<button class="close" type="button" data-dismiss="modal"
-							aria-label="Close">
-							<span aria-hidden="true">×</span>
-						</button>
-					</div>
-					<div class="modal-body">Select "Logout" below if you are
-						ready to end your current session.</div>
-					<div class="modal-footer">
-						<button class="btn btn-secondary" type="button"
-							data-dismiss="modal">Cancel</button>
-						<a class="btn btn-primary" href="login.html">Logout</a>
-					</div>
+	<!-- Scroll to Top Button-->
+	<a class="scroll-to-top rounded" href="#page-top"> <i
+		class="fas fa-angle-up"></i>
+	</a>
+
+	<!-- Logout Modal-->
+	<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+					<button class="close" type="button" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+				<div class="modal-body">Select "Logout" below if you are ready
+					to end your current session.</div>
+				<div class="modal-footer">
+					<button class="btn btn-secondary" type="button"
+						data-dismiss="modal">Cancel</button>
+					<a class="btn btn-primary" href="login.html">Logout</a>
 				</div>
 			</div>
 		</div>
+	</div>
 
-		<!-- JS needs to move to bottom -->
-		<div th:replace="~{includes/bootstrap :: bootstrapJS}" />
+	<!-- JS needs to move to bottom -->
+	<div th:replace="~{includes/bootstrap :: bootstrapJS}" />
 </body>
 
 </html>
