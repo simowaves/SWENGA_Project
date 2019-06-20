@@ -489,6 +489,27 @@ public class RecipeController {
 		return "redirect:/editRecipe";
 	}
 
+	// Spring 4: @RequestMapping(value = "/setTitle", method = RequestMethod.POST)
+	@PostMapping("/setTitle")
+	public String setTitle(@RequestParam int recipeId, @RequestParam String title, Principal principal, RedirectAttributes redirectAttributes) {
+		RecipeModel recipeModel = recipeRepository.findRecipeById(recipeId);
+		recipeModel.setTitle(title);
+		recipeRepository.save(recipeModel);
+		
+		redirectAttributes.addAttribute("id", recipeId);
+		return "redirect:/editRecipe";
+	}
+	
+	// Spring 4: @RequestMapping(value = "/setTitle", method = RequestMethod.POST)
+	@PostMapping("/setDescription")
+	public String setDescription(@RequestParam int recipeId, @RequestParam String description, Principal principal, RedirectAttributes redirectAttributes) {
+		RecipeModel recipeModel = recipeRepository.findRecipeById(recipeId);
+		recipeModel.setTitle(description);
+		recipeRepository.save(recipeModel);
+		
+		redirectAttributes.addAttribute("id", recipeId);
+		return "redirect:/editRecipe";
+	}
 
 	public static void main(String[] args) {
 
