@@ -87,7 +87,7 @@ public class RecipeController {
 				model.addAttribute("recipes", recipes);
 			}
 		}
-		return "recipeList";
+		return "landing";
 	}
 
 	// Spring 4: @RequestMapping(value = "/showRecipe", method = RequestMethod.GET)
