@@ -415,4 +415,20 @@ public class UserController {
 		redirectAttributes.addAttribute("id", userId);
 		return "redirect:/showCurrentUserPreferences";
 	}
+	
+	// Spring 4: @RequestMapping(value = "/addToCollection", method =
+	// RequestMethod.POST)
+	@PostMapping("/addToCollection")
+	public String addToCollection(@RequestParam int collectionId, @RequestParam int recipeId, Principal principal, RedirectAttributes redirectAttributes) {
+		String userName = principal.getName();
+		UserModel user = userRepository.findUserByUserNameWithAllergies(userName);
+		int userId = user.getId();
+		RecipeCollectionModel recipeCollectionModel = recipeCollectionRepository.findCollectionsById(collectionId);
+		RecipeModel recipeModel = recipeRepository.findRecipeById(recipeId);
+		recipeCollectionModel.addRecipe(recipeModel);
+		recipeCollectionRepository.save(recipeCollectionModel);
+		
+		redirectAttributes.addAttribute("id", userId);
+		return "redirect:/showCurrentUserPreferences";
+	}
 }
