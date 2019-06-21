@@ -128,19 +128,21 @@ public class UserController {
 		if (user != null) {
 			if (principal != null) {
 				UserModel loggedInUser = userRepository.findUserByUserName(principal.getName());
+				
+				Set<UserModel> followingUsers = user.getUsersFollowingMe();
+				boolean followed;
+				if(followingUsers.contains(loggedInUser)) {
+					followed = true;
+				} else followed = false;
 				model.addAttribute("loggedInUser", loggedInUser);
+				
+				model.addAttribute("followed", followed);
 				if(user.getId() == loggedInUser.getId()) {
 					recipes = recipeRepository.findRecipesByUserId(id);
-					Set<UserModel> followingUsers = user.getUsersFollowingMe();
-					boolean followed;
-					if(followingUsers.contains(loggedInUser)) {
-						followed = true;
-					} else followed = false;
 					model.addAttribute("user", user);
 					model.addAttribute("recipes", recipes);
 					model.addAttribute("likedRecipes", likedRecipes);
 					model.addAttribute("collections", collections);
-					model.addAttribute("followed", followed);
 					return "userInfo";
 				}
 			}
