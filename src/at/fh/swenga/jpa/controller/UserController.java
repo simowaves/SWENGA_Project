@@ -213,7 +213,7 @@ public class UserController {
 			
 			return "userPreferences";
 		} else {
-			model.addAttribute("errorMessage", "Couldn't find user ");
+			model.addAttribute("errorMessage", "You are not logged in");
 			return "errorPage";
 		}
 	}
@@ -232,7 +232,7 @@ public class UserController {
 			model.addAttribute("user", user);
 			return "accountSettings";
 		} else {
-			model.addAttribute("errorMessage", "Couldn't find user ");
+			model.addAttribute("errorMessage", "You are not logged in");
 			return "errorPage";
 		}
 	}
