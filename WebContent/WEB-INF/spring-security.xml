@@ -9,15 +9,51 @@
 
 	<http>
 		<csrf disabled="true"/><!-- Enable at the end, off for testing -->
-		<intercept-url pattern="/adminRecipes"
-			access="hasRole('ADMIN')" />
-		<intercept-url pattern="/showAdminUsers"
-			access="hasRole('ADMIN')" />
-			
-		<intercept-url pattern="/createRecipe"
-			access="hasRole('USER')" />
+		<intercept-url pattern="/showAdminRecipes" access="hasRole('ADMIN')" />
+		<intercept-url pattern="/showAdminUsers" access="hasRole('ADMIN')" />
+		<intercept-url pattern="/clearRecipeReporters" access="hasRole('ADMIN')" />
+		<intercept-url pattern="/deleteRecipeAdmin" access="hasRole('ADMIN')" />
+		<intercept-url pattern="/deleteUserAdmin" access="hasRole('ADMIN')" />
+		
+		<intercept-url pattern="/postComment" access="hasRole('USER')" />
+		<intercept-url pattern="/changeRecipePicture" access="hasRole('USER')" />
+		<intercept-url pattern="/changeUserPicture" access="hasRole('USER')" />
+		<intercept-url pattern="/followingRecipes" access="hasRole('USER')" />
+		<intercept-url pattern="/likeRecipe" access="hasRole('USER')" />
+		<intercept-url pattern="/createNewRecipe" access="hasRole('USER')" />
+		<intercept-url pattern="/deleteRecipe" access="hasRole('USER')" />
+		<intercept-url pattern="/editRecipe" access="hasRole('USER')" />
+		<intercept-url pattern="/addIngredientAndAmount" access="hasRole('USER')" />
+		<intercept-url pattern="/removeIngredientAndAmount" access="hasRole('USER')" />
+		<intercept-url pattern="/addCategory" access="hasRole('USER')" />
+		<intercept-url pattern="/removeCategory" access="hasRole('USER')" />
+		<intercept-url pattern="/setTitle" access="hasRole('USER')" />
+		<intercept-url pattern="/setDescription" access="hasRole('USER')" />
+		<intercept-url pattern="/changePublished" access="hasRole('USER')" />
+		<intercept-url pattern="/followUser" access="hasRole('USER')" />
+		<intercept-url pattern="/showCurrentUser" access="hasRole('USER')" />
+		<intercept-url pattern="/showCurrentUserPreferences" access="hasRole('USER')" />
+		<intercept-url pattern="showCurrentUserAccountSettings" access="hasRole('USER')" />
+		<intercept-url pattern="/addAllergy" access="hasRole('USER')" />
+		<intercept-url pattern="/removeAllergy" access="hasRole('USER')" />
+		<intercept-url pattern="/addLovedIngredient" access="hasRole('USER')" />
+		<intercept-url pattern="/removeLovedIngredient" access="hasRole('USER')" />
+		<intercept-url pattern="/addHatedIngredient" access="hasRole('USER')" />
+		<intercept-url pattern="/removeHatedIngredient" access="hasRole('USER')" />
+		<intercept-url pattern="/updateUserName" access="hasRole('USER')" />
+		<intercept-url pattern="/updateEmailAddress" access="hasRole('USER')" />
+		<intercept-url pattern="/updatePassword" access="hasRole('USER')" />
+		<intercept-url pattern="/deleteUser" access="hasRole('USER')" />
+		<intercept-url pattern="/changeCollectionName" access="hasRole('USER')" />
+		<intercept-url pattern="/addCollection" access="hasRole('USER')" />
+		<intercept-url pattern="/deleteCollection" access="hasRole('USER')" />
+		<intercept-url pattern="/addRecipeToCollection" access="hasRole('USER')" />
+		<intercept-url pattern="/removeRecipeFromCollection" access="hasRole('USER')" />
+		
 		<intercept-url pattern="/login" access="permitAll" />
+		
 		<intercept-url pattern="/**" access="permitAll" />
+		
 		<form-login login-page="/login" />
 		<logout logout-success-url="/login" logout-url="/logout" />
 
