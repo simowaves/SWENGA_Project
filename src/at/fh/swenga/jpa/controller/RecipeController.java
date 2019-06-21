@@ -27,7 +27,6 @@ import at.fh.swenga.jpa.dao.PictureRepository;
 import at.fh.swenga.jpa.dao.RecipeCollectionRepository;
 import at.fh.swenga.jpa.dao.RecipeRepository;
 import at.fh.swenga.jpa.dao.UserRepository;
-import at.fh.swenga.jpa.model.AllergieModel;
 import at.fh.swenga.jpa.model.CategorieModel;
 import at.fh.swenga.jpa.model.CommentModel;
 import at.fh.swenga.jpa.model.IngredientAmountModel;

@@ -8,7 +8,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import at.fh.swenga.jpa.model.CategorieModel;
-import at.fh.swenga.jpa.model.RecipeModel;
 
 @Repository
 @Transactional

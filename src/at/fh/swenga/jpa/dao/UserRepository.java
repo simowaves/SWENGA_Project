@@ -8,7 +8,6 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import at.fh.swenga.jpa.model.RecipeModel;
 import at.fh.swenga.jpa.model.UserModel;
 
 @Repository

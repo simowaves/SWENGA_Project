@@ -9,7 +9,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import at.fh.swenga.jpa.model.CommentModel;
-import at.fh.swenga.jpa.model.IngredientAmountModel;
 
 @Repository
 @Transactional

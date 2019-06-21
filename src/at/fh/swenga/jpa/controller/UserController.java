@@ -113,7 +113,7 @@ public class UserController {
 	}
 
 	// Spring 4: @RequestMapping(value = "/showUser", method = RequestMethod.GET)
-	@GetMapping({ "/showUser", "/followUser" })
+	@GetMapping({ "/showUser"})
 	public String showUserDetails(Model model, @RequestParam int id) {
 
 		UserModel user = userRepository.findUserById(id);
