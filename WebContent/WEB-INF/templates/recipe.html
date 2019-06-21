@@ -58,8 +58,10 @@
 						<div class="col-md-8">
 							<div
 								style="position: relative; overflow: hidden; padding-bottom: 100%;">
+								
 								<img style="position: absolute; height:100%"
 									th:src="${recipe.showPicture()}" alt="">
+
 							</div>
 						</div>
 
@@ -96,6 +98,21 @@
 										<i class="fas fa-heart mr-2"></i>Change to public/private
 									</button>
 								</form>
+								<div>
+									<!-- expanding Ingredient selection -->
+									<div class="form-group multiple-form-group" data-max=10>
+										<div class="form-group input-group">
+											<select class="form-control" name="collection" required>
+												<option selected value="">Select your category</option>
+												<option th:each="collection : ${collections}"
+													th:text="${collection.title}" th:value="${collection.id}"></option>
+											</select><span class="input-group-btn ml-2"><button
+													type="button" class="btn btn-success btn-circle btn-add">
+													<i class="fas fa-plus"></i>
+												</button></span>
+										</div>
+									</div>
+								</div>
 							</div>
 
 							<!-- Dropdown Card Example -->

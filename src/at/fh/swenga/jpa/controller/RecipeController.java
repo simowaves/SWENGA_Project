@@ -1,6 +1,7 @@
 package at.fh.swenga.jpa.controller;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -23,6 +24,7 @@ import at.fh.swenga.jpa.dao.CommentRepository;
 import at.fh.swenga.jpa.dao.IngredientAmountRepository;
 import at.fh.swenga.jpa.dao.IngredientRepository;
 import at.fh.swenga.jpa.dao.PictureRepository;
+import at.fh.swenga.jpa.dao.RecipeCollectionRepository;
 import at.fh.swenga.jpa.dao.RecipeRepository;
 import at.fh.swenga.jpa.dao.UserRepository;
 import at.fh.swenga.jpa.model.AllergieModel;
@@ -31,6 +33,7 @@ import at.fh.swenga.jpa.model.CommentModel;
 import at.fh.swenga.jpa.model.IngredientAmountModel;
 import at.fh.swenga.jpa.model.IngredientModel;
 import at.fh.swenga.jpa.model.PictureModel;
+import at.fh.swenga.jpa.model.RecipeCollectionModel;
 import at.fh.swenga.jpa.model.RecipeModel;
 import at.fh.swenga.jpa.model.UserModel;
 
@@ -61,19 +64,83 @@ public class RecipeController {
 	@Autowired
 	AllergieRepository allergieRepository;
 	
+	@Autowired
+	RecipeCollectionRepository recipeCollectionRepository;
+	
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String langingPage(Model model) {
-		List<RecipeModel> recipes = recipeRepository.findTop3ByOrderByTitleAsc();
-		List<CategorieModel> categories = categorieRepository.findTop3ByOrderByTitleAsc();
-		List<UserModel> authors = userRepository.findTop3ByOrderByIdAsc();
-		List<IngredientModel> ingredients = ingredientRepository.findTop3ByOrderById();
+	public String langingPage(Model model, Principal principal) {
 		
-		model.addAttribute("recipes", recipes);
-		model.addAttribute("authors", authors);
-		model.addAttribute("categories", categories);
-		model.addAttribute("ingredients", ingredients);
-		return "landing";
+		if (principal == null) {
+			
+			List<RecipeModel> allRecipes = recipeRepository.findRecipesOrderedByLikes();
+			List<RecipeModel> recipes = new ArrayList<RecipeModel>();
+			for(int i = 0; i< 3; i++) {
+				recipes.add(allRecipes.get(i));
+			}
+			    
+			List<CategorieModel> categories = categorieRepository.findTop3ByOrderByTitleAsc();
+			List<UserModel> allAuthors = userRepository.findUsersOrderedByMostRecipes();
+			List<UserModel> authors = new ArrayList<UserModel>();
+			for(int i = 0; i< 3; i++) {
+				authors.add(allAuthors.get(i));
+			}
+			List<IngredientModel> ingredients = ingredientRepository.findTop3ByOrderById();
+			
+			model.addAttribute("recipes", recipes);
+			model.addAttribute("authors", authors);
+			model.addAttribute("categories", categories);
+			model.addAttribute("ingredients", ingredients);
+			return "landing";
+
+		} else {
+
+			UserModel user = userRepository.findUserByUserName(principal.getName());
+
+			if (user == null) {
+				List<RecipeModel> allRecipes = recipeRepository.findRecipesOrderedByLikes();
+				List<RecipeModel> recipes = new ArrayList<RecipeModel>();
+				for(int i = 0; i< 3; i++) {
+					recipes.add(allRecipes.get(i));
+				}
+				    
+				List<CategorieModel> categories = categorieRepository.findTop3ByOrderByTitleAsc();
+				List<UserModel> allAuthors = userRepository.findUsersOrderedByMostRecipes();
+				List<UserModel> authors = new ArrayList<UserModel>();
+				for(int i = 0; i< 3; i++) {
+					authors.add(allAuthors.get(i));
+				}
+				List<IngredientModel> ingredients = ingredientRepository.findTop3ByOrderById();
+				
+				model.addAttribute("recipes", recipes);
+				model.addAttribute("authors", authors);
+				model.addAttribute("categories", categories);
+				model.addAttribute("ingredients", ingredients);
+				return "landing";
+			} else {
+
+				List<RecipeModel> allRecipes = recipeRepository.findRecipesFilteredByUserPreferences(user.getId());
+				List<RecipeModel> recipes = new ArrayList<RecipeModel>();
+				for(int i = 0; i< 3; i++) {
+					recipes.add(allRecipes.get(i));
+				}
+				    
+				List<CategorieModel> categories = categorieRepository.findTop3ByOrderByTitleAsc();
+				List<UserModel> allAuthors = userRepository.findUsersOrderedByMostRecipes();
+				List<UserModel> authors = new ArrayList<UserModel>();
+				for(int i = 0; i< 3; i++) {
+					authors.add(allAuthors.get(i));
+				}
+				List<IngredientModel> ingredients = ingredientRepository.findTop3ByOrderById();
+				
+				model.addAttribute("recipes", recipes);
+				model.addAttribute("authors", authors);
+				model.addAttribute("categories", categories);
+				model.addAttribute("ingredients", ingredients);
+				return "landing";
+			}
+		}
+		
 	}
 
 	@RequestMapping(value = { "list", "recipeList" })
@@ -173,8 +240,9 @@ public class RecipeController {
 
 	// Spring 4: @RequestMapping(value = "/showRecipe", method = RequestMethod.GET)
 	@GetMapping({ "/showRecipe", "/likeRecipe", "/reportRecipe", "/postComment" })
-	public String showRecipeDetails(Model model, @RequestParam int id) {
-
+	public String showRecipeDetails(Model model, @RequestParam int id,Principal principal) {
+		String userName = principal.getName();
+		UserModel user = userRepository.findUserByUserNameWithAllergies(userName);	
 		RecipeModel recipe = recipeRepository.findRecipeByIdWithPicture(id);
 
 		if (recipe != null) {
@@ -184,6 +252,11 @@ public class RecipeController {
 			//PictureModel picture = pictureRepository.findPictureByRecipeId(id);
 			model.addAttribute("comments", comments);
 			model.addAttribute("recipe", recipe);
+			if (user != null) {
+				int userId = user.getId();
+				List<RecipeCollectionModel> collections = recipeCollectionRepository.findCollectionsByUserId(userId);
+				model.addAttribute("collections", collections);
+			}
 			//model.addAttribute("picture", picture);
 			return "recipe";
 		} else {
