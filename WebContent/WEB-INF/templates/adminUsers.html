@@ -78,8 +78,8 @@
 												</div></td>
 											<td th:text="${#lists.size(user.recipes)}"></td>
 											<td th:text="${#lists.size(user.comments)}"></td>
-											<td><button class="btn btn-sm btn-primary mb-2"
-													th:href="@{/showUser(id=${user.id})}" th:target="_blank">View</button>
+											<td><a class="btn btn-sm btn-primary mb-2"
+													th:href="@{/showUser(id=${user.id})}" th:target="_blank">View</a>
 												<form th:action="@{/deleteUserAdmin(id=${user.id})}"
 													method="post">
 													<button class="btn btn-sm btn-danger" type="submit">Delete</button>
