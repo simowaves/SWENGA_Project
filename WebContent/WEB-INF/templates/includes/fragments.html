@@ -19,15 +19,12 @@
 					th:text="${recipe.author.userName}"></a>
 			</div>
 			<div class="col-4 text-right">
-				<form class="form-group" th:href="@{/likeRecipe(id=${recipe.id})}"
+				<form class="form-group" th:action="@{/likeRecipe(id=${recipe.id})}"
 					method="post">
 					<button type="submit" class="btn btn-danger btn-circle">
 						<i class="fas fa-heart"></i>
 					</button>
 				</form>
-
-				<!-- <a href="#" class="btn btn-danger btn-circle"> <i
-					class="fas fa-heart"></i> -->
 				</a>
 			</div>
 		</div>
@@ -44,6 +41,7 @@
 
 
 <!-- Category Card Content -->
+
 <!-- Card Content -->
 <div class="card shadow " th:fragment="recipeCardContentCollection">
 	<!-- Image -->
@@ -71,8 +69,6 @@
 					</button>
 				</form>
 
-				<!-- <a href="#" class="btn btn-danger btn-circle"> <i
-					class="fas fa-heart"></i> -->
 				</a>
 			</div>
 		</div>
