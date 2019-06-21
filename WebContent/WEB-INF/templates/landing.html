@@ -6,7 +6,7 @@
 <head>
 
 <div th:replace="~{includes/bootstrap :: bootstrapMeta}" />
-<title>SB Admin 2 - Dashboard</title>
+<title>WhatToFood - Landing</title>
 <div th:replace="~{includes/bootstrap :: bootstrapCSS}" />
 
 </head>
@@ -101,7 +101,7 @@
 							<h1 class="h3 mb-0 text-gray-800">Top Users</h1>
 						</div>
 						<div class="card-deck">
-							<div class="card col-xl-2 col-md-4 mb-4"
+							<div class="card col-xl-4 col-md-4 mb-4"
 								th:each=" tuser : ${authors}">
 								<a th:href="@{/showUser(id=${tuser.id})}">
 									<div class="card-body">
