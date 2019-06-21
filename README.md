@@ -16,4 +16,11 @@ Workload distribution:
 
 
 ## Setup Guide
+1. Download project source from [here](https://github.com/simowaves/SWENGA_Project.git)
+2. Create ``New dynamic Web project`` eclipse project, convert to maven project and import sources  
+3. Setup ``db.properties`` in folder ``src`` (db-connection-information and mail-information) based on [this](https://gist.github.com/MasterofBisaster/40265a21d2c08060caa1c07f5b9c8a33).
+4. Change jpa-properties in dispatcher-servlet.xml to required attributes (``validate``, ``update``, or ``create-drop``)
+5. Setup your eclipse project (Server, Runtime, ...)
+6. Publish project to Tomcat and start Tomcat (9.0)
+7. Open Web application [here](http://localhost:8080/SwengaProjectWtf/)
 
