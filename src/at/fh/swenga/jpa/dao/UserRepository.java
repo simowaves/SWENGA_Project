@@ -27,6 +27,14 @@ public interface UserRepository extends JpaRepository<UserModel, Integer> {
 			+ "WHERE r.id = :recId ")
 	public List<UserModel> findUsersThatReportedRecipe(@Param("recId") int recId);
 	
+	@Query ("SELECT u "
+			+ "FROM UserModel AS u "
+			+ "LEFT JOIN u.recipes r "
+			+ "WHERE r.enabled = true "
+			+ "GROUP BY u "
+			+ "ORDER BY COUNT(r) DESC ")
+	public List<UserModel> findUsersOrderedByMostRecipes();
+	
 	
 	@Query ("SELECT u "
 			+ "FROM UserModel u "
