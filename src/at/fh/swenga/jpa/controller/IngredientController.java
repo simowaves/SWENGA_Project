@@ -48,33 +48,30 @@ public class IngredientController {
 			} else {
 				
 				UserModel user = userRepository.findUserByUserName(principal.getName());
-				/*
-				List<RecipeModel> filteredRecipes = recipeRepository.filterRecipesByUserPreferencesAndIngredientId(user.getId(), id);
-				List<RecipeModel> orderedRecipes = recipeRepository.findRecipesOrderedByfavoriteIngredients(user.getId());
 
-				List<RecipeModel> recipes = new ArrayList<RecipeModel>();
-
-				for (RecipeModel recipe : orderedRecipes) {
-					if (filteredRecipes.contains(recipe)) {
-						recipes.add(recipe);
-					}
-				}
-				*/
 				List<RecipeModel> recipes = recipeRepository.findRecipesFilteredByUserPreferencesAndIngredient(user.getId(), id);
 				
 				model.addAttribute("recipes", recipes);
+				
+				UserModel loggedInUser = userRepository.findUserByUserName(principal.getName());
+				model.addAttribute("loggedInUser", loggedInUser);
 			}
 			return "recipeList";
 		}
 		
 		// Spring 4: @RequestMapping(value = "/ingredientsList", method = RequestMethod.GET)
 		@GetMapping("/ingredientsList")
-		public String categoriesList(Model model) {
+		public String categoriesList(Model model, Principal principal) {
 			
 
-				List<IngredientModel> ingredients = ingredientRepository.findAll();
-				
-				model.addAttribute("ingredients", ingredients);
+			List<IngredientModel> ingredients = ingredientRepository.findAll();
+			
+			model.addAttribute("ingredients", ingredients);
+			
+			if(principal != null) {
+				UserModel loggedInUser = userRepository.findUserByUserName(principal.getName());
+				model.addAttribute("loggedInUser", loggedInUser);
+			}
 				
 			return "ingredientsList";
 		}

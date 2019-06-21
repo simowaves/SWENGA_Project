@@ -44,7 +44,7 @@ public class CommentController {
 		
 		if (recipe == null) {
 			model.addAttribute("errorMessage", "Couldn't find recipe " + id);
-			return "forward:/recipeList";
+			return "errorPage";
 		}
 		
 		CommentModel commentModel = new CommentModel(content, now);
