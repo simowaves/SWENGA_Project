@@ -76,7 +76,7 @@ public class IngredientController {
 				
 				model.addAttribute("ingredients", ingredients);
 				
-			return "/ingredientsList";
+			return "ingredientsList";
 		}
 
 }

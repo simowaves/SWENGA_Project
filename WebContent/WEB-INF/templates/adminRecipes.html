@@ -87,9 +87,8 @@
 														class="btn btn-link" type="submit">clear</button>
 												</form>
 											</td>
-											<td><button class="btn btn-sm btn-primary mb-2"
-													th:href="@{/showRecipe(id=${recipe.id})}"
-													th:target="_blank">Open</button>
+											<td><a class="btn btn-sm btn-primary mb-2"
+													th:href="@{/showRecipe(id=${recipe.id})}">Open</a>
 												<form th:action="@{/deleteRecipeAdmin(id=${recipe.id})}"
 													method="post">
 													<button class="btn btn-sm btn-danger" type="submit">Delete</button>
