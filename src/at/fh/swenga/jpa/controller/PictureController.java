@@ -29,31 +29,38 @@ public class PictureController {
 
 	@RequestMapping(value = "/changeRecipePicture", method = RequestMethod.POST)
 	public String uploadRecipePicture(Model model, @RequestParam("id") int recipeId,
-			@RequestParam("recipePicture") MultipartFile newPicture, RedirectAttributes redirectAttributes) {
+			@RequestParam("recipePicture") MultipartFile newPicture, RedirectAttributes redirectAttributes, Principal principal) {
 
 		try {
 
+			String userName = principal.getName();
+			UserModel user = userRepository.findUserByUserName(userName);
 			RecipeModel recipe = recipeRepository.findRecipeById(recipeId);
 			
 			if (recipe == null)
 				throw new IllegalArgumentException("No recipe with id " + recipeId);
-			PictureModel picture;
-			// Already a picture available -> change it
-			if (recipe.getPicture() != null) {
-				picture = recipe.getPicture();
+			if (recipe.getAuthor().getId() == user.getId()) {
+				PictureModel picture;
+				// Already a picture available -> change it
+				if (recipe.getPicture() != null) {
+					picture = recipe.getPicture();
+				} else {
+					picture = new PictureModel();
+				}
+	
+				// Create a new picture and set all available infos
+	
+				picture.setContent(newPicture.getBytes());
+				picture.setContentType(newPicture.getContentType());
+				picture.setCreated(new Date());
+				picture.setFilename(newPicture.getOriginalFilename());
+				picture.setName(newPicture.getName());
+				recipe.setPicture(picture);
+				recipeRepository.save(recipe);
 			} else {
-				picture = new PictureModel();
+				model.addAttribute("errorMessage", "This is not your recipe! You can't change the Picture");
+				return "errorPage";
 			}
-
-			// Create a new picture and set all available infos
-
-			picture.setContent(newPicture.getBytes());
-			picture.setContentType(newPicture.getContentType());
-			picture.setCreated(new Date());
-			picture.setFilename(newPicture.getOriginalFilename());
-			picture.setName(newPicture.getName());
-			recipe.setPicture(picture);
-			recipeRepository.save(recipe);
 		} catch (Exception e) {
 			model.addAttribute("errorMessage", "Error:" + e.getMessage());
 			return "errorPage";

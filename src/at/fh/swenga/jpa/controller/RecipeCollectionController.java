@@ -48,14 +48,19 @@ public class RecipeCollectionController {
 	
 	// change the name of a recipe collection
 	@PostMapping("/changeCollectionName")
-	public String changeCollectionName(@RequestParam int collectionId, @RequestParam String title, Principal principal, RedirectAttributes redirectAttributes) {
+	public String changeCollectionName(Model model, @RequestParam int collectionId, @RequestParam String title, Principal principal, RedirectAttributes redirectAttributes) {
 		String userName = principal.getName();
 		UserModel user = userRepository.findUserByUserNameWithAllergies(userName);
 		int userId = user.getId();
 		RecipeCollectionModel recipeCollectionModel = recipeCollectionRepository.findCollectionsById(collectionId);
-		recipeCollectionModel.setTitle(title);
-		recipeCollectionRepository.save(recipeCollectionModel);
-		userRepository.save(user);
+		if (user.getId() == recipeCollectionModel.getUser().getId()) {
+			recipeCollectionModel.setTitle(title);
+			recipeCollectionRepository.save(recipeCollectionModel);
+			userRepository.save(user);
+		} else {
+			model.addAttribute("errorMessage", "You can't change the Name for this collection, because it doesn't belong to you!! ");
+			return "errorPage";
+		}
 		
 		redirectAttributes.addAttribute("id", userId);
 		return "redirect:/showCurrentUser";
@@ -64,12 +69,17 @@ public class RecipeCollectionController {
 	
 	// delete a collection from the user
 	@PostMapping("/deleteCollection")
-	public String deleteCollection(@RequestParam int collectionId, Principal principal, RedirectAttributes redirectAttributes) {
+	public String deleteCollection(Model model, @RequestParam int collectionId, Principal principal, RedirectAttributes redirectAttributes) {
 		String userName = principal.getName();
 		UserModel user = userRepository.findUserByUserName(userName);
 		int userId = user.getId();
-		recipeCollectionRepository.deleteById(collectionId);
-		
+		RecipeCollectionModel recipeCollectionModel = recipeCollectionRepository.findCollectionsById(collectionId);
+		if (user.getId() == recipeCollectionModel.getUser().getId()) {
+			recipeCollectionRepository.deleteById(collectionId);
+		} else {
+			model.addAttribute("errorMessage", "You can't delete this collection, because it doesn't belong to you!! ");
+			return "errorPage";
+		}
 		redirectAttributes.addAttribute("id", userId);
 		return "redirect:/showCurrentUser";
 	}
