@@ -239,7 +239,7 @@ public class RecipeController {
 	@GetMapping({ "/showRecipe"})
 	public String showRecipeDetails(Model model, @RequestParam int id, Principal principal) {
 
-		RecipeModel recipe = recipeRepository.findRecipeByIdWithPictureAndLikingUsers(id);
+		RecipeModel recipe = recipeRepository.findRecipeByIdWithPictureAndLikingUsersAndReportingUsers(id);
 
 		if (recipe != null) {
 			List<IngredientAmountModel> ingredientAmounts = ingredientAmountRepository
@@ -260,13 +260,19 @@ public class RecipeController {
 					model.addAttribute("collections", collections);
 					
 					Set<UserModel> likingUsers = recipe.getLikingUsers();
+					Set<UserModel> reportingUsers = recipe.getReportingUsers();
 					boolean liked;
+					boolean reported;
 					if(likingUsers.contains(loggedInUser)) {
 						liked = true;
 					} else liked = false;
+					if(reportingUsers.contains(loggedInUser)) {
+						reported = true;
+					} else reported = false;
 					
 					
 					model.addAttribute("liked", liked);
+					model.addAttribute("reported", reported);
 				}
 			}
 
