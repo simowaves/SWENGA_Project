@@ -98,6 +98,12 @@
 										<i class="fas fa-heart mr-2"></i>Delete
 									</button>
 								</form>
+								<form class="form-group"
+									th:action="@{/changePublished(id=${recipe.id})}" method="post">
+									<button class="btn btn-danger" type="submit">
+										<i class="fas fa-heart mr-2"></i>Change to public/private
+									</button>
+								</form>
 							</div>
 
 							<!-- Dropdown Card Example -->
@@ -128,7 +134,7 @@
 					</div>
 
 					<!-- Upload Picture -->
-					<a th:href="@{/uploadRecipePicture(id=${recipe.id})}">Upload
+					<a th:href="@{/changeRecipePicture(id=${recipe.id})}">Upload
 						Picture</a>
 					<!-- End Upload Picture -->
 					<!-- Dropdown Card Example -->

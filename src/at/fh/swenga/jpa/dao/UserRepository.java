@@ -24,8 +24,7 @@ public interface UserRepository extends JpaRepository<UserModel, Integer> {
 	@Query ("SELECT u "
 			+ "FROM UserModel AS u "
 			+ "LEFT JOIN FETCH u.reportedRecipes r "
-			+ "WHERE r.id = :recId " 
-			+ "AND u.enabled = true ")
+			+ "WHERE r.id = :recId ")
 	public List<UserModel> findUsersThatReportedRecipe(@Param("recId") int recId);
 	
 	

@@ -307,15 +307,6 @@ public class RecipeController {
 
 		return "redirect:/reportRecipe";
 	}
-	
-
-	//GetMethode in PictureController geben?
-	/*//Spring 4: @RequestMapping(value = "/upload", method = RequestMethod.GET)
-	@GetMapping("/upload")
-	public String showUploadForm(Model model, @RequestParam("id") int recipeId) {
-		model.addAttribute("recipeId", recipeId);
-		return "uploadFile";
-	}*/
 
 	// Spring 4: @RequestMapping(value = "/createNewRecipe", method = RequestMethod.POST)
 	@PostMapping("/createNewRecipe")
@@ -342,14 +333,7 @@ public class RecipeController {
 			pusblishedRecipe = true;
 		}
 		
-		//UploadedFile fileX = (UploadedFile) uploadedFile;
-/*
-	    if (file.getBytes().getSize() == 0) {
-	        errors.rejectValue("file", "uploadForm.emptyFile",
-	                "File is empty");
-	    }
-		*/
-		if (file != null) {
+		if (!file.isEmpty()) {
 			try {
 				PictureModel picture = new PictureModel();
 				picture.setContent(file.getBytes());
@@ -523,8 +507,21 @@ public class RecipeController {
 		redirectAttributes.addAttribute("id", recipeId);
 		return "redirect:/editRecipe";
 	}
-
-	public static void main(String[] args) {
-
+	
+	// Spring 4: @RequestMapping(value = "/changePublished", method = RequestMethod.POST)
+	@PostMapping("/changePublished")
+	public String changePublished(@RequestParam int id, Principal principal, RedirectAttributes redirectAttributes) {
+		RecipeModel recipeModel = recipeRepository.findRecipeById(id);
+		
+		if(recipeModel.isPublished() == true) {
+			recipeModel.setPublished(false);
+		} else {
+			recipeModel.setPublished(true);
+		}
+		
+		recipeRepository.save(recipeModel);
+		
+		redirectAttributes.addAttribute("id", id);
+		return "redirect:/showRecipe";
 	}
 }
