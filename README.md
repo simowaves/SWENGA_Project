@@ -25,5 +25,5 @@ Workload distribution:
 7. Open Web application [here](http://localhost:8080/SwengaProjectWtf/)
 8. If there is a new database behind (or started via create-update) , this site  [here](http://localhost:8080/SwengaProjectWtf/fillTestData)  ``/fillTestData`` must be called to create the test data.
 9. To Login, click the Login Button in the upper right corner and enter one of the following credentials:  ``admin/password ``,  ``user/password ``
-9.1 Note: The website can be used to some extent as a guest without logging in
+(Note: The website can be used to some extent as a guest without logging in)
 10. You are now using WTF - WhatToFood
