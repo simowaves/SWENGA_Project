@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
 
@@ -91,10 +93,10 @@
 											</button>
 										</form>
 										<form class="form-group">
-											<button class="btn btn-warning"
+											<a class="btn btn-warning"
 												th:href="@{/editRecipe(id=${recipe.id})}" type="submit">
 												<i class="fas fa-wrench mr-2"></i>Edit
-											</button>
+											</a>
 										</form>
 										<form class="form-group"
 											th:action="@{/deleteRecipe(id=${recipe.id})}" method="post">
@@ -252,7 +254,7 @@
 							Leave?</h5>
 						<button class="close" type="button" data-dismiss="modal"
 							aria-label="Close">
-							<span aria-hidden="true">×</span>
+							<span aria-hidden="true">Ã—</span>
 						</button>
 					</div>
 					<div class="modal-body">Select "Logout" below if you are
