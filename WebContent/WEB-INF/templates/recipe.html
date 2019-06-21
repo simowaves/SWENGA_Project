@@ -60,7 +60,7 @@
 								style="position: relative; overflow: hidden; padding-bottom: 100%;">
 								<img th:if="${recipe.picture != null}"
 									style="position: absolute;"
-									th:src="${recipe.picture}"
+									th:src="${recipe.showPicture()}"
 
 									alt="">
 								<div th:unless="${recipe.picture != null}"><img 

@@ -49,7 +49,8 @@
 
 							<div class="col-md-8">
 								<form class="needs-validation" novalidate
-									th:action="@{/createNewRecipe}" enctype="multipart/form-data" method="post">
+									th:action="@{/createNewRecipe}" enctype="multipart/form-data"
+									method="post">
 									<div class="form-row">
 										<div class="col-md-4 mb-3">
 											<label for="validationCustom01">Title</label> <input
@@ -136,14 +137,16 @@
 										</div>
 
 
-										<div class="form-check"></div>
+										<div class="form-check">
+											<div class="custom-file">
+												<label for="inputFile" class="col-md-2 control-label">Recipe
+													Picture:</label> <input class="form-control" id="inputFile"
+													type="file" name="recipePicture">
+											</div>
+
+										</div>
 									</div>
 									<!-- Picture Experiment -->
-									<div class="form-group">
-										<label for="inputFile" class="col-md-2 control-label">Recipe
-											Picture:</label> <input class="form-control" id="inputFile"
-											type="file" name="recipePicture">
-									</div>
 
 
 									<!-- Picture Experiment -->
