@@ -57,38 +57,35 @@ public class RecipeController {
 
 	@Autowired
 	UserRepository userRepository;
-	
+
 	@Autowired
 	CommentRepository commentRepository;
-	
+
 	@Autowired
 	AllergieRepository allergieRepository;
-	
+
 	@Autowired
 	RecipeCollectionRepository recipeCollectionRepository;
-	
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String langingPage(Model model, Principal principal) {
-		
-		
-		
+
 		if (principal == null) {
-			
+
 			List<RecipeModel> allRecipes = recipeRepository.findRecipesOrderedByLikes();
 			List<RecipeModel> recipes = new ArrayList<RecipeModel>();
-			for(int i = 0; i< 3; i++) {
+			for (int i = 0; i < 3; i++) {
 				recipes.add(allRecipes.get(i));
 			}
-			    
+
 			List<CategorieModel> categories = categorieRepository.findTop3ByOrderByTitleAsc();
 			List<UserModel> allAuthors = userRepository.findUsersOrderedByMostRecipes();
 			List<UserModel> authors = new ArrayList<UserModel>();
-			for(int i = 0; i< 3; i++) {
+			for (int i = 0; i < 3; i++) {
 				authors.add(allAuthors.get(i));
 			}
 			List<IngredientModel> ingredients = ingredientRepository.findTop3ByOrderById();
-			
+
 			model.addAttribute("recipes", recipes);
 			model.addAttribute("authors", authors);
 			model.addAttribute("categories", categories);
@@ -102,42 +99,42 @@ public class RecipeController {
 			if (user == null) {
 				List<RecipeModel> allRecipes = recipeRepository.findRecipesOrderedByLikes();
 				List<RecipeModel> recipes = new ArrayList<RecipeModel>();
-				for(int i = 0; i< 3; i++) {
+				for (int i = 0; i < 3; i++) {
 					recipes.add(allRecipes.get(i));
 				}
-				    
+
 				List<CategorieModel> categories = categorieRepository.findTop3ByOrderByTitleAsc();
 				List<UserModel> allAuthors = userRepository.findUsersOrderedByMostRecipes();
 				List<UserModel> authors = new ArrayList<UserModel>();
-				for(int i = 0; i< 3; i++) {
+				for (int i = 0; i < 3; i++) {
 					authors.add(allAuthors.get(i));
 				}
 				List<IngredientModel> ingredients = ingredientRepository.findTop3ByOrderById();
-				
+
 				model.addAttribute("recipes", recipes);
 				model.addAttribute("authors", authors);
 				model.addAttribute("categories", categories);
 				model.addAttribute("ingredients", ingredients);
 				return "landing";
 			} else {
-				
+
 				UserModel loggedInUser = userRepository.findUserByUserName(principal.getName());
 				model.addAttribute("loggedInUser", loggedInUser);
 
 				List<RecipeModel> allRecipes = recipeRepository.findRecipesFilteredByUserPreferences(user.getId());
 				List<RecipeModel> recipes = new ArrayList<RecipeModel>();
-				for(int i = 0; i< 3; i++) {
+				for (int i = 0; i < 3; i++) {
 					recipes.add(allRecipes.get(i));
 				}
-				    
+
 				List<CategorieModel> categories = categorieRepository.findTop3ByOrderByTitleAsc();
 				List<UserModel> allAuthors = userRepository.findUsersOrderedByMostRecipes();
 				List<UserModel> authors = new ArrayList<UserModel>();
-				for(int i = 0; i< 3; i++) {
+				for (int i = 0; i < 3; i++) {
 					authors.add(allAuthors.get(i));
 				}
 				List<IngredientModel> ingredients = ingredientRepository.findTop3ByOrderById();
-				
+
 				model.addAttribute("recipes", recipes);
 				model.addAttribute("authors", authors);
 				model.addAttribute("categories", categories);
@@ -145,13 +142,13 @@ public class RecipeController {
 				return "landing";
 			}
 		}
-		
+
 	}
 
-	@RequestMapping(value = { "list", "recipeList" })
-	//@GetMapping(value = { "/", "list", "recipeList" })
+	@RequestMapping(value = {"recipeList" })
+	// @GetMapping(value = { "/", "list", "recipeList" })
 	public String index(Model model, Principal principal) {
-		
+
 		model.addAttribute("header", "All Recipes");
 
 		if (principal == null) {
@@ -167,7 +164,7 @@ public class RecipeController {
 				List<RecipeModel> recipes = recipeRepository.findRecipesOrderedByLikes();
 				model.addAttribute("recipes", recipes);
 			} else {
-				
+
 				UserModel loggedInUser = userRepository.findUserByUserName(principal.getName());
 				model.addAttribute("loggedInUser", loggedInUser);
 
@@ -177,11 +174,11 @@ public class RecipeController {
 		}
 		return "recipeList";
 	}
-	
+
 	@RequestMapping(value = { "mostRecentRecipes" })
-	//@GetMapping(value = { "/", "list", "recipeList" })
+	// @GetMapping(value = { "/", "list", "recipeList" })
 	public String recentRecipes(Model model, Principal principal) {
-		
+
 		model.addAttribute("header", "Most Recent Recipes");
 
 		if (principal == null) {
@@ -197,21 +194,22 @@ public class RecipeController {
 				List<RecipeModel> recipes = recipeRepository.findRecipesOrderedByLastEdited();
 				model.addAttribute("recipes", recipes);
 			} else {
-				
+
 				UserModel loggedInUser = userRepository.findUserByUserName(principal.getName());
 				model.addAttribute("loggedInUser", loggedInUser);
 
-				List<RecipeModel> recipes = recipeRepository.findRecipesFilteredByUserPreferencesOrderedByLastEdited(user.getId());
+				List<RecipeModel> recipes = recipeRepository
+						.findRecipesFilteredByUserPreferencesOrderedByLastEdited(user.getId());
 				model.addAttribute("recipes", recipes);
 			}
 		}
 		return "recipeList";
 	}
-	
+
 	@RequestMapping(value = { "/followingRecipes" })
-	//@GetMapping(value = { "/", "list", "followingRecipes" })
+	// @GetMapping(value = { "/", "list", "followingRecipes" })
 	public String followingRecipes(Model model, Principal principal) {
-		
+
 		model.addAttribute("header", "Recipes By Friends");
 
 		if (principal == null) {
@@ -226,59 +224,63 @@ public class RecipeController {
 				model.addAttribute("errorMessage", "No User logged in.");
 				return "errorPage";
 			} else {
-				
+
 				UserModel loggedInUser = userRepository.findUserByUserName(principal.getName());
 				model.addAttribute("loggedInUser", loggedInUser);
 
-				List<RecipeModel> recipes = recipeRepository.findRecipesFilteredByUserPreferencesAndFollowedByUserOrderedByLastEdited(user.getId());
-				//List<RecipeModel> recipes = recipeRepository.findRecipesFilteredByUserPreferencesOrderedByLastEdited(user.getId());
+				List<RecipeModel> recipes = recipeRepository
+						.findRecipesFilteredByUserPreferencesAndFollowedByUserOrderedByLastEdited(user.getId());
+				// List<RecipeModel> recipes =
+				// recipeRepository.findRecipesFilteredByUserPreferencesOrderedByLastEdited(user.getId());
 
 				model.addAttribute("recipes", recipes);
 			}
 		}
 		return "recipeList";
 	}
-/*
-	// Spring 4: @RequestMapping(value = "/ingredientsList", method = RequestMethod.GET)
-	@GetMapping("/advancedSearch")
-	public String categoriesList(Model model) {
-		
-			List<IngredientModel> ingredients = ingredientRepository.findAll();
-			model.addAttribute("ingredients", ingredients);
-			
-			List<AllergieModel> allergies = allergieRepository.findAll();
-			model.addAttribute("allergies", allergies);
-			
-		return "/advancedSearch";
-	}
-*/
+
+	/*
+	 * // Spring 4: @RequestMapping(value = "/ingredientsList", method =
+	 * RequestMethod.GET)
+	 * 
+	 * @GetMapping("/advancedSearch") public String categoriesList(Model model) {
+	 * 
+	 * List<IngredientModel> ingredients = ingredientRepository.findAll();
+	 * model.addAttribute("ingredients", ingredients);
+	 * 
+	 * List<AllergieModel> allergies = allergieRepository.findAll();
+	 * model.addAttribute("allergies", allergies);
+	 * 
+	 * return "/advancedSearch"; }
+	 */
 	// Spring 4: @RequestMapping(value = "/showRecipe", method = RequestMethod.GET)
-	@GetMapping({ "/showRecipe", "/likeRecipe", "/reportRecipe", "/postComment" })
-	public String showRecipeDetails(Model model, @RequestParam int id,Principal principal) {
-		
-		
+	@GetMapping({ "/showRecipe"})
+	public String showRecipeDetails(Model model, @RequestParam int id, Principal principal) {
+
 		RecipeModel recipe = recipeRepository.findRecipeByIdWithPicture(id);
 
 		if (recipe != null) {
-			List<IngredientAmountModel> ingredientAmounts = ingredientAmountRepository.findIngredientAmountsByRecipeId(id);
+			List<IngredientAmountModel> ingredientAmounts = ingredientAmountRepository
+					.findIngredientAmountsByRecipeId(id);
 			model.addAttribute("ingredientAmounts", ingredientAmounts);
 			List<CommentModel> comments = commentRepository.findCommentsByRecipeId(id);
-			//PictureModel picture = pictureRepository.findPictureByRecipeId(id);
+			// PictureModel picture = pictureRepository.findPictureByRecipeId(id);
 			model.addAttribute("comments", comments);
 			model.addAttribute("recipe", recipe);
 			if (principal != null) {
 				String userName = principal.getName();
-				UserModel user = userRepository.findUserByUserNameWithAllergies(userName);	
+				UserModel user = userRepository.findUserByUserNameWithAllergies(userName);
 				if (user != null) {
 					UserModel loggedInUser = userRepository.findUserByUserName(principal.getName());
 					model.addAttribute("loggedInUser", loggedInUser);
 					int userId = user.getId();
-					List<RecipeCollectionModel> collections = recipeCollectionRepository.findCollectionsByUserId(userId);
+					List<RecipeCollectionModel> collections = recipeCollectionRepository
+							.findCollectionsByUserId(userId);
 					model.addAttribute("collections", collections);
 				}
 			}
-			
-			//model.addAttribute("picture", picture);
+
+			// model.addAttribute("picture", picture);
 			return "recipe";
 		} else {
 			model.addAttribute("errorMessage", "Couldn't find recipe " + id);
@@ -288,7 +290,7 @@ public class RecipeController {
 
 	@GetMapping(value = "/createRecipe")
 	public String openCreateForm(Model model, Principal principal) {
-		
+
 		UserModel loggedInUser = userRepository.findUserByUserName(principal.getName());
 		model.addAttribute("loggedInUser", loggedInUser);
 		List<IngredientModel> ingredients = ingredientRepository.findAllIngredientsOrderByName();
@@ -311,7 +313,7 @@ public class RecipeController {
 		} else {
 
 			UserModel user = userRepository.findUserByUserName(principal.getName());
-			
+
 			if (user == null) {
 				List<RecipeModel> recipes = recipeRepository.findRecipesBySearchString(searchString);
 				model.addAttribute("recipes", recipes);
@@ -319,11 +321,12 @@ public class RecipeController {
 				UserModel loggedInUser = userRepository.findUserByUserName(principal.getName());
 				model.addAttribute("loggedInUser", loggedInUser);
 
-				List<RecipeModel> recipes = recipeRepository.findRecipesFilteredByUserPreferencesAndSearchString(user.getId(), searchString);
-				
+				List<RecipeModel> recipes = recipeRepository
+						.findRecipesFilteredByUserPreferencesAndSearchString(user.getId(), searchString);
+
 				model.addAttribute("recipes", recipes);
 			}
-			
+
 		}
 		return "recipeList";
 	}
@@ -331,7 +334,8 @@ public class RecipeController {
 	// Spring 4: @RequestMapping(value = "/likeRecipe", method =
 	// RequestMethod.POST)
 	@PostMapping("/likeRecipe")
-	public String likeRecipe(Model model, @RequestParam int id, Principal principal, RedirectAttributes redirectAttributes) {
+	public String likeRecipe(Model model, @RequestParam int id, Principal principal,
+			RedirectAttributes redirectAttributes) {
 
 		RecipeModel recipe = recipeRepository.findRecipeById(id);
 		String userName = principal.getName();
@@ -360,7 +364,8 @@ public class RecipeController {
 	// Spring 4: @RequestMapping(value = "/reportRecipe", method =
 	// RequestMethod.POST)
 	@PostMapping("/reportRecipe")
-	public String reportRecipe(Model model, @RequestParam int id, Principal principal, RedirectAttributes redirectAttributes) {
+	public String reportRecipe(Model model, @RequestParam int id, Principal principal,
+			RedirectAttributes redirectAttributes) {
 
 		RecipeModel recipe = recipeRepository.findRecipeById(id);
 		String userName = principal.getName();
@@ -376,7 +381,7 @@ public class RecipeController {
 			user.removeReportedRecipe(recipe);
 			userRepository.save(user);
 		} else {
-			
+
 			user.addReportedRecipe(recipe);
 			userRepository.save(user);
 		}
@@ -386,11 +391,13 @@ public class RecipeController {
 		return "redirect:/reportRecipe";
 	}
 
-	// Spring 4: @RequestMapping(value = "/createNewRecipe", method = RequestMethod.POST)
+	// Spring 4: @RequestMapping(value = "/createNewRecipe", method =
+	// RequestMethod.POST)
 	@PostMapping("/createNewRecipe")
 	public String createNewRecipe(@RequestParam String title, @RequestParam String description,
-			@RequestParam String amount, @RequestParam String ingredient, @RequestParam String category, @RequestParam int publish, 
-			Principal principal, Model model, @RequestParam("recipePicture") MultipartFile file, RedirectAttributes redirectAttributes) {
+			@RequestParam String amount, @RequestParam String ingredient, @RequestParam String category,
+			@RequestParam int publish, Principal principal, Model model,
+			@RequestParam("recipePicture") MultipartFile file, RedirectAttributes redirectAttributes) {
 
 		RecipeModel newRecipeModel = new RecipeModel();
 		String userName = principal.getName();
@@ -399,18 +406,18 @@ public class RecipeController {
 		String[] amountValues = amount.split(",");
 		String[] ingredientValues = ingredient.split(",");
 		String[] categoryValues = category.split(",");
-		Set<CategorieModel> categorySet = new HashSet<CategorieModel>();	
+		Set<CategorieModel> categorySet = new HashSet<CategorieModel>();
 		Boolean pusblishedRecipe = false;
 
 		for (int j = 0; j < categoryValues.length; j++) {
 			CategorieModel categoryModel = categorieRepository.findCategorieById(Integer.valueOf(categoryValues[j]));
 			categorySet.add(categoryModel);
 		}
-		
+
 		if (publish == 1) {
 			pusblishedRecipe = true;
 		}
-		
+
 		if (!file.isEmpty()) {
 			try {
 				PictureModel picture = new PictureModel();
@@ -433,11 +440,10 @@ public class RecipeController {
 		newRecipeModel.setCategories(categorySet);
 		newRecipeModel.setEnabled(true);
 		newRecipeModel.setPublished(pusblishedRecipe);
-		
+
 		recipeRepository.save(newRecipeModel);
 		newRecipeModel.setAuthor(user);
 		recipeRepository.save(newRecipeModel);
-
 
 		for (int i = 0; i < amountValues.length; i++) {
 			IngredientModel ingredientModel = ingredientRepository
@@ -451,11 +457,11 @@ public class RecipeController {
 		}
 
 		System.out.print(publish);
-		//model.addAttribute("recipe", newRecipeModel);
+		// model.addAttribute("recipe", newRecipeModel);
 		redirectAttributes.addAttribute("id", newRecipeModel.getId());
 		return "redirect:/showRecipe";
 	}
-	
+
 	// Spring 4: @RequestMapping(value = "/deleteRecipe", method =
 	// RequestMethod.POST)
 	@PostMapping("/deleteRecipe")
@@ -466,25 +472,24 @@ public class RecipeController {
 		if (user == recipeModel.getAuthor()) {
 			recipeModel.setEnabled(false);
 			recipeRepository.save(recipeModel);
-			return "redirect:/recipeList"; 
+			return "redirect:/recipeList";
 		} else {
 			model.addAttribute("errorMessage", "You can't delete this recipe, because it doesn't belong to you!! ");
 			return "errorPage";
 		}
-		
+
 	}
-	
+
 	// Spring 4: @RequestMapping(value = "/deleteRecipe", method =
-		// RequestMethod.POST)
-		@PostMapping("/deleteRecipeAdmin")
-		public String deleteRecipeAdmin(Model model, @RequestParam int id) {
-			RecipeModel recipeModel = recipeRepository.findRecipeById(id);
-			recipeModel.setEnabled(false);
-			recipeRepository.save(recipeModel);
-			return "redirect:/showAdminRecipes"; 
-		}
-	
-	
+	// RequestMethod.POST)
+	@PostMapping("/deleteRecipeAdmin")
+	public String deleteRecipeAdmin(Model model, @RequestParam int id) {
+		RecipeModel recipeModel = recipeRepository.findRecipeById(id);
+		recipeModel.setEnabled(false);
+		recipeRepository.save(recipeModel);
+		return "redirect:/showAdminRecipes";
+	}
+
 	// Spring 4: @RequestMapping(value = "/editRecipe", method =
 	// RequestMethod.POST)
 	@GetMapping("/editRecipe")
@@ -494,23 +499,25 @@ public class RecipeController {
 		RecipeModel recipeModel = recipeRepository.findRecipeById(id);
 		List<IngredientModel> ingredientModel = ingredientRepository.findAllIngredientsOrderByName();
 		List<CategorieModel> categoryModel = categorieRepository.findAllCategoriesOrderByName();
-		List<IngredientAmountModel> ingredientAmountModel = ingredientAmountRepository.findIngredientAmountsByRecipeId(id);
-		
+		List<IngredientAmountModel> ingredientAmountModel = ingredientAmountRepository
+				.findIngredientAmountsByRecipeId(id);
+
 		model.addAttribute("user", user);
 		model.addAttribute("recipe", recipeModel);
 		model.addAttribute("ingredients", ingredientModel);
 		model.addAttribute("categories", categoryModel);
 		model.addAttribute("ingredientAmounts", ingredientAmountModel);
-		
+
 		UserModel loggedInUser = userRepository.findUserByUserName(principal.getName());
 		model.addAttribute("loggedInUser", loggedInUser);
 		return "editRecipe";
-	}	
+	}
 
 	// Spring 4: @RequestMapping(value = "/addIngredientAndAmount", method =
 	// RequestMethod.POST)
 	@PostMapping("/addIngredientAndAmount")
-	public String addIngredientAndAmount(@RequestParam int recipeId, @RequestParam int ingredient, @RequestParam String amount, RedirectAttributes redirectAttributes) {
+	public String addIngredientAndAmount(@RequestParam int recipeId, @RequestParam int ingredient,
+			@RequestParam String amount, RedirectAttributes redirectAttributes) {
 		RecipeModel recipeModel = recipeRepository.findRecipeById(recipeId);
 		IngredientAmountModel ingredientAmountModel = new IngredientAmountModel();
 		IngredientModel ingredientModel = ingredientRepository.findIngredientById(ingredient);
@@ -519,89 +526,98 @@ public class RecipeController {
 		ingredientAmountModel.setRecipe(recipeModel);
 		ingredientAmountModel.setIngredient(ingredientModel);
 		ingredientAmountRepository.save(ingredientAmountModel);
-		
+
 		redirectAttributes.addAttribute("id", recipeId);
-		
+
 		return "redirect:/editRecipe";
 	}
-	
+
 	// Spring 4: @RequestMapping(value = "/removeIngredientAndAmount", method =
 	// RequestMethod.POST)
 	@PostMapping("/removeIngredientAndAmount")
-	public String removeIngredientAndAmount(@RequestParam int recipeId, @RequestParam int ingredientAmountId, @RequestParam String amount, Principal principal, RedirectAttributes redirectAttributes) {
+	public String removeIngredientAndAmount(@RequestParam int recipeId, @RequestParam int ingredientAmountId,
+			@RequestParam String amount, Principal principal, RedirectAttributes redirectAttributes) {
 		RecipeModel recipeModel = recipeRepository.findRecipeByIdWithIngredientAmounts(recipeId);
-		IngredientAmountModel ingredientAmountModel = ingredientAmountRepository.findIngredientAmountsById(ingredientAmountId);
+		IngredientAmountModel ingredientAmountModel = ingredientAmountRepository
+				.findIngredientAmountsById(ingredientAmountId);
 		recipeModel.removeIngredientAmount(ingredientAmountModel);
 		recipeRepository.save(recipeModel);
 
 		ingredientAmountRepository.deleteById(ingredientAmountId);
-		
+
 		redirectAttributes.addAttribute("id", recipeId);
-		
+
 		return "redirect:/editRecipe";
 	}
-	
-	// Spring 4: @RequestMapping(value = "/addCategory", method = RequestMethod.POST)
+
+	// Spring 4: @RequestMapping(value = "/addCategory", method =
+	// RequestMethod.POST)
 	@PostMapping("/addCategory")
-	public String addCategory(@RequestParam int category, @RequestParam int recipeId, Principal principal, RedirectAttributes redirectAttributes) {
+	public String addCategory(@RequestParam int category, @RequestParam int recipeId, Principal principal,
+			RedirectAttributes redirectAttributes) {
 		RecipeModel recipeModel = recipeRepository.findRecipeById(recipeId);
 		CategorieModel categorieModel = categorieRepository.findCategorieById(category);
 		recipeModel.addCategorie(categorieModel);
 		recipeRepository.save(recipeModel);
-		
+
 		redirectAttributes.addAttribute("id", recipeId);
-		
+
 		return "redirect:/editRecipe";
 	}
-	
-	// Spring 4: @RequestMapping(value = "/removeCategory", method = RequestMethod.POST)
+
+	// Spring 4: @RequestMapping(value = "/removeCategory", method =
+	// RequestMethod.POST)
 	@PostMapping("/removeCategory")
-	public String removeCategory(@RequestParam int category, @RequestParam int recipeId, Principal principal, RedirectAttributes redirectAttributes) {
+	public String removeCategory(@RequestParam int category, @RequestParam int recipeId, Principal principal,
+			RedirectAttributes redirectAttributes) {
 		RecipeModel recipeModel = recipeRepository.findRecipeById(recipeId);
 		CategorieModel categorieModel = categorieRepository.findCategorieById(category);
 		recipeModel.removeCategorie(categorieModel);
 		recipeRepository.save(recipeModel);
-		
+
 		redirectAttributes.addAttribute("id", recipeId);
-		
+
 		return "redirect:/editRecipe";
 	}
 
 	// Spring 4: @RequestMapping(value = "/setTitle", method = RequestMethod.POST)
 	@PostMapping("/setTitle")
-	public String setTitle(@RequestParam int recipeId, @RequestParam String title, Principal principal, RedirectAttributes redirectAttributes) {
+	public String setTitle(@RequestParam int recipeId, @RequestParam String title, Principal principal,
+			RedirectAttributes redirectAttributes) {
 		RecipeModel recipeModel = recipeRepository.findRecipeById(recipeId);
 		recipeModel.setTitle(title);
 		recipeRepository.save(recipeModel);
-		
+
 		redirectAttributes.addAttribute("id", recipeId);
 		return "redirect:/editRecipe";
 	}
-	
+
 	// Spring 4: @RequestMapping(value = "/setTitle", method = RequestMethod.POST)
 	@PostMapping("/setDescription")
-	public String setDescription(@RequestParam int recipeId, @RequestParam String description, Principal principal, RedirectAttributes redirectAttributes) {
+	public String setDescription(@RequestParam int recipeId, @RequestParam String description, Principal principal,
+			RedirectAttributes redirectAttributes) {
 		RecipeModel recipeModel = recipeRepository.findRecipeById(recipeId);
 		recipeModel.setDescription(description);
 		recipeRepository.save(recipeModel);
-		
+
 		redirectAttributes.addAttribute("id", recipeId);
 		return "redirect:/editRecipe";
 	}
-	
-	// Spring 4: @RequestMapping(value = "/changePublished", method = RequestMethod.POST)
+
+	// Spring 4: @RequestMapping(value = "/changePublished", method =
+	// RequestMethod.POST)
 	@PostMapping("/changePublished")
 	public String changePublished(@RequestParam int id, Principal principal, RedirectAttributes redirectAttributes) {
 		RecipeModel recipeModel = recipeRepository.findRecipeById(id);
-		
-		if(recipeModel.isPublished() == true) {
+
+		if (recipeModel.isPublished() == true) {
 			recipeModel.setPublished(false);
 		} else {
 			recipeModel.setPublished(true);
 		}
-		
+
 		recipeRepository.save(recipeModel);
-		
+
 		redirectAttributes.addAttribute("id", id);
 		return "redirect:/showRecipe";
 	}
