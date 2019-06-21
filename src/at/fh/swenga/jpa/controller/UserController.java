@@ -150,7 +150,7 @@ public class UserController {
 
 		if (shownUser == null) {
 			model.addAttribute("errorMessage", "Couldn't find user " + id);
-			return "forward:/recipeList";
+			return "errorPage";
 		}
 
 		if (userRepository.findUserIFollowFromUser(id, user.getId()) != null) {
@@ -214,7 +214,7 @@ public class UserController {
 			return "userPreferences";
 		} else {
 			model.addAttribute("errorMessage", "Couldn't find user ");
-			return "forward:/recipeList";
+			return "errorPage";
 		}
 	}
 	
@@ -233,7 +233,7 @@ public class UserController {
 			return "accountSettings";
 		} else {
 			model.addAttribute("errorMessage", "Couldn't find user ");
-			return "forward:/recipeList";
+			return "errorPage";
 		}
 	}
 
@@ -365,5 +365,20 @@ public class UserController {
 		SecurityContextHolder.clearContext();
 		
 		return "login"; 
+	}
+	
+	// Spring 4: @RequestMapping(value = "/deleteUserAdmin", method =
+	// RequestMethod.POST)
+	@PostMapping("/deleteUserAdmin")
+	public String deleteUserAdmin(Model model, @RequestParam int id) {
+		UserModel user = userRepository.findUserById(id);
+		user.setEnabled(false);
+		userRepository.save(user);
+		List<RecipeModel> recipes = recipeRepository.findRecipesByUserId(id);
+		for (RecipeModel recipe : recipes) {
+			recipe.setEnabled(false);
+			recipeRepository.save(recipe);
+		}
+		return "redirect:/showAdminUsers"; 
 	}
 }

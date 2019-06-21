@@ -323,7 +323,7 @@ public class RecipeController {
 
 		if (recipe == null) {
 			model.addAttribute("errorMessage", "Couldn't find recipe " + id);
-			return "forward:/recipeList";
+			return "errorPage";
 		}
 
 		if (userRepository.findLikingUserFromRecipe(id, user.getId()) != null) {
@@ -338,7 +338,7 @@ public class RecipeController {
 		}
 		redirectAttributes.addAttribute("id", id);
 
-		return "redirect:/likeRecipe";
+		return "redirect:/showRecipe";
 	}
 
 	// report a recipe
@@ -352,7 +352,7 @@ public class RecipeController {
 
 		if (recipe == null) {
 			model.addAttribute("errorMessage", "Couldn't find recipe " + id);
-			return "forward:/recipeList";
+			return "errorPage";
 		}
 
 		if (userRepository.findReportingUserFromRecipe(id, user.getId()) != null) {
@@ -367,7 +367,7 @@ public class RecipeController {
 
 		redirectAttributes.addAttribute("id", id);
 
-		return "redirect:/reportRecipe";
+		return "redirect:/showRecipe";
 	}
 
 	// create a new recipe
