@@ -110,39 +110,28 @@
 						<!-- CreatedRecipes Tab Content -->
 						<div class="tab-pane fade show active" id="home" role="tabpanel"
 							aria-labelledby="home-tab">
-
 							<!-- Tab Content -->
 							<div class="container-fluid mt-4">
-
 								<div class="card-deck">
-
 									<!-- Basic Card Example -->
-
 									<div class="col-xl-3 col-md-6 col-sm-12 mb-4 px-0"
 										th:each="recipe : ${recipes }">
-
 										<div th:replace="~{includes/fragments :: recipeCardContent}" />
 									</div>
 								</div>
-
 							</div>
 						</div>
 						<!-- LikedRecipes Tab Content -->
 						<div class="tab-pane fade" id="likedRecipes" role="tabpanel"
 							aria-labelledby="profile-tab">
-							<div class="container-fluid mt-4 mb-4">
+							<div class="container-fluid mt-4">
 								<div class="card-deck">
-
 									<!-- Basic Card Example -->
-
 									<div class="col-xl-3 col-md-6 col-sm-12 mb-4 px-0"
 										th:each="recipe : ${likedRecipes}">
-
 										<div th:replace="~{includes/fragments :: recipeCardContent}" />
 									</div>
 								</div>
-
-
 							</div>
 						</div>
 						<!-- Collection Tab Content -->
@@ -195,7 +184,8 @@
 									<div class="col-xl-3 col-md-6 col-sm-12 mb-4 px-0"
 										th:each="recipe : ${collection.recipes}">
 
-										<div th:replace="~{includes/fragments :: recipeCardContentCollection}" />
+										<div
+											th:replace="~{includes/fragments :: recipeCardContentCollection}" />
 									</div>
 								</div>
 

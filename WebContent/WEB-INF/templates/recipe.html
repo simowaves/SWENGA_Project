@@ -147,8 +147,10 @@
 									<ul class="list-group list-group-flush">
 										<li class="list-group-item"
 											th:each="ingredientAmount : ${ingredientAmounts}"><a
+											th:text="${ingredientAmount.amount} +' '"></a>
+											<a
 											th:href="@{/showIngredient(id=${ingredientAmount.ingredient.id})}"
-											th:text="${ingredientAmount.amount} +' '+${ingredientAmount.ingredient.name}"></a>
+											th:text="${ingredientAmount.ingredient.name}"></a>
 										</li>
 									</ul>
 								</div>
