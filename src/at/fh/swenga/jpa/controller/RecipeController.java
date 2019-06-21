@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import at.fh.swenga.jpa.dao.AllergieRepository;
@@ -29,6 +30,7 @@ import at.fh.swenga.jpa.model.CategorieModel;
 import at.fh.swenga.jpa.model.CommentModel;
 import at.fh.swenga.jpa.model.IngredientAmountModel;
 import at.fh.swenga.jpa.model.IngredientModel;
+import at.fh.swenga.jpa.model.PictureModel;
 import at.fh.swenga.jpa.model.RecipeModel;
 import at.fh.swenga.jpa.model.UserModel;
 
@@ -196,7 +198,7 @@ public class RecipeController {
 		model.addAttribute("categories", categories);
 		return "createRecipe";
 	}
-
+/*
 	@PostMapping(value = "/createRecipe")
 
 	public String createNewRecipe(Model model, Principal principal, @RequestParam String description,
@@ -212,7 +214,7 @@ public class RecipeController {
 
 		return "forward:/recipeList";
 	}
-
+*/
 	// Spring 4: @RequestMapping(value = "/searchRecipes", method =
 	// RequestMethod.GET)
 	@GetMapping("/searchRecipes")
@@ -317,7 +319,7 @@ public class RecipeController {
 	@PostMapping("/createNewRecipe")
 	public String createNewRecipe(@RequestParam String title, @RequestParam String description,
 			@RequestParam String amount, @RequestParam String ingredient, @RequestParam String category, @RequestParam int publish, 
-			Principal principal, Model model) {
+			Principal principal, Model model, @RequestParam("recipePicture") MultipartFile file) {
 
 		RecipeModel newRecipeModel = new RecipeModel();
 		String userName = principal.getName();
@@ -338,7 +340,7 @@ public class RecipeController {
 			pusblishedRecipe = true;
 		}
 
-/*
+
 		try {
 			PictureModel picture = new PictureModel();
 			picture.setContent(file.getBytes());
@@ -349,8 +351,9 @@ public class RecipeController {
 			newRecipeModel.setPicture(picture);
 		} catch (Exception e) {
 			model.addAttribute("errorMessage", "Error:" + e.getMessage());
+			return "errorPage";
 		}
-*/
+
 
 		newRecipeModel.setTitle(title);
 		newRecipeModel.setDescription(description);

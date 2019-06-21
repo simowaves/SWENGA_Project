@@ -62,10 +62,9 @@
 
 										<div>
 											<form>
-												<a
-													class="d-none d-inline btn btn-sm btn-outline-primary"
-													th:href="@{/showCurrentUserAccountSettings}">
-													<i class="fas fa-edit fa-sm text-primary-50 mr-1"></i>Edit
+												<a class="d-none d-inline btn btn-sm btn-outline-primary"
+													th:href="@{/showCurrentUserAccountSettings}"> <i
+													class="fas fa-edit fa-sm text-primary-50 mr-1"></i>Edit
 												</a>
 											</form>
 											<form th:action="@{/followUser(id=${user.id})}" method="post">
@@ -88,12 +87,24 @@
 						<li class="nav-item"><a class="nav-link active" id="home-tab"
 							data-toggle="tab" href="#home" role="tab" aria-controls="home"
 							aria-selected="true">Recipes</a></li>
+						<li class="nav-item"><a class="nav-link"
+							id="likedRecipes-tab" data-toggle="tab" href="#likedRecipes"
+							role="tab" aria-controls="likedRecipes" aria-selected="false">Liked
+								Recipes</a></li>
 						<li class="nav-item"><a class="nav-link" id="profile-tab"
-							data-toggle="tab" href="#profile" role="tab"
-							aria-controls="profile" aria-selected="false">Liked Recipes</a></li>
+							data-toggle="tab" href="#collection" role="tab"
+							aria-controls="profile" aria-selected="false">Favorites</a></li>
+						<li class="nav-item"><a class="nav-link" id="profile-tab"
+							data-toggle="tab" href="#newCollection" role="tab"
+							aria-controls="profile" aria-selected="false"><button
+									type="submit" class="btn btn-success btn-circle btn-add">
+									<i class="fas fa-plus"></i>
+								</button></a></li>
+
+
 					</ul>
 					<div class="tab-content" id="myTabContent">
-						<!-- First Tab Content -->
+						<!-- CreatedRecipes Tab Content -->
 						<div class="tab-pane fade show active" id="home" role="tabpanel"
 							aria-labelledby="home-tab">
 
@@ -113,8 +124,8 @@
 
 							</div>
 						</div>
-						<!-- Second Tab Content -->
-						<div class="tab-pane fade" id="profile" role="tabpanel"
+						<!-- LikedRecipes Tab Content -->
+						<div class="tab-pane fade" id="likedRecipes" role="tabpanel"
 							aria-labelledby="profile-tab">
 							<div class="container-fluid mt-4 mb-4">
 								<div class="card-deck">
@@ -131,6 +142,71 @@
 
 							</div>
 						</div>
+						<!-- Collection Tab Content -->
+						<div class="tab-pane fade" id="collection" role="tabpanel"
+							aria-labelledby="profile-tab">
+							<div class="container-fluid mt-4 mb-4">
+							<div class="card shadow mb-4 col-6">
+								<!-- Card Header - Accordion -->
+								<a href="#collapseCardExample" class="d-block card-header py-3"
+									data-toggle="collapse" role="button" aria-expanded="false"
+									aria-controls="collapseCardExample">
+									<h6 class="m-0 font-weight-bold text-primary">Change Collection Name</h6>
+								</a>
+								<!-- Card Content - Collapse -->
+								<div class="collapse show" id="collapseCardExample">
+									<div class="card-body">
+										<div class="form-group multiple-form-group">
+									<div class="form-group input-group">
+										<input type="text" name="newCollection" class="form-control"
+											placeholder="New Name of collection" required>
+
+										<!-- th:field="*{ingredients}" -->
+										<span class="input-group-btn ml-2"><button
+												type="button" class="btn btn-success btn-circle btn-add">
+												<i class="fas fa-plus"></i>
+											</button></span>
+									</div>
+								</div>
+									</div>
+								</div>
+							</div>
+								<div class="card-deck">
+
+									<!-- Basic Card Example -->
+
+									<div class="col-xl-3 col-md-6 col-sm-12 mb-4 px-0"
+										th:each="recipe : ${collectionRecipes}">
+
+										<div th:replace="~{includes/fragments :: recipeCardContent}" />
+									</div>
+								</div>
+
+
+							</div>
+						</div>
+						<!-- newCollection Tab Content -->
+						<div class="tab-pane fade" id="newCollection" role="tabpanel"
+							aria-labelledby="profile-tab">
+							<div class="container-fluid mt-4 mb-4">
+								<div class="form-group multiple-form-group" data-max=25>
+									<label>Create New Collection</label>
+									<div class="form-group input-group col-6">
+										<input type="text" name="newCollection" class="form-control"
+											placeholder="Name of collection" required>
+
+										<!-- th:field="*{ingredients}" -->
+										<span class="input-group-btn ml-2"><button
+												type="button" class="btn btn-success btn-circle btn-add">
+												<i class="fas fa-plus"></i>
+											</button></span>
+									</div>
+								</div>
+
+
+							</div>
+						</div>
+
 					</div>
 
 					<!-- /.container-fluid -->
