@@ -41,7 +41,7 @@
 
 					<!-- Heading and Author th:action="@{/addTitlerecipeId=${recipe.id})}" -->
 					<div class="mb-2">
-						<form method="post">
+						<form method="post" th:action="@{/setTitle(recipeId=${recipe.id})}">
 							<div class="form-group input-group">
 
 								<div class="col-md-4 mb-3">
@@ -98,25 +98,24 @@
 									</div>
 									<div class="card-body">
 
-										<div class="form-group input-group">
+										<form class="needs-validation" novalidate
+											th:action="@{/addCategory(recipeId=${recipe.id})}"
+											method="post">
+											<div class="form-group input-group">
 
+												<!-- th:field="*{ingredients}" -->
 
-											<!-- th:field="*{ingredients}" -->
-											<form method="post"
-												th:action="@{/addCategory(recipeId=${recipe.id})}">
 												<select class="form-control ml-2" name="category" required>
 													<option selected value="">Select your category</option>
 													<option th:each="category : ${categories}"
 														th:text="${category.title}" th:value="${category.id}"></option>
-												</select><span class="input-group-btn ml-2"><button
-														type="button" class="btn btn-success btn-circle btn-add">
+												</select> <span class="input-group-btn ml-2"><button
+														type="submit" class="btn btn-success btn-circle btn-add">
 														<i class="fas fa-plus"></i>
 													</button></span>
-													</form>
-										</div>
-										
+											</div>
+										</form>										
 									</div>
-
 								</div>
 							</div>
 							<!-- Dropdown Card Example -->
@@ -229,10 +228,14 @@
 					<div class="form-row">
 						<div class="col-md-12 mb-3">
 							<label for="validationCustom03">Description</label>
+							<form method="post" th:action="@{/setDescription(recipeId=${recipe.id})}">
 							<textarea class="form-control" rows="4" id="validationCustom03"
 								name="description" th:text="${recipe.description}" required></textarea>
 							<div class="invalid-feedback">The description must not be
 								empty!</div>
+																		<button class="btn btn-primary" type="submit">Save</button>
+								
+							</form>
 						</div>
 					</div>
 					<!-- /.container-fluid -->

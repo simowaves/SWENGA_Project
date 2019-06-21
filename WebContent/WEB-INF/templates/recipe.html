@@ -144,15 +144,16 @@
 							<div class="card shadow md-4">
 								<!-- Comment Header - Dropdown -->
 								<div class="card-header py-3">
-									<h6 class="m-0 font-weight-bold text-primary">Pasta Carbonara</h6>
+									<h6 class="m-0 font-weight-bold text-primary">Comments</h6>
 								</div>
 
 								<!-- Card Content - Comments -->
 								<div class="card-body">
 									<ul class="list-group list-group-flush">
-										<li class="list-group-item" th:each="comment : ${comments}"><a
-											th:href="@{/showUser(id=${comment.author.id})}"
-											th:text="${comment.author.userName}"></a> <a
+										<li class="list-group-item" th:each="comment : ${comments}"><img class="img-profile rounded-circle"
+								src="https://source.unsplash.com/QAB-WJcbgJk/60x60"> <a class="h5 mb-4"
+								th:text="${recipe.author.userName}"
+								th:href="@{/showUser(id=${recipe.author.id})}"></a> <a
 											th:text="${comment.content}"></a></li>
 										<li class="list-group list-group-flush">
 											<form class="form-group"
