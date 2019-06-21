@@ -434,12 +434,12 @@ public class UserController {
 	// Spring 4: @RequestMapping(value = "/addRecipeToCollection", method =
 	// RequestMethod.POST)
 	@PostMapping("/addRecipeToCollection")
-	public String addRecipeToCollection(@RequestParam int collectionId, @RequestParam int recipeId, Principal principal, RedirectAttributes redirectAttributes) {
+	public String addRecipeToCollection(@RequestParam int collectionId, @RequestParam int id, Principal principal, RedirectAttributes redirectAttributes) {
 		String userName = principal.getName();
 		UserModel user = userRepository.findUserByUserNameWithAllergies(userName);
 		int userId = user.getId();
 		RecipeCollectionModel recipeCollectionModel = recipeCollectionRepository.findCollectionsById(collectionId);
-		RecipeModel recipeModel = recipeRepository.findRecipeById(recipeId);
+		RecipeModel recipeModel = recipeRepository.findRecipeById(id);
 		recipeCollectionModel.addRecipe(recipeModel);
 		recipeCollectionRepository.save(recipeCollectionModel);
 		redirectAttributes.addAttribute("collections", userId);
