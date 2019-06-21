@@ -71,6 +71,9 @@ public class RecipeController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String langingPage(Model model, Principal principal) {
 		
+		UserModel loggedInUser = userRepository.findUserByUserName(principal.getName());
+		model.addAttribute("loggedInUser", loggedInUser);
+		
 		if (principal == null) {
 			
 			List<RecipeModel> allRecipes = recipeRepository.findRecipesOrderedByLikes();
