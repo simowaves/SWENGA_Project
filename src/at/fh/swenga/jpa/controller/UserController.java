@@ -119,12 +119,14 @@ public class UserController {
 		UserModel user = userRepository.findUserById(id);
 		List<RecipeModel> recipes = recipeRepository.findRecipesByUserId(id);
 		List<RecipeModel> likedRecipes = recipeRepository.findRecipesByLikingUserId(id);
+		List<RecipeCollectionModel> collections = recipeCollectionRepository.findCollectionsByUserId(id);
 
 		if (user != null) {
 			
 			model.addAttribute("user", user);
 			model.addAttribute("recipes", recipes);
 			model.addAttribute("likedRecipes", likedRecipes);
+			model.addAttribute("collections", collections);
 			return "userInfo";
 		} else {
 			model.addAttribute("errorMessage", "Couldn't find user " + id);
@@ -179,10 +181,12 @@ public class UserController {
 		if (user != null) {
 			List<RecipeModel> recipes = recipeRepository.findRecipesByUserId(user.getId());
 			List<RecipeModel> likedRecipes = recipeRepository.findRecipesByLikingUserId(user.getId());
+			List<RecipeCollectionModel> collections = recipeCollectionRepository.findCollectionsByUserId(user.getId());
 			
 			model.addAttribute("user", user);
 			model.addAttribute("recipes", recipes);
 			model.addAttribute("likedRecipes", likedRecipes);
+			model.addAttribute("collections", collections);
 			return "userInfo";
 		} else {
 			model.addAttribute("errorMessage", "You are not logged in");

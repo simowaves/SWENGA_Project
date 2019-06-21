@@ -319,7 +319,7 @@ public class RecipeController {
 	@PostMapping("/createNewRecipe")
 	public String createNewRecipe(@RequestParam String title, @RequestParam String description,
 			@RequestParam String amount, @RequestParam String ingredient, @RequestParam String category, @RequestParam int publish, 
-			Principal principal, Model model, @RequestParam("recipePicture") MultipartFile file) {
+			Principal principal, Model model, @RequestParam("recipePicture") MultipartFile file, RedirectAttributes redirectAttributes) {
 
 		RecipeModel newRecipeModel = new RecipeModel();
 		String userName = principal.getName();
@@ -339,21 +339,28 @@ public class RecipeController {
 		if (publish == 1) {
 			pusblishedRecipe = true;
 		}
-
-
-		try {
-			PictureModel picture = new PictureModel();
-			picture.setContent(file.getBytes());
-			picture.setContentType(file.getContentType());
-			picture.setCreated(now);
-			picture.setFilename(file.getOriginalFilename());
-			picture.setName(file.getName());
-			newRecipeModel.setPicture(picture);
-		} catch (Exception e) {
-			model.addAttribute("errorMessage", "Error:" + e.getMessage());
-			return "errorPage";
+		
+		//UploadedFile fileX = (UploadedFile) uploadedFile;
+/*
+	    if (file.getBytes().getSize() == 0) {
+	        errors.rejectValue("file", "uploadForm.emptyFile",
+	                "File is empty");
+	    }
+		*/
+		if (file != null) {
+			try {
+				PictureModel picture = new PictureModel();
+				picture.setContent(file.getBytes());
+				picture.setContentType(file.getContentType());
+				picture.setCreated(now);
+				picture.setFilename(file.getOriginalFilename());
+				picture.setName(file.getName());
+				newRecipeModel.setPicture(picture);
+			} catch (Exception e) {
+				model.addAttribute("errorMessage", "Error:" + e.getMessage());
+				return "errorPage";
+			}
 		}
-
 
 		newRecipeModel.setTitle(title);
 		newRecipeModel.setDescription(description);
@@ -380,8 +387,9 @@ public class RecipeController {
 		}
 
 		System.out.print(publish);
-		model.addAttribute("recipe", newRecipeModel);
-		return "recipe";
+		//model.addAttribute("recipe", newRecipeModel);
+		redirectAttributes.addAttribute("id", newRecipeModel.getId());
+		return "redirect:/showRecipe";
 	}
 	
 	// Spring 4: @RequestMapping(value = "/deleteRecipe", method =
