@@ -44,8 +44,8 @@
 									th:src="${recipe.author.showPicture()}">
 							</div>
 							<div class="d-flex align-items-center mr-l">
-								<span class="h5 mb-0 mr=2 text-gray-800">by</span><a class="h5 ml-1 mb-0"
-									th:text="${recipe.author.userName}"
+								<span class="h5 mb-0 ml-2 text-gray-800">by</span><a
+									class="h5 ml-1 mb-0" th:text="${recipe.author.userName}"
 									th:href="@{/showUser(id=${recipe.author.id})}"></a>
 							</div>
 						</div>
@@ -63,7 +63,7 @@
 					<div class="row">
 						<!-- Recipe Image TODO! -->
 						<div class="col-md-8">
-							<div
+							<div class="rounded"
 								style="position: relative; overflow: hidden; padding-bottom: 100%;">
 
 								<img style="position: absolute; height: 100%"
@@ -75,55 +75,64 @@
 						<!-- Recipe Ingredients -->
 						<div class="col-md-4">
 							<div>
-								<form class="form-group"
-									th:action="@{/likeRecipe(id=${recipe.id})}" method="post">
-									<button class="btn btn-danger" type="submit">
-										<i class="fas fa-heart mr-2"></i>Like
-									</button>
-								</form>
-								<form class="form-group"
-									th:action="@{/reportRecipe(id=${recipe.id})}" method="post">
-									<button class="btn btn-danger" type="submit">
-										<i class="fas fa-flag mr-2"></i>Report
-									</button>
-								</form>
-								<form class="form-group">
-									<a class="btn btn-warning"
-										th:href="@{/editRecipe(id=${recipe.id})}" type="submit"> <i
-										class="fas fa-wrench mr-2"></i>Edit
-									</a>
-								</form>
-								<form class="form-group"
-									th:action="@{/deleteRecipe(id=${recipe.id})}" method="post">
-									<button class="btn btn-danger" type="submit">
-										<i class="fas fa-heart mr-2"></i>Delete
-									</button>
-								</form>
-								<form class="form-group"
-									th:action="@{/changePublished(id=${recipe.id})}" method="post">
-									<button class="btn btn-danger" type="submit">
-										<i class="fas fa-heart mr-2"></i>Change to public/private
-									</button>
-								</form>
-								<div>
-
-									<!-- expanding Ingredient selection -->
-									<div class="form-group">
-										<form method="post"
-											th:action="@{/addRecipeToCollection(id=${recipe.id})}">
-											<div class="form-group input-group">
-												<select class="form-control" name="collectionId" required>
-													<option selected value="">Select your collection</option>
-													<option th:each="collection : ${collections}"
-														th:text="${collection.title}" th:value="${collection.id}"></option>
-												</select><span class="input-group-btn ml-2"><button
-														type="submit" class="btn btn-success btn-circle btn-add">
-														<i class="fas fa-plus"></i>
-													</button></span>
-											</div>
+								<div class="card mb-4">
+									<div class="card-header">Tools</div>
+									<div class="card-body">
+										<form class="form-group"
+											th:action="@{/likeRecipe(id=${recipe.id})}" method="post">
+											<button class="btn btn-danger" type="submit">
+												<i class="fas fa-heart mr-2"></i>Like
+											</button>
 										</form>
+										<form class="form-group"
+											th:action="@{/reportRecipe(id=${recipe.id})}" method="post">
+											<button class="btn btn-danger" type="submit">
+												<i class="fas fa-flag mr-2"></i>Report
+											</button>
+										</form>
+										<form class="form-group">
+											<button class="btn btn-warning"
+												th:href="@{/editRecipe(id=${recipe.id})}" type="submit">
+												<i class="fas fa-wrench mr-2"></i>Edit
+											</button>
+										</form>
+										<form class="form-group"
+											th:action="@{/deleteRecipe(id=${recipe.id})}" method="post">
+											<button class="btn btn-danger" type="submit">
+												<i class="fas fa-heart mr-2"></i>Delete
+											</button>
+										</form>
+										<form class="form-group"
+											th:action="@{/changePublished(id=${recipe.id})}"
+											method="post">
+											<button class="btn btn-danger" type="submit">
+												<i class="fas fa-heart mr-2"></i>Change to public/private
+											</button>
+										</form>
+										<hr>
+										<div>
+											<!-- expanding Ingredient selection -->
+											<div class="form-group">
+												<form method="post"
+													th:action="@{/addRecipeToCollection(id=${recipe.id})}">
+													<div class="form-group input-group mb-0">
+														<select class="form-control" name="collectionId" required>
+															<option selected value="">Add to your collection</option>
+															<option th:each="collection : ${collections}"
+																th:text="${collection.title}"
+																th:value="${collection.id}"></option>
+														</select><span class="input-group-btn ml-2"><button
+																type="submit" class="btn btn-success btn-circle btn-add">
+																<i class="fas fa-plus"></i>
+															</button></span>
+													</div>
+												</form>
+											</div>
+										</div>
 									</div>
+
 								</div>
+
 							</div>
 
 							<!-- Dropdown Card Example -->
@@ -135,12 +144,6 @@
 
 								<!-- Card Content - Ingredients -->
 								<div class="card-body">
-									<!-- <div th:each="ingredientAmount : ${ingredientAmounts}">
-										<div class="ml-1 mr-1">
-											<a href="#" class="badge badge-info"
-												th:text="${ingredientAmount.amount}"></a>
-										</div>
-										  -->
 									<ul class="list-group list-group-flush">
 										<li class="list-group-item"
 											th:each="ingredientAmount : ${ingredientAmounts}"><a
@@ -181,19 +184,32 @@
 									<ul class="list-group list-group-flush">
 										<li class="list-group-item row"
 											th:each="comment : ${comments}">
-											<div class="" style="width: 60px; height: 60px">
-												<img class="img-profile rounded-circle"
-													style="height: 100%; object-fit: contain;"
-													th:src="${comment.author.showPicture()}">
-											</div> <a class="h5 mb-4" th:text="${comment.author.userName}"
-											th:href="@{/showUser(id=${recipe.author.id})}"></a> <a
-											th:text="${comment.content}"></a>
+											<div class="row">
+												<div class="mr-4" style="width: 60px; height: 60px">
+													<img class="img-profile rounded-circle"
+														style="height: 100%; object-fit: contain;"
+														th:src="${comment.author.showPicture()}">
+												</div>
+												<div class="d-flex align-items-center row">
+													<a class="h5 mb-0 mr-2"
+														th:text="${comment.author.userName}"
+														th:href="@{/showUser(id=${recipe.author.id})}"></a> <a
+														th:text="${comment.content}"></a>
+												</div>
+											</div>
 										</li>
 										<li class="list-group list-group-flush">
-											<form class="form-group"
+											<form class="form-group mt-4 mb-0"
 												th:action="@{/postComment(id=${recipe.id})}" method="post">
-												<input type="text" class="form-control form-control-user"
-													name="content" placeholder="Write a comment">
+												<div class="input-group mb-0">
+													<input type="text" name="content" class="form-control"
+														placeholder="Write a comment">
+													<div class="input-group-append">
+														<button class="btn btn-primary" type="submit"
+															id="button-addon1">Send</button>
+													</div>
+												</div>
+
 											</form>
 										</li>
 									</ul>
