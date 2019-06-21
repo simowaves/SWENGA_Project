@@ -69,4 +69,12 @@ public class AdminController {
 		return "redirect:/showAdminRecipes";
 	}
 	
+	//  delete a recipe for Admin purpose
+	@PostMapping("/deleteRecipeAdmin")
+	public String deleteRecipeAdmin(Model model, @RequestParam int id) {
+		RecipeModel recipeModel = recipeRepository.findRecipeById(id);
+		recipeModel.setEnabled(false);
+		recipeRepository.save(recipeModel);
+		return "redirect:/showAdminRecipes";
+	}
 }

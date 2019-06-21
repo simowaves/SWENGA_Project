@@ -18,12 +18,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import at.fh.swenga.jpa.dao.AllergieRepository;
 import at.fh.swenga.jpa.dao.CategorieRepository;
 import at.fh.swenga.jpa.dao.CommentRepository;
 import at.fh.swenga.jpa.dao.IngredientAmountRepository;
 import at.fh.swenga.jpa.dao.IngredientRepository;
-import at.fh.swenga.jpa.dao.PictureRepository;
 import at.fh.swenga.jpa.dao.RecipeCollectionRepository;
 import at.fh.swenga.jpa.dao.RecipeRepository;
 import at.fh.swenga.jpa.dao.UserRepository;
@@ -451,16 +449,6 @@ public class RecipeController {
 			model.addAttribute("errorMessage", "You can't delete this recipe, because it doesn't belong to you!! ");
 			return "errorPage";
 		}
-
-	}
-
-	//  delete a recipe for Admin purpose
-	@PostMapping("/deleteRecipeAdmin")
-	public String deleteRecipeAdmin(Model model, @RequestParam int id) {
-		RecipeModel recipeModel = recipeRepository.findRecipeById(id);
-		recipeModel.setEnabled(false);
-		recipeRepository.save(recipeModel);
-		return "redirect:/showAdminRecipes";
 	}
 
 	// edit a recipe
