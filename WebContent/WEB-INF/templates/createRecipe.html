@@ -46,33 +46,7 @@
 					<div>
 
 						<div class="row">
-							<div class="col-md-4">
-								<!-- TODO : fix picture sizing -->
-								<div
-									style="position: relative; overflow: hidden; padding-bottom: 100%;"
-									class="mb-4">
-									<a><img style="position: absolute; width: 100%"
-										class="rounded"
-										src="https://dummyimage.com/400x400/949494/e6e6e6&text=Your+Picture"
-										alt=""></a>
-
-									<!-- 										<img class="img-fluid card-img-top" -->
-									<!-- 											style="position: absolute;" -->
-									<!-- 											th:src="@{download(documentId=${recipe.document.id})}" -->
-									<!-- 											alt=""> -->
-								</div>
-								<div class="input-group mb-3">
-									<div class="custom-file">
-										<form enctype="multipart/form-data" method="post"
-											action="upload">
-											<input type="file" class="form-control" id="inputGroupFile"
-												name="uploadPicture"> <label
-												class="custom-file-label" for="inputGroupFile01">Upload
-												tasty picture</label>
-										</form>
-									</div>
-								</div>
-							</div>
+							
 							<div class="col-md-8">
 								<form class="needs-validation" novalidate
 									th:action="@{/createNewRecipe}" method="post">
@@ -90,8 +64,8 @@
 										<div class="col-md-12">
 
 											<!-- expanding Ingredient selection -->
-											<div class="form-group multiple-form-group" data-max=6>
-												<label>Add Ingredients (with data-max=6)</label>
+											<div class="form-group multiple-form-group" data-max=25>
+												<label>Add Ingredients (with data-max=25)</label>
 												<div class="form-group input-group">
 													<input type="text" name="amount" class="form-control"
 														placeholder="amount" required>
