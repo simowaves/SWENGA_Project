@@ -282,6 +282,12 @@ public class RecipeModel implements java.io.Serializable {
 			recipeCollections = new HashSet<RecipeCollectionModel>();
 		recipeCollections.add(recipeCollection);
 	}
+	
+	public void removeRecipeCollection(RecipeCollectionModel recipeCollection) {
+		if (recipeCollections == null)
+			recipeCollections = new HashSet<RecipeCollectionModel>();
+		recipeCollections.remove(recipeCollection);
+	}
 
 	public Set<UserModel> getLikingUsers() {
 		return likingUsers;
