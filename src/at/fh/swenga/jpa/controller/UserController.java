@@ -402,7 +402,7 @@ public class UserController {
 	// Spring 4: @RequestMapping(value = "/addCollection", method =
 	// RequestMethod.POST)
 	@PostMapping("/addCollection")
-	public String addCollection(@RequestParam int collectionId, @RequestParam String title, Principal principal, RedirectAttributes redirectAttributes) {
+	public String addCollection(@RequestParam String title, Principal principal, RedirectAttributes redirectAttributes) {
 		String userName = principal.getName();
 		UserModel user = userRepository.findUserByUserNameWithAllergies(userName);
 		int userId = user.getId();
