@@ -130,6 +130,11 @@ public class UserController {
 				model.addAttribute("loggedInUser", loggedInUser);
 				if(user.getId() == loggedInUser.getId()) {
 					recipes = recipeRepository.findRecipesByUserId(id);
+					model.addAttribute("user", user);
+					model.addAttribute("recipes", recipes);
+					model.addAttribute("likedRecipes", likedRecipes);
+					model.addAttribute("collections", collections);
+					return "userInfo";
 				}
 			}
 			
