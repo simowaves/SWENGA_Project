@@ -1,5 +1,6 @@
 package at.fh.swenga.jpa.model;
 
+import java.io.UnsupportedEncodingException;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -18,6 +19,7 @@ import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.Version;
 
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Entity
@@ -397,4 +399,19 @@ public class UserModel implements java.io.Serializable {
 			return false;
 		return true;
 	}	
+	
+	//Show the picture
+	public String showPicture() throws UnsupportedEncodingException {
+		if (picture == null) {
+			return "https://dummyimage.com/400x400/bbe1fa/ffffff&text=Missing+Image++:(";
+		}
+		else {
+			try {
+				return "data:image/jpg;base64,"+ new String(Base64.encodeBase64(picture.getContent()));
+			} catch (Exception e) {
+				e.printStackTrace();
+				return "https://dummyimage.com/400x400/bbe1fa/ffffff&text=Missing+Image++:(";
+			}
+		}
+	}
 }

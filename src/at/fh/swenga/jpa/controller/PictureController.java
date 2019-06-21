@@ -19,6 +19,7 @@ import at.fh.swenga.jpa.dao.RecipeRepository;
 import at.fh.swenga.jpa.dao.UserRepository;
 import at.fh.swenga.jpa.model.PictureModel;
 import at.fh.swenga.jpa.model.RecipeModel;
+import at.fh.swenga.jpa.model.UserModel;
 
 @Controller
 public class PictureController {
@@ -90,6 +91,52 @@ public class PictureController {
 		redirectAttributes.addAttribute("id", recipeId);
 		return "redirect:/showRecipe";
 	}
+	
+	
+	
+	//USER Profile Pictures
+	/**
+	 * Save uploaded file to the database (as 1:1 relationship to recipe)
+	 * 
+	 * @param model
+	 * @param recipeId
+	 * @param file
+	 * @return
+	 */
+	
+	@RequestMapping(value = "/changeUserPicture", method = RequestMethod.POST)
+	public String uploadUserPicture(Model model, @RequestParam("id") int userId,
+			@RequestParam("userPicture") MultipartFile newPicture, RedirectAttributes redirectAttributes) {
+
+		try {
+			UserModel user = userRepository.findUserById(userId);
+			
+			if (user == null)
+				throw new IllegalArgumentException("No recipe with id " + userId);
+			PictureModel picture;
+			// Already a picture available -> change it
+			if (user.getPicture() != null) {
+				picture = user.getPicture();
+			} else {
+				picture = new PictureModel();
+			}
+
+			// Create a new picture and set all available infos
+			picture.setContent(newPicture.getBytes());
+			picture.setContentType(newPicture.getContentType());
+			picture.setCreated(new Date());
+			picture.setFilename(newPicture.getOriginalFilename());
+			picture.setName(newPicture.getName());
+			user.setPicture(picture);
+			userRepository.save(user);
+		} catch (Exception e) {
+			model.addAttribute("errorMessage", "Error:" + e.getMessage());
+			return "errorPage";
+		}
+		redirectAttributes.addAttribute("id", userId);
+		return "redirect:/showUser";
+	}
+	
 	
 	/*
 

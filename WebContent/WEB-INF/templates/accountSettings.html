@@ -51,26 +51,30 @@
 								<div
 									style="position: relative; overflow: hidden; padding-bottom: 100%;"
 									class="mb-4">
-									<a><img style="position: absolute; width: 100%"
-										class="rounded"
-										src="https://dummyimage.com/400x400/949494/e6e6e6&text=Your+Picture"
-										alt=""></a>
+									<a><img
+									style="position: absolute; height:100%;" th:src="${user.showPicture()}"
+									alt=""></a>
 
 									<!-- 										<img class="img-fluid card-img-top" -->
 									<!-- 											style="position: absolute;" -->
 									<!-- 											th:src="@{download(documentId=${recipe.document.id})}" -->
 									<!-- 											alt=""> -->
 								</div>
-								<div class="input-group mb-3">
-									<div class="custom-file">
-										<form enctype="multipart/form-data" method="post"
-											action="upload">
-											<input type="file" class="form-control" id="inputGroupFile"
-												name="uploadPicture"> <label
-												class="custom-file-label" for="inputGroupFile01">Upload
-												tasty picture</label>
-										</form>
-									</div>
+								<!-- Edit Picture -->
+								<div>
+									<form enctype="multipart/form-data" method="post"
+										th:action="@{/changeUserPicture(id=${user.id})}">
+										<div class="form-check">
+											<div class="custom-file">
+												<label for="inputFile" class="control-label">Edit
+													Picture:</label> <input class="form-control" id="inputFile"
+													type="file" name="userPicture">
+											</div>
+											<button
+												class="btn btn-primary btn-user btn-block col-md-4 mt-2"
+												type="submit">Edit Picture</button>
+										</div>
+									</form>
 								</div>
 							</div>
 
