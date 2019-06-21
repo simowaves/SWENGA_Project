@@ -66,15 +66,17 @@ public class RecipeController {
 
 			List<RecipeModel> allRecipes = recipeRepository.findRecipesOrderedByLikes();
 			List<RecipeModel> recipes = new ArrayList<RecipeModel>();
-			for (int i = 0; i < 3; i++) {
-				recipes.add(allRecipes.get(i));
+			for (RecipeModel recipe : allRecipes) {
+				recipes.add(recipe);
+				if(recipes.size() >= 3) break;
 			}
 
 			List<CategorieModel> categories = categorieRepository.findTop3ByOrderByTitleAsc();
 			List<UserModel> allAuthors = userRepository.findUsersOrderedByMostRecipes();
 			List<UserModel> authors = new ArrayList<UserModel>();
-			for (int i = 0; i < 3; i++) {
-				authors.add(allAuthors.get(i));
+			for (UserModel author : allAuthors) {
+				authors.add(author);
+				if(authors.size() >= 3) break;
 			}
 			List<IngredientModel> ingredients = ingredientRepository.findTop3ByOrderById();
 
@@ -91,15 +93,17 @@ public class RecipeController {
 			if (user == null) {
 				List<RecipeModel> allRecipes = recipeRepository.findRecipesOrderedByLikes();
 				List<RecipeModel> recipes = new ArrayList<RecipeModel>();
-				for (int i = 0; i < 3; i++) {
-					recipes.add(allRecipes.get(i));
+				for (RecipeModel recipe : allRecipes) {
+					recipes.add(recipe);
+					if(recipes.size() >= 3) break;
 				}
 
 				List<CategorieModel> categories = categorieRepository.findTop3ByOrderByTitleAsc();
 				List<UserModel> allAuthors = userRepository.findUsersOrderedByMostRecipes();
 				List<UserModel> authors = new ArrayList<UserModel>();
-				for (int i = 0; i < 3; i++) {
-					authors.add(allAuthors.get(i));
+				for (UserModel author : allAuthors) {
+					authors.add(author);
+					if(authors.size() >= 3) break;
 				}
 				List<IngredientModel> ingredients = ingredientRepository.findTop3ByOrderById();
 
@@ -115,15 +119,17 @@ public class RecipeController {
 
 				List<RecipeModel> allRecipes = recipeRepository.findRecipesFilteredByUserPreferences(user.getId());
 				List<RecipeModel> recipes = new ArrayList<RecipeModel>();
-				for (int i = 0; i < 3; i++) {
-					recipes.add(allRecipes.get(i));
+				for (RecipeModel recipe : allRecipes) {
+					recipes.add(recipe);
+					if(recipes.size() >= 3) break;
 				}
 
 				List<CategorieModel> categories = categorieRepository.findTop3ByOrderByTitleAsc();
 				List<UserModel> allAuthors = userRepository.findUsersOrderedByMostRecipes();
 				List<UserModel> authors = new ArrayList<UserModel>();
-				for (int i = 0; i < 3; i++) {
-					authors.add(allAuthors.get(i));
+				for (UserModel author : allAuthors) {
+					authors.add(author);
+					if(authors.size() >= 3) break;
 				}
 				List<IngredientModel> ingredients = ingredientRepository.findTop3ByOrderById();
 
