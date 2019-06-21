@@ -64,23 +64,21 @@ public class PictureController {
 			
 			if (recipe == null)
 				throw new IllegalArgumentException("No recipe with id " + recipeId);
-/*
-			// Already a picture available -> delete it
+			PictureModel picture;
+			// Already a picture available -> change it
 			if (recipe.getPicture() != null) {
-				pictureRepository.delete(recipe.getPicture());
-				// Don't forget to remove the relationship too
-				recipe.setPicture(null);
+				picture = recipe.getPicture();
+			} else {
+				picture = new PictureModel();
 			}
-*/
+
 			// Create a new picture and set all available infos
 
-			PictureModel picture = new PictureModel();
 			picture.setContent(newPicture.getBytes());
 			picture.setContentType(newPicture.getContentType());
 			picture.setCreated(new Date());
 			picture.setFilename(newPicture.getOriginalFilename());
 			picture.setName(newPicture.getName());
-			//pictureRepository.save(picture);
 			recipe.setPicture(picture);
 			recipeRepository.save(recipe);
 		} catch (Exception e) {
