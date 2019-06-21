@@ -504,6 +504,7 @@ public class RecipeController {
 		UserModel user = userRepository.findUserByUserName(userName);
 		
 		RecipeModel recipeModel = recipeRepository.findRecipeById(recipeId);
+		Date now = new Date();
 		if (user.getId() == recipeModel.getAuthor().getId()) {
 			IngredientAmountModel ingredientAmountModel = new IngredientAmountModel();
 			IngredientModel ingredientModel = ingredientRepository.findIngredientById(ingredient);
@@ -512,6 +513,8 @@ public class RecipeController {
 			ingredientAmountModel.setRecipe(recipeModel);
 			ingredientAmountModel.setIngredient(ingredientModel);
 			ingredientAmountRepository.save(ingredientAmountModel);
+			recipeModel.setLastEdited(now);
+			recipeRepository.save(recipeModel);
 		} else {
 			model.addAttribute("errorMessage", "You can't add ingredients to this recipe, because it doesn't belong to you!! ");
 			return "errorPage";
@@ -528,16 +531,17 @@ public class RecipeController {
 			@RequestParam String amount, Principal principal, RedirectAttributes redirectAttributes) {
 		String userName = principal.getName();
 		UserModel user = userRepository.findUserByUserName(userName);
-		
+		Date now = new Date();
+
 		RecipeModel recipeModel = recipeRepository.findRecipeByIdWithIngredientAmounts(recipeId);
 		if (user.getId() == recipeModel.getAuthor().getId()) {
 			IngredientAmountModel ingredientAmountModel = ingredientAmountRepository
 					.findIngredientAmountsById(ingredientAmountId);
 			recipeModel.removeIngredientAmount(ingredientAmountModel);
+			recipeModel.setLastEdited(now);
 			recipeRepository.save(recipeModel);
 	
 			ingredientAmountRepository.deleteById(ingredientAmountId);
-		
 		} else {
 			model.addAttribute("errorMessage", "You can't remove ingredients to this recipe, because it doesn't belong to you!! ");
 			return "errorPage";
@@ -554,10 +558,14 @@ public class RecipeController {
 		String userName = principal.getName();
 		UserModel user = userRepository.findUserByUserName(userName);
 		
+		Date now = new Date();
+
 		RecipeModel recipeModel = recipeRepository.findRecipeById(recipeId);
 		if (user.getId() == recipeModel.getAuthor().getId()) {
 			CategorieModel categorieModel = categorieRepository.findCategorieById(category);
 			recipeModel.addCategorie(categorieModel);
+			
+			recipeModel.setLastEdited(now);
 			recipeRepository.save(recipeModel);
 		} else {
 			model.addAttribute("errorMessage", "You can't add categories to this recipe, because it doesn't belong to you!! ");
@@ -576,10 +584,14 @@ public class RecipeController {
 		String userName = principal.getName();
 		UserModel user = userRepository.findUserByUserName(userName);
 		
+		Date now = new Date();
+	
 		RecipeModel recipeModel = recipeRepository.findRecipeById(recipeId);
 		if (user.getId() == recipeModel.getAuthor().getId()) {
 			CategorieModel categorieModel = categorieRepository.findCategorieById(category);
 			recipeModel.removeCategorie(categorieModel);
+			
+			recipeModel.setLastEdited(now);
 			recipeRepository.save(recipeModel);
 		} else {
 			model.addAttribute("errorMessage", "You can't remove the categories from this recipe, because it doesn't belong to you!! ");
@@ -597,9 +609,13 @@ public class RecipeController {
 		String userName = principal.getName();
 		UserModel user = userRepository.findUserByUserName(userName);
 		
+		Date now = new Date();
+		
 		RecipeModel recipeModel = recipeRepository.findRecipeById(recipeId);
 		if (user.getId() == recipeModel.getAuthor().getId()) {
 			recipeModel.setTitle(title);
+			
+			recipeModel.setLastEdited(now);
 			recipeRepository.save(recipeModel);
 		} else {
 			model.addAttribute("errorMessage", "You can't set the Title to this recipe, because it doesn't belong to you!! ");
@@ -616,9 +632,13 @@ public class RecipeController {
 		String userName = principal.getName();
 		UserModel user = userRepository.findUserByUserName(userName);
 		
+		Date now = new Date();
+		
 		RecipeModel recipeModel = recipeRepository.findRecipeById(recipeId);
 		if (user.getId() == recipeModel.getAuthor().getId()) {
 			recipeModel.setDescription(description);
+			
+			recipeModel.setLastEdited(now);
 			recipeRepository.save(recipeModel);
 		} else {
 			model.addAttribute("errorMessage", "You can't set the Description for this recipe, because it doesn't belong to you!! ");
@@ -634,15 +654,20 @@ public class RecipeController {
 		String userName = principal.getName();
 		UserModel user = userRepository.findUserByUserName(userName);
 		
+		Date now = new Date();
+		
 		RecipeModel recipeModel = recipeRepository.findRecipeById(id);
 		if (user.getId() == recipeModel.getAuthor().getId()) {
 			if (recipeModel.isPublished() == true) {
 				recipeModel.setPublished(false);
+				recipeModel.setLastEdited(now);
+				recipeRepository.save(recipeModel);
 			} else {
 				recipeModel.setPublished(true);
+				recipeRepository.save(recipeModel);
 			}
 	
-			recipeRepository.save(recipeModel);
+			
 		} else {
 			model.addAttribute("errorMessage", "You can't change the publicity options for this recipe, because it doesn't belong to you!! ");
 			return "errorPage";
