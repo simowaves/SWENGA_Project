@@ -175,14 +175,16 @@ public class RecipeController {
 	@GetMapping({ "/showRecipe", "/likeRecipe", "/reportRecipe", "/postComment" })
 	public String showRecipeDetails(Model model, @RequestParam int id) {
 
-		RecipeModel recipe = recipeRepository.findRecipeById(id);
+		RecipeModel recipe = recipeRepository.findRecipeByIdWithPicture(id);
 
 		if (recipe != null) {
 			List<IngredientAmountModel> ingredientAmounts = ingredientAmountRepository.findIngredientAmountsByRecipeId(id);
 			model.addAttribute("ingredientAmounts", ingredientAmounts);
 			List<CommentModel> comments = commentRepository.findCommentsByRecipeId(id);
+			//PictureModel picture = pictureRepository.findPictureByRecipeId(id);
 			model.addAttribute("comments", comments);
 			model.addAttribute("recipe", recipe);
+			//model.addAttribute("picture", picture);
 			return "recipe";
 		} else {
 			model.addAttribute("errorMessage", "Couldn't find recipe " + id);
