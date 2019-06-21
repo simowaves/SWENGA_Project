@@ -1,7 +1,9 @@
 package at.fh.swenga.jpa.controller;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Date;
 
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -112,5 +114,5 @@ public class PictureController {
 		}
 	}
 	*/
-
+	
 }
