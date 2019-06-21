@@ -2,6 +2,7 @@ package at.fh.swenga.jpa.controller;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.Set;
 
 import javax.validation.Valid;
 
@@ -118,7 +119,7 @@ public class UserController {
 	@GetMapping({ "/showUser"})
 	public String showUserDetails(Model model, @RequestParam int id, Principal principal) {
 
-		UserModel user = userRepository.findUserById(id);
+		UserModel user = userRepository.findUserByIdWithFollowedUsers(id);
 		List<RecipeModel> recipes;
 		List<RecipeModel> likedRecipes = recipeRepository.findRecipesByLikingUserId(id);
 		List<RecipeCollectionModel> collections = recipeCollectionRepository.findCollectionsByUserId(id);
@@ -130,10 +131,16 @@ public class UserController {
 				model.addAttribute("loggedInUser", loggedInUser);
 				if(user.getId() == loggedInUser.getId()) {
 					recipes = recipeRepository.findRecipesByUserId(id);
+					Set<UserModel> followingUsers = user.getUsersFollowingMe();
+					boolean followed;
+					if(followingUsers.contains(loggedInUser)) {
+						followed = true;
+					} else followed = false;
 					model.addAttribute("user", user);
 					model.addAttribute("recipes", recipes);
 					model.addAttribute("likedRecipes", likedRecipes);
 					model.addAttribute("collections", collections);
+					model.addAttribute("followed", followed);
 					return "userInfo";
 				}
 			}

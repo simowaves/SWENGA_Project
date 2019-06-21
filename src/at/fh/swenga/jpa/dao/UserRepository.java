@@ -41,6 +41,13 @@ public interface UserRepository extends JpaRepository<UserModel, Integer> {
 			+ "AND u.enabled = true ")
 	public UserModel findUserById(@Param("id") int id);
 	
+	@Query ("SELECT u "
+			+ "FROM UserModel u "
+			+ "LEFT JOIN FETCH u.usersFollowingMe ufm "
+			+ "WHERE u.id = :id "
+			+ "AND u.enabled = true ")
+	public UserModel findUserByIdWithFollowedUsers(@Param("id") int id);
+	
 	// give me the user that has reported that recipe
 	@Query ("SELECT u "
 			+ "FROM UserModel AS u "
