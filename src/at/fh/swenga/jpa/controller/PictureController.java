@@ -37,19 +37,6 @@ public class PictureController {
 	CommentRepository commentRepository;
 	
 	/**
-	 * Display the upload form
-	 * 
-	 * @param model
-	 * @param videoId
-	 * @return
-	 */
-	@RequestMapping(value = "/changeRecipePicture", method = RequestMethod.GET)
-	public String showuploadRecipePicture(Model model, @RequestParam("id") int recipeId) {
-		model.addAttribute("recipeId", recipeId);
-		return "uploadRecipePicture";
-	}
-
-	/**
 	 * Save uploaded file to the database (as 1:1 relationship to recipe)
 	 * 
 	 * @param model
