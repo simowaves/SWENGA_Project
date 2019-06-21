@@ -442,10 +442,10 @@ public class UserController {
 		RecipeModel recipeModel = recipeRepository.findRecipeById(id);
 		recipeCollectionModel.addRecipe(recipeModel);
 		recipeCollectionRepository.save(recipeCollectionModel);
-		redirectAttributes.addAttribute("collections", userId);
-
-		redirectAttributes.addAttribute("id", userId);
-		return "redirect:/showCurrentUser";
+		
+		//redirectAttributes.addAttribute("collections", collectionId);
+		redirectAttributes.addAttribute("id", id);
+		return "redirect:/showRecipe";
 	}
 	
 	// Spring 4: @RequestMapping(value = "/removeRecipeToCollection", method =
