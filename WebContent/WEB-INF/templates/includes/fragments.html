@@ -5,10 +5,9 @@
 	<div
 		style="position: relative; overflow: hidden; padding-bottom: 100%;">
 		<a th:href="@{/showRecipe(id=${recipe.id})}"> <img
-			style="position: absolute;" class="bg-light"
-			src="https://images.unsplash.com/photo-1559054663-e8d23213f55c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
-			alt=""></a>
-
+			style="position: absolute; height:100%;" class="bg-light" 
+			th:src="${recipe.showPicture()}" alt="">
+		</a>
 	</div>
 	<!-- card body -->
 	<div class="card-body">
@@ -20,12 +19,13 @@
 					th:text="${recipe.author.userName}"></a>
 			</div>
 			<div class="col-4 text-right">
-				<form class="form-group"
-									th:action="@{/likeRecipe(id=${recipe.id})}" method="post">
-									<button type="submit" class="btn btn-danger btn-circle"> <i
-					class="fas fa-heart"></i></button>
-								</form>
-				
+				<form class="form-group" th:action="@{/likeRecipe(id=${recipe.id})}"
+					method="post">
+					<button type="submit" class="btn btn-danger btn-circle">
+						<i class="fas fa-heart"></i>
+					</button>
+				</form>
+
 				<!-- <a href="#" class="btn btn-danger btn-circle"> <i
 					class="fas fa-heart"></i> -->
 				</a>

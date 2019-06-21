@@ -58,17 +58,8 @@
 						<div class="col-md-8">
 							<div
 								style="position: relative; overflow: hidden; padding-bottom: 100%;">
-								<img th:if="${recipe.picture != null}"
-									style="position: absolute;"
-									th:src="${recipe.showPicture()}"
-
-									alt="">
-								<div th:unless="${recipe.picture != null}"><img 
-									style="position: absolute;"
-									src="https://dummyimage.com/400x400/bbe1fa/ffffff&text=Missing+Image++:("
-
-									alt="">
-								</div>
+								<img style="position: absolute; height:100%"
+									th:src="${recipe.showPicture()}" alt="">
 							</div>
 						</div>
 
@@ -88,8 +79,9 @@
 									</button>
 								</form>
 								<form class="form-group">
-									<a class="btn btn-warning" th:href="@{/editRecipe(id=${recipe.id})}" type="submit">
-										<i class="fas fa-wrench mr-2"></i>Edit
+									<a class="btn btn-warning"
+										th:href="@{/editRecipe(id=${recipe.id})}" type="submit"> <i
+										class="fas fa-wrench mr-2"></i>Edit
 									</a>
 								</form>
 								<form class="form-group"
@@ -133,16 +125,12 @@
 						</div>
 					</div>
 
-					<!-- Upload Picture -->
-					<a th:href="@{/changeRecipePicture(id=${recipe.id})}">Upload
-						Picture</a>
-					<!-- End Upload Picture -->
 					<!-- Dropdown Card Example -->
 					<div class="card shadow mb-4">
 						<!-- Card Header - Dropdown -->
 						<div class="card-header py-3">
-									<h6 class="m-0 font-weight-bold text-primary">How to make it</h6>
-								</div>
+							<h6 class="m-0 font-weight-bold text-primary">How to make it</h6>
+						</div>
 						<!-- Card Body -->
 						<div class="card-body" style="white-space: pre-wrap;"
 							th:text="${recipe.description}"></div>
@@ -163,10 +151,11 @@
 								<!-- Card Content - Comments -->
 								<div class="card-body">
 									<ul class="list-group list-group-flush">
-										<li class="list-group-item" th:each="comment : ${comments}"><img class="img-profile rounded-circle"
-								src="https://source.unsplash.com/QAB-WJcbgJk/60x60"> <a class="h5 mb-4"
-								th:text="${recipe.author.userName}"
-								th:href="@{/showUser(id=${recipe.author.id})}"></a> <a
+										<li class="list-group-item" th:each="comment : ${comments}"><img
+											class="img-profile rounded-circle"
+											src="https://source.unsplash.com/QAB-WJcbgJk/60x60"> <a
+											class="h5 mb-4" th:text="${recipe.author.userName}"
+											th:href="@{/showUser(id=${recipe.author.id})}"></a> <a
 											th:text="${comment.content}"></a></li>
 										<li class="list-group list-group-flush">
 											<form class="form-group"
