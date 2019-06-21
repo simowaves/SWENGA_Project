@@ -175,7 +175,14 @@
 														</button></span>
 												</div>
 											</div>
+											
 											</form>
+										<div class="form-group multiple-form-group">
+											<form th:action="@{/deleteCollection(collectionId=${collection.id})}"
+													method="post">
+													<button class="btn btn-sm btn-danger" type="submit">Delete Collection</button>
+												</form>
+											</div>
 										</div>
 									</div>
 								</div>
