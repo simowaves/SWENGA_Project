@@ -458,7 +458,7 @@ public class RecipeController {
 
 	// edit a recipe
 	@GetMapping("/editRecipe")
-	public String editRecipe(Model model, Principal principal, @RequestParam int id) {
+	public String editRecipe(@RequestParam int id,Model model, Principal principal) {
 		String userName = principal.getName();
 		UserModel user = userRepository.findUserByUserName(userName);
 		RecipeModel recipeModel = recipeRepository.findRecipeById(id);
