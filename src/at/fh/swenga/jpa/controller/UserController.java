@@ -149,7 +149,7 @@ public class UserController {
 
 		if (shownUser == null) {
 			model.addAttribute("errorMessage", "Couldn't find user " + id);
-			return "forward:/recipeList";
+			return "errorPage";
 		}
 
 		if (userRepository.findUserIFollowFromUser(id, user.getId()) != null) {
@@ -213,7 +213,7 @@ public class UserController {
 			return "userPreferences";
 		} else {
 			model.addAttribute("errorMessage", "Couldn't find user ");
-			return "forward:/recipeList";
+			return "errorPage";
 		}
 	}
 	
@@ -232,7 +232,7 @@ public class UserController {
 			return "accountSettings";
 		} else {
 			model.addAttribute("errorMessage", "Couldn't find user ");
-			return "forward:/recipeList";
+			return "errorPage";
 		}
 	}
 

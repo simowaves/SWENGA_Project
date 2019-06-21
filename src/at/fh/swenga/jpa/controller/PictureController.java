@@ -1,5 +1,6 @@
 package at.fh.swenga.jpa.controller;
 
+import java.security.Principal;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,13 +65,13 @@ public class PictureController {
 	// change the picture of the user
 	@RequestMapping(value = "/changeUserPicture", method = RequestMethod.POST)
 	public String uploadUserPicture(Model model, @RequestParam("id") int userId,
-			@RequestParam("userPicture") MultipartFile newPicture, RedirectAttributes redirectAttributes) {
+			@RequestParam("userPicture") MultipartFile newPicture, RedirectAttributes redirectAttributes, Principal principal) {
 
 		try {
-			UserModel user = userRepository.findUserById(userId);
+			UserModel user = userRepository.findUserByUserName(principal.getName());
 			
 			if (user == null)
-				throw new IllegalArgumentException("No recipe with id " + userId);
+				throw new IllegalArgumentException("You are not logged in");
 			PictureModel picture;
 			// Already a picture available -> change it
 			if (user.getPicture() != null) {
