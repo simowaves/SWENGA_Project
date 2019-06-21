@@ -423,7 +423,7 @@ public class UserController {
 	@PostMapping("/deleteCollection")
 	public String deleteCollection(@RequestParam int collectionId, Principal principal, RedirectAttributes redirectAttributes) {
 		String userName = principal.getName();
-		UserModel user = userRepository.findUserByUserNameWithAllergies(userName);
+		UserModel user = userRepository.findUserByUserName(userName);
 		int userId = user.getId();
 		recipeCollectionRepository.deleteById(collectionId);
 		
@@ -441,10 +441,6 @@ public class UserController {
 		RecipeCollectionModel recipeCollectionModel = recipeCollectionRepository.findCollectionsByIdWithRecipesAndUser(collectionId);
 		RecipeModel recipeModel = recipeRepository.findRecipeByIdWithCollections(id);
 		if (recipeCollectionModel.getUser().getId() == userId) {
-			/*
-			recipeCollectionModel.addRecipe(recipeModel);
-			recipeCollectionRepository.save(recipeCollectionModel);
-			*/
 			recipeModel.addRecipeCollection(recipeCollectionModel);
 			recipeRepository.save(recipeModel);
 		} else {
@@ -453,7 +449,6 @@ public class UserController {
 		}
 		
 		
-		//redirectAttributes.addAttribute("collections", collectionId);
 		redirectAttributes.addAttribute("id", id);
 		return "redirect:/showRecipe";
 	}
@@ -461,14 +456,19 @@ public class UserController {
 	// Spring 4: @RequestMapping(value = "/removeRecipeToCollection", method =
 	// RequestMethod.POST)
 	@PostMapping("/removeRecipeFromCollection")
-	public String removeRecipeFromCollection(@RequestParam int collectionId, @RequestParam int recipeId, Principal principal, RedirectAttributes redirectAttributes) {
+	public String removeRecipeFromCollection(@RequestParam int collectionId, @RequestParam int recipeId, Principal principal, RedirectAttributes redirectAttributes, Model model) {
 		String userName = principal.getName();
-		UserModel user = userRepository.findUserByUserNameWithAllergies(userName);
+		UserModel user = userRepository.findUserByUserName(userName);
 		int userId = user.getId();
-		RecipeCollectionModel recipeCollectionModel = recipeCollectionRepository.findCollectionsById(collectionId);
-		RecipeModel recipeModel = recipeRepository.findRecipeById(recipeId);
-		recipeCollectionModel.removeRecipe(recipeModel);
-		recipeCollectionRepository.save(recipeCollectionModel);
+		RecipeCollectionModel recipeCollectionModel = recipeCollectionRepository.findCollectionsByIdWithRecipesAndUser(collectionId);
+		RecipeModel recipeModel = recipeRepository.findRecipeByIdWithCollections(recipeId);
+		if (recipeCollectionModel.getUser().getId() == userId) {
+			recipeModel.removeRecipeCollection(recipeCollectionModel);
+			recipeRepository.save(recipeModel);
+		} else {
+			model.addAttribute("errorMessage", "This isn't your collection");
+			return "errorPage";
+		}
 		
 		redirectAttributes.addAttribute("id", userId);
 		return "redirect:/showCurrentUser";
