@@ -52,18 +52,19 @@ public class UserController {
 	@Autowired
 	AllergieRepository allergieRepository;
 
+	// login
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String handleLogin() {
 		return "login";
 	}
 
-	// Spring 4: @RequestMapping(value = "/register", method = RequestMethod.GET)
+	// register
 	@GetMapping("/register")
 	public String showRegister(Model model) {
 		return "register";
 	}
 
-	// Spring 4: @RequestMapping(value = "/register", method = RequestMethod.POST)
+	// register
 	@PostMapping("/register")
 	public String register(@Valid UserModel newUserModel, BindingResult bindingResult, Model model) {
 
@@ -112,8 +113,8 @@ public class UserController {
 		return "login";
 	}
 
-	// Spring 4: @RequestMapping(value = "/showUser", method = RequestMethod.GET)
-	@GetMapping({ "/showUser", "/followUser" })
+	//show user profile
+	@GetMapping({ "/showUser"})
 	public String showUserDetails(Model model, @RequestParam int id) {
 
 		UserModel user = userRepository.findUserById(id);
@@ -134,8 +135,7 @@ public class UserController {
 		}
 	}
 
-	// Spring 4: @RequestMapping(value = "/followUser", method =
-	// RequestMethod.POST)
+	// add or remove user from the follower user
 	@PostMapping("/followUser")
 	public String likeRecipe(Model model, @RequestParam int id, Principal principal, RedirectAttributes redirectAttributes) {
 
@@ -149,19 +149,11 @@ public class UserController {
 		}
 
 		if (userRepository.findUserIFollowFromUser(id, user.getId()) != null) {
-
 			user.removeUserIFollow(shownUser);
 			userRepository.save(user);
-
-			//shownUser.removeUserFollowingMe(user);
-
 		} else {
-
 			user.addUserIFollow(shownUser);
 			userRepository.save(user);
-
-			//shownUser.addUserFollowingMe(user);
-
 		}
 
 		redirectAttributes.addAttribute("id", id);
@@ -169,8 +161,7 @@ public class UserController {
 		return "redirect:/followUser";
 	}
 
-	// Spring 4: @RequestMapping(value = "/showCurrentUser", method =
-	// RequestMethod.GET)
+	//show logged in user profile
 	@GetMapping("/showCurrentUser")
 	public String showCurrentUser(Model model, Principal principal) {
 
@@ -194,8 +185,7 @@ public class UserController {
 		}
 	}
 
-	// Spring 4: @RequestMapping(value = "/showCurrentUserPreferences", method =
-	// RequestMethod.GET)
+	// show user preferences from logged in user
 	@GetMapping("/showCurrentUserPreferences")
 	public String likeRecipe(Model model, Principal principal) {
 		List<IngredientModel> ingredients = ingredientRepository.findAllIngredientsOrderByName();
@@ -215,8 +205,7 @@ public class UserController {
 		}
 	}
 	
-	// Spring 4: @RequestMapping(value = "/showCurrentUserPreferences", method =
-	// RequestMethod.GET)
+	// show account settings from logged in user
 	@GetMapping("/showCurrentUserAccountSettings")
 	public String showCurrentUserAccountSettings(Model model, Principal principal) {
 		String userName = principal.getName();
@@ -231,8 +220,7 @@ public class UserController {
 		}
 	}
 
-	// Spring 4: @RequestMapping(value = "/addAllergy", method =
-	// RequestMethod.POST)
+	// add an allergy to the user
 	@PostMapping("/addAllergy")
 	public String addAllergy(@RequestParam int allergy, Principal principal, Model model) {
 		String userName = principal.getName();
@@ -244,8 +232,7 @@ public class UserController {
 		return "redirect:/showCurrentUserPreferences";
 	}
 	
-	// Spring 4: @RequestMapping(value = "/removeAllergy", method =
-	// RequestMethod.POST)
+	// remove an allergy from the user
 	@PostMapping("/removeAllergy")
 	public String removeAllergy(@RequestParam int allergyId, Principal principal, Model model) {
 
@@ -259,8 +246,7 @@ public class UserController {
 		return "redirect:/showCurrentUserPreferences";
 	}
 	
-	// Spring 4: @RequestMapping(value = "/addLikedIngredient", method =
-	// RequestMethod.POST)
+	// add a loved ingredient to the user
 	@PostMapping("/addLovedIngredient")
 	public String addLovedIngredient(@RequestParam int ingredient, Principal principal, Model model) {
 		String userName = principal.getName();
@@ -272,8 +258,7 @@ public class UserController {
 		return "redirect:/showCurrentUserPreferences";
 	}
 	
-	// Spring 4: @RequestMapping(value = "/removeLikedIngredient", method =
-	// RequestMethod.POST)
+	// remove a loved ingredient from the user
 	@PostMapping("/removeLovedIngredient")
 	public String removeLovedIngredient(@RequestParam int ingredient, Principal principal, Model model) {
 
@@ -286,8 +271,7 @@ public class UserController {
 		return "redirect:/showCurrentUserPreferences";
 	}
 	
-	// Spring 4: @RequestMapping(value = "/addHatedIngredient", method =
-	// RequestMethod.POST)
+	// add a hated ingredient to the user
 	@PostMapping("/addHatedIngredient")
 	public String addHatedIngredient(@RequestParam int ingredient, Principal principal, Model model) {
 		String userName = principal.getName();
@@ -300,8 +284,7 @@ public class UserController {
 		return "redirect:/showCurrentUserPreferences";
 	}
 	
-	// Spring 4: @RequestMapping(value = "/removeHatedIngredient", method =
-	// RequestMethod.POST)
+	// remove a hated ingredient from the user
 	@PostMapping("/removeHatedIngredient")
 	public String removeHatedIngredient(@RequestParam int ingredient, Principal principal, Model model) {
 
@@ -314,7 +297,7 @@ public class UserController {
 		return "redirect:/showCurrentUserPreferences";
 	}
 	
-	// Spring 4: @RequestMapping(value = "/updateUserName", method = RequestMethod.POST)
+	// change the username
 	@PostMapping("/updateUserName")
 	public String updateUserName(@RequestParam String userName, Principal principal, Model model) {
 		String oldUserName = principal.getName();
@@ -326,7 +309,7 @@ public class UserController {
 		return "redirect:/login";
 	}
 	
-	// Spring 4: @RequestMapping(value = "/updateEmailAddress", method = RequestMethod.POST)
+	// change email address
 	@PostMapping("/updateEmailAddress")
 	public String updateEmailAddress(@RequestParam String emailAddress, Principal principal, Model model) {
 		String oldUserName = principal.getName();
@@ -337,7 +320,7 @@ public class UserController {
 		return "redirect:/showCurrentUserAccountSettings";
 	}
 	
-	// Spring 4: @RequestMapping(value = "/updatePassword", method = RequestMethod.POST)
+	// change the password
 	@PostMapping("/updatePassword")
 	public String updatePassword(@RequestParam String password, Principal principal, Model model) {
 		String oldUserName = principal.getName();
@@ -350,8 +333,7 @@ public class UserController {
 		return "redirect:/showCurrentUserAccountSettings";
 	}
 	
-	// Spring 4: @RequestMapping(value = "/deleteUser", method =
-	// RequestMethod.POST)
+	// delete a user
 	@PostMapping("/deleteUser")
 	public String deleteUser(Model model, Principal principal) {
 		String userName = principal.getName();
@@ -366,111 +348,5 @@ public class UserController {
 		SecurityContextHolder.clearContext();
 		
 		return "login"; 
-	}
-	
-	// Spring 4: @RequestMapping(value = "/deleteUserAdmin", method =
-	// RequestMethod.POST)
-	@PostMapping("/deleteUserAdmin")
-	public String deleteUserAdmin(Model model, @RequestParam int id) {
-		UserModel user = userRepository.findUserById(id);
-		user.setEnabled(false);
-		userRepository.save(user);
-		List<RecipeModel> recipes = recipeRepository.findRecipesByUserId(id);
-		for (RecipeModel recipe : recipes) {
-			recipe.setEnabled(false);
-			recipeRepository.save(recipe);
-		}
-		return "redirect:/showAdminUsers"; 
-	}
-	
-	// Spring 4: @RequestMapping(value = "/changeCollectionName", method =
-	// RequestMethod.POST)
-	@PostMapping("/changeCollectionName")
-	public String changeCollectionName(@RequestParam int collectionId, @RequestParam String title, Principal principal, RedirectAttributes redirectAttributes) {
-		String userName = principal.getName();
-		UserModel user = userRepository.findUserByUserNameWithAllergies(userName);
-		int userId = user.getId();
-		RecipeCollectionModel recipeCollectionModel = recipeCollectionRepository.findCollectionsById(collectionId);
-		recipeCollectionModel.setTitle(title);
-		recipeCollectionRepository.save(recipeCollectionModel);
-		userRepository.save(user);
-		
-		redirectAttributes.addAttribute("id", userId);
-		return "redirect:/showCurrentUser";
-	}
-	
-	// Spring 4: @RequestMapping(value = "/addCollection", method =
-	// RequestMethod.POST)
-	@PostMapping("/addCollection")
-	public String addCollection(@RequestParam String title, Principal principal, RedirectAttributes redirectAttributes) {
-		String userName = principal.getName();
-		UserModel user = userRepository.findUserByUserNameWithCollections(userName);
-		int userId = user.getId();
-		RecipeCollectionModel recipeCollectionModel = new RecipeCollectionModel();
-		recipeCollectionModel.setTitle(title);
-		
-		recipeCollectionRepository.save(recipeCollectionModel);
-		
-		recipeCollectionModel.setUser(user);
-		recipeCollectionRepository.save(recipeCollectionModel);
-
-		redirectAttributes.addAttribute("id", userId);
-		return "redirect:/showCurrentUser";
-	}
-	
-	// Spring 4: @RequestMapping(value = "/deleteCollection", method =
-	// RequestMethod.POST)
-	@PostMapping("/deleteCollection")
-	public String deleteCollection(@RequestParam int collectionId, Principal principal, RedirectAttributes redirectAttributes) {
-		String userName = principal.getName();
-		UserModel user = userRepository.findUserByUserName(userName);
-		int userId = user.getId();
-		recipeCollectionRepository.deleteById(collectionId);
-		
-		redirectAttributes.addAttribute("id", userId);
-		return "redirect:/showCurrentUser";
-	}
-	
-	// Spring 4: @RequestMapping(value = "/addRecipeToCollection", method =
-	// RequestMethod.POST)
-	@PostMapping("/addRecipeToCollection")
-	public String addRecipeToCollection(@RequestParam int collectionId, @RequestParam int id, Principal principal, RedirectAttributes redirectAttributes, Model model) {
-		String userName = principal.getName();
-		UserModel user = userRepository.findUserByUserName(userName);
-		int userId = user.getId();
-		RecipeCollectionModel recipeCollectionModel = recipeCollectionRepository.findCollectionsByIdWithRecipesAndUser(collectionId);
-		RecipeModel recipeModel = recipeRepository.findRecipeByIdWithCollections(id);
-		if (recipeCollectionModel.getUser().getId() == userId) {
-			recipeModel.addRecipeCollection(recipeCollectionModel);
-			recipeRepository.save(recipeModel);
-		} else {
-			model.addAttribute("errorMessage", "This isn't your collection");
-			return "errorPage";
-		}
-		
-		
-		redirectAttributes.addAttribute("id", id);
-		return "redirect:/showRecipe";
-	}
-	
-	// Spring 4: @RequestMapping(value = "/removeRecipeToCollection", method =
-	// RequestMethod.POST)
-	@PostMapping("/removeRecipeFromCollection")
-	public String removeRecipeFromCollection(@RequestParam int collectionId, @RequestParam int recipeId, Principal principal, RedirectAttributes redirectAttributes, Model model) {
-		String userName = principal.getName();
-		UserModel user = userRepository.findUserByUserName(userName);
-		int userId = user.getId();
-		RecipeCollectionModel recipeCollectionModel = recipeCollectionRepository.findCollectionsByIdWithRecipesAndUser(collectionId);
-		RecipeModel recipeModel = recipeRepository.findRecipeByIdWithCollections(recipeId);
-		if (recipeCollectionModel.getUser().getId() == userId) {
-			recipeModel.removeRecipeCollection(recipeCollectionModel);
-			recipeRepository.save(recipeModel);
-		} else {
-			model.addAttribute("errorMessage", "This isn't your collection");
-			return "errorPage";
-		}
-		
-		redirectAttributes.addAttribute("id", userId);
-		return "redirect:/showCurrentUser";
 	}
 }

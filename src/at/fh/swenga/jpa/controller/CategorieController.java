@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import at.fh.swenga.jpa.dao.CategorieRepository;
-import at.fh.swenga.jpa.dao.CommentRepository;
-import at.fh.swenga.jpa.dao.PictureRepository;
 import at.fh.swenga.jpa.dao.RecipeRepository;
 import at.fh.swenga.jpa.dao.UserRepository;
 import at.fh.swenga.jpa.model.CategorieModel;
@@ -23,20 +21,14 @@ public class CategorieController {
 
 	@Autowired
 	RecipeRepository recipeRepository;
-
-	@Autowired
-	PictureRepository pictureRepository;
 	
 	@Autowired
 	UserRepository userRepository;
 	
 	@Autowired
-	CommentRepository commentRepository;
-	
-	@Autowired
 	CategorieRepository categorieRepository;
 	
-	// Spring 4: @RequestMapping(value = "/showCategorie", method = RequestMethod.GET)
+	// shows a List of all recipes with a certain categorie
 	@GetMapping("/showCategorie")
 	public String showCategorie(Model model, @RequestParam int id, Principal principal) {
 		
@@ -58,7 +50,7 @@ public class CategorieController {
 		return "recipeList";
 	}
 	
-	// Spring 4: @RequestMapping(value = "/categoriesList", method = RequestMethod.GET)
+	// shows a List of all categories
 	@GetMapping("/categoriesList")
 	public String categoriesList(Model model, Principal principal) {
 		

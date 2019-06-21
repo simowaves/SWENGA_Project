@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import at.fh.swenga.jpa.dao.CommentRepository;
-import at.fh.swenga.jpa.dao.PictureRepository;
 import at.fh.swenga.jpa.dao.RecipeRepository;
 import at.fh.swenga.jpa.dao.UserRepository;
 import at.fh.swenga.jpa.model.RecipeModel;
@@ -22,17 +20,11 @@ public class AdminController {
 
 	@Autowired
 	RecipeRepository recipeRepository;
-
-	@Autowired
-	PictureRepository pictureRepository;
 	
 	@Autowired
 	UserRepository userRepository;
 	
-	@Autowired
-	CommentRepository commentRepository;
-	
-	// Spring 4: @RequestMapping(value = "/showAdminUsers", method = RequestMethod.GET)
+	// Open Admin Center: Users
 	@GetMapping("/showAdminUsers")
 	public String showAdminUsers(Model model, Principal principal) {
 		List<UserModel> users = userRepository.findUsersWithUserRolesAndRecipesAndComments();
@@ -44,7 +36,7 @@ public class AdminController {
 		return "adminUsers";
 	}
 	
-	// Spring 4: @RequestMapping(value = "/showAdminRecipes", method = RequestMethod.GET)
+	// Open Admin Center: Recipes
 	@GetMapping("/showAdminRecipes")
 	public String showAdminRecipes(Model model, Principal principal) {
 		List<RecipeModel> recipes = recipeRepository.findRecipesWithReportingUsers();
@@ -56,6 +48,7 @@ public class AdminController {
 		return "adminRecipes";
 	}
 	
+	// Deletes all the reporting users from recipe
 	@PostMapping("/clearRecipeReporters")
 	public String clearRecipeReporters(Model model, @RequestParam int recId) {
 		
@@ -76,4 +69,12 @@ public class AdminController {
 		return "redirect:/showAdminRecipes";
 	}
 	
+	//  delete a recipe for Admin purpose
+	@PostMapping("/deleteRecipeAdmin")
+	public String deleteRecipeAdmin(Model model, @RequestParam int id) {
+		RecipeModel recipeModel = recipeRepository.findRecipeById(id);
+		recipeModel.setEnabled(false);
+		recipeRepository.save(recipeModel);
+		return "redirect:/showAdminRecipes";
+	}
 }

@@ -9,7 +9,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import at.fh.swenga.jpa.model.IngredientAmountModel;
-import at.fh.swenga.jpa.model.RecipeModel;
 
 @Repository
 @Transactional
@@ -23,7 +22,5 @@ public interface IngredientAmountRepository extends JpaRepository<IngredientAmou
 	public List<IngredientAmountModel> findIngredientAmountsByRecipeId(@Param("recId") int recId);
  
 	public IngredientAmountModel findIngredientAmountsById (int id);
-	
-	
 
 }

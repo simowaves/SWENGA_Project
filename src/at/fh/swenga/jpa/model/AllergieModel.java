@@ -111,7 +111,4 @@ public class AllergieModel implements java.io.Serializable {
 			return false;
 		return true;
 	}
-	
-	
-	
 }
