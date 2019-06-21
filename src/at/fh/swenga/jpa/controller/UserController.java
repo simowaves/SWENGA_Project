@@ -114,7 +114,12 @@ public class UserController {
 
 	// Spring 4: @RequestMapping(value = "/showUser", method = RequestMethod.GET)
 	@GetMapping({ "/showUser", "/followUser" })
-	public String showUserDetails(Model model, @RequestParam int id) {
+	public String showUserDetails(Model model, @RequestParam int id, Principal principal) {
+		
+		if (principal != null) {
+			UserModel loggedInUser = userRepository.findUserByUserName(principal.getName());
+			model.addAttribute("loggedInUser", loggedInUser);
+		}
 
 		UserModel user = userRepository.findUserById(id);
 		List<RecipeModel> recipes = recipeRepository.findRecipesByUserId(id);
@@ -173,62 +178,89 @@ public class UserController {
 	// RequestMethod.GET)
 	@GetMapping("/showCurrentUser")
 	public String showCurrentUser(Model model, Principal principal) {
-
-		String userName = principal.getName();		
-		UserModel user = userRepository.findUserByUserName(userName);
 		
-
-		if (user != null) {
-			List<RecipeModel> recipes = recipeRepository.findRecipesByUserId(user.getId());
-			List<RecipeModel> likedRecipes = recipeRepository.findRecipesByLikingUserId(user.getId());
-			List<RecipeCollectionModel> collections = recipeCollectionRepository.findCollectionsByUserId(user.getId());
+		if (principal != null) {
+			String userName = principal.getName();		
+			UserModel user = userRepository.findUserByUserName(userName);
 			
-			model.addAttribute("user", user);
-			model.addAttribute("recipes", recipes);
-			model.addAttribute("likedRecipes", likedRecipes);
-			model.addAttribute("collections", collections);
-			return "userInfo";
-		} else {
-			model.addAttribute("errorMessage", "You are not logged in");
-			return "errorPage";
+
+			if (user != null) {
+				List<RecipeModel> recipes = recipeRepository.findRecipesByUserId(user.getId());
+				List<RecipeModel> likedRecipes = recipeRepository.findRecipesByLikingUserId(user.getId());
+				List<RecipeCollectionModel> collections = recipeCollectionRepository.findCollectionsByUserId(user.getId());
+				
+				model.addAttribute("user", user);
+				model.addAttribute("recipes", recipes);
+				model.addAttribute("likedRecipes", likedRecipes);
+				model.addAttribute("collections", collections);
+				
+				
+				UserModel loggedInUser = userRepository.findUserByUserName(principal.getName());
+				model.addAttribute("loggedInUser", loggedInUser);
+				
+				
+				return "userInfo";
+			} else {
+				model.addAttribute("errorMessage", "You are not logged in");
+				return "errorPage";
+			}
 		}
+		model.addAttribute("errorMessage", "You are not logged in");
+		return "errorPage";
+		
 	}
 
 	// Spring 4: @RequestMapping(value = "/showCurrentUserPreferences", method =
 	// RequestMethod.GET)
 	@GetMapping("/showCurrentUserPreferences")
 	public String likeRecipe(Model model, Principal principal) {
-		List<IngredientModel> ingredients = ingredientRepository.findAllIngredientsOrderByName();
-		model.addAttribute("ingredients", ingredients);
-		List<AllergieModel> allergies = allergieRepository.findAllAllergiesOrderByName();
-		model.addAttribute("allergies", allergies);
-
-		String userName = principal.getName();
-		UserModel user = userRepository.findUserByUserNameWithAllergiesAndLovedIngredientsAndHatedIngredients(userName);
-
-		if (user != null) {
-			model.addAttribute("user", user);
-			return "userPreferences";
-		} else {
-			model.addAttribute("errorMessage", "Couldn't find user ");
-			return "forward:/recipeList";
+		
+		if (principal != null) {
+				
+			
+			List<IngredientModel> ingredients = ingredientRepository.findAllIngredientsOrderByName();
+			model.addAttribute("ingredients", ingredients);
+			List<AllergieModel> allergies = allergieRepository.findAllAllergiesOrderByName();
+			model.addAttribute("allergies", allergies);
+	
+			String userName = principal.getName();
+			UserModel user = userRepository.findUserByUserNameWithAllergiesAndLovedIngredientsAndHatedIngredients(userName);
+	
+			if (user != null) {
+				model.addAttribute("user", user);
+				UserModel loggedInUser = userRepository.findUserByUserName(principal.getName());
+				model.addAttribute("loggedInUser", loggedInUser);
+				return "userPreferences";
+			} else {
+				model.addAttribute("errorMessage", "Couldn't find user ");
+				return "forward:/recipeList";
+			}
 		}
+		model.addAttribute("errorMessage", "Couldn't find user ");
+		return "forward:/recipeList";
 	}
 	
 	// Spring 4: @RequestMapping(value = "/showCurrentUserPreferences", method =
 	// RequestMethod.GET)
 	@GetMapping("/showCurrentUserAccountSettings")
 	public String showCurrentUserAccountSettings(Model model, Principal principal) {
-		String userName = principal.getName();
-		UserModel user = userRepository.findUserByUserName(userName);
-
-		if (user != null) {
-			model.addAttribute("user", user);
-			return "accountSettings";
-		} else {
-			model.addAttribute("errorMessage", "Couldn't find user ");
-			return "forward:/recipeList";
+		if(principal != null) {
+			
+			String userName = principal.getName();
+			UserModel user = userRepository.findUserByUserName(userName);
+	
+			if (user != null) {
+				model.addAttribute("user", user);
+				UserModel loggedInUser = userRepository.findUserByUserName(principal.getName());
+				model.addAttribute("loggedInUser", loggedInUser);
+				return "accountSettings";
+			} else {
+				model.addAttribute("errorMessage", "Couldn't find user ");
+				return "errorPage";
+			}
 		}
+		model.addAttribute("errorMessage", "Couldn't find user ");
+		return "errorPage";
 	}
 
 	// Spring 4: @RequestMapping(value = "/addAllergy", method =
@@ -423,7 +455,7 @@ public class UserController {
 	@PostMapping("/deleteCollection")
 	public String deleteCollection(@RequestParam int collectionId, Principal principal, RedirectAttributes redirectAttributes) {
 		String userName = principal.getName();
-		UserModel user = userRepository.findUserByUserNameWithAllergies(userName);
+		UserModel user = userRepository.findUserByUserName(userName);
 		int userId = user.getId();
 		recipeCollectionRepository.deleteById(collectionId);
 		
@@ -441,10 +473,6 @@ public class UserController {
 		RecipeCollectionModel recipeCollectionModel = recipeCollectionRepository.findCollectionsByIdWithRecipesAndUser(collectionId);
 		RecipeModel recipeModel = recipeRepository.findRecipeByIdWithCollections(id);
 		if (recipeCollectionModel.getUser().getId() == userId) {
-			/*
-			recipeCollectionModel.addRecipe(recipeModel);
-			recipeCollectionRepository.save(recipeCollectionModel);
-			*/
 			recipeModel.addRecipeCollection(recipeCollectionModel);
 			recipeRepository.save(recipeModel);
 		} else {
@@ -453,7 +481,6 @@ public class UserController {
 		}
 		
 		
-		//redirectAttributes.addAttribute("collections", collectionId);
 		redirectAttributes.addAttribute("id", id);
 		return "redirect:/showRecipe";
 	}
@@ -461,14 +488,19 @@ public class UserController {
 	// Spring 4: @RequestMapping(value = "/removeRecipeToCollection", method =
 	// RequestMethod.POST)
 	@PostMapping("/removeRecipeFromCollection")
-	public String removeRecipeFromCollection(@RequestParam int collectionId, @RequestParam int recipeId, Principal principal, RedirectAttributes redirectAttributes) {
+	public String removeRecipeFromCollection(@RequestParam int collectionId, @RequestParam int recipeId, Principal principal, RedirectAttributes redirectAttributes, Model model) {
 		String userName = principal.getName();
-		UserModel user = userRepository.findUserByUserNameWithAllergies(userName);
+		UserModel user = userRepository.findUserByUserName(userName);
 		int userId = user.getId();
-		RecipeCollectionModel recipeCollectionModel = recipeCollectionRepository.findCollectionsById(collectionId);
-		RecipeModel recipeModel = recipeRepository.findRecipeById(recipeId);
-		recipeCollectionModel.removeRecipe(recipeModel);
-		recipeCollectionRepository.save(recipeCollectionModel);
+		RecipeCollectionModel recipeCollectionModel = recipeCollectionRepository.findCollectionsByIdWithRecipesAndUser(collectionId);
+		RecipeModel recipeModel = recipeRepository.findRecipeByIdWithCollections(recipeId);
+		if (recipeCollectionModel.getUser().getId() == userId) {
+			recipeModel.removeRecipeCollection(recipeCollectionModel);
+			recipeRepository.save(recipeModel);
+		} else {
+			model.addAttribute("errorMessage", "This isn't your collection");
+			return "errorPage";
+		}
 		
 		redirectAttributes.addAttribute("id", userId);
 		return "redirect:/showCurrentUser";

@@ -1,5 +1,6 @@
 package at.fh.swenga.jpa.controller;
 
+import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,17 +34,25 @@ public class AdminController {
 	
 	// Spring 4: @RequestMapping(value = "/showAdminUsers", method = RequestMethod.GET)
 	@GetMapping("/showAdminUsers")
-	public String showAdminUsers(Model model) {
+	public String showAdminUsers(Model model, Principal principal) {
 		List<UserModel> users = userRepository.findUsersWithUserRolesAndRecipesAndComments();
 		model.addAttribute("users", users);
+		if(principal != null) {
+			UserModel loggedInUser = userRepository.findUserByUserName(principal.getName());
+			model.addAttribute("loggedInUser", loggedInUser);
+		}
 		return "adminUsers";
 	}
 	
 	// Spring 4: @RequestMapping(value = "/showAdminRecipes", method = RequestMethod.GET)
 	@GetMapping("/showAdminRecipes")
-	public String showAdminRecipes(Model model) {
+	public String showAdminRecipes(Model model, Principal principal) {
 		List<RecipeModel> recipes = recipeRepository.findRecipesWithReportingUsers();
 		model.addAttribute("recipes", recipes);
+		if(principal != null) {
+			UserModel loggedInUser = userRepository.findUserByUserName(principal.getName());
+			model.addAttribute("loggedInUser", loggedInUser);
+		}
 		return "adminRecipes";
 	}
 	

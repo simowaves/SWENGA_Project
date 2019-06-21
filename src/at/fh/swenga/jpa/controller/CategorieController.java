@@ -46,6 +46,9 @@ public class CategorieController {
 			model.addAttribute("recipes", recipes);
 
 		} else {
+		
+			UserModel loggedInUser = userRepository.findUserByUserName(principal.getName());
+			model.addAttribute("loggedInUser", loggedInUser);
 			
 			UserModel user = userRepository.findUserByUserName(principal.getName());
 			List<RecipeModel> recipes = recipeRepository.findRecipesFilteredByUserPreferencesAndCategorie(user.getId(), id);
@@ -57,12 +60,17 @@ public class CategorieController {
 	
 	// Spring 4: @RequestMapping(value = "/categoriesList", method = RequestMethod.GET)
 	@GetMapping("/categoriesList")
-	public String categoriesList(Model model) {
+	public String categoriesList(Model model, Principal principal) {
 		
 
 			List<CategorieModel> categories = categorieRepository.findAll();
 			
 			model.addAttribute("categories", categories);
+			
+			if(principal != null) {
+				UserModel loggedInUser = userRepository.findUserByUserName(principal.getName());
+				model.addAttribute("loggedInUser", loggedInUser);
+			}
 			
 		return "/categoriesList";
 	}
