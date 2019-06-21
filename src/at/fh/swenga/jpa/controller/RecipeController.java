@@ -71,8 +71,7 @@ public class RecipeController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String langingPage(Model model, Principal principal) {
 		
-		UserModel loggedInUser = userRepository.findUserByUserName(principal.getName());
-		model.addAttribute("loggedInUser", loggedInUser);
+		
 		
 		if (principal == null) {
 			
@@ -121,6 +120,9 @@ public class RecipeController {
 				model.addAttribute("ingredients", ingredients);
 				return "landing";
 			} else {
+				
+				UserModel loggedInUser = userRepository.findUserByUserName(principal.getName());
+				model.addAttribute("loggedInUser", loggedInUser);
 
 				List<RecipeModel> allRecipes = recipeRepository.findRecipesFilteredByUserPreferences(user.getId());
 				List<RecipeModel> recipes = new ArrayList<RecipeModel>();
@@ -165,6 +167,9 @@ public class RecipeController {
 				List<RecipeModel> recipes = recipeRepository.findRecipesOrderedByLikes();
 				model.addAttribute("recipes", recipes);
 			} else {
+				
+				UserModel loggedInUser = userRepository.findUserByUserName(principal.getName());
+				model.addAttribute("loggedInUser", loggedInUser);
 
 				List<RecipeModel> recipes = recipeRepository.findRecipesFilteredByUserPreferences(user.getId());
 				model.addAttribute("recipes", recipes);
@@ -192,6 +197,9 @@ public class RecipeController {
 				List<RecipeModel> recipes = recipeRepository.findRecipesOrderedByLastEdited();
 				model.addAttribute("recipes", recipes);
 			} else {
+				
+				UserModel loggedInUser = userRepository.findUserByUserName(principal.getName());
+				model.addAttribute("loggedInUser", loggedInUser);
 
 				List<RecipeModel> recipes = recipeRepository.findRecipesFilteredByUserPreferencesOrderedByLastEdited(user.getId());
 				model.addAttribute("recipes", recipes);
@@ -218,6 +226,9 @@ public class RecipeController {
 				model.addAttribute("errorMessage", "No User logged in.");
 				return "errorPage";
 			} else {
+				
+				UserModel loggedInUser = userRepository.findUserByUserName(principal.getName());
+				model.addAttribute("loggedInUser", loggedInUser);
 
 				List<RecipeModel> recipes = recipeRepository.findRecipesFilteredByUserPreferencesAndFollowedByUserOrderedByLastEdited(user.getId());
 				//List<RecipeModel> recipes = recipeRepository.findRecipesFilteredByUserPreferencesOrderedByLastEdited(user.getId());
@@ -227,7 +238,7 @@ public class RecipeController {
 		}
 		return "recipeList";
 	}
-	
+/*
 	// Spring 4: @RequestMapping(value = "/ingredientsList", method = RequestMethod.GET)
 	@GetMapping("/advancedSearch")
 	public String categoriesList(Model model) {
@@ -240,12 +251,12 @@ public class RecipeController {
 			
 		return "/advancedSearch";
 	}
-
+*/
 	// Spring 4: @RequestMapping(value = "/showRecipe", method = RequestMethod.GET)
 	@GetMapping({ "/showRecipe", "/likeRecipe", "/reportRecipe", "/postComment" })
 	public String showRecipeDetails(Model model, @RequestParam int id,Principal principal) {
-		String userName = principal.getName();
-		UserModel user = userRepository.findUserByUserNameWithAllergies(userName);	
+		
+		
 		RecipeModel recipe = recipeRepository.findRecipeByIdWithPicture(id);
 
 		if (recipe != null) {
@@ -255,11 +266,18 @@ public class RecipeController {
 			//PictureModel picture = pictureRepository.findPictureByRecipeId(id);
 			model.addAttribute("comments", comments);
 			model.addAttribute("recipe", recipe);
-			if (user != null) {
-				int userId = user.getId();
-				List<RecipeCollectionModel> collections = recipeCollectionRepository.findCollectionsByUserId(userId);
-				model.addAttribute("collections", collections);
+			if (principal != null) {
+				String userName = principal.getName();
+				UserModel user = userRepository.findUserByUserNameWithAllergies(userName);	
+				if (user != null) {
+					UserModel loggedInUser = userRepository.findUserByUserName(principal.getName());
+					model.addAttribute("loggedInUser", loggedInUser);
+					int userId = user.getId();
+					List<RecipeCollectionModel> collections = recipeCollectionRepository.findCollectionsByUserId(userId);
+					model.addAttribute("collections", collections);
+				}
 			}
+			
 			//model.addAttribute("picture", picture);
 			return "recipe";
 		} else {
@@ -269,30 +287,17 @@ public class RecipeController {
 	}
 
 	@GetMapping(value = "/createRecipe")
-	public String openCreateForm(Model model) {
+	public String openCreateForm(Model model, Principal principal) {
+		
+		UserModel loggedInUser = userRepository.findUserByUserName(principal.getName());
+		model.addAttribute("loggedInUser", loggedInUser);
 		List<IngredientModel> ingredients = ingredientRepository.findAllIngredientsOrderByName();
 		model.addAttribute("ingredients", ingredients);
 		List<CategorieModel> categories = categorieRepository.findAllCategoriesOrderByName();
 		model.addAttribute("categories", categories);
 		return "createRecipe";
 	}
-/*
-	@PostMapping(value = "/createRecipe")
 
-	public String createNewRecipe(Model model, Principal principal, @RequestParam String description,
-			@RequestParam String title) {
-
-		Date now = new Date();
-		String authorName = principal.getName();
-		UserModel author = userRepository.findUserByUserName(authorName);
-
-		RecipeModel newRecipeModel = new RecipeModel(now, now, title, description, author, true, true);
-
-		recipeRepository.save(newRecipeModel);
-
-		return "forward:/recipeList";
-	}
-*/
 	// Spring 4: @RequestMapping(value = "/searchRecipes", method =
 	// RequestMethod.GET)
 	@GetMapping("/searchRecipes")
@@ -306,22 +311,19 @@ public class RecipeController {
 		} else {
 
 			UserModel user = userRepository.findUserByUserName(principal.getName());
-/*
-			List<RecipeModel> filteredRecipes = recipeRepository
-					.filterRecipesByUserPreferencesAndSearchString(user.getId(), searchString);
-			List<RecipeModel> orderedRecipes = recipeRepository.findRecipesOrderedByfavoriteIngredients(user.getId());
-
-			List<RecipeModel> recipes = new ArrayList<RecipeModel>();
-
-			for (RecipeModel recipe : orderedRecipes) {
-				if (filteredRecipes.contains(recipe)) {
-					recipes.add(recipe);
-				}
-			}
-			*/
-			List<RecipeModel> recipes = recipeRepository.findRecipesFilteredByUserPreferencesAndSearchString(user.getId(), searchString);
 			
-			model.addAttribute("recipes", recipes);
+			if (user == null) {
+				List<RecipeModel> recipes = recipeRepository.findRecipesBySearchString(searchString);
+				model.addAttribute("recipes", recipes);
+			} else {
+				UserModel loggedInUser = userRepository.findUserByUserName(principal.getName());
+				model.addAttribute("loggedInUser", loggedInUser);
+
+				List<RecipeModel> recipes = recipeRepository.findRecipesFilteredByUserPreferencesAndSearchString(user.getId(), searchString);
+				
+				model.addAttribute("recipes", recipes);
+			}
+			
 		}
 		return "recipeList";
 	}
@@ -499,6 +501,9 @@ public class RecipeController {
 		model.addAttribute("ingredients", ingredientModel);
 		model.addAttribute("categories", categoryModel);
 		model.addAttribute("ingredientAmounts", ingredientAmountModel);
+		
+		UserModel loggedInUser = userRepository.findUserByUserName(principal.getName());
+		model.addAttribute("loggedInUser", loggedInUser);
 		return "editRecipe";
 	}	
 

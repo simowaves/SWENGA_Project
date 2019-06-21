@@ -40,6 +40,11 @@
 						class="d-sm-flex align-items-center justify-content-between mb-4">
 						<h1 class="h3 mb-0 text-gray-800">Edit your profile</h1>
 
+
+						<form th:action="@{/deleteUser}" method="post">
+							<button class="btn btn-sm btn-danger" type="submit">Delete
+								your Account</button>
+						</form>
 					</div>
 
 					<!-- Content -->
@@ -51,37 +56,39 @@
 								<div
 									style="position: relative; overflow: hidden; padding-bottom: 100%;"
 									class="mb-4">
-									<a><img style="position: absolute; width: 100%"
-										class="rounded"
-										src="https://dummyimage.com/400x400/949494/e6e6e6&text=Your+Picture"
-										alt=""></a>
-
-									<!-- 										<img class="img-fluid card-img-top" -->
-									<!-- 											style="position: absolute;" -->
-									<!-- 											th:src="@{download(documentId=${recipe.document.id})}" -->
-									<!-- 											alt=""> -->
+									<a class="rounded"><img style="position: absolute; height: 100%;"
+										th:src="${user.showPicture()}" alt=""></a>
 								</div>
-								<div class="input-group mb-3">
-									<div class="custom-file">
-										<form enctype="multipart/form-data" method="post"
-											action="upload">
-											<input type="file" class="form-control" id="inputGroupFile"
-												name="uploadPicture"> <label
-												class="custom-file-label" for="inputGroupFile01">Upload
-												tasty picture</label>
-										</form>
-									</div>
+
+								<!-- Edit Picture -->
+								<div>
+									<form class="needs-validation" enctype="multipart/form-data"
+										method="post" th:action="@{/changeUserPicture(id=${user.id})}">
+										<div class="form-check">
+											<label for="inputFile" class="control-label">Edit
+												Picture:</label>
+											<div class="input-group mb-3">
+												<input class="form-control" type="file" name="userPicture"
+													id="invalidCheck" required>
+												<div class="input-group-append">
+													<button class="btn btn-primary" type="submit"
+														id="button-addon2">Change Picture</button>
+												</div>
+											</div>
+
+										</div>
+									</form>
 								</div>
 							</div>
 
 
-
+							<!-- Change User Username -->
 							<div class="col-md-8">
 								<div class="row"></div>
-								<form class="user needs-validation" novalidate
+								<form class="needs-validation" novalidate
 									th:action="@{/updateUserName}" method="post">
 									<div class="form-group">
-										<h3>Change your username</h3>
+										<h3>Change your Usernam</h3>
 										<input type="text" class="form-control form-control-user"
 											name="userName"
 											th:placeholder="${'Current username: '+ user.userName}"
@@ -91,14 +98,11 @@
 											class="btn btn-primary btn-user btn-block col-md-4 mt-2"
 											type="submit">Save new username</button>
 									</div>
-
-
-
-
 								</form>
-								<hr />
 
-								<form class="user needs-validation" novalidate
+
+								<!-- Change User Email -->
+								<form class="needs-validation" novalidate
 									th:action="@{/updateEmailAddress}" method="post">
 									<div class="form-group">
 										<h3>Change your email</h3>
@@ -112,13 +116,12 @@
 											class="btn btn-primary btn-user btn-block col-md-4 mt-2"
 											type="submit">Save new email</button>
 									</div>
-									<!-- 									<div class="row"> -->
-
-									<!-- 									</div> -->
 								</form>
-								<hr />
+
+
+								<!-- Change User Password -->
 								<div class="row"></div>
-								<form class="user needs-validation" novalidate
+								<form class="needs-validation" novalidate
 									th:action="@{/updatePassword}" method="post"
 									oninput='password.setCustomValidity(password.value != passwordCheck.value ? "Passwords do not match." : "")'>
 									<div class="form-group">
@@ -136,23 +139,13 @@
 													placeholder="Repeat New Password" id="invalidCheck"
 													required>
 											</div>
-
 										</div>
 										<button
 											class="btn btn-primary btn-user btn-block col-md-4 mt-2"
 											type="submit">Save new password</button>
 									</div>
-
-
-
-
 								</form>
-								</td>
 
-								<form th:action="@{/deleteUser}" method="post">
-									<button class="btn btn-sm btn-danger" type="submit">Delete
-										your Account</button>
-								</form>
 
 								<div th:unless="${errorMessage}==null"
 									th:utext="${errorMessage}"

@@ -836,6 +836,6 @@ public class TestDataController {
 		simone.addReportedRecipe(rec6);
 		
 		
-		return "forward:recipeList";
+		return "redirect:recipeList";
 	}
 }
