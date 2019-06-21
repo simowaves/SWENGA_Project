@@ -173,8 +173,9 @@ public class RecipeController {
 
 	// Spring 4: @RequestMapping(value = "/showRecipe", method = RequestMethod.GET)
 	@GetMapping({ "/showRecipe", "/likeRecipe", "/reportRecipe", "/postComment" })
-	public String showRecipeDetails(Model model, @RequestParam int id) {
-
+	public String showRecipeDetails(Model model, @RequestParam int id,Principal principal) {
+		String userName = principal.getName();
+		UserModel user = userRepository.findUserByUserNameWithAllergies(userName);
 		RecipeModel recipe = recipeRepository.findRecipeByIdWithPicture(id);
 
 		if (recipe != null) {
@@ -184,6 +185,9 @@ public class RecipeController {
 			//PictureModel picture = pictureRepository.findPictureByRecipeId(id);
 			model.addAttribute("comments", comments);
 			model.addAttribute("recipe", recipe);
+			if (user != null) {
+				model.addAttribute("collections", user.getRecipeCollections());
+			}
 			//model.addAttribute("picture", picture);
 			return "recipe";
 		} else {
