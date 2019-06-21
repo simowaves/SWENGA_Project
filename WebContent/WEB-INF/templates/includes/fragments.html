@@ -19,7 +19,7 @@
 					th:text="${recipe.author.userName}"></a>
 			</div>
 			<div class="col-4 text-right">
-				<form class="form-group" th:action="@{/likeRecipe(id=${recipe.id})}"
+				<form class="form-group" th:href="@{/likeRecipe(id=${recipe.id})}"
 					method="post">
 					<button type="submit" class="btn btn-danger btn-circle">
 						<i class="fas fa-heart"></i>
@@ -44,4 +44,48 @@
 
 
 <!-- Category Card Content -->
+<!-- Card Content -->
+<div class="card shadow " th:fragment="recipeCardContentCollection">
+	<!-- Image -->
+	<div
+		style="position: relative; overflow: hidden; padding-bottom: 100%;">
+		<a th:href="@{/showRecipe(id=${recipe.id})}"> <img
+			style="position: absolute; height:100%;" class="bg-light" 
+			th:src="${recipe.showPicture()}" alt="">
+		</a>
+	</div>
+	<!-- card body -->
+	<div class="card-body">
+		<div class="row">
+			<div class="col-8">
+				<a class="m-0 font-weight-bold text-primary"
+					th:href="@{/showRecipe(id=${recipe.id})}" th:text="${recipe.title}">
+				</a> by <a th:href="@{/showUser(id=${recipe.author.id})}"
+					th:text="${recipe.author.userName}"></a>
+			</div>
+			<div class="col-4 text-right">
+				<form class="form-group" th:action="@{/removeRecipeFromCollection(recipeId=${recipe.id},collectionId=${collection.id})}"
+					method="post">
+					<button type="submit" class="btn-default btn-danger btn-remove btn-circle">
+							<i class="fas fa-trash"></i>
+					</button>
+				</form>
 
+				<!-- <a href="#" class="btn btn-danger btn-circle"> <i
+					class="fas fa-heart"></i> -->
+				</a>
+			</div>
+		</div>
+		<div class="row">
+			<div th:each="categorie : ${recipe.categories}">
+				<div class="ml-1 mr-1">
+					<a th:href="@{/showCategorie(id=${categorie.id})}"
+						class="badge badge-info" th:text="${categorie.title}"></a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<!-- Category Card Content -->
