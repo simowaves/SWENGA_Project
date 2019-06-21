@@ -15,7 +15,7 @@ import at.fh.swenga.jpa.model.RecipeCollectionModel;
 public interface RecipeCollectionRepository extends JpaRepository<RecipeCollectionModel, Integer> {
 	
 	
-	@Query("SELECT c "
+	@Query("SELECT DISTINCT c "
 			+ "FROM RecipeCollectionModel c "
 			+ "LEFT JOIN FETCH c.recipes r "
 			+ "JOIN c.user u "

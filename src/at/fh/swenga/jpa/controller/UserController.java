@@ -404,14 +404,16 @@ public class UserController {
 	@PostMapping("/addCollection")
 	public String addCollection(@RequestParam String title, Principal principal, RedirectAttributes redirectAttributes) {
 		String userName = principal.getName();
-		UserModel user = userRepository.findUserByUserNameWithAllergies(userName);
+		UserModel user = userRepository.findUserByUserNameWithCollections(userName);
 		int userId = user.getId();
 		RecipeCollectionModel recipeCollectionModel = new RecipeCollectionModel();
 		recipeCollectionModel.setTitle(title);
-		recipeCollectionRepository.save(recipeCollectionModel);
-		user.addRecipeCollection(recipeCollectionModel);
-		userRepository.save(user);
 		
+		recipeCollectionRepository.save(recipeCollectionModel);
+		
+		recipeCollectionModel.setUser(user);
+		recipeCollectionRepository.save(recipeCollectionModel);
+
 		redirectAttributes.addAttribute("id", userId);
 		return "redirect:/showCurrentUser";
 	}
