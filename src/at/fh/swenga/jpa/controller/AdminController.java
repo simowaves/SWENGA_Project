@@ -4,6 +4,7 @@ import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -72,6 +73,7 @@ public class AdminController {
 	//  delete a recipe for Admin purpose
 	@PostMapping("/deleteRecipeAdmin")
 	public String deleteRecipeAdmin(Model model, @RequestParam int id) {
+		
 		RecipeModel recipeModel = recipeRepository.findRecipeById(id);
 		recipeModel.setEnabled(false);
 		recipeRepository.save(recipeModel);
@@ -80,15 +82,29 @@ public class AdminController {
 	
 	// delete a user for Admin
 	@PostMapping("/deleteUserAdmin")
-	public String deleteUserAdmin(Model model, @RequestParam int id) {
+	public String deleteUserAdmin(Model model, @RequestParam int id, Principal principal) {
+		
 		UserModel user = userRepository.findUserById(id);
-		user.setEnabled(false);
-		userRepository.save(user);
-		List<RecipeModel> recipes = recipeRepository.findRecipesByUserId(id);
-		for (RecipeModel recipe : recipes) {
-			recipe.setEnabled(false);
-			recipeRepository.save(recipe);
+		UserModel admin = userRepository.findUserByUserName(principal.getName());
+		if (user.getId() != admin.getId()) {
+			user.setEnabled(false);
+			userRepository.save(user);
+			List<RecipeModel> recipes = recipeRepository.findRecipesByUserId(id);
+			for (RecipeModel recipe : recipes) {
+				recipe.setEnabled(false);
+				recipeRepository.save(recipe);
+			}
+			return "redirect:/showAdminUsers";
+		} else {
+			user.setEnabled(false);
+			userRepository.save(user);
+			List<RecipeModel> recipes = recipeRepository.findRecipesByUserId(id);
+			for (RecipeModel recipe : recipes) {
+				recipe.setEnabled(false);
+				recipeRepository.save(recipe);
+			}
+			SecurityContextHolder.clearContext();
+			return "redirect:/login"; 
 		}
-		return "redirect:/showAdminUsers"; 
 	}
 }
