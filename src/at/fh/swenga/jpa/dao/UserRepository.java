@@ -128,7 +128,7 @@ public interface UserRepository extends JpaRepository<UserModel, Integer> {
 	public UserModel findUserByUserNameWithAllergies(@Param("userName") String userName);
 	
 	@Query ("SELECT u "
-			+ "FROM UserModel AS u "
+			+ "FROM UserModel u "
 			+ "LEFT JOIN FETCH u.recipeCollections c "
 			+ "WHERE LOWER(u.userName) = LOWER(:userName) "
 			+ "AND u.enabled = true ")

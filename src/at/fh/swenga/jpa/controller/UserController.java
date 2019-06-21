@@ -436,13 +436,17 @@ public class UserController {
 	@PostMapping("/addRecipeToCollection")
 	public String addRecipeToCollection(@RequestParam int collectionId, @RequestParam int id, Principal principal, RedirectAttributes redirectAttributes, Model model) {
 		String userName = principal.getName();
-		UserModel user = userRepository.findUserByUserNameWithCollections(userName);
+		UserModel user = userRepository.findUserByUserName(userName);
 		int userId = user.getId();
 		RecipeCollectionModel recipeCollectionModel = recipeCollectionRepository.findCollectionsByIdWithRecipesAndUser(collectionId);
-		RecipeModel recipeModel = recipeRepository.findRecipeById(id);
+		RecipeModel recipeModel = recipeRepository.findRecipeByIdWithCollections(id);
 		if (recipeCollectionModel.getUser().getId() == userId) {
+			/*
 			recipeCollectionModel.addRecipe(recipeModel);
 			recipeCollectionRepository.save(recipeCollectionModel);
+			*/
+			recipeModel.addRecipeCollection(recipeCollectionModel);
+			recipeRepository.save(recipeModel);
 		} else {
 			model.addAttribute("errorMessage", "This isn't your collection");
 			return "errorPage";
