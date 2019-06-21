@@ -446,7 +446,7 @@ public class RecipeController {
 		RecipeModel recipeModel = recipeRepository.findRecipeById(id);
 		String userName = principal.getName();
 		UserModel user = userRepository.findUserByUserName(userName);
-		if (user == recipeModel.getAuthor()) {
+		if (user.getId() == recipeModel.getAuthor().getId()) {
 			recipeModel.setEnabled(false);
 			recipeRepository.save(recipeModel);
 			return "redirect:/recipeList";
@@ -466,16 +466,20 @@ public class RecipeController {
 		List<CategorieModel> categoryModel = categorieRepository.findAllCategoriesOrderByName();
 		List<IngredientAmountModel> ingredientAmountModel = ingredientAmountRepository
 				.findIngredientAmountsByRecipeId(id);
-
-		model.addAttribute("user", user);
-		model.addAttribute("recipe", recipeModel);
-		model.addAttribute("ingredients", ingredientModel);
-		model.addAttribute("categories", categoryModel);
-		model.addAttribute("ingredientAmounts", ingredientAmountModel);
-
-		UserModel loggedInUser = userRepository.findUserByUserName(principal.getName());
-		model.addAttribute("loggedInUser", loggedInUser);
-		return "editRecipe";
+		if (user.getId() == recipeModel.getAuthor().getId()) {
+			model.addAttribute("user", user);
+			model.addAttribute("recipe", recipeModel);
+			model.addAttribute("ingredients", ingredientModel);
+			model.addAttribute("categories", categoryModel);
+			model.addAttribute("ingredientAmounts", ingredientAmountModel);
+	
+			UserModel loggedInUser = userRepository.findUserByUserName(principal.getName());
+			model.addAttribute("loggedInUser", loggedInUser);
+			return "editRecipe";
+		} else {
+			model.addAttribute("errorMessage", "You can't edit this recipe, because it doesn't belong to you!! ");
+			return "errorPage";
+		}
 	}
 
 	// add a new ingredient with amount to a recipe
