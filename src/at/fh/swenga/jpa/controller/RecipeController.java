@@ -246,7 +246,6 @@ public class RecipeController {
 					.findIngredientAmountsByRecipeId(id);
 			model.addAttribute("ingredientAmounts", ingredientAmounts);
 			List<CommentModel> comments = commentRepository.findCommentsByRecipeId(id);
-			// PictureModel picture = pictureRepository.findPictureByRecipeId(id);
 			model.addAttribute("comments", comments);
 			model.addAttribute("recipe", recipe);
 			if (principal != null) {

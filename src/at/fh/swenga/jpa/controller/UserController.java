@@ -115,12 +115,16 @@ public class UserController {
 
 	//show user profile
 	@GetMapping({ "/showUser"})
-	public String showUserDetails(Model model, @RequestParam int id) {
+	public String showUserDetails(Model model, @RequestParam int id, Principal principal) {
 
 		UserModel user = userRepository.findUserById(id);
 		List<RecipeModel> recipes = recipeRepository.findRecipesByUserId(id);
 		List<RecipeModel> likedRecipes = recipeRepository.findRecipesByLikingUserId(id);
 		List<RecipeCollectionModel> collections = recipeCollectionRepository.findCollectionsByUserId(id);
+		if (principal != null) {
+			UserModel loggedInUser = userRepository.findUserByUserName(principal.getName());
+			model.addAttribute("loggedInUser", loggedInUser);
+		}
 
 		if (user != null) {
 			
@@ -178,6 +182,10 @@ public class UserController {
 			model.addAttribute("recipes", recipes);
 			model.addAttribute("likedRecipes", likedRecipes);
 			model.addAttribute("collections", collections);
+			
+			UserModel loggedInUser = userRepository.findUserByUserName(principal.getName());
+			model.addAttribute("loggedInUser", loggedInUser);
+			
 			return "userInfo";
 		} else {
 			model.addAttribute("errorMessage", "You are not logged in");
@@ -198,6 +206,10 @@ public class UserController {
 
 		if (user != null) {
 			model.addAttribute("user", user);
+			
+			UserModel loggedInUser = userRepository.findUserByUserName(principal.getName());
+			model.addAttribute("loggedInUser", loggedInUser);
+			
 			return "userPreferences";
 		} else {
 			model.addAttribute("errorMessage", "Couldn't find user ");
@@ -212,6 +224,10 @@ public class UserController {
 		UserModel user = userRepository.findUserByUserName(userName);
 
 		if (user != null) {
+			
+			UserModel loggedInUser = userRepository.findUserByUserName(principal.getName());
+			model.addAttribute("loggedInUser", loggedInUser);
+			
 			model.addAttribute("user", user);
 			return "accountSettings";
 		} else {
