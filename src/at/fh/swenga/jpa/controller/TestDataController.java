@@ -841,7 +841,7 @@ public class TestDataController {
 			tim.addReportedRecipe(rec6);
 			simone.addReportedRecipe(rec6);
 
-			return "redirect:recipeList";
+			return "redirect:/";
 		} else {
 			model.addAttribute("errorMessage", "There are already users in the database!" + "\n fillTestData is only working with an empty database.");
 			return "errorPage";
