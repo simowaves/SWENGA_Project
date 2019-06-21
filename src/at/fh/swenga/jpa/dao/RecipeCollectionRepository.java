@@ -22,5 +22,8 @@ public interface RecipeCollectionRepository extends JpaRepository<RecipeCollecti
 			+ "WHERE u.id = :id")
 	public List<RecipeCollectionModel> findCollectionsByUserId(@Param("id") int id);
 	
+	public RecipeCollectionModel findCollectionsById(int id);
+
+	
 	
 }

@@ -507,4 +507,21 @@ public class RecipeController {
 		redirectAttributes.addAttribute("id", recipeId);
 		return "redirect:/editRecipe";
 	}
+	
+	// Spring 4: @RequestMapping(value = "/changePublished", method = RequestMethod.POST)
+	@PostMapping("/changePublished")
+	public String changePublished(@RequestParam int id, Principal principal, RedirectAttributes redirectAttributes) {
+		RecipeModel recipeModel = recipeRepository.findRecipeById(id);
+		
+		if(recipeModel.isPublished() == true) {
+			recipeModel.setPublished(false);
+		} else {
+			recipeModel.setPublished(true);
+		}
+		
+		recipeRepository.save(recipeModel);
+		
+		redirectAttributes.addAttribute("id", id);
+		return "redirect:/showRecipe";
+	}
 }
