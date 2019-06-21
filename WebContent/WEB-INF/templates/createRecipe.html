@@ -46,7 +46,7 @@
 					<div>
 
 						<div class="row">
-							
+
 							<div class="col-md-8">
 								<form class="needs-validation" novalidate
 									th:action="@{/createNewRecipe}" method="post">
@@ -138,6 +138,15 @@
 
 										<div class="form-check"></div>
 									</div>
+									<!-- Picture Experiment -->
+									<div class="form-group">
+										<label for="inputFile" class="col-md-2 control-label">Recipe
+											Picture:</label> <input class="form-control" id="inputFile"
+											type="file" name="myFile">
+									</div>
+
+
+									<!-- Picture Experiment -->
 
 									<!-- Laut Max muss hier th:href="@{upload(id=${employee.id})} wie bei SwengaGoodies hinzugefügt werden -->
 									<button class="btn btn-primary" type="submit">Create
