@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import at.fh.swenga.jpa.dao.CommentRepository;
 import at.fh.swenga.jpa.dao.PictureRepository;
@@ -39,7 +40,7 @@ public class PictureController {
 	 * @param videoId
 	 * @return
 	 */
-	@RequestMapping(value = "/uploadRecipePicture", method = RequestMethod.GET)
+	@RequestMapping(value = "/changeRecipePicture", method = RequestMethod.GET)
 	public String showuploadRecipePicture(Model model, @RequestParam("id") int recipeId) {
 		model.addAttribute("recipeId", recipeId);
 		return "uploadRecipePicture";
@@ -53,9 +54,9 @@ public class PictureController {
 	 * @param file
 	 * @return
 	 */
-	@RequestMapping(value = "/uploadRecipePicture", method = RequestMethod.POST)
+	@RequestMapping(value = "/changeRecipePicture", method = RequestMethod.POST)
 	public String uploadRecipePicture(Model model, @RequestParam("id") int recipeId,
-			@RequestParam("myPicture") MultipartFile newPicture) {
+			@RequestParam("recipePicture") MultipartFile newPicture, RedirectAttributes redirectAttributes) {
 
 		try {
 
@@ -63,14 +64,14 @@ public class PictureController {
 			
 			if (recipe == null)
 				throw new IllegalArgumentException("No recipe with id " + recipeId);
-
+/*
 			// Already a picture available -> delete it
 			if (recipe.getPicture() != null) {
 				pictureRepository.delete(recipe.getPicture());
 				// Don't forget to remove the relationship too
 				recipe.setPicture(null);
 			}
-
+*/
 			// Create a new picture and set all available infos
 
 			PictureModel picture = new PictureModel();
@@ -79,13 +80,15 @@ public class PictureController {
 			picture.setCreated(new Date());
 			picture.setFilename(newPicture.getOriginalFilename());
 			picture.setName(newPicture.getName());
+			//pictureRepository.save(picture);
 			recipe.setPicture(picture);
 			recipeRepository.save(recipe);
 		} catch (Exception e) {
 			model.addAttribute("errorMessage", "Error:" + e.getMessage());
+			return "errorPage";
 		}
-		return "forward:/recipeList";
-		//return "forward:/showRecipe?id="+recipeId;
+		redirectAttributes.addAttribute("id", recipeId);
+		return "redirect:/showRecipe";
 	}
 	
 	/*
