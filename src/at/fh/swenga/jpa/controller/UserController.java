@@ -88,21 +88,22 @@ public class UserController {
 		} else {
 
 			UserRoleModel userRole = userRoleRepository.findUserRoleByRole("ROLE_USER");
-			if (userRole == null)
+			if (userRole == null) {
 				userRole = new UserRoleModel("ROLE_USER");
-
+				userRoleRepository.save(userRole);
+			}
+				
 			newUserModel.encryptPassword();
 			newUserModel.setEnabled(true);
 			userRepository.save(newUserModel);
 
 			newUserModel.addUserRole(userRole);
-			// userRepository.save(newUserModel);
+			userRepository.save(newUserModel);
 
 			RecipeCollectionModel recipeCollection = new RecipeCollectionModel("Favorites");
 			recipeCollectionRepository.save(recipeCollection);
 
 			newUserModel.addRecipeCollection(recipeCollection);
-			userRepository.save(newUserModel);
 
 			recipeCollection.setUser(newUserModel);
 			recipeCollectionRepository.save(recipeCollection);
