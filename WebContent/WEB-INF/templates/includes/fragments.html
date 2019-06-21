@@ -1,9 +1,9 @@
 
 <!-- Card Content -->
-<div class="card shadow " th:fragment="recipeCardContent">
+<div class="card shadow" th:fragment="recipeCardContent">
 	<!-- Image -->
 	<div
-		style="position: relative; overflow: hidden; padding-bottom: 100%;">
+		style="position: relative; overflow: hidden; padding-bottom: 100%;" class="rounded-top">
 		<a th:href="@{/showRecipe(id=${recipe.id})}"> <img
 			style="position: absolute; height:100%;" class="bg-light" 
 			th:src="${recipe.showPicture()}" alt="">

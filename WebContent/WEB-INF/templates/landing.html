@@ -100,18 +100,22 @@
 							<h1 class="h3 mb-0 text-gray-800">Top Users</h1>
 						</div>
 						<div class="card-deck">
+
 							<div class="card col-xl-2 col-md-4 mb-4"
 								th:each=" tuser : ${authors}">
 								<a th:href="@{/showUser(id=${tuser.id})}">
 									<div class="card-body">
-										<div class="row no-gutters align-items-center">
-											<div class="col mr-2">
-												<img style="position: absolute; height: 100%;"
-													class="img-profile rounded-circle"
-													th:src="${tuser.showPicture()}" alt="">
+										<div class="row ml-2">
+											<div
+												style="width: 60px; height: 60px; position: relative; overflow: hidden; border-radius: 50%;"
+												class="bg-dark">
+												<img class=""
+													style="display: inline; margin: 0 auto; height: 100%; width: auto;"
+													th:src="${tuser.showPicture()}">
 											</div>
-											<div class="col">
-												<span class="h5 mb-4" th:text="${tuser.userName}"></span>
+											<div class="d-flex align-items-center mr-l">
+												<a class="h5 ml-3 mb-0" th:text="${tuser.userName}"
+													th:href="@{/showUser(id=${tuser.id})}"></a>
 											</div>
 										</div>
 									</div>
