@@ -80,38 +80,54 @@
 								<div class="card mb-4">
 									<div class="card-header">Tools</div>
 									<div class="card-body">
-										<form class="form-group"
-											th:action="@{/likeRecipe(id=${recipe.id})}" method="post">
-											<button class="btn btn-danger" type="submit">
-												<i class="fas fa-heart mr-2"></i>Like
-											</button>
-										</form>
-										<form class="form-group"
-											th:action="@{/reportRecipe(id=${recipe.id})}" method="post">
-											<button class="btn btn-danger" type="submit">
-												<i class="fas fa-flag mr-2"></i>Report
-											</button>
-										</form>
-										<form class="form-group">
-											<a class="btn btn-warning"
-												th:href="@{/editRecipe(id=${recipe.id})}" type="submit">
-												<i class="fas fa-wrench mr-2"></i>Edit
-											</a>
-										</form>
-										<form class="form-group"
-											th:action="@{/deleteRecipe(id=${recipe.id})}" method="post">
-											<button class="btn btn-danger" type="submit">
-												<i class="fas fa-heart mr-2"></i>Delete
-											</button>
-										</form>
-										<form class="form-group"
-											th:action="@{/changePublished(id=${recipe.id})}"
-											method="post">
-											<button class="btn btn-danger" type="submit">
-												<i class="fas fa-heart mr-2"></i>Change to public/private
-											</button>
-										</form>
-										<hr>
+										<div class="row ml-1">
+											<form class="mr-2 mb-2"
+												th:action="@{/likeRecipe(id=${recipe.id})}" method="post">
+												<button class="btn btn-outline-danger"
+													th:classappend="${liked} ? active"
+													th:aria-pressed="${liked}" type="submit">
+													<i class="fas fa-heart mr-2"></i><span
+														th:text="${liked} ? 'Liked':'Like'"></span>
+												</button>
+											</form>
+											<form th:action="@{/reportRecipe(id=${recipe.id})}"
+												method="post">
+												<button class="btn btn-outline-danger"
+													th:classappend="${reported} ? active"
+													th:aria-pressed="${reported}" type="submit">
+													<i class="fas fa-flag mr-2"></i><span
+														th:text="${reported} ? 'Reported':'Report'"></span>
+												</button>
+											</form>
+										</div>
+										<div th:if="${recipe.author == loggedInUser}">
+											<hr class="mt-2">
+											<div class="row ml-1">
+												<form class="mr-2 mb-2">
+													<a class="btn btn-warning"
+														th:href="@{/editRecipe(id=${recipe.id})}"> <i
+														class="fas fa-wrench mr-2"></i>Edit
+													</a>
+												</form>
+												<form class="mr-2 mb-2"
+													th:action="@{/deleteRecipe(id=${recipe.id})}" method="post">
+													<button class="btn btn-danger" type="submit">
+														<i class="fas fa-trash mr-2"></i>Delete
+													</button>
+												</form>
+
+												<form class="mr-2 mb-2"
+													th:action="@{/changePublished(id=${recipe.id})}"
+													method="post">
+													<button class="btn btn-outline-info" th:classappend="${recipe.published} ? active"
+														th:aria-pressed="${recipe.published}" type="submit">
+														<i class="fas fa-lock" th:classappend="${recipe.published} ? fa-lock-open : fa-lock"></i><span class="ml-2"
+															th:text="${recipe.published} ? 'Change to private':'Change to public'"></span>
+													</button>
+												</form>
+											</div>
+										</div>
+										<hr class="mt-2">
 										<div>
 											<!-- expanding Ingredient selection -->
 											<div class="form-group">
@@ -138,7 +154,7 @@
 							</div>
 
 							<!-- Dropdown Card Example -->
-							
+
 							<div class="card shadow mb-4">
 								<!-- Card Header - Dropdown -->
 								<div class="card-header py-3">
@@ -150,11 +166,9 @@
 									<ul class="list-group list-group-flush">
 										<li class="list-group-item"
 											th:each="ingredientAmount : ${ingredientAmounts}"><a
-											th:text="${ingredientAmount.amount} +' '"></a>
-											<a
+											th:text="${ingredientAmount.amount} +' '"></a> <a
 											th:href="@{/showIngredient(id=${ingredientAmount.ingredient.id})}"
-											th:text="${ingredientAmount.ingredient.name}"></a>
-										</li>
+											th:text="${ingredientAmount.ingredient.name}"></a></li>
 									</ul>
 								</div>
 							</div>
