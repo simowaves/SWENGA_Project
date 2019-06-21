@@ -442,7 +442,8 @@ public class UserController {
 		RecipeModel recipeModel = recipeRepository.findRecipeById(recipeId);
 		recipeCollectionModel.addRecipe(recipeModel);
 		recipeCollectionRepository.save(recipeCollectionModel);
-		
+		redirectAttributes.addAttribute("collections", userId);
+
 		redirectAttributes.addAttribute("id", userId);
 		return "redirect:/showCurrentUser";
 	}
