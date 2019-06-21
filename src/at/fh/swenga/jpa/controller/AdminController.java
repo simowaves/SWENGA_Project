@@ -22,17 +22,11 @@ public class AdminController {
 
 	@Autowired
 	RecipeRepository recipeRepository;
-
-	@Autowired
-	PictureRepository pictureRepository;
 	
 	@Autowired
 	UserRepository userRepository;
 	
-	@Autowired
-	CommentRepository commentRepository;
-	
-	// Spring 4: @RequestMapping(value = "/showAdminUsers", method = RequestMethod.GET)
+	// Open Admin Center: Users
 	@GetMapping("/showAdminUsers")
 	public String showAdminUsers(Model model, Principal principal) {
 		List<UserModel> users = userRepository.findUsersWithUserRolesAndRecipesAndComments();
@@ -44,7 +38,7 @@ public class AdminController {
 		return "adminUsers";
 	}
 	
-	// Spring 4: @RequestMapping(value = "/showAdminRecipes", method = RequestMethod.GET)
+	// Open Admin Center: Recipes
 	@GetMapping("/showAdminRecipes")
 	public String showAdminRecipes(Model model, Principal principal) {
 		List<RecipeModel> recipes = recipeRepository.findRecipesWithReportingUsers();
@@ -56,6 +50,7 @@ public class AdminController {
 		return "adminRecipes";
 	}
 	
+	// Deletes all the reporting users from recipe
 	@PostMapping("/clearRecipeReporters")
 	public String clearRecipeReporters(Model model, @RequestParam int recId) {
 		

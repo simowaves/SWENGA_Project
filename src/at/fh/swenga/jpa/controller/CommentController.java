@@ -23,9 +23,6 @@ public class CommentController {
 
 	@Autowired
 	RecipeRepository recipeRepository;
-
-	@Autowired
-	PictureRepository pictureRepository;
 	
 	@Autowired
 	UserRepository userRepository;
@@ -33,7 +30,7 @@ public class CommentController {
 	@Autowired
 	CommentRepository commentRepository;
 
-	// Spring 4: @RequestMapping(value = "/postComment", method = RequestMethod.POST)
+	// it posts a comment for a recipe
 	@PostMapping("/postComment")
 	public String postComment(Model model, @RequestParam int id, Principal principal, @RequestParam String content, RedirectAttributes redirectAttributes) {
 
