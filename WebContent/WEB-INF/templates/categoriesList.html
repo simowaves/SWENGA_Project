@@ -44,18 +44,14 @@
 					</div>
 					<!-- Content -->
 					<div class="container-fluid">
-						<div class="card-deck">
+						<div class="row">
 
-							<div class=" col-xl-2 col-md-4 mb-4"
+							<!-- Categories cards -->
+							<div class="col-xl-2 col-md-4 col-sm-6"
 								th:each="categorie : ${categories}">
-								<a class="card bg-dark text-white"
-									th:href="@{/showCategorie(id=${categorie.id})}"> <img
-									src="https://images.unsplash.com/photo-1498579150354-977475b7ea0b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
-									class="card-img" alt="...">
-									<div class="card-img-overlay">
-										<h3 class="card-title" th:text="${categorie.title}"></h3>
-										<p class="card-text"></p>
-									</div>
+								<a class="card mb-4 btn"
+									th:href="@{/showCategorie(id=${categorie.id})}">
+									<div class="card-body text-center" th:text="${categorie.title}"></div>
 								</a>
 							</div>
 						</div>
