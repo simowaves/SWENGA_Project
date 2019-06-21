@@ -53,7 +53,7 @@ public class CommentController {
 		
 		redirectAttributes.addAttribute("id", id);
 		
-		return "redirect:/postComment";
+		return "redirect:/showRecipe";
 	}
 
 }
