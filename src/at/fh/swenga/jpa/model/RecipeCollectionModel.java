@@ -87,4 +87,9 @@ public class RecipeCollectionModel implements java.io.Serializable {
 		if (recipes==null) recipes = new HashSet<RecipeModel>();
 		recipes.add(recipe);
 	}
+	
+	public void removeRecipe(RecipeModel recipe) {
+		if (recipes==null) recipes = new HashSet<RecipeModel>();
+		recipes.remove(recipe);
+	}
 }
