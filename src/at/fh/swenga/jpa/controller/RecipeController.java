@@ -367,7 +367,7 @@ public class RecipeController {
 
 		redirectAttributes.addAttribute("id", id);
 
-		return "redirect:/reportRecipe";
+		return "redirect:/showRecipe";
 	}
 
 	// create a new recipe
