@@ -23,7 +23,15 @@ public interface RecipeCollectionRepository extends JpaRepository<RecipeCollecti
 	public List<RecipeCollectionModel> findCollectionsByUserId(@Param("id") int id);
 	
 	public RecipeCollectionModel findCollectionsById(int id);
-
+	
+	
+	
+	@Query("SELECT c "
+			+ "FROM RecipeCollectionModel c "
+			+ "LEFT JOIN FETCH c.recipes r "
+			+ "JOIN FETCH c.user u "
+			+ "WHERE c.id = :id")
+	public RecipeCollectionModel findCollectionsByIdWithRecipesAndUser(@Param("id") int id);
 	
 	
 }

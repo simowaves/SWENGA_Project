@@ -434,14 +434,20 @@ public class UserController {
 	// Spring 4: @RequestMapping(value = "/addRecipeToCollection", method =
 	// RequestMethod.POST)
 	@PostMapping("/addRecipeToCollection")
-	public String addRecipeToCollection(@RequestParam int collectionId, @RequestParam int id, Principal principal, RedirectAttributes redirectAttributes) {
+	public String addRecipeToCollection(@RequestParam int collectionId, @RequestParam int id, Principal principal, RedirectAttributes redirectAttributes, Model model) {
 		String userName = principal.getName();
-		UserModel user = userRepository.findUserByUserNameWithAllergies(userName);
+		UserModel user = userRepository.findUserByUserNameWithCollections(userName);
 		int userId = user.getId();
-		RecipeCollectionModel recipeCollectionModel = recipeCollectionRepository.findCollectionsById(collectionId);
+		RecipeCollectionModel recipeCollectionModel = recipeCollectionRepository.findCollectionsByIdWithRecipesAndUser(collectionId);
 		RecipeModel recipeModel = recipeRepository.findRecipeById(id);
-		recipeCollectionModel.addRecipe(recipeModel);
-		recipeCollectionRepository.save(recipeCollectionModel);
+		if (recipeCollectionModel.getUser().getId() == userId) {
+			recipeCollectionModel.addRecipe(recipeModel);
+			recipeCollectionRepository.save(recipeCollectionModel);
+		} else {
+			model.addAttribute("errorMessage", "This isn't your collection");
+			return "errorPage";
+		}
+		
 		
 		//redirectAttributes.addAttribute("collections", collectionId);
 		redirectAttributes.addAttribute("id", id);

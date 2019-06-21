@@ -103,18 +103,22 @@
 									</button>
 								</form>
 								<div>
+
 									<!-- expanding Ingredient selection -->
-									<div class="form-group multiple-form-group" data-max=10>
-										<div class="form-group input-group">
-											<select class="form-control" name="collection" required>
-												<option selected value="">Select your category</option>
-												<option th:each="collection : ${collections}"
-													th:text="${collection.title}" th:value="${collection.id}"></option>
-											</select><span class="input-group-btn ml-2"><button
-													type="button" class="btn btn-success btn-circle btn-add">
-													<i class="fas fa-plus"></i>
-												</button></span>
-										</div>
+									<div class="form-group">
+										<form method="post"
+											th:action="@{/addRecipeToCollection(id=${recipe.id})}">
+											<div class="form-group input-group">
+												<select class="form-control" name="collectionId" required>
+													<option selected value="">Select your collection</option>
+													<option th:each="collection : ${collections}"
+														th:text="${collection.title}" th:value="${collection.id}"></option>
+												</select><span class="input-group-btn ml-2"><button
+														type="submit" class="btn btn-success btn-circle btn-add">
+														<i class="fas fa-plus"></i>
+													</button></span>
+											</div>
+										</form>
 									</div>
 								</div>
 							</div>
