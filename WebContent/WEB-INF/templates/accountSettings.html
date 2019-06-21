@@ -133,7 +133,8 @@
 											<div class="col-sm-6">
 												<input type="password"
 													class="form-control form-control-user" name="passwordCheck"
-													placeholder="Repeat New Password" id="invalidCheck" required>
+													placeholder="Repeat New Password" id="invalidCheck"
+													required>
 											</div>
 
 										</div>
@@ -146,12 +147,13 @@
 
 
 								</form>
-								<!-- create Account submit -->
-									
-<form th:action="@{/deleteUser}"
-													method="post">
-													<button class="btn btn-sm btn-danger" type="submit">Delete your Account</button>
-												</form>
+								</td>
+
+								<form th:action="@{/deleteUser}" method="post">
+									<button class="btn btn-sm btn-danger" type="submit">Delete
+										your Account</button>
+								</form>
+
 								<div th:unless="${errorMessage}==null"
 									th:utext="${errorMessage}"
 									class="alert alert-danger mt-2 mb-2 text-center" role="alert"></div>
@@ -159,9 +161,6 @@
 						</div>
 					</div>
 
-
-
-					
 				</div>
 				<!-- /.container-fluid -->
 

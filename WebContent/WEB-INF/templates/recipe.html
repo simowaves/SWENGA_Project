@@ -58,14 +58,10 @@
 						<div class="col-md-8">
 							<div
 								style="position: relative; overflow: hidden; padding-bottom: 100%;">
-								<img th:if="${recipe.picture != null}"
-									style="position: absolute;" th:src="${recipe.showPicture()}"
-									alt="">
-								<div th:unless="${recipe.picture != null}">
-									<img style="position: absolute;"
-										src="https://dummyimage.com/400x400/bbe1fa/ffffff&text=Missing+Image++:("
-										alt="">
-								</div>
+								
+								<img style="position: absolute; height:100%"
+									th:src="${recipe.showPicture()}" alt="">
+
 							</div>
 						</div>
 
@@ -150,10 +146,6 @@
 						</div>
 					</div>
 
-					<!-- Upload Picture -->
-					<a th:href="@{/changeRecipePicture(id=${recipe.id})}">Upload
-						Picture</a>
-					<!-- End Upload Picture -->
 					<!-- Dropdown Card Example -->
 					<div class="card shadow mb-4">
 						<!-- Card Header - Dropdown -->

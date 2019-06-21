@@ -39,9 +39,10 @@
 
 					<!-- Recipe Content -->
 
-					<!-- Heading and Author th:action="@{/addTitlerecipeId=${recipe.id})}" -->
+					<!-- Heading and Author -->
 					<div class="mb-2">
-						<form method="post" th:action="@{/setTitle(recipeId=${recipe.id})}">
+						<form method="post"
+							th:action="@{/setTitle(recipeId=${recipe.id})}">
 							<div class="form-group input-group">
 
 								<div class="col-md-4 mb-3">
@@ -70,21 +71,20 @@
 					</div>
 
 					<div class="row">
-						<!-- Recipe Image TODO! -->
+
+						<!-- Recipe Image -->
 						<div class="col-md-6">
 							<div
 								style="position: relative; overflow: hidden; padding-bottom: 100%;">
 								<a th:href="@{/showRecipe(id=${recipe.id})}"><img
-									style="position: absolute;"
-									src="https://images.unsplash.com/photo-1559562649-21c0be156e0d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60"
+									style="position: absolute; height:100%;" th:src="${recipe.showPicture()}"
 									alt=""></a>
 							</div>
 							<!-- Upload Picture -->
-							<a th:href="@{/uploadRecipePicture(id=${recipe.id})}">Upload
+							<a th:href="@{/changeRecipePicture(id=${recipe.id})}">Upload
 								Picture</a>
-							<!-- Delete Picture -->
-							<a th:href="@{/deleteRecipe(id=${recipe.id})}">Delete Picture</a>
 							<!-- End Upload Picture -->
+							
 						</div>
 
 						<!-- Recipe Ingredients -->
@@ -114,7 +114,7 @@
 														<i class="fas fa-plus"></i>
 													</button></span>
 											</div>
-										</form>										
+										</form>
 									</div>
 								</div>
 							</div>
@@ -228,13 +228,14 @@
 					<div class="form-row">
 						<div class="col-md-12 mb-3">
 							<label for="validationCustom03">Description</label>
-							<form method="post" th:action="@{/setDescription(recipeId=${recipe.id})}">
-							<textarea class="form-control" rows="4" id="validationCustom03"
-								name="description" th:text="${recipe.description}" required></textarea>
-							<div class="invalid-feedback">The description must not be
-								empty!</div>
-																		<button class="btn btn-primary" type="submit">Save</button>
-								
+							<form method="post"
+								th:action="@{/setDescription(recipeId=${recipe.id})}">
+								<textarea class="form-control" rows="4" id="validationCustom03"
+									name="description" th:text="${recipe.description}" required></textarea>
+								<div class="invalid-feedback">The description must not be
+									empty!</div>
+								<button class="btn btn-primary" type="submit">Save</button>
+
 							</form>
 						</div>
 					</div>
