@@ -163,7 +163,7 @@ public class UserController {
 
 		redirectAttributes.addAttribute("id", id);
 
-		return "redirect:/followUser";
+		return "redirect:/showUser";
 	}
 
 	//show logged in user profile
