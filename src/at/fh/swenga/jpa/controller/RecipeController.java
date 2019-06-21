@@ -24,6 +24,7 @@ import at.fh.swenga.jpa.dao.CommentRepository;
 import at.fh.swenga.jpa.dao.IngredientAmountRepository;
 import at.fh.swenga.jpa.dao.IngredientRepository;
 import at.fh.swenga.jpa.dao.PictureRepository;
+import at.fh.swenga.jpa.dao.RecipeCollectionRepository;
 import at.fh.swenga.jpa.dao.RecipeRepository;
 import at.fh.swenga.jpa.dao.UserRepository;
 import at.fh.swenga.jpa.model.AllergieModel;
@@ -32,6 +33,7 @@ import at.fh.swenga.jpa.model.CommentModel;
 import at.fh.swenga.jpa.model.IngredientAmountModel;
 import at.fh.swenga.jpa.model.IngredientModel;
 import at.fh.swenga.jpa.model.PictureModel;
+import at.fh.swenga.jpa.model.RecipeCollectionModel;
 import at.fh.swenga.jpa.model.RecipeModel;
 import at.fh.swenga.jpa.model.UserModel;
 
@@ -61,6 +63,9 @@ public class RecipeController {
 	
 	@Autowired
 	AllergieRepository allergieRepository;
+	
+	@Autowired
+	RecipeCollectionRepository recipeCollectionRepository;
 	
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
@@ -235,8 +240,9 @@ public class RecipeController {
 
 	// Spring 4: @RequestMapping(value = "/showRecipe", method = RequestMethod.GET)
 	@GetMapping({ "/showRecipe", "/likeRecipe", "/reportRecipe", "/postComment" })
-	public String showRecipeDetails(Model model, @RequestParam int id) {
-
+	public String showRecipeDetails(Model model, @RequestParam int id,Principal principal) {
+		String userName = principal.getName();
+		UserModel user = userRepository.findUserByUserNameWithAllergies(userName);	
 		RecipeModel recipe = recipeRepository.findRecipeByIdWithPicture(id);
 
 		if (recipe != null) {
@@ -246,6 +252,11 @@ public class RecipeController {
 			//PictureModel picture = pictureRepository.findPictureByRecipeId(id);
 			model.addAttribute("comments", comments);
 			model.addAttribute("recipe", recipe);
+			if (user != null) {
+				int userId = user.getId();
+				List<RecipeCollectionModel> collections = recipeCollectionRepository.findCollectionsByUserId(userId);
+				model.addAttribute("collections", collections);
+			}
 			//model.addAttribute("picture", picture);
 			return "recipe";
 		} else {

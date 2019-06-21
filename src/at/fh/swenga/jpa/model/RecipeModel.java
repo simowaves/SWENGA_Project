@@ -1,5 +1,6 @@
 package at.fh.swenga.jpa.model;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
@@ -22,6 +23,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Version;
+
+import org.apache.tomcat.util.codec.binary.Base64;
 
 @Entity
 @Table(name = "recipes")
@@ -338,6 +341,18 @@ public class RecipeModel implements java.io.Serializable {
 		return true;
 	}
 	
-	
+	public String showPicture() throws UnsupportedEncodingException {
+		if (picture == null) {
+			return "https://dummyimage.com/400x400/bbe1fa/ffffff&text=Missing+Image++:(";
+		}
+		else {
+			try {
+				return "data:image/jpg;base64,"+ new String(Base64.encodeBase64(picture.getContent()));
+			} catch (Exception e) {
+				e.printStackTrace();
+				return "https://dummyimage.com/400x400/bbe1fa/ffffff&text=Missing+Image++:(";
+			}
+		}
+	}
 
 }

@@ -396,39 +396,71 @@ public class UserController {
 		userRepository.save(user);
 		
 		redirectAttributes.addAttribute("id", userId);
-		return "redirect:/showCurrentUserPreferences";
+		return "redirect:/showCurrentUser";
 	}
 	
 	// Spring 4: @RequestMapping(value = "/addCollection", method =
 	// RequestMethod.POST)
 	@PostMapping("/addCollection")
-	public String addCollection(@RequestParam int collectionId, @RequestParam String title, Principal principal, RedirectAttributes redirectAttributes) {
+	public String addCollection(@RequestParam String title, Principal principal, RedirectAttributes redirectAttributes) {
 		String userName = principal.getName();
-		UserModel user = userRepository.findUserByUserNameWithAllergies(userName);
+		UserModel user = userRepository.findUserByUserNameWithCollections(userName);
 		int userId = user.getId();
 		RecipeCollectionModel recipeCollectionModel = new RecipeCollectionModel();
 		recipeCollectionModel.setTitle(title);
-		recipeCollectionRepository.save(recipeCollectionModel);
-		user.addRecipeCollection(recipeCollectionModel);
-		userRepository.save(user);
 		
+		recipeCollectionRepository.save(recipeCollectionModel);
+		
+		recipeCollectionModel.setUser(user);
+		recipeCollectionRepository.save(recipeCollectionModel);
+
 		redirectAttributes.addAttribute("id", userId);
-		return "redirect:/showCurrentUserPreferences";
+		return "redirect:/showCurrentUser";
 	}
 	
-	// Spring 4: @RequestMapping(value = "/addToCollection", method =
+	// Spring 4: @RequestMapping(value = "/deleteCollection", method =
 	// RequestMethod.POST)
-	@PostMapping("/addToCollection")
-	public String addToCollection(@RequestParam int collectionId, @RequestParam int recipeId, Principal principal, RedirectAttributes redirectAttributes) {
+	@PostMapping("/deleteCollection")
+	public String deleteCollection(@RequestParam int collectionId, Principal principal, RedirectAttributes redirectAttributes) {
+		String userName = principal.getName();
+		UserModel user = userRepository.findUserByUserNameWithAllergies(userName);
+		int userId = user.getId();
+		recipeCollectionRepository.deleteById(collectionId);
+		
+		redirectAttributes.addAttribute("id", userId);
+		return "redirect:/showCurrentUser";
+	}
+	
+	// Spring 4: @RequestMapping(value = "/addRecipeToCollection", method =
+	// RequestMethod.POST)
+	@PostMapping("/addRecipeToCollection")
+	public String addRecipeToCollection(@RequestParam int collectionId, @RequestParam int id, Principal principal, RedirectAttributes redirectAttributes) {
+		String userName = principal.getName();
+		UserModel user = userRepository.findUserByUserNameWithAllergies(userName);
+		int userId = user.getId();
+		RecipeCollectionModel recipeCollectionModel = recipeCollectionRepository.findCollectionsById(collectionId);
+		RecipeModel recipeModel = recipeRepository.findRecipeById(id);
+		recipeCollectionModel.addRecipe(recipeModel);
+		recipeCollectionRepository.save(recipeCollectionModel);
+		redirectAttributes.addAttribute("collections", userId);
+
+		redirectAttributes.addAttribute("id", userId);
+		return "redirect:/showCurrentUser";
+	}
+	
+	// Spring 4: @RequestMapping(value = "/removeRecipeToCollection", method =
+	// RequestMethod.POST)
+	@PostMapping("/removeRecipeFromCollection")
+	public String removeRecipeFromCollection(@RequestParam int collectionId, @RequestParam int recipeId, Principal principal, RedirectAttributes redirectAttributes) {
 		String userName = principal.getName();
 		UserModel user = userRepository.findUserByUserNameWithAllergies(userName);
 		int userId = user.getId();
 		RecipeCollectionModel recipeCollectionModel = recipeCollectionRepository.findCollectionsById(collectionId);
 		RecipeModel recipeModel = recipeRepository.findRecipeById(recipeId);
-		recipeCollectionModel.addRecipe(recipeModel);
+		recipeCollectionModel.removeRecipe(recipeModel);
 		recipeCollectionRepository.save(recipeCollectionModel);
 		
 		redirectAttributes.addAttribute("id", userId);
-		return "redirect:/showCurrentUserPreferences";
+		return "redirect:/showCurrentUser";
 	}
 }

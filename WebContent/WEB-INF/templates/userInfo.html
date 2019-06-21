@@ -92,14 +92,17 @@
 							role="tab" aria-controls="likedRecipes" aria-selected="false">Liked
 								Recipes</a></li>
 						<li class="nav-item"><a class="nav-link" id="profile-tab"
-							data-toggle="tab" href="#collection" role="tab"
-							aria-controls="profile" aria-selected="false">Favorites</a></li>
+							data-toggle="tab" th:href="'#'+ ${collection.title}" role="tab"
+							aria-controls="profile" aria-selected="false"
+							th:each="collection : ${collections}"
+							th:text="${collection.title}"></a></li>
 						<li class="nav-item"><a class="nav-link" id="profile-tab"
 							data-toggle="tab" href="#newCollection" role="tab"
 							aria-controls="profile" aria-selected="false"><button
 									type="submit" class="btn btn-success btn-circle btn-add">
 									<i class="fas fa-plus"></i>
 								</button></a></li>
+
 
 
 					</ul>
@@ -143,40 +146,52 @@
 							</div>
 						</div>
 						<!-- Collection Tab Content -->
-						<div class="tab-pane fade" id="collection" role="tabpanel"
+						<div class="tab-pane fade" th:id="${collection.title}"
+							th:each="collection: ${collections}" role="tabpanel"
 							aria-labelledby="profile-tab">
 							<div class="container-fluid mt-4 mb-4">
-							<div class="card shadow mb-4 col-6">
-								<!-- Card Header - Accordion -->
-								<a href="#collapseCardExample" class="d-block card-header py-3"
-									data-toggle="collapse" role="button" aria-expanded="false"
-									aria-controls="collapseCardExample">
-									<h6 class="m-0 font-weight-bold text-primary">Change Collection Name</h6>
-								</a>
-								<!-- Card Content - Collapse -->
-								<div class="collapse show" id="collapseCardExample">
-									<div class="card-body">
-										<div class="form-group multiple-form-group">
-									<div class="form-group input-group">
-										<input type="text" name="newCollection" class="form-control"
-											placeholder="New Name of collection" required>
+								<div class="card shadow mb-4 col-6">
+									<!-- Card Header - Accordion -->
+									<a href="#collapseCardExample" class="d-block card-header py-3"
+										data-toggle="collapse" role="button" aria-expanded="false"
+										aria-controls="collapseCardExample">
+										<h6 class="m-0 font-weight-bold text-primary">Change
+											Collection Name</h6>
+									</a>
+									<!-- Card Content - Collapse -->
+									<div class="collapse show" id="collapseCardExample">
+										<div class="card-body">
+											<form method="post" th:action="@{/changeCollectionName(collectionId=${collection.id})}">
+											<div class="form-group multiple-form-group">
+												<div class="form-group input-group">
+													<input type="text" name="title"
+														class="form-control" placeholder="New Name of collection"
+														required>
 
-										<!-- th:field="*{ingredients}" -->
-										<span class="input-group-btn ml-2"><button
-												type="button" class="btn btn-success btn-circle btn-add">
-												<i class="fas fa-plus"></i>
-											</button></span>
+													<!-- th:field="*{ingredients}" -->
+													<span class="input-group-btn ml-2"><button
+															type="submit" class="btn btn-success btn-circle btn-add">
+															<i class="fas fa-plus"></i>
+														</button></span>
+												</div>
+											</div>
+											
+											</form>
+										<div class="form-group multiple-form-group">
+											<form th:action="@{/deleteCollection(collectionId=${collection.id})}"
+													method="post">
+													<button class="btn btn-sm btn-danger" type="submit">Delete Collection</button>
+												</form>
+											</div>
+										</div>
 									</div>
 								</div>
-									</div>
-								</div>
-							</div>
 								<div class="card-deck">
 
 									<!-- Basic Card Example -->
 
 									<div class="col-xl-3 col-md-6 col-sm-12 mb-4 px-0"
-										th:each="recipe : ${collectionRecipes}">
+										th:each="recipe : ${collection.recipes}">
 
 										<div th:replace="~{includes/fragments :: recipeCardContent}" />
 									</div>
@@ -189,21 +204,23 @@
 						<div class="tab-pane fade" id="newCollection" role="tabpanel"
 							aria-labelledby="profile-tab">
 							<div class="container-fluid mt-4 mb-4">
-								<div class="form-group multiple-form-group" data-max=25>
-									<label>Create New Collection</label>
-									<div class="form-group input-group col-6">
-										<input type="text" name="newCollection" class="form-control"
-											placeholder="Name of collection" required>
+								
+									<div class="form-group">
+										<label>Create New Collection</label>
+										<form method="post" th:action="@{/addCollection}">
+										<div class="form-group input-group col-6">
+											<input type="text" name="title" class="form-control"
+												placeholder="Name of collection" required>
 
-										<!-- th:field="*{ingredients}" -->
-										<span class="input-group-btn ml-2"><button
-												type="button" class="btn btn-success btn-circle btn-add">
-												<i class="fas fa-plus"></i>
-											</button></span>
+											<!-- th:field="*{ingredients}" -->
+											<span class="input-group-btn ml-2"><button
+													type="submit" class="btn btn-success btn-circle btn-add">
+													<i class="fas fa-plus"></i>
+												</button></span>
+										</div>
+										</form>
 									</div>
-								</div>
-
-
+							
 							</div>
 						</div>
 
