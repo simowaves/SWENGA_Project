@@ -484,16 +484,24 @@ public class RecipeController {
 
 	// add a new ingredient with amount to a recipe
 	@PostMapping("/addIngredientAndAmount")
-	public String addIngredientAndAmount(@RequestParam int recipeId, @RequestParam int ingredient,
-			@RequestParam String amount, RedirectAttributes redirectAttributes) {
+	public String addIngredientAndAmount(Model model, @RequestParam int recipeId, @RequestParam int ingredient,
+			@RequestParam String amount, RedirectAttributes redirectAttributes, Principal principal) {
+		String userName = principal.getName();
+		UserModel user = userRepository.findUserByUserName(userName);
+		
 		RecipeModel recipeModel = recipeRepository.findRecipeById(recipeId);
-		IngredientAmountModel ingredientAmountModel = new IngredientAmountModel();
-		IngredientModel ingredientModel = ingredientRepository.findIngredientById(ingredient);
-		ingredientAmountModel.setAmount(amount);
-		ingredientAmountRepository.save(ingredientAmountModel);
-		ingredientAmountModel.setRecipe(recipeModel);
-		ingredientAmountModel.setIngredient(ingredientModel);
-		ingredientAmountRepository.save(ingredientAmountModel);
+		if (user.getId() == recipeModel.getAuthor().getId()) {
+			IngredientAmountModel ingredientAmountModel = new IngredientAmountModel();
+			IngredientModel ingredientModel = ingredientRepository.findIngredientById(ingredient);
+			ingredientAmountModel.setAmount(amount);
+			ingredientAmountRepository.save(ingredientAmountModel);
+			ingredientAmountModel.setRecipe(recipeModel);
+			ingredientAmountModel.setIngredient(ingredientModel);
+			ingredientAmountRepository.save(ingredientAmountModel);
+		} else {
+			model.addAttribute("errorMessage", "You can't add ingredients to this recipe, because it doesn't belong to you!! ");
+			return "errorPage";
+		}
 
 		redirectAttributes.addAttribute("id", recipeId);
 
@@ -502,16 +510,24 @@ public class RecipeController {
 
 	// remove a new ingredient with amount from a recipe
 	@PostMapping("/removeIngredientAndAmount")
-	public String removeIngredientAndAmount(@RequestParam int recipeId, @RequestParam int ingredientAmountId,
+	public String removeIngredientAndAmount(Model model, @RequestParam int recipeId, @RequestParam int ingredientAmountId,
 			@RequestParam String amount, Principal principal, RedirectAttributes redirectAttributes) {
+		String userName = principal.getName();
+		UserModel user = userRepository.findUserByUserName(userName);
+		
 		RecipeModel recipeModel = recipeRepository.findRecipeByIdWithIngredientAmounts(recipeId);
-		IngredientAmountModel ingredientAmountModel = ingredientAmountRepository
-				.findIngredientAmountsById(ingredientAmountId);
-		recipeModel.removeIngredientAmount(ingredientAmountModel);
-		recipeRepository.save(recipeModel);
-
-		ingredientAmountRepository.deleteById(ingredientAmountId);
-
+		if (user.getId() == recipeModel.getAuthor().getId()) {
+			IngredientAmountModel ingredientAmountModel = ingredientAmountRepository
+					.findIngredientAmountsById(ingredientAmountId);
+			recipeModel.removeIngredientAmount(ingredientAmountModel);
+			recipeRepository.save(recipeModel);
+	
+			ingredientAmountRepository.deleteById(ingredientAmountId);
+		
+		} else {
+			model.addAttribute("errorMessage", "You can't remove ingredients to this recipe, because it doesn't belong to you!! ");
+			return "errorPage";
+		}
 		redirectAttributes.addAttribute("id", recipeId);
 
 		return "redirect:/editRecipe";
@@ -519,12 +535,20 @@ public class RecipeController {
 
 	// add a new category to a recipe
 	@PostMapping("/addCategory")
-	public String addCategory(@RequestParam int category, @RequestParam int recipeId, Principal principal,
+	public String addCategory(Model model, @RequestParam int category, @RequestParam int recipeId, Principal principal,
 			RedirectAttributes redirectAttributes) {
+		String userName = principal.getName();
+		UserModel user = userRepository.findUserByUserName(userName);
+		
 		RecipeModel recipeModel = recipeRepository.findRecipeById(recipeId);
-		CategorieModel categorieModel = categorieRepository.findCategorieById(category);
-		recipeModel.addCategorie(categorieModel);
-		recipeRepository.save(recipeModel);
+		if (user.getId() == recipeModel.getAuthor().getId()) {
+			CategorieModel categorieModel = categorieRepository.findCategorieById(category);
+			recipeModel.addCategorie(categorieModel);
+			recipeRepository.save(recipeModel);
+		} else {
+			model.addAttribute("errorMessage", "You can't add categories to this recipe, because it doesn't belong to you!! ");
+			return "errorPage";
+		}
 
 		redirectAttributes.addAttribute("id", recipeId);
 
@@ -533,13 +557,20 @@ public class RecipeController {
 
 	// remove a category from a recipe
 	@PostMapping("/removeCategory")
-	public String removeCategory(@RequestParam int category, @RequestParam int recipeId, Principal principal,
+	public String removeCategory(Model model, @RequestParam int category, @RequestParam int recipeId, Principal principal,
 			RedirectAttributes redirectAttributes) {
+		String userName = principal.getName();
+		UserModel user = userRepository.findUserByUserName(userName);
+		
 		RecipeModel recipeModel = recipeRepository.findRecipeById(recipeId);
-		CategorieModel categorieModel = categorieRepository.findCategorieById(category);
-		recipeModel.removeCategorie(categorieModel);
-		recipeRepository.save(recipeModel);
-
+		if (user.getId() == recipeModel.getAuthor().getId()) {
+			CategorieModel categorieModel = categorieRepository.findCategorieById(category);
+			recipeModel.removeCategorie(categorieModel);
+			recipeRepository.save(recipeModel);
+		} else {
+			model.addAttribute("errorMessage", "You can't remove the categories from this recipe, because it doesn't belong to you!! ");
+			return "errorPage";
+		}
 		redirectAttributes.addAttribute("id", recipeId);
 
 		return "redirect:/editRecipe";
@@ -547,41 +578,61 @@ public class RecipeController {
 
 	// set a new title
 	@PostMapping("/setTitle")
-	public String setTitle(@RequestParam int recipeId, @RequestParam String title, Principal principal,
+	public String setTitle(Model model, @RequestParam int recipeId, @RequestParam String title, Principal principal,
 			RedirectAttributes redirectAttributes) {
+		String userName = principal.getName();
+		UserModel user = userRepository.findUserByUserName(userName);
+		
 		RecipeModel recipeModel = recipeRepository.findRecipeById(recipeId);
-		recipeModel.setTitle(title);
-		recipeRepository.save(recipeModel);
-
+		if (user.getId() == recipeModel.getAuthor().getId()) {
+			recipeModel.setTitle(title);
+			recipeRepository.save(recipeModel);
+		} else {
+			model.addAttribute("errorMessage", "You can't set the Title to this recipe, because it doesn't belong to you!! ");
+			return "errorPage";
+		}
 		redirectAttributes.addAttribute("id", recipeId);
 		return "redirect:/editRecipe";
 	}
 
 	// set a new desciption
 	@PostMapping("/setDescription")
-	public String setDescription(@RequestParam int recipeId, @RequestParam String description, Principal principal,
+	public String setDescription(Model model, @RequestParam int recipeId, @RequestParam String description, Principal principal,
 			RedirectAttributes redirectAttributes) {
+		String userName = principal.getName();
+		UserModel user = userRepository.findUserByUserName(userName);
+		
 		RecipeModel recipeModel = recipeRepository.findRecipeById(recipeId);
-		recipeModel.setDescription(description);
-		recipeRepository.save(recipeModel);
-
+		if (user.getId() == recipeModel.getAuthor().getId()) {
+			recipeModel.setDescription(description);
+			recipeRepository.save(recipeModel);
+		} else {
+			model.addAttribute("errorMessage", "You can't set the Description for this recipe, because it doesn't belong to you!! ");
+			return "errorPage";
+		}
 		redirectAttributes.addAttribute("id", recipeId);
 		return "redirect:/editRecipe";
 	}
 
 	// Change the privacy from a recipe from public to private and vice versa
 	@PostMapping("/changePublished")
-	public String changePublished(@RequestParam int id, Principal principal, RedirectAttributes redirectAttributes) {
+	public String changePublished(Model model, @RequestParam int id, Principal principal, RedirectAttributes redirectAttributes) {
+		String userName = principal.getName();
+		UserModel user = userRepository.findUserByUserName(userName);
+		
 		RecipeModel recipeModel = recipeRepository.findRecipeById(id);
-
-		if (recipeModel.isPublished() == true) {
-			recipeModel.setPublished(false);
+		if (user.getId() == recipeModel.getAuthor().getId()) {
+			if (recipeModel.isPublished() == true) {
+				recipeModel.setPublished(false);
+			} else {
+				recipeModel.setPublished(true);
+			}
+	
+			recipeRepository.save(recipeModel);
 		} else {
-			recipeModel.setPublished(true);
+			model.addAttribute("errorMessage", "You can't change the publicity options for this recipe, because it doesn't belong to you!! ");
+			return "errorPage";
 		}
-
-		recipeRepository.save(recipeModel);
-
 		redirectAttributes.addAttribute("id", id);
 		return "redirect:/showRecipe";
 	}
