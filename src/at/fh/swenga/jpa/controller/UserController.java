@@ -146,7 +146,6 @@ public class UserController {
 					return "userInfo";
 				}
 			}
-			
 			recipes = recipeRepository.findPublishedRecipesByUserId(id);
 			
 			model.addAttribute("user", user);
