@@ -51,12 +51,12 @@
 											<h3 th:text="${user.userName}"></h3>
 										</div>
 
-										<!-- 										<div>
+										 										<div>
 											<p>
-												I love <b>bananas</b> <br> When I'm not traveling I'm
-												having fun with bananas...
+												I love <b>cooking</b> <br> When I'm not in the kitchen I'm
+												having sleeping...
 											</p>
-										</div> -->
+										</div> 
 
 										<div class="row ml-2">
 											<form th:if="${user == loggedInUser}">
@@ -67,10 +67,15 @@
 												</a>
 											</form>
 											<form th:if="${user != loggedInUser}"
+												sec:authorize="isAuthenticated()"
 												th:action="@{/followUser(id=${user.id})}" method="post">
-												<button
-													class="d-none d-inline btn btn-sm btn-outline-primary"
-													type="submit">Follow</button>
+
+												<button class="d-none d-inline btn btn-sm btn-outline-primary"
+													th:classappend="${followed} ? active"
+													th:aria-pressed="${followed}" type="submit">
+													<span
+														th:text="${followed} ? 'Following':'Follow'"></span>
+												</button>
 											</form>
 
 

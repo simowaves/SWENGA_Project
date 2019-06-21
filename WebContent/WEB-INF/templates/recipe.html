@@ -63,7 +63,7 @@
 					</div>
 
 					<div class="row">
-						<!-- Recipe Image TODO! -->
+						<!-- Recipe Image -->
 						<div class="col-md-8">
 							<div class="rounded"
 								style="position: relative; overflow: hidden; padding-bottom: 100%;">
@@ -74,9 +74,10 @@
 							</div>
 						</div>
 
-						<!-- Recipe Ingredients -->
+						<!-- Recipe RightBar -->
 						<div class="col-md-4">
-							<div>
+						<!-- Recipe Tools -->
+							<div sec:authorize="isAuthenticated()" >
 								<div class="card mb-4">
 									<div class="card-header">Tools</div>
 									<div class="card-body">
@@ -153,7 +154,7 @@
 
 							</div>
 
-							<!-- Dropdown Card Example -->
+							<!-- Ingredients Card -->
 
 							<div class="card shadow mb-4">
 								<!-- Card Header - Dropdown -->
