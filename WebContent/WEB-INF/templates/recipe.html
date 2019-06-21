@@ -38,12 +38,12 @@
 						<div class="row ml-2">
 							<div
 								style="width: 60px; height: 60px; position: relative; overflow: hidden; border-radius: 50%;"
-								class="bg-dark mr-2">
-								<img class="img-profile rounded-circle"
-									style="display: inline; margin: 0 auto; margin-left: -25%; height: 100%; width: auto;"
+								class="bg-dark">
+								<img class=""
+									style="display: inline; margin: 0 auto; height: 100%; width: auto;"
 									th:src="${recipe.author.showPicture()}">
 							</div>
-							<div class="d-flex align-items-center">
+							<div class="d-flex align-items-center mr-l">
 								<span class="h5 mb-0 mr=2 text-gray-800">by</span><a class="h5 ml-1 mb-0"
 									th:text="${recipe.author.userName}"
 									th:href="@{/showUser(id=${recipe.author.id})}"></a>
