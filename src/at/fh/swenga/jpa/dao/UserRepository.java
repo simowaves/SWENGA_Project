@@ -163,7 +163,5 @@ public interface UserRepository extends JpaRepository<UserModel, Integer> {
 			+ "WHERE u.enabled = true "
 			+ "ORDER BY u.userName ")
 	public List<UserModel> findTop3ByOrderByIdAscAndRecipes();
-	
-	public List<UserModel> findTop3ByOrderByIdAsc();
 
 }

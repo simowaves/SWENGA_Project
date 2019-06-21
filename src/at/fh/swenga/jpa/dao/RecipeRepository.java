@@ -14,8 +14,6 @@ import at.fh.swenga.jpa.model.RecipeModel;
 @Transactional
 public interface RecipeRepository extends JpaRepository<RecipeModel, Integer> {
 	
-	
-	
 	@Query("SELECT r "
 			+ "FROM RecipeModel r "
 			+ "WHERE r.enabled = true "
@@ -72,26 +70,6 @@ public interface RecipeRepository extends JpaRepository<RecipeModel, Integer> {
 			+ "AND r.enabled = true ")
 	public List<RecipeModel> findRecipesByLikingUserId (@Param("userId") int userId);
 	
-	/*
-	
-	// filters the recipes and returns all recipes that the user isn't allergic against, or don't have hated Ingredients and it filters of categories
-	@Query ("SELECT r "
-			+ "FROM RecipeModel AS r "
-			+ "JOIN r.categories c "
-			+ "WHERE r.id not in (SELECT x "
-			+ 	"FROM RecipeModel AS x "
-			+ 	"LEFT JOIN x.ingredientAmounts ia "
-			+ 	"LEFT JOIN ia.ingredient i "
-			+ 	"LEFT JOIN i.allergies a "
-			+ 	"LEFT JOIN a.users ua "
-			+ 	"LEFT JOIN i.usersHateMe iu "
-			+ 	"WHERE ua.id = :userId OR iu.id = :userId " 
-			+ 	"GROUP BY x.id) "
-			+ "AND c.id = :catId ")
-	public List<RecipeModel> filterRecipesByUserPreferencesAndCategorieId (@Param("userId") int userId, @Param("catId") int catId);
-	
-	*/
-	
 	@Query ("SELECT r "
 			+ "FROM RecipeModel AS r "
 			+ "JOIN r.ingredientAmounts ia "
@@ -99,78 +77,14 @@ public interface RecipeRepository extends JpaRepository<RecipeModel, Integer> {
 			+ "WHERE i.id = :ingId ")
 	public List<RecipeModel> findRecipesByIngredientId (@Param("ingId") int ingId);
 	
-	/*
-	// filters the recipes and returns all recipes that the user isn't allergic against, or don't have hated Ingredients and it filters of ingredients
-	@Query ("SELECT r "
-			+ "FROM RecipeModel AS r "
-			+ "JOIN r.ingredientAmounts ia "
-			+ "JOIN ia.ingredient i "
-			+ "WHERE r.id not in (SELECT x "
-			+ 	"FROM RecipeModel AS x "
-			+ 	"LEFT JOIN x.ingredientAmounts ia "
-			+ 	"LEFT JOIN ia.ingredient i "
-			+ 	"LEFT JOIN i.allergies a "
-			+ 	"LEFT JOIN a.users ua "
-			+ 	"LEFT JOIN i.usersHateMe iu "
-			+ 	"WHERE ua.id = :userId OR iu.id = :userId " 
-			+ 	"GROUP BY x.id) "
-			+ "AND i.id = :ingId ")
-	public List<RecipeModel> filterRecipesByUserPreferencesAndIngredientId (@Param("userId") int userId, @Param("ingId") int ingId);
-		*/
-	
 	@Query ("SELECT r "
 			+ "FROM RecipeModel AS r "
 			+ "WHERE LOWER(r.title) LIKE CONCAT('%', LOWER(:searchString), '%') ")
 	public List<RecipeModel> findRecipesBySearchString (@Param("searchString") String searchString);
 	
-	/*
-	// filters the recipes and returns all recipes that the user isn't allergic against, or don't have hated Ingredients
-	@Query ("SELECT r "
-			+ "FROM RecipeModel AS r "
-			+ "WHERE r.id not in (SELECT x "
-			+ 	"FROM RecipeModel AS x "
-			+ 	"LEFT JOIN x.ingredientAmounts ia "
-			+ 	"LEFT JOIN ia.ingredient i "
-			+ 	"LEFT JOIN i.allergies a "
-			+ 	"LEFT JOIN a.users ua "
-			+ 	"LEFT JOIN i.usersHateMe iu "
-			+ 	"WHERE ua.id = :userId OR iu.id = :userId " 
-			+ 	"GROUP BY x.id) "
-			+ "AND LOWER(r.title) LIKE CONCAT('%', LOWER(:searchString), '%') ")
-	public List<RecipeModel> filterRecipesByUserPreferencesAndSearchString (@Param("userId") int userId, @Param("searchString") String searchString);
-	*/
-	/*
-	// filters the recipes and returns all recipes that the user isn't allergic against, or don't have hated Ingredients
-	@Query ("SELECT r "
-			+ "FROM RecipeModel AS r "
-			+ "WHERE r.id not in (SELECT x "
-			+ 	"FROM RecipeModel AS x "
-			+ 	"LEFT JOIN x.ingredientAmounts ia "
-			+ 	"LEFT JOIN ia.ingredient i "
-			+ 	"LEFT JOIN i.allergies a "
-			+ 	"LEFT JOIN a.users ua "
-			+ 	"LEFT JOIN i.usersHateMe iu "
-			+ 	"WHERE ua.id = :userId OR iu.id = :userId " 
-			+ 	"GROUP BY x.id)")
-	public List<RecipeModel> filterRecipesByUserPreferences (@Param("userId") int userId);
-	
-	*/
-	/*
-	// sorts all recipes with the amount of loved Ingredients from the user
-	@Query ("SELECT r "
-			+ "FROM RecipeModel AS r "
-//			+ "LEFT JOIN FETCH r.categories c "
-			+ "LEFT JOIN r.ingredientAmounts ia "
-			+ "LEFT JOIN ia.ingredient i "
-			+ "LEFT JOIN i.usersLoveMe iu " 
-			+ "GROUP BY r.id "
-			+ "ORDER BY COUNT(CASE iu.id WHEN :userId THEN 1 ELSE NULL END) DESC")
-	public List<RecipeModel> findRecipesOrderedByfavoriteIngredients (@Param("userId") int userId);
-	*/
 	// sorts all recipes with the amount of likes
 	@Query ("SELECT r "
 			+ "FROM RecipeModel AS r "
-//				+ "LEFT JOIN FETCH r.categories c "
 			+ "LEFT JOIN r.likingUsers lu "
 			+ "WHERE r.enabled = true "
 			+ "AND r.published = true "
@@ -181,7 +95,6 @@ public interface RecipeRepository extends JpaRepository<RecipeModel, Integer> {
 	// sorts all recipes with the amount of likes
 	@Query ("SELECT r "
 			+ "FROM RecipeModel AS r "
-//				+ "LEFT JOIN FETCH r.categories c "
 			+ "WHERE r.enabled = true "
 			+ "AND r.published = true "
 			+ "ORDER BY r.lastEdited DESC")

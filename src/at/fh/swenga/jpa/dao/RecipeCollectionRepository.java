@@ -14,7 +14,6 @@ import at.fh.swenga.jpa.model.RecipeCollectionModel;
 @Transactional
 public interface RecipeCollectionRepository extends JpaRepository<RecipeCollectionModel, Integer> {
 	
-	
 	@Query("SELECT DISTINCT c "
 			+ "FROM RecipeCollectionModel c "
 			+ "LEFT JOIN FETCH c.recipes r "
@@ -24,14 +23,11 @@ public interface RecipeCollectionRepository extends JpaRepository<RecipeCollecti
 	
 	public RecipeCollectionModel findCollectionsById(int id);
 	
-	
-	
 	@Query("SELECT c "
 			+ "FROM RecipeCollectionModel c "
 			+ "LEFT JOIN FETCH c.recipes r "
 			+ "JOIN FETCH c.user u "
 			+ "WHERE c.id = :id")
 	public RecipeCollectionModel findCollectionsByIdWithRecipesAndUser(@Param("id") int id);
-	
 	
 }

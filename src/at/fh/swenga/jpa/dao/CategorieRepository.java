@@ -21,5 +21,4 @@ public interface CategorieRepository extends JpaRepository<CategorieModel, Integ
 	public CategorieModel findCategorieById (int id);
  
 	public List<CategorieModel> findTop3ByOrderByTitleAsc();
-	
 }

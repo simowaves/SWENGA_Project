@@ -16,6 +16,4 @@ public interface UserRoleRepository extends JpaRepository<UserRoleModel, Integer
 			+ "FROM UserRoleModel AS ur "
 			+ "WHERE LOWER(ur.role) = LOWER(:searchString) ")
 	public UserRoleModel findUserRoleByRole(@Param("searchString") String searchString);
- 
-
 }

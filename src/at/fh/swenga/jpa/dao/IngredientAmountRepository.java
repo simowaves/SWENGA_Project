@@ -22,7 +22,5 @@ public interface IngredientAmountRepository extends JpaRepository<IngredientAmou
 	public List<IngredientAmountModel> findIngredientAmountsByRecipeId(@Param("recId") int recId);
  
 	public IngredientAmountModel findIngredientAmountsById (int id);
-	
-	
 
 }
