@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import at.fh.swenga.jpa.dao.PictureRepository;
 import at.fh.swenga.jpa.dao.RecipeRepository;
 import at.fh.swenga.jpa.dao.UserRepository;
 import at.fh.swenga.jpa.model.PictureModel;
@@ -23,27 +22,18 @@ public class PictureController {
 
 	@Autowired
 	RecipeRepository recipeRepository;
-
-	@Autowired
-	PictureRepository pictureRepository;
 	
 	@Autowired
 	UserRepository userRepository;
 
+	// change the picture of the recipe
 	@RequestMapping(value = "/changeRecipePicture", method = RequestMethod.GET)
 	public String showuploadRecipePicture(Model model, @RequestParam("id") int recipeId) {
 		model.addAttribute("recipeId", recipeId);
 		return "uploadRecipePicture";
 	}
 
-	/**
-	 * Save uploaded file to the database (as 1:1 relationship to recipe)
-	 * 
-	 * @param model
-	 * @param recipeId
-	 * @param file
-	 * @return
-	 */
+	// change the picture of the recipe
 	@RequestMapping(value = "/changeRecipePicture", method = RequestMethod.POST)
 	public String uploadRecipePicture(Model model, @RequestParam("id") int recipeId,
 			@RequestParam("recipePicture") MultipartFile newPicture, RedirectAttributes redirectAttributes) {
@@ -79,6 +69,7 @@ public class PictureController {
 		return "redirect:/showRecipe";
 	}
 	
+	// change the picture of the user
 	@RequestMapping(value = "/changeUserPicture", method = RequestMethod.POST)
 	public String uploadUserPicture(Model model, @RequestParam("id") int userId,
 			@RequestParam("userPicture") MultipartFile newPicture, RedirectAttributes redirectAttributes) {

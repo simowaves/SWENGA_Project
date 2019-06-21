@@ -43,9 +43,6 @@ public class RecipeController {
 	RecipeRepository recipeRepository;
 
 	@Autowired
-	PictureRepository pictureRepository;
-
-	@Autowired
 	IngredientRepository ingredientRepository;
 
 	@Autowired
@@ -61,11 +58,9 @@ public class RecipeController {
 	CommentRepository commentRepository;
 
 	@Autowired
-	AllergieRepository allergieRepository;
-
-	@Autowired
 	RecipeCollectionRepository recipeCollectionRepository;
 
+	// Landing page
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String langingPage(Model model, Principal principal) {
 
@@ -144,8 +139,8 @@ public class RecipeController {
 
 	}
 
+	// INDEX
 	@RequestMapping(value = {"recipeList" })
-	// @GetMapping(value = { "/", "list", "recipeList" })
 	public String index(Model model, Principal principal) {
 
 		model.addAttribute("header", "All Recipes");
@@ -174,8 +169,8 @@ public class RecipeController {
 		return "recipeList";
 	}
 
+	// show newest recipes 
 	@RequestMapping(value = { "mostRecentRecipes" })
-	// @GetMapping(value = { "/", "list", "recipeList" })
 	public String recentRecipes(Model model, Principal principal) {
 
 		model.addAttribute("header", "Most Recent Recipes");
@@ -205,8 +200,8 @@ public class RecipeController {
 		return "recipeList";
 	}
 
+	// show recipes from followed users
 	@RequestMapping(value = { "/followingRecipes" })
-	// @GetMapping(value = { "/", "list", "followingRecipes" })
 	public String followingRecipes(Model model, Principal principal) {
 
 		model.addAttribute("header", "Recipes By Friends");
@@ -229,30 +224,14 @@ public class RecipeController {
 
 				List<RecipeModel> recipes = recipeRepository
 						.findRecipesFilteredByUserPreferencesAndFollowedByUserOrderedByLastEdited(user.getId());
-				// List<RecipeModel> recipes =
-				// recipeRepository.findRecipesFilteredByUserPreferencesOrderedByLastEdited(user.getId());
-
+				
 				model.addAttribute("recipes", recipes);
 			}
 		}
 		return "recipeList";
 	}
 
-	/*
-	 * // Spring 4: @RequestMapping(value = "/ingredientsList", method =
-	 * RequestMethod.GET)
-	 * 
-	 * @GetMapping("/advancedSearch") public String categoriesList(Model model) {
-	 * 
-	 * List<IngredientModel> ingredients = ingredientRepository.findAll();
-	 * model.addAttribute("ingredients", ingredients);
-	 * 
-	 * List<AllergieModel> allergies = allergieRepository.findAll();
-	 * model.addAttribute("allergies", allergies);
-	 * 
-	 * return "/advancedSearch"; }
-	 */
-	// Spring 4: @RequestMapping(value = "/showRecipe", method = RequestMethod.GET)
+	// show recipe with all information
 	@GetMapping({ "/showRecipe"})
 	public String showRecipeDetails(Model model, @RequestParam int id, Principal principal) {
 
@@ -287,6 +266,7 @@ public class RecipeController {
 		}
 	}
 
+	// create a new recipe
 	@GetMapping(value = "/createRecipe")
 	public String openCreateForm(Model model, Principal principal) {
 
@@ -299,8 +279,7 @@ public class RecipeController {
 		return "createRecipe";
 	}
 
-	// Spring 4: @RequestMapping(value = "/searchRecipes", method =
-	// RequestMethod.GET)
+	// search for recipe
 	@GetMapping("/searchRecipes")
 	public String searchRecipes(Model model, @RequestParam String searchString, Principal principal) {
 
@@ -330,8 +309,7 @@ public class RecipeController {
 		return "recipeList";
 	}
 
-	// Spring 4: @RequestMapping(value = "/likeRecipe", method =
-	// RequestMethod.POST)
+	// like a recipe
 	@PostMapping("/likeRecipe")
 	public String likeRecipe(Model model, @RequestParam int id, Principal principal,
 			RedirectAttributes redirectAttributes) {
@@ -360,8 +338,7 @@ public class RecipeController {
 		return "redirect:/likeRecipe";
 	}
 
-	// Spring 4: @RequestMapping(value = "/reportRecipe", method =
-	// RequestMethod.POST)
+	// report a recipe
 	@PostMapping("/reportRecipe")
 	public String reportRecipe(Model model, @RequestParam int id, Principal principal,
 			RedirectAttributes redirectAttributes) {
@@ -390,8 +367,7 @@ public class RecipeController {
 		return "redirect:/reportRecipe";
 	}
 
-	// Spring 4: @RequestMapping(value = "/createNewRecipe", method =
-	// RequestMethod.POST)
+	// create a new recipe
 	@PostMapping("/createNewRecipe")
 	public String createNewRecipe(@RequestParam String title, @RequestParam String description,
 			@RequestParam String amount, @RequestParam String ingredient, @RequestParam String category,
@@ -461,8 +437,7 @@ public class RecipeController {
 		return "redirect:/showRecipe";
 	}
 
-	// Spring 4: @RequestMapping(value = "/deleteRecipe", method =
-	// RequestMethod.POST)
+	// delete a recipe
 	@PostMapping("/deleteRecipe")
 	public String deleteRecipe(Model model, @RequestParam int id, Principal principal) {
 		RecipeModel recipeModel = recipeRepository.findRecipeById(id);
@@ -479,8 +454,7 @@ public class RecipeController {
 
 	}
 
-	// Spring 4: @RequestMapping(value = "/deleteRecipe", method =
-	// RequestMethod.POST)
+	//  delete a recipe for Admin purpose
 	@PostMapping("/deleteRecipeAdmin")
 	public String deleteRecipeAdmin(Model model, @RequestParam int id) {
 		RecipeModel recipeModel = recipeRepository.findRecipeById(id);
@@ -489,8 +463,7 @@ public class RecipeController {
 		return "redirect:/showAdminRecipes";
 	}
 
-	// Spring 4: @RequestMapping(value = "/editRecipe", method =
-	// RequestMethod.POST)
+	// edit a recipe
 	@GetMapping("/editRecipe")
 	public String editRecipe(Model model, Principal principal, @RequestParam int id) {
 		String userName = principal.getName();
@@ -512,8 +485,7 @@ public class RecipeController {
 		return "editRecipe";
 	}
 
-	// Spring 4: @RequestMapping(value = "/addIngredientAndAmount", method =
-	// RequestMethod.POST)
+	// add a new ingredient with amount to a recipe
 	@PostMapping("/addIngredientAndAmount")
 	public String addIngredientAndAmount(@RequestParam int recipeId, @RequestParam int ingredient,
 			@RequestParam String amount, RedirectAttributes redirectAttributes) {
@@ -531,8 +503,7 @@ public class RecipeController {
 		return "redirect:/editRecipe";
 	}
 
-	// Spring 4: @RequestMapping(value = "/removeIngredientAndAmount", method =
-	// RequestMethod.POST)
+	// remove a new ingredient with amount from a recipe
 	@PostMapping("/removeIngredientAndAmount")
 	public String removeIngredientAndAmount(@RequestParam int recipeId, @RequestParam int ingredientAmountId,
 			@RequestParam String amount, Principal principal, RedirectAttributes redirectAttributes) {
@@ -549,8 +520,7 @@ public class RecipeController {
 		return "redirect:/editRecipe";
 	}
 
-	// Spring 4: @RequestMapping(value = "/addCategory", method =
-	// RequestMethod.POST)
+	// add a new category to a recipe
 	@PostMapping("/addCategory")
 	public String addCategory(@RequestParam int category, @RequestParam int recipeId, Principal principal,
 			RedirectAttributes redirectAttributes) {
@@ -564,8 +534,7 @@ public class RecipeController {
 		return "redirect:/editRecipe";
 	}
 
-	// Spring 4: @RequestMapping(value = "/removeCategory", method =
-	// RequestMethod.POST)
+	// remove a category from a recipe
 	@PostMapping("/removeCategory")
 	public String removeCategory(@RequestParam int category, @RequestParam int recipeId, Principal principal,
 			RedirectAttributes redirectAttributes) {
@@ -579,7 +548,7 @@ public class RecipeController {
 		return "redirect:/editRecipe";
 	}
 
-	// Spring 4: @RequestMapping(value = "/setTitle", method = RequestMethod.POST)
+	// set a new title
 	@PostMapping("/setTitle")
 	public String setTitle(@RequestParam int recipeId, @RequestParam String title, Principal principal,
 			RedirectAttributes redirectAttributes) {
@@ -591,7 +560,7 @@ public class RecipeController {
 		return "redirect:/editRecipe";
 	}
 
-	// Spring 4: @RequestMapping(value = "/setTitle", method = RequestMethod.POST)
+	// set a new desciption
 	@PostMapping("/setDescription")
 	public String setDescription(@RequestParam int recipeId, @RequestParam String description, Principal principal,
 			RedirectAttributes redirectAttributes) {
@@ -603,8 +572,7 @@ public class RecipeController {
 		return "redirect:/editRecipe";
 	}
 
-	// Spring 4: @RequestMapping(value = "/changePublished", method =
-	// RequestMethod.POST)
+	// Change the privacy from a recipe from public to private and vice versa
 	@PostMapping("/changePublished")
 	public String changePublished(@RequestParam int id, Principal principal, RedirectAttributes redirectAttributes) {
 		RecipeModel recipeModel = recipeRepository.findRecipeById(id);
