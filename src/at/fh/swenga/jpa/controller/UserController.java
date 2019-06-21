@@ -119,15 +119,21 @@ public class UserController {
 	public String showUserDetails(Model model, @RequestParam int id, Principal principal) {
 
 		UserModel user = userRepository.findUserById(id);
-		List<RecipeModel> recipes = recipeRepository.findRecipesByUserId(id);
+		List<RecipeModel> recipes;
 		List<RecipeModel> likedRecipes = recipeRepository.findRecipesByLikingUserId(id);
 		List<RecipeCollectionModel> collections = recipeCollectionRepository.findCollectionsByUserId(id);
-		if (principal != null) {
-			UserModel loggedInUser = userRepository.findUserByUserName(principal.getName());
-			model.addAttribute("loggedInUser", loggedInUser);
-		}
+		
 
 		if (user != null) {
+			if (principal != null) {
+				UserModel loggedInUser = userRepository.findUserByUserName(principal.getName());
+				model.addAttribute("loggedInUser", loggedInUser);
+				if(user.getId() == loggedInUser.getId()) {
+					recipes = recipeRepository.findRecipesByUserId(id);
+				}
+			}
+			
+			recipes = recipeRepository.findPublishedRecipesByUserId(id);
 			
 			model.addAttribute("user", user);
 			model.addAttribute("recipes", recipes);
