@@ -382,4 +382,37 @@ public class UserController {
 		}
 		return "redirect:/showAdminUsers"; 
 	}
+	
+	// Spring 4: @RequestMapping(value = "/changeCollectionName", method =
+	// RequestMethod.POST)
+	@PostMapping("/changeCollectionName")
+	public String changeCollectionName(@RequestParam int collectionId, @RequestParam String title, Principal principal, RedirectAttributes redirectAttributes) {
+		String userName = principal.getName();
+		UserModel user = userRepository.findUserByUserNameWithAllergies(userName);
+		int userId = user.getId();
+		RecipeCollectionModel recipeCollectionModel = recipeCollectionRepository.findCollectionsById(collectionId);
+		recipeCollectionModel.setTitle(title);
+		recipeCollectionRepository.save(recipeCollectionModel);
+		userRepository.save(user);
+		
+		redirectAttributes.addAttribute("id", userId);
+		return "redirect:/showCurrentUserPreferences";
+	}
+	
+	// Spring 4: @RequestMapping(value = "/addCollection", method =
+	// RequestMethod.POST)
+	@PostMapping("/addCollection")
+	public String addCollection(@RequestParam int collectionId, @RequestParam String title, Principal principal, RedirectAttributes redirectAttributes) {
+		String userName = principal.getName();
+		UserModel user = userRepository.findUserByUserNameWithAllergies(userName);
+		int userId = user.getId();
+		RecipeCollectionModel recipeCollectionModel = new RecipeCollectionModel();
+		recipeCollectionModel.setTitle(title);
+		recipeCollectionRepository.save(recipeCollectionModel);
+		user.addRecipeCollection(recipeCollectionModel);
+		userRepository.save(user);
+		
+		redirectAttributes.addAttribute("id", userId);
+		return "redirect:/showCurrentUserPreferences";
+	}
 }
