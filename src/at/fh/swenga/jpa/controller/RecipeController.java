@@ -239,7 +239,7 @@ public class RecipeController {
 	@GetMapping({ "/showRecipe"})
 	public String showRecipeDetails(Model model, @RequestParam int id, Principal principal) {
 
-		RecipeModel recipe = recipeRepository.findRecipeByIdWithPicture(id);
+		RecipeModel recipe = recipeRepository.findRecipeByIdWithPictureAndLikingUsersAndReportingUsers(id);
 
 		if (recipe != null) {
 			List<IngredientAmountModel> ingredientAmounts = ingredientAmountRepository
@@ -258,10 +258,24 @@ public class RecipeController {
 					List<RecipeCollectionModel> collections = recipeCollectionRepository
 							.findCollectionsByUserId(userId);
 					model.addAttribute("collections", collections);
+					
+					Set<UserModel> likingUsers = recipe.getLikingUsers();
+					Set<UserModel> reportingUsers = recipe.getReportingUsers();
+					boolean liked;
+					boolean reported;
+					if(likingUsers.contains(loggedInUser)) {
+						liked = true;
+					} else liked = false;
+					if(reportingUsers.contains(loggedInUser)) {
+						reported = true;
+					} else reported = false;
+					
+					
+					model.addAttribute("liked", liked);
+					model.addAttribute("reported", reported);
 				}
 			}
 
-			// model.addAttribute("picture", picture);
 			return "recipe";
 		} else {
 			model.addAttribute("errorMessage", "Couldn't find recipe " + id);

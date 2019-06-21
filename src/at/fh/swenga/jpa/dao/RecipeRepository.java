@@ -34,7 +34,14 @@ public interface RecipeRepository extends JpaRepository<RecipeModel, Integer> {
 			+ "AND r.id = :id ")
 	public RecipeModel findRecipeByIdWithPicture (@Param("id") int id);
 	
-
+	@Query("SELECT r "
+			+ "FROM RecipeModel r "
+			+ "LEFT JOIN FETCH r.picture p "
+			+ "LEFT JOIN FETCH r.reportingUsers ru "
+			+ "LEFT JOIN FETCH r.likingUsers lu "
+			+ "WHERE r.enabled = true "
+			+ "AND r.id = :id ")
+	public RecipeModel findRecipeByIdWithPictureAndLikingUsersAndReportingUsers (@Param("id") int id);
 	
 	@Query("SELECT r "
 			+ "FROM RecipeModel r "
