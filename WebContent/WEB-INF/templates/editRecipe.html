@@ -43,16 +43,16 @@
 
 					<!-- Heading and Author -->
 					<div class="mb-2">
-						<form method="post"
+						<form class="needs-validation" novalidate method="post"
 							th:action="@{/setTitle(recipeId=${recipe.id})}">
 							<div class="form-group input-group">
 
 								<div class="col-md-4 mb-3">
-									<label for="validationCustom01">Title</label>
+									<label for="validationCustom03">Title</label>
 									<div class="row">
-										<input type="text" class="form-control"
-											id="validationCustom01" name="title"
-											th:placeholder="${recipe.title}" value="" required>
+										<input type="text" class="form-control mb-2"
+											name="title" th:placeholder="${recipe.title}" value=""
+											required>
 
 
 										<button class="btn btn-primary" type="submit">Save</button>
@@ -63,12 +63,19 @@
 							</div>
 						</form>
 
-						<div>
-							<img class="img-profile rounded-circle"
-								src="https://source.unsplash.com/QAB-WJcbgJk/60x60"> <span
-								class="h5 mb-4 text-gray-800">by</span> <a class="h5 mb-4"
-								th:text="${recipe.author.userName}"
-								th:href="@{/showUser(id=${recipe.author.id})}"></a>
+						<div class="row ml-2">
+							<div
+								style="width: 60px; height: 60px; position: relative; overflow: hidden; border-radius: 50%;"
+								class="bg-dark">
+								<img class=""
+									style="display: inline; margin: 0 auto; height: 100%; width: auto;"
+									th:src="${recipe.author.showPicture()}">
+							</div>
+							<div class="d-flex align-items-center mr-l">
+								<span class="h5 mb-0 ml-2 text-gray-800">by</span><a
+									class="h5 ml-1 mb-0" th:text="${recipe.author.userName}"
+									th:href="@{/showUser(id=${recipe.author.id})}"></a>
+							</div>
 						</div>
 					</div>
 
@@ -84,8 +91,9 @@
 							</div>
 
 							<div>
-								<form class="needs-validation" enctype="multipart/form-data"
-									method="post" th:action="@{/changeRecipePicture(id=${recipe.id})}">
+								<form class="needs-validation" novalidate enctype="multipart/form-data"
+									method="post"
+									th:action="@{/changeRecipePicture(id=${recipe.id})}">
 									<div class="form-check">
 										<label for="inputFile" class="control-label">Edit
 											Picture:</label>
@@ -198,7 +206,6 @@
 											</div>
 										</form>
 									</div>
-
 								</div>
 							</div>
 							<!-- Dropdown Card Example -->
@@ -211,12 +218,6 @@
 
 								<!-- Card Content - Ingredients -->
 								<div class="card-body">
-									<!-- <div th:each="ingredientAmount : ${ingredientAmounts}">
-										<div class="ml-1 mr-1">
-											<a href="#" class="badge badge-info"
-												th:text="${ingredientAmount.amount}"></a>
-										</div>
-										  -->
 									<div class="table-responsive">
 										<table class="table table-bordered" id="dataTable"
 											width="100%" cellspacing="0">
@@ -302,8 +303,47 @@
 				</div>
 			</div>
 		</div>
+
 		<!-- JS needs to move to bottom -->
 		<div th:replace="~{includes/bootstrap :: bootstrapJS}" />
+		
+				<!-- JS Validator -->
+		<script>
+			// Example starter JavaScript for disabling form submissions if there are invalid fields
+			(function() {
+				'use strict';
+				window
+						.addEventListener(
+								'load',
+								function() {
+									// Fetch all the forms we want to apply custom Bootstrap validation styles to
+									var forms = document
+											.getElementsByClassName('needs-validation');
+									// Loop over them and prevent submission
+									var validation = Array.prototype.filter
+											.call(
+													forms,
+													function(form) {
+														form
+																.addEventListener(
+																		'submit',
+																		function(
+																				event) {
+																			if (form
+																					.checkValidity() === false) {
+																				event
+																						.preventDefault();
+																				event
+																						.stopPropagation();
+																			}
+																			form.classList
+																					.add('was-validated');
+																		},
+																		false);
+													});
+								}, false);
+			})();
+		</script>
 </body>
 
 </html>
