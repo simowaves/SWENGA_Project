@@ -75,12 +75,9 @@
 								<div class="col-md-6">
 									<form class="needs-validation" novalidate
 										th:action="@{/addAllergy}" method="post">
-
-
-
-
 										<div>
-											<label for="validationCustom03">Add Allergies</label>
+											<label for="validationCustom03">Add Allergies (max.
+												20 Allergies)</label>
 											<div>
 												<!-- expanding Ingredient selection -->
 												<div class="form-group multiple-form-group" data-max=20>
@@ -140,13 +137,9 @@
 								<div class="row">
 									<h1 class="h3 mb-4 text-gray-800">Loved Ingredients</h1>
 								</div>
-								<div class="col-md-12">
+								<div class="col-md-6">
 									<form class="needs-validation" novalidate
 										th:action="@{/addLovedIngredient}" method="post">
-
-
-
-
 										<div>
 											<label for="validationCustom03">Add Loved Ingredients</label>
 											<div>
@@ -161,8 +154,6 @@
 														</select><span class="input-group-btn ml-2"> <!-- Laut Max muss hier th:href="@{upload(id=${employee.id})} wie bei SwengaGoodies hinzugefügt werden -->
 															<button class="btn btn-primary" type="submit">Add
 																Ingredient</button></span>
-
-
 													</div>
 												</div>
 											</div>
@@ -209,13 +200,9 @@
 								<div class="row">
 									<h1 class="h3 mb-4 text-gray-800">Hated Ingredients</h1>
 								</div>
-								<div class="col-md-12">
+								<div class="col-md-6">
 									<form class="needs-validation" novalidate
 										th:action="@{/addHatedIngredient}" method="post">
-
-
-
-
 										<div>
 											<label for="validationCustom03">Add Hated Ingredients</label>
 											<div>
@@ -288,30 +275,6 @@
 		<a class="scroll-to-top rounded" href="#page-top"> <i
 			class="fas fa-angle-up"></i>
 		</a>
-
-		<!-- Logout Modal-->
-		<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
-			aria-labelledby="exampleModalLabel" aria-hidden="true">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLabel">Ready to
-							Leave?</h5>
-						<button class="close" type="button" data-dismiss="modal"
-							aria-label="Close">
-							<span aria-hidden="true">×</span>
-						</button>
-					</div>
-					<div class="modal-body">Select "Logout" below if you are
-						ready to end your current session.</div>
-					<div class="modal-footer">
-						<button class="btn btn-secondary" type="button"
-							data-dismiss="modal">Cancel</button>
-						<a class="btn btn-primary" href="login.html">Logout</a>
-					</div>
-				</div>
-			</div>
-		</div>
 
 		<!-- JS Validator -->
 		<script>

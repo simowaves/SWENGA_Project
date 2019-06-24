@@ -1,6 +1,7 @@
 package at.fh.swenga.jpa.controller;
 
 import java.security.Principal;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -74,8 +75,16 @@ public class RecipeCollectionController {
 		UserModel user = userRepository.findUserByUserName(userName);
 		int userId = user.getId();
 		RecipeCollectionModel recipeCollectionModel = recipeCollectionRepository.findCollectionsById(collectionId);
+		List<RecipeModel> recipes = recipeRepository.findRecipesByCollectionId(collectionId);
 		if (user.getId() == recipeCollectionModel.getUser().getId()) {
+			
+			for (RecipeModel recipe : recipes) {
+				recipe.removeRecipeCollection(recipeCollectionModel);
+				recipeRepository.save(recipe);
+			}
+			
 			recipeCollectionRepository.deleteById(collectionId);
+			
 		} else {
 			model.addAttribute("errorMessage", "You can't delete this collection, because it doesn't belong to you!! ");
 			return "errorPage";

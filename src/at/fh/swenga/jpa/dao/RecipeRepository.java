@@ -124,6 +124,12 @@ public interface RecipeRepository extends JpaRepository<RecipeModel, Integer> {
 	
 
 	public List<RecipeModel> findTop3ByOrderByTitleAsc();
+	
+	@Query ("SELECT r "
+			+ "FROM RecipeModel AS r "
+			+ "JOIN FETCH r.recipeCollections c "
+			+ "WHERE c.id = :colId ")
+	public List<RecipeModel> findRecipesByCollectionId(@Param("colId") int colId);
 
 	// ---------------------------------------------------------------------------- new filter Query ----------------------------------------
 	
